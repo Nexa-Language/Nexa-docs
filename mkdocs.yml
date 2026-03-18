@@ -77,8 +77,8 @@ extra:
 nav:
   - 主页:
     - 首页: index.md
-    - 贡献与参与: contribution.md
     - 前言与理念: preface.md
+    - 贡献与参与: contribution.md
   - 语法指南:
     - 基础语法: part1_basic.md
     - 高级特性: part2_advanced.md

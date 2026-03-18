@@ -1,7 +1,5 @@
 ---
 comments: true
-hide:
-  - toc
 ---
 
 <div class="portal-hero" style="margin-top: 2rem;">
