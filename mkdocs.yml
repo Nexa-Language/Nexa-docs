@@ -77,7 +77,10 @@ extra:
 nav:
   - 主页:
     - 首页: index.md
-    - 前言与理念: preface.md
+    - 前言与理念: 
+      - 重构智能体开发范式: preface.md
+      - 调研背景与技术演进: preface_background.md
+      - 典型场景与对比分析: preface_scenarios.md
     - 贡献与参与: contribution.md
   - 语法指南:
     - 基础语法: part1_basic.md
