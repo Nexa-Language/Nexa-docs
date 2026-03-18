@@ -86,6 +86,7 @@ nav:
     - 基础语法: part1_basic.md
     - 高级特性: part2_advanced.md
     - 语法扩展: part3_extensions.md
+    - 生态与标准库: part4_ecosystem_and_stdlib.md
   - 深入设计:
     - 编译器设计: part5_compiler.md
     - 最佳实践: part6_best_practices.md
