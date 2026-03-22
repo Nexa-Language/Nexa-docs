@@ -77,7 +77,8 @@ extra:
 nav:
   - 主页:
     - 首页: index.md
-    - 前言与理念: 
+    - 快速入门: quickstart.md
+    - 前言与理念:
       - 重构智能体开发范式: preface.md
       - 调研背景与技术演进: preface_background.md
       - 典型场景与对比分析: preface_scenarios.md
@@ -95,3 +96,11 @@ nav:
   - 社区与未来:
     - 未来展望: part4_future.md
     - 社区与生态: part7_community.md
+  - 参考资源:
+    - 完整示例集合: examples.md
+    - 常见问题与排查: troubleshooting.md
+  - 参考手册:
+    - 语言参考: reference.md
+    - CLI 命令参考: cli_reference.md
+    - 标准库 API: stdlib_reference.md
+    - 错误索引: error_index.md
