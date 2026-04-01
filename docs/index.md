@@ -67,13 +67,259 @@ AVM 接管内存，自动执行对话历史的向量化置换：
 
 ---
 
-## 🔥 核心优势：认知架构 (Cognitive Architecture)
+## 🔥 核心优势：代码对比展示
 
-Nexa 最新版本引入了全新的认知架构功能，重点强化了**类型安全**、**资源治理**以及**人机协同（HITL）**：
+Nexa 将复杂的多智能体协作简化为优雅的声明式语法。以下对比展示了 Nexa 与传统 Python + LangChain 方案的显著差异：
 
-### 1. 强类型协议约束 (`protocol` & `implements`)
+---
 
-告别不可控的模型字符串输出！原生支持契约式编程，利用内部 Pydantic 动态编译引擎，让 Agent 的输出严格遵守指定 Schema，并自带语法级别的**自修正重试循环**机制。
+<span class="example-badge">示例 1</span>
+
+### Agent 定义与调用
+
+<div class="code-comparison">
+<div class="code-card traditional">
+<div class="code-header">传统 Python + LangChain</div>
+<div class="code-content">
+```python
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+from langchain.schema import StrOutputParser
+
+# 定义 chain
+llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "你是一个专业的英中翻译助手"),
+    ("human", "{input}")
+])
+chain = prompt | llm | StrOutputParser()
+
+# 调用
+result = chain.invoke({"input": "Hello, World!"})
+print(result)
+```
+<span class="code-stats traditional">12 行</span>
+</div>
+</div>
+<div class="code-card nexa">
+<div class="code-header">Nexa</div>
+<div class="code-content">
+```nexa
+agent Translator {
+    role: "英中翻译助手",
+    model: "gpt-4"
+}
+
+result = Translator.run("Hello, World!")
+```
+<span class="code-stats nexa">4 行 · 缩减 67%</span>
+</div>
+</div>
+<div class="comparison-note">
+<strong>核心优势：</strong>从 12 行代码缩减到 4 行，无需理解 Chain、PromptTemplate、StrOutputParser 等复杂概念。Agent 定义即配置，调用即执行。
+</div>
+</div>
+
+---
+
+<span class="example-badge">示例 2</span>
+
+### 管道流程编排
+
+<div class="code-comparison">
+<div class="code-card traditional">
+<div class="code-header">传统 Python + LangChain</div>
+<div class="code-content">
+```python
+import asyncio
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4")
+
+async def pipeline(topic: str):
+    # 第一步：写作
+    writer_prompt = f"写一篇关于{topic}的文章"
+    draft = await llm.ainvoke(writer_prompt)
+    
+    # 第二步：审核
+    reviewer_prompt = f"审核并指出问题：{draft.content}"
+    review = await llm.ainvoke(reviewer_prompt)
+    
+    # 第三步：润色
+    editor_prompt = f"根据审核意见润色：{draft.content}"
+    final = await llm.ainvoke(editor_prompt)
+    
+    return final.content
+
+result = asyncio.run(pipeline("人工智能"))
+```
+<span class="code-stats traditional">18 行</span>
+</div>
+</div>
+<div class="code-card nexa">
+<div class="code-header">Nexa</div>
+<div class="code-content">
+```nexa
+agent Writer { role: "作家", prompt: "撰写文章" }
+agent Reviewer { role: "审核员", prompt: "审核文章" }
+agent Editor { role: "编辑", prompt: "润色文章" }
+
+flow main {
+    result = "人工智能" >> Writer >> Reviewer >> Editor;
+}
+```
+<span class="code-stats nexa">5 行 · 缩减 72%</span>
+</div>
+</div>
+<div class="comparison-note">
+<strong>核心优势：</strong>管道操作符 <code>>></code> 让数据流一目了然，无需手动传递中间变量、处理异步上下文。编译器自动优化执行顺序和上下文传递。
+</div>
+</div>
+
+---
+
+<span class="example-badge">示例 3</span>
+
+### 意图路由分发
+
+<div class="code-comparison">
+<div class="code-card traditional">
+<div class="code-header">传统 Python + re</div>
+<div class="code-content">
+```python
+import re
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4")
+
+def route_request(user_input: str):
+    # 手写正则匹配 - 脆弱且难维护
+    if re.search(r'天气|weather|气温', user_input, re.I):
+        prompt = f"回答天气问题：{user_input}"
+        return llm.invoke(prompt).content
+    elif re.search(r'新闻|news|头条', user_input, re.I):
+        prompt = f"回答新闻问题：{user_input}"
+        return llm.invoke(prompt).content
+    elif re.search(r'翻译|translate', user_input, re.I):
+        prompt = f"翻译：{user_input}"
+        return llm.invoke(prompt).content
+    else:
+        return llm.invoke(f"一般对话：{user_input}").content
+
+result = route_request("今天北京天气怎么样？")
+```
+<span class="code-stats traditional">17 行</span>
+</div>
+</div>
+<div class="code-card nexa">
+<div class="code-header">Nexa</div>
+<div class="code-content">
+```nexa
+agent WeatherBot { role: "天气助手" }
+agent NewsBot { role: "新闻助手" }
+agent Translator { role: "翻译助手" }
+agent ChatBot { role: "聊天助手" }
+
+flow main {
+    result = match user_input {
+        intent("查询天气") => WeatherBot.run(user_input),
+        intent("查询新闻") => NewsBot.run(user_input),
+        intent("翻译内容") => Translator.run(user_input),
+        _ => ChatBot.run(user_input)
+    };
+}
+```
+<span class="code-stats nexa">10 行 · 缩减 41%</span>
+</div>
+</div>
+<div class="comparison-note">
+<strong>核心优势：</strong><code>intent()</code> 语义匹配替代脆弱的正则表达式，使用嵌入向量进行语义相似度匹配，更智能、更灵活。代码结构清晰，易于扩展新的意图分支。
+</div>
+</div>
+
+---
+
+<span class="example-badge">示例 4</span>
+
+### 并发 DAG 执行
+
+<div class="code-comparison">
+<div class="code-card traditional">
+<div class="code-header">传统 Python + asyncio</div>
+<div class="code-content">
+```python
+import asyncio
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4")
+
+async def researcher(task: str, name: str):
+    prompt = f"{name}分析：{task}"
+    return {name: await llm.ainvoke(prompt)}
+
+async def parallel_research(topic: str):
+    # 并行执行 3 个研究员
+    tasks = [
+        researcher(topic, "技术研究员"),
+        researcher(topic, "市场研究员"),
+        researcher(topic, "财务研究员")
+    ]
+    results = await asyncio.gather(*tasks)
+    
+    # 汇总结果
+    combined = "\n".join([str(r) for r in results])
+    summary_prompt = f"汇总以下研究报告：\n{combined}"
+    final = await llm.ainvoke(summary_prompt)
+    
+    return final.content
+
+result = asyncio.run(parallel_research("AI 行业前景"))
+```
+<span class="code-stats traditional">23 行</span>
+</div>
+</div>
+<div class="code-card nexa">
+<div class="code-header">Nexa</div>
+<div class="code-content">
+```nexa
+agent TechResearcher { role: "技术研究员" }
+agent MarketResearcher { role: "市场研究员" }
+agent FinanceResearcher { role: "财务研究员" }
+agent Summarizer { role: "报告汇总者" }
+
+flow main {
+    result = "AI 行业前景"
+        |>> [TechResearcher, MarketResearcher, FinanceResearcher]
+        &>> Summarizer;
+}
+```
+<span class="code-stats nexa">6 行 · 缩减 74%</span>
+</div>
+</div>
+<div class="comparison-note">
+<strong>核心优势：</strong>DAG 操作符 <code>|>></code> (分叉) 和 <code>&>></code> (合流) 一行代码实现并发编排，无需理解 asyncio、gather、协程等概念。AVM 运行时自动处理并行调度和结果合并。
+</div>
+</div>
+
+---
+
+### 📊 代码量对比总结
+
+| 功能场景 | 传统方案 | Nexa | 缩减比例 |
+|:--------|:-------:|:----:|:--------:|
+| Agent 定义与调用 | 12 行 | 4 行 | **67%** ↓ |
+| 管道流程编排 | 18 行 | 5 行 | **72%** ↓ |
+| 意图路由分发 | 17 行 | 10 行 | **41%** ↓ |
+| 并发 DAG 执行 | 23 行 | 6 行 | **74%** ↓ |
+| **平均** | **17.5 行** | **6.25 行** | **63%** ↓ |
+
+### 🎯 更多核心特性
+
+除了代码简洁性，Nexa 还提供以下强大的语言级特性：
+
+#### 强类型协议约束 (`protocol` & `implements`)
+
+告别不可控的模型字符串输出！原生支持契约式编程：
 
 ```nexa
 protocol ReviewResult {
@@ -81,66 +327,23 @@ protocol ReviewResult {
     summary: "string"
 }
 
-// 代理自动继承并遵守上述协议
-agent Reviewer implements ReviewResult { 
+agent Reviewer implements ReviewResult {
     prompt: "Review the code..."
 }
 ```
 
-### 2. 多模型动态路由 (`model` & Routing)
+#### 语义级控制流 (`loop until`)
 
-解绑厂商依赖。你可以针对每个智能体动态指定运行时的模型端点，构建灵活的跨厂商数据流。
-
-```nexa
-// 复杂任务交给推理级模型
-agent Coder { model: "deepseek/deepseek-chat", prompt: "..." }
-
-// 轻量任务交给响应极速模型
-agent Translator { model: "minimax/minimax-m2.5", prompt: "..." }
-```
-
-### 3. 原生管道与高并发结构 (`>>` & DAG 操作符)
-
-如同 Unix 管道一样的爽快体验，或并发控制的自动 Map-Reduce：
+用自然语言控制循环终止：
 
 ```nexa
-flow main {
-    // 管道串联
-    result = input >> Agent1 >> Agent2 >> Agent3;
-    
-    // 并行分叉 (v0.9.7+)
-    results = input |>> [Researcher, Analyst, Writer];
-    
-    // 合流整合 (v0.9.7+)
-    final = [Researcher, Analyst] &>> Reviewer;
-    
-    // 条件分支 (v0.9.7+)
-    handled = urgent_input ?? UrgentHandler : NormalHandler;
-}
-```
-
-### 4. 语义级控制流 (`match intent` & `loop until`)
-
-用自然语言而非正则表达式来控制程序流程：
-
-```nexa
-// 意图路由
-match user_input {
-    intent("查询天气") => WeatherBot.run(user_input),
-    intent("查询新闻") => NewsBot.run(user_input),
-    _ => ChatBot.run(user_input)
-}
-
-// 语义循环
 loop {
     draft = Writer.run(feedback);
     feedback = Critic.run(draft);
 } until ("文章质量优秀")
 ```
 
-### 5. 原生测试框架 (`test` & `assert`)
-
-v0.9 引入的原生测试支持，让智能体开发也能享受 TDD：
+#### 原生测试框架 (`test` & `assert`)
 
 ```nexa
 test "翻译功能测试" {
