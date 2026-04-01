@@ -17,6 +17,286 @@ comments: true
 
 ---
 
+## 🔥 Core Advantage: Code Comparison
+
+Nexa simplifies complex multi-agent collaboration into elegant declarative syntax. Click the button below to experience the difference between Nexa and traditional approaches:
+
+---
+
+<span class="example-badge">Example 1</span>
+<span class="example-title">Agent Definition & Invocation</span>
+
+<div class="code-comparison">
+<div class="flip-card" id="flip-1">
+  <div class="flip-card-front">
+    <div class="card-header">
+      <span class="card-title">🐍 Traditional Python + LangChain</span>
+      <span class="code-lines">12 lines</span>
+    </div>
+    <div class="card-content">
+```python
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+from langchain.schema import StrOutputParser
+
+# Define chain
+llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a professional English-Chinese translator"),
+    ("human", "{input}")
+])
+chain = prompt | llm | StrOutputParser()
+
+# Invoke
+result = chain.invoke({"input": "Hello, World!"})
+print(result)
+```
+    </div>
+  </div>
+  <div class="flip-card-back">
+    <div class="card-header">
+      <span class="card-title">✨ Nexa</span>
+      <span class="code-lines">4 lines</span>
+    </div>
+    <div class="card-content">
+```nexa
+agent Translator {
+    role: "English-Chinese Translator",
+    model: "gpt-4"
+}
+
+result = Translator.run("Hello, World!")
+```
+    </div>
+  </div>
+</div>
+<button class="flip-button" onclick="document.getElementById('flip-1').classList.toggle('flipped')">
+  🔄 Click to compare with Nexa
+</button>
+<div class="comparison-note">
+<strong>Key Advantage:</strong> From 12 lines down to 4, no need to understand Chain, PromptTemplate, StrOutputParser and other complex concepts. Agent definition is configuration, invocation is execution.<span class="reduction-badge">67% reduction</span>
+</div>
+</div>
+
+---
+
+<span class="example-badge">Example 2</span>
+<span class="example-title">Pipeline Orchestration</span>
+
+<div class="code-comparison">
+<div class="flip-card" id="flip-2">
+  <div class="flip-card-front">
+    <div class="card-header">
+      <span class="card-title">🐍 Traditional Python + LangChain</span>
+      <span class="code-lines">18 lines</span>
+    </div>
+    <div class="card-content">
+```python
+import asyncio
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4")
+
+async def pipeline(topic: str):
+    # Step 1: Writing
+    writer_prompt = f"Write an article about {topic}"
+    draft = await llm.ainvoke(writer_prompt)
+    
+    # Step 2: Review
+    reviewer_prompt = f"Review and identify issues: {draft.content}"
+    review = await llm.ainvoke(reviewer_prompt)
+    
+    # Step 3: Polish
+    editor_prompt = f"Polish based on review: {draft.content}"
+    final = await llm.ainvoke(editor_prompt)
+    
+    return final.content
+
+result = asyncio.run(pipeline("Artificial Intelligence"))
+```
+    </div>
+  </div>
+  <div class="flip-card-back">
+    <div class="card-header">
+      <span class="card-title">✨ Nexa</span>
+      <span class="code-lines">5 lines</span>
+    </div>
+    <div class="card-content">
+```nexa
+agent Writer { role: "Writer", prompt: "Write articles" }
+agent Reviewer { role: "Reviewer", prompt: "Review articles" }
+agent Editor { role: "Editor", prompt: "Polish articles" }
+
+flow main {
+    result = "Artificial Intelligence" >> Writer >> Reviewer >> Editor;
+}
+```
+    </div>
+  </div>
+</div>
+<button class="flip-button" onclick="document.getElementById('flip-2').classList.toggle('flipped')">
+  🔄 Click to compare with Nexa
+</button>
+<div class="comparison-note">
+<strong>Key Advantage:</strong> Pipeline operator <code>>></code> makes data flow crystal clear, no need to manually pass intermediate variables or handle async context. The compiler automatically optimizes execution order.<span class="reduction-badge">72% reduction</span>
+</div>
+</div>
+
+---
+
+<span class="example-badge">Example 3</span>
+<span class="example-title">Intent Routing</span>
+
+<div class="code-comparison">
+<div class="flip-card" id="flip-3">
+  <div class="flip-card-front">
+    <div class="card-header">
+      <span class="card-title">🐍 Traditional Python + re</span>
+      <span class="code-lines">17 lines</span>
+    </div>
+    <div class="card-content">
+```python
+import re
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4")
+
+def route_request(user_input: str):
+    # Hand-written regex - fragile and hard to maintain
+    if re.search(r'weather|temperature|forecast', user_input, re.I):
+        prompt = f"Answer weather question: {user_input}"
+        return llm.invoke(prompt).content
+    elif re.search(r'news|headline|latest', user_input, re.I):
+        prompt = f"Answer news question: {user_input}"
+        return llm.invoke(prompt).content
+    elif re.search(r'translate|translation', user_input, re.I):
+        prompt = f"Translate: {user_input}"
+        return llm.invoke(prompt).content
+    else:
+        return llm.invoke(f"General chat: {user_input}").content
+
+result = route_request("What's the weather like in Beijing?")
+```
+    </div>
+  </div>
+  <div class="flip-card-back">
+    <div class="card-header">
+      <span class="card-title">✨ Nexa</span>
+      <span class="code-lines">10 lines</span>
+    </div>
+    <div class="card-content">
+```nexa
+agent WeatherBot { role: "Weather Assistant" }
+agent NewsBot { role: "News Assistant" }
+agent Translator { role: "Translation Assistant" }
+agent ChatBot { role: "Chat Assistant" }
+
+flow main {
+    result = match user_input {
+        intent("Check weather") => WeatherBot.run(user_input),
+        intent("Check news") => NewsBot.run(user_input),
+        intent("Translate content") => Translator.run(user_input),
+        _ => ChatBot.run(user_input)
+    };
+}
+```
+    </div>
+  </div>
+</div>
+<button class="flip-button" onclick="document.getElementById('flip-3').classList.toggle('flipped')">
+  🔄 Click to compare with Nexa
+</button>
+<div class="comparison-note">
+<strong>Key Advantage:</strong> <code>intent()</code> semantic matching replaces fragile regex expressions, using embedding vectors for semantic similarity matching - smarter and more flexible.<span class="reduction-badge">41% reduction</span>
+</div>
+</div>
+
+---
+
+<span class="example-badge">Example 4</span>
+<span class="example-title">Concurrent DAG Execution</span>
+
+<div class="code-comparison">
+<div class="flip-card" id="flip-4">
+  <div class="flip-card-front">
+    <div class="card-header">
+      <span class="card-title">🐍 Traditional Python + asyncio</span>
+      <span class="code-lines">23 lines</span>
+    </div>
+    <div class="card-content">
+```python
+import asyncio
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4")
+
+async def researcher(task: str, name: str):
+    prompt = f"{name} analysis: {task}"
+    return {name: await llm.ainvoke(prompt)}
+
+async def parallel_research(topic: str):
+    # Execute 3 researchers in parallel
+    tasks = [
+        researcher(topic, "Tech Researcher"),
+        researcher(topic, "Market Researcher"),
+        researcher(topic, "Finance Researcher")
+    ]
+    results = await asyncio.gather(*tasks)
+    
+    # Summarize results
+    combined = "\n".join([str(r) for r in results])
+    summary_prompt = f"Summarize these reports:\n{combined}"
+    final = await llm.ainvoke(summary_prompt)
+    
+    return final.content
+
+result = asyncio.run(parallel_research("AI Industry Outlook"))
+```
+    </div>
+  </div>
+  <div class="flip-card-back">
+    <div class="card-header">
+      <span class="card-title">✨ Nexa</span>
+      <span class="code-lines">6 lines</span>
+    </div>
+    <div class="card-content">
+```nexa
+agent TechResearcher { role: "Tech Researcher" }
+agent MarketResearcher { role: "Market Researcher" }
+agent FinanceResearcher { role: "Finance Researcher" }
+agent Summarizer { role: "Report Summarizer" }
+
+flow main {
+    result = "AI Industry Outlook" 
+        |>> [TechResearcher, MarketResearcher, FinanceResearcher] 
+        &>> Summarizer;
+}
+```
+    </div>
+  </div>
+</div>
+<button class="flip-button" onclick="document.getElementById('flip-4').classList.toggle('flipped')">
+  🔄 Click to compare with Nexa
+</button>
+<div class="comparison-note">
+<strong>Key Advantage:</strong> DAG operators <code>|>></code> (fan-out) and <code>&>></code> (merge) implement concurrent orchestration in a single line, without needing to understand asyncio, gather, coroutines.<span class="reduction-badge">74% reduction</span>
+</div>
+</div>
+
+---
+
+### 📊 Code Volume Comparison Summary
+
+| Scenario | Traditional | Nexa | Reduction |
+|:---------|:-----------:|:----:|:---------:|
+| Agent Definition & Invocation | 12 lines | 4 lines | **67%** ↓ |
+| Pipeline Orchestration | 18 lines | 5 lines | **72%** ↓ |
+| Intent Routing | 17 lines | 10 lines | **41%** ↓ |
+| Concurrent DAG Execution | 23 lines | 6 lines | **74%** ↓ |
+| **Average** | **17.5 lines** | **6.25 lines** | **63%** ↓ |
+
+---
+
 ## 🆕 v1.0-alpha Revolutionary Update: The AVM Era
 
 Nexa v1.0-alpha introduces the revolutionary **Agent Virtual Machine (AVM)** — a high-performance, securely isolated agent execution engine written in Rust:
@@ -67,257 +347,11 @@ AVM manages memory, automatically performing vectorized swapping of conversation
 
 ---
 
-## 🔥 Core Advantage: Code Comparison
-
-Nexa simplifies complex multi-agent collaboration into elegant declarative syntax. The following comparisons demonstrate the significant differences between Nexa and traditional Python + LangChain approaches:
-
----
-
-<span class="example-badge">Example 1</span>
-
-### Agent Definition & Invocation
-
-<div class="code-comparison">
-<div class="code-card traditional">
-<div class="code-header">Traditional Python + LangChain</div>
-<div class="code-content">
-```python
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema import StrOutputParser
-
-# Define chain
-llm = ChatOpenAI(model="gpt-4", temperature=0.7)
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a professional English-Chinese translator"),
-    ("human", "{input}")
-])
-chain = prompt | llm | StrOutputParser()
-
-# Invoke
-result = chain.invoke({"input": "Hello, World!"})
-print(result)
-```
-<span class="code-stats traditional">12 lines</span>
-</div>
-</div>
-<div class="code-card nexa">
-<div class="code-header">Nexa</div>
-<div class="code-content">
-```nexa
-agent Translator {
-    role: "English-Chinese Translator",
-    model: "gpt-4"
-}
-
-result = Translator.run("Hello, World!")
-```
-<span class="code-stats nexa">4 lines · 67% reduction</span>
-</div>
-</div>
-<div class="comparison-note">
-<strong>Key Advantage:</strong> From 12 lines down to 4, no need to understand Chain, PromptTemplate, StrOutputParser and other complex concepts. Agent definition is configuration, invocation is execution.
-</div>
-</div>
-
----
-
-<span class="example-badge">Example 2</span>
-
-### Pipeline Orchestration
-
-<div class="code-comparison">
-<div class="code-card traditional">
-<div class="code-header">Traditional Python + LangChain</div>
-<div class="code-content">
-```python
-import asyncio
-from langchain.chat_models import ChatOpenAI
-
-llm = ChatOpenAI(model="gpt-4")
-
-async def pipeline(topic: str):
-    # Step 1: Writing
-    writer_prompt = f"Write an article about {topic}"
-    draft = await llm.ainvoke(writer_prompt)
-    
-    # Step 2: Review
-    reviewer_prompt = f"Review and identify issues: {draft.content}"
-    review = await llm.ainvoke(reviewer_prompt)
-    
-    # Step 3: Polish
-    editor_prompt = f"Polish based on review: {draft.content}"
-    final = await llm.ainvoke(editor_prompt)
-    
-    return final.content
-
-result = asyncio.run(pipeline("Artificial Intelligence"))
-```
-<span class="code-stats traditional">18 lines</span>
-</div>
-</div>
-<div class="code-card nexa">
-<div class="code-header">Nexa</div>
-<div class="code-content">
-```nexa
-agent Writer { role: "Writer", prompt: "Write articles" }
-agent Reviewer { role: "Reviewer", prompt: "Review articles" }
-agent Editor { role: "Editor", prompt: "Polish articles" }
-
-flow main {
-    result = "Artificial Intelligence" >> Writer >> Reviewer >> Editor;
-}
-```
-<span class="code-stats nexa">5 lines · 72% reduction</span>
-</div>
-</div>
-<div class="comparison-note">
-<strong>Key Advantage:</strong> Pipeline operator <code>>></code> makes data flow crystal clear, no need to manually pass intermediate variables or handle async context. The compiler automatically optimizes execution order and context passing.
-</div>
-</div>
-
----
-
-<span class="example-badge">Example 3</span>
-
-### Intent Routing
-
-<div class="code-comparison">
-<div class="code-card traditional">
-<div class="code-header">Traditional Python + re</div>
-<div class="code-content">
-```python
-import re
-from langchain.chat_models import ChatOpenAI
-
-llm = ChatOpenAI(model="gpt-4")
-
-def route_request(user_input: str):
-    # Hand-written regex - fragile and hard to maintain
-    if re.search(r'weather|temperature|forecast', user_input, re.I):
-        prompt = f"Answer weather question: {user_input}"
-        return llm.invoke(prompt).content
-    elif re.search(r'news|headline|latest', user_input, re.I):
-        prompt = f"Answer news question: {user_input}"
-        return llm.invoke(prompt).content
-    elif re.search(r'translate|translation', user_input, re.I):
-        prompt = f"Translate: {user_input}"
-        return llm.invoke(prompt).content
-    else:
-        return llm.invoke(f"General chat: {user_input}").content
-
-result = route_request("What's the weather like in Beijing?")
-```
-<span class="code-stats traditional">17 lines</span>
-</div>
-</div>
-<div class="code-card nexa">
-<div class="code-header">Nexa</div>
-<div class="code-content">
-```nexa
-agent WeatherBot { role: "Weather Assistant" }
-agent NewsBot { role: "News Assistant" }
-agent Translator { role: "Translation Assistant" }
-agent ChatBot { role: "Chat Assistant" }
-
-flow main {
-    result = match user_input {
-        intent("Check weather") => WeatherBot.run(user_input),
-        intent("Check news") => NewsBot.run(user_input),
-        intent("Translate content") => Translator.run(user_input),
-        _ => ChatBot.run(user_input)
-    };
-}
-```
-<span class="code-stats nexa">10 lines · 41% reduction</span>
-</div>
-</div>
-<div class="comparison-note">
-<strong>Key Advantage:</strong> <code>intent()</code> semantic matching replaces fragile regex expressions, using embedding vectors for semantic similarity matching - smarter and more flexible. Code structure is clean, easy to extend with new intent branches.
-</div>
-</div>
-
----
-
-<span class="example-badge">Example 4</span>
-
-### Concurrent DAG Execution
-
-<div class="code-comparison">
-<div class="code-card traditional">
-<div class="code-header">Traditional Python + asyncio</div>
-<div class="code-content">
-```python
-import asyncio
-from langchain.chat_models import ChatOpenAI
-
-llm = ChatOpenAI(model="gpt-4")
-
-async def researcher(task: str, name: str):
-    prompt = f"{name} analysis: {task}"
-    return {name: await llm.ainvoke(prompt)}
-
-async def parallel_research(topic: str):
-    # Execute 3 researchers in parallel
-    tasks = [
-        researcher(topic, "Tech Researcher"),
-        researcher(topic, "Market Researcher"),
-        researcher(topic, "Finance Researcher")
-    ]
-    results = await asyncio.gather(*tasks)
-    
-    # Summarize results
-    combined = "\n".join([str(r) for r in results])
-    summary_prompt = f"Summarize these reports:\n{combined}"
-    final = await llm.ainvoke(summary_prompt)
-    
-    return final.content
-
-result = asyncio.run(parallel_research("AI Industry Outlook"))
-```
-<span class="code-stats traditional">23 lines</span>
-</div>
-</div>
-<div class="code-card nexa">
-<div class="code-header">Nexa</div>
-<div class="code-content">
-```nexa
-agent TechResearcher { role: "Tech Researcher" }
-agent MarketResearcher { role: "Market Researcher" }
-agent FinanceResearcher { role: "Finance Researcher" }
-agent Summarizer { role: "Report Summarizer" }
-
-flow main {
-    result = "AI Industry Outlook" 
-        |>> [TechResearcher, MarketResearcher, FinanceResearcher] 
-        &>> Summarizer;
-}
-```
-<span class="code-stats nexa">6 lines · 74% reduction</span>
-</div>
-</div>
-<div class="comparison-note">
-<strong>Key Advantage:</strong> DAG operators <code>|>></code> (fan-out) and <code>&>></code> (merge) implement concurrent orchestration in a single line, without needing to understand asyncio, gather, coroutines. The AVM runtime automatically handles parallel scheduling and result merging.
-</div>
-</div>
-
----
-
-### 📊 Code Volume Comparison Summary
-
-| Scenario | Traditional | Nexa | Reduction |
-|:---------|:-----------:|:----:|:---------:|
-| Agent Definition & Invocation | 12 lines | 4 lines | **67%** ↓ |
-| Pipeline Orchestration | 18 lines | 5 lines | **72%** ↓ |
-| Intent Routing | 17 lines | 10 lines | **41%** ↓ |
-| Concurrent DAG Execution | 23 lines | 6 lines | **74%** ↓ |
-| **Average** | **17.5 lines** | **6.25 lines** | **63%** ↓ |
-
-### 🎯 More Core Features
+## 🎯 More Core Features
 
 Beyond code simplicity, Nexa provides these powerful language-level features:
 
-#### Strong Type Protocol Constraints (`protocol` & `implements`)
+### Strong Type Protocol Constraints (`protocol` & `implements`)
 
 No more uncontrollable model string outputs! Native support for contract-based programming:
 
@@ -332,7 +366,7 @@ agent Reviewer implements ReviewResult {
 }
 ```
 
-#### Semantic Control Flow (`loop until`)
+### Semantic Control Flow (`loop until`)
 
 Control loop termination with natural language:
 
@@ -343,7 +377,7 @@ loop {
 } until ("Article quality is excellent")
 ```
 
-#### Native Test Framework (`test` & `assert`)
+### Native Test Framework (`test` & `assert`)
 
 ```nexa
 test "Translation test" {

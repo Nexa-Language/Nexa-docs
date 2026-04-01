@@ -1088,114 +1088,140 @@ body.yat-page--series .md-content__inner .md-typeset > h2::before {
 }
 
 /* ============================================
-   代码对比展示组件样式
+   代码对比展示组件样式 - 翻页动画版
    ============================================ */
 
-/* 对比容器 - 两列布局 */
+/* 对比容器 - 全宽布局 */
 .code-comparison {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
   margin: 2rem 0;
-  padding: 0 0.5rem;
+  perspective: 2000px;
 }
 
-/* 单个代码卡片 */
-.code-card {
+/* 单个翻页卡片容器 */
+.flip-card {
+  width: 100%;
+  min-height: 320px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1.5rem;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* 卡片正反面 */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  min-height: 320px;
+  backface-visibility: hidden;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
 }
 
-.code-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+/* 正面 - 传统代码 */
+.flip-card-front {
+  background: linear-gradient(160deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+}
+
+/* 反面 - Nexa 代码 */
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, #faf5ff 0%, #f3e8ff 100%);
+  border: 2px solid #c084fc;
 }
 
 /* 卡片头部 */
-.code-card .code-header {
-  padding: 0.85rem 1.25rem;
+.flip-card .card-header {
+  padding: 1rem 1.5rem;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flip-card-front .card-header {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: #fff;
+}
+
+.flip-card-back .card-header {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: #fff;
+}
+
+/* 标题图标和文字 */
+.card-title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* 传统代码卡片 - 灰色调 */
-.code-card.traditional {
-  background: linear-gradient(160deg, #f8f9fa 0%, #e9ecef 100%);
-  border: 1px solid #dee2e6;
-}
-
-.code-card.traditional .code-header {
-  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
-  color: #fff;
-}
-
-.code-card.traditional .code-header::before {
-  content: "🐍";
-  font-size: 1.1rem;
-}
-
-/* Nexa 代码卡片 - 紫色渐变 */
-.code-card.nexa {
-  background: linear-gradient(160deg, #faf5ff 0%, #f3e8ff 100%);
-  border: 2px solid #c084fc;
-  position: relative;
-}
-
-.code-card.nexa::after {
-  content: "✨";
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  font-size: 1.5rem;
-  animation: sparkle 2s ease-in-out infinite;
-}
-
-@keyframes sparkle {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-  50% { transform: scale(1.2) rotate(15deg); opacity: 0.8; }
-}
-
-.code-card.nexa .code-header {
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-  color: #fff;
-}
-
-.code-card.nexa .code-header::before {
-  content: "✨";
-  font-size: 1.1rem;
+/* 代码行数统计 */
+.code-lines {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* 代码内容区域 */
-.code-card .code-content {
-  padding: 1rem 1.25rem;
-  font-size: 0.8rem;
-  line-height: 1.6;
+.flip-card .card-content {
+  padding: 1.25rem 1.5rem;
   overflow-x: auto;
 }
 
-.code-card .code-content pre {
+.flip-card .card-content pre {
   margin: 0;
   padding: 0;
   background: transparent;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
-.code-card .code-content code {
+.flip-card .card-content code {
   font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
-  font-size: 0.78rem;
-  line-height: 1.55;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* 翻页按钮 */
+.flip-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  margin: 1rem 0;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+  border: none;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.flip-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+}
+
+.flip-button:active {
+  transform: translateY(0);
 }
 
 /* 对比说明 */
 .comparison-note {
-  grid-column: 1 / -1;
   padding: 1rem 1.5rem;
   background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(168, 85, 247, 0.12) 100%);
   border-radius: 0.75rem;
@@ -1209,77 +1235,18 @@ body.yat-page--series .md-content__inner .md-typeset > h2::before {
   font-weight: 600;
 }
 
-/* 对比标题 */
-.comparison-title {
-  grid-column: 1 / -1;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--md-primary-fg-color);
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.comparison-title::before {
-  content: "⚡";
-}
-
-/* 代码行数统计 */
-.code-stats {
+/* 代码缩减标签 */
+.reduction-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.2rem 0.6rem;
+  padding: 0.3rem 0.8rem;
+  margin-left: 0.5rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
   border-radius: 1rem;
   font-size: 0.7rem;
-  font-weight: 500;
-  margin-left: 0.5rem;
-}
-
-.code-stats.traditional {
-  background: rgba(108, 117, 125, 0.15);
-  color: #6c757d;
-}
-
-.code-stats.nexa {
-  background: rgba(124, 58, 237, 0.15);
-  color: #7c3aed;
-}
-
-/* 深色主题适配 */
-[data-md-color-scheme='slate'] .code-card.traditional {
-  background: linear-gradient(160deg, #2d3748 0%, #1a202c 100%);
-  border-color: #4a5568;
-}
-
-[data-md-color-scheme='slate'] .code-card.nexa {
-  background: linear-gradient(160deg, #2e1065 0%, #1e1b4b 100%);
-  border-color: #a855f7;
-}
-
-[data-md-color-scheme='slate'] .comparison-note {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(124, 58, 237, 0.2) 100%);
-}
-
-[data-md-color-scheme='slate'] .code-card.nexa::after {
-  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
-}
-
-/* 响应式布局 */
-@media (max-width: 60rem) {
-  .code-comparison {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .code-card {
-    margin-bottom: 0.5rem;
-  }
-  
-  .comparison-note {
-    margin-top: 0;
-  }
+  font-weight: 600;
 }
 
 /* 示例编号标签 */
@@ -1291,7 +1258,53 @@ body.yat-page--series .md-content__inner .md-typeset > h2::before {
   border-radius: 2rem;
   font-size: 0.75rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* 示例标题 */
+.example-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--md-primary-fg-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 深色主题适配 */
+[data-md-color-scheme='slate'] .flip-card-front {
+  background: linear-gradient(160deg, #2d3748 0%, #1a202c 100%);
+  border-color: #4a5568;
+}
+
+[data-md-color-scheme='slate'] .flip-card-back {
+  background: linear-gradient(160deg, #2e1065 0%, #1e1b4b 100%);
+  border-color: #a855f7;
+}
+
+[data-md-color-scheme='slate'] .comparison-note {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(124, 58, 237, 0.2) 100%);
+}
+
+/* 响应式布局 */
+@media (max-width: 60rem) {
+  .flip-card {
+    min-height: 280px;
+  }
+  
+  .flip-card-front,
+  .flip-card-back {
+    min-height: 280px;
+  }
+  
+  .flip-card .card-content {
+    padding: 1rem;
+  }
+  
+  .flip-card .card-content code {
+    font-size: 0.75rem;
+  }
 }
