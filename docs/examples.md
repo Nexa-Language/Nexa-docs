@@ -36,6 +36,14 @@ comments: true
 - [示例 15：智能客服系统](#示例-15-智能客服系统)
 - [示例 16：代码生成与测试](#示例-16-代码生成与测试)
 
+### v1.3.x 新特性示例
+- [示例 17：契约式编程 (DbC)](#示例-17-契约式编程-dbc)
+- [示例 18：错误传播与恢复](#示例-18-错误传播与恢复)
+- [示例 19：模式匹配与 ADT](#示例-19-模式匹配与-adt)
+- [示例 20：HTTP Server + 数据库](#示例-20-http-server--数据库)
+- [示例 21：并发数据处理](#示例-21-并发数据处理)
+- [示例 22：后台任务系统](#示例-22-后台任务系统)
+
 ---
 
 ## 基础示例
@@ -1150,6 +1158,460 @@ flow main {
     print(initial_code.code);
 }
 ```
+
+---
+
+## v1.3.x 新特性示例
+
+### 示例 17：契约式编程 (DbC)
+
+**目的**：演示 requires/ensures/invariant 契约的使用，以及 ContractViolation 与 HTTP 的集成。
+
+**完整代码**：
+
+```nexa
+// contract_demo.nx
+// 契约式编程示例
+
+agent DataProcessor {
+    role: "数据处理专家"
+    model: "deepseek/deepseek-chat"
+    prompt: "处理输入数据并返回结构化结果"
+    requires: "input must be non-empty and contain valid data"
+    ensures: "output contains processed summary"
+}
+
+agent QualityChecker {
+    role: "质量检查员"
+    model: "deepseek/deepseek-chat"
+    prompt: "检查数据质量"
+    requires: "data must be formatted as JSON"
+    ensures: "quality_score is between 0 and 100"
+}
+
+flow main {
+    // ✅ 正常调用 — 满足 requires 条件
+    raw_data = '{"items": [1, 2, 3], "status": "active"}'
+    result = DataProcessor.run(raw_data)
+    print("处理结果: " + result)
+
+    // ✅ 使用 otherwise 处理契约违反
+    empty_data = ""
+    safe_result = DataProcessor.run(empty_data) otherwise "默认结果"
+    print("安全结果: " + safe_result)
+
+    // ✅ 契约链 — 多个 Agent 的契约依次验证
+    processed = DataProcessor.run(raw_data)
+    quality = QualityChecker.run(processed) otherwise "质量未知"
+    print("质量评分: " + quality)
+}
+```
+
+**运行方式**：
+```bash
+nexa run contract_demo.nx
+```
+
+**代码解析**：
+| 行号 | 说明 |
+|-----|------|
+| 7-8 | `requires` 定义前置条件，调用前必须满足 |
+| 9 | `ensures` 定义后置条件，输出必须满足 |
+| 20 | `otherwise` 在契约违反时提供降级结果 |
+| 23-24 | 契约链：多个 Agent 的契约依次验证 |
+
+---
+
+### 示例 18：错误传播与恢复
+
+**目的**：演示 `?` 错误传播操作符和 `otherwise` 错误恢复操作符的使用。
+
+**完整代码**：
+
+```nexa
+// error_propagation_demo.nx
+// 错误传播与恢复示例
+
+agent Fetcher {
+    role: "数据获取器"
+    model: "deepseek/deepseek-chat"
+    prompt: "从指定来源获取数据"
+}
+
+agent Parser {
+    role: "数据解析器"
+    model: "deepseek/deepseek-chat"
+    prompt: "解析原始数据为结构化格式"
+}
+
+agent Analyzer {
+    role: "数据分析器"
+    model: "deepseek/deepseek-chat"
+    prompt: "分析数据并生成洞察"
+}
+
+flow main {
+    // ✅ 使用 ? 传播错误 — 任何步骤失败则整个链失败
+    result = Fetcher.run("source_url")
+        |> Parser.run?
+        |> Analyzer.run?
+
+    // ✅ 使用 otherwise 在每步提供降级
+    safe_result = Fetcher.run("source_url") otherwise "无数据"
+        |> Parser.run? otherwise "解析失败"
+        |> Analyzer.run? otherwise "分析不可用"
+
+    print("安全结果: " + safe_result)
+
+    // ✅ 组合使用 ? 和 otherwise
+    data = Fetcher.run("source_url")?
+    if data != None {
+        parsed = Parser.run(data) otherwise "原始数据: " + data
+        print("解析结果: " + parsed)
+    } otherwise {
+        print("数据获取失败，使用缓存")
+        cached = std.kv.get("cache_key") ?? "默认缓存数据"
+        print("缓存数据: " + cached)
+    }
+}
+```
+
+**运行方式**：
+```bash
+nexa run error_propagation_demo.nx
+```
+
+**代码解析**：
+| 行号 | 说明 |
+|-----|------|
+| 19-21 | `?` 操作符：错误自动向上传播，链中任一步失败则整链失败 |
+| 24-26 | `otherwise` 操作符：每步提供降级值，确保链不中断 |
+| 30-37 | `?` 与 `otherwise` 组合使用，配合 `??` 空值合并 |
+
+---
+
+### 示例 19：模式匹配与 ADT
+
+**目的**：演示 struct/enum/trait 代数数据类型与模式匹配的组合使用。
+
+**完整代码**：
+
+```nexa
+// pattern_adt_demo.nx
+// 模式匹配与 ADT 示例
+
+// 定义结构体
+struct User {
+    name: string
+    age: int
+    email: string
+}
+
+// 定义枚举
+enum Status {
+    Active
+    Inactive
+    Suspended(reason: string)
+}
+
+// 定义特质
+trait Displayable {
+    fn display(self) -> string
+}
+
+impl Displayable for User {
+    fn display(self) -> string {
+        "#{self.name} (#{self.age}) — #{self.email}"
+    }
+}
+
+flow main {
+    // 创建 struct 实例
+    user = User{name: "Alice", age: 30, email: "alice@example.com"}
+
+    // 创建 enum variant
+    status = Status.Active
+    suspended = Status.Suspended{reason: "违规操作"}
+
+    // ✅ 模式匹配
+    match status {
+        Status.Active -> print("用户活跃")
+        Status.Inactive -> print("用户未激活")
+        Status.Suspended{reason} -> print("用户被暂停: " + reason)
+    }
+
+    // ✅ Let 解构
+    let User{name, age} = user
+    print("姓名: " + name + ", 年龄: " + age)
+
+    // ✅ Trait 方法调用
+    display_text = user.display()
+    print("展示: " + display_text)
+
+    // ✅ For 解构
+    users = [User{name: "Bob", age: 25, email: "bob@test.com"},
+             User{name: "Carol", age: 28, email: "carol@test.com"}]
+    for let User{name, age} in users {
+        print("#{name}: #{age}岁")
+    }
+}
+```
+
+**运行方式**：
+```bash
+nexa run pattern_adt_demo.nx
+```
+
+**代码解析**：
+| 行号 | 说明 |
+|-----|------|
+| 6-10 | `struct` 定义数据结构，字段有类型标注 |
+| 13-17 | `enum` 定义枚举，支持带数据的 variant |
+| 20-22 | `trait` 定义行为接口 |
+| 24-27 | `impl` 为具体类型实现 trait 方法 |
+| 32-36 | `match` 模式匹配，按 variant 分支处理 |
+| 39 | `let` 解构提取 struct 字段 |
+| 42 | Trait 方法调用 |
+| 45-48 | `for let` 解构遍历集合 |
+
+---
+
+### 示例 20：HTTP Server + 数据库
+
+**目的**：演示 HTTP Server 与数据库的集成使用，构建一个完整的 API 服务。
+
+**完整代码**：
+
+```nexa
+// http_db_demo.nx
+// HTTP Server + 数据库集成示例
+
+db AppDB {
+    type: "sqlite"
+    path: ":memory:"
+}
+
+agent ItemHandler {
+    role: "物品管理助手"
+    model: "deepseek/deepseek-chat"
+    prompt: "处理物品相关的请求"
+    requires: "request must contain valid item data"
+    ensures: "response contains item details"
+}
+
+server ItemAPI {
+    route "/api/items": ItemHandler
+    route "/api/items/search": ItemHandler
+}
+
+flow main {
+    // 初始化数据库
+    db_handle = std.db.sqlite.connect(":memory:")
+    std.db.sqlite.execute(db_handle, "CREATE TABLE items (id INT, name TEXT, price FLOAT)")
+    std.db.sqlite.execute(db_handle, "INSERT INTO items VALUES (1, 'Widget', 9.99)")
+    std.db.sqlite.execute(db_handle, "INSERT INTO items VALUES (2, 'Gadget', 19.99)")
+
+    // 查询数据
+    items = std.db.sqlite.query(db_handle, "SELECT * FROM items")
+    print("数据库中的物品: " + items)
+
+    // 启动 HTTP Server
+    // nexa serve http_db_demo.nx --port 8080
+    // 契约违反自动映射: requires → 401, ensures → 403
+
+    std.db.sqlite.close(db_handle)
+}
+```
+
+**运行方式**：
+```bash
+# 先编译
+nexa build http_db_demo.nx
+
+# 启动 HTTP Server
+nexa serve http_db_demo.nx --port 8080
+
+# 查看路由
+nexa routes http_db_demo.nx
+```
+
+**代码解析**：
+| 行号 | 说明 |
+|-----|------|
+| 6-9 | `db` 声明数据库配置 |
+| 17-20 | `server` 声明 HTTP 路由 |
+| 24-28 | SQLite 初始化：建表、插入数据 |
+| 30 | 查询数据 |
+| 33 | 契约违反自动映射为 HTTP 状态码 |
+
+---
+
+### 示例 21：并发数据处理
+
+**目的**：演示结构化并发、Channel 和 race 的使用。
+
+**完整代码**：
+
+```nexa
+// concurrent_demo.nx
+// 并发数据处理示例
+
+agent FastSource {
+    role: "快速数据源"
+    model: "deepseek/deepseek-chat"
+    prompt: "快速返回数据"
+}
+
+agent SlowSource {
+    role: "慢速数据源"
+    model: "deepseek/deepseek-chat"
+    prompt: "返回数据但可能较慢"
+}
+
+agent Aggregator {
+    role: "数据聚合器"
+    model: "deepseek/deepseek-chat"
+    prompt: "聚合多个来源的数据"
+}
+
+flow main {
+    // ✅ race — 多源竞争，取最快结果
+    result = std.concurrent.race([
+        FastSource.run("query1"),
+        SlowSource.run("query2")
+    ])
+    print("最快结果: " + result)
+
+    // ✅ Channel — 生产者-消费者模式
+    ch = std.concurrent.channel(10)
+
+    // 发送数据到 Channel
+    std.concurrent.ch_send(ch, "data_item_1")
+    std.concurrent.ch_send(ch, "data_item_2")
+
+    // 从 Channel 接收数据
+    item1 = std.concurrent.ch_recv(ch) ?? "无数据"
+    item2 = std.concurrent.ch_recv(ch) ?? "无数据"
+    print("接收: " + item1 + ", " + item2)
+
+    // ✅ spawn — 启动并发任务
+    task1 = std.concurrent.spawn(FastSource.run("task_a"))
+    task2 = std.concurrent.spawn(SlowSource.run("task_b"))
+
+    // 等待所有任务完成
+    results = std.concurrent.join_all([task1, task2])
+    print("所有结果: " + results)
+
+    // ✅ |> 管道组合并发结果
+    final = results |> Aggregator.run
+    print("聚合结果: " + final)
+}
+```
+
+**运行方式**：
+```bash
+nexa run concurrent_demo.nx
+```
+
+**代码解析**：
+| 行号 | 说明 |
+|-----|------|
+| 23-26 | `race` 多源竞争，取最快返回的结果 |
+| 29-38 | `channel` 生产者-消费者模式，`??` 处理空通道 |
+| 41-42 | `spawn` 启动并发任务 |
+| 45 | `join_all` 等待所有任务完成 |
+| 48 | `|>` 管道组合并发结果 |
+
+---
+
+### 示例 22：后台任务系统
+
+**目的**：演示 Job 声明、Worker 启动和任务生命周期管理。
+
+**完整代码**：
+
+```nexa
+// job_demo.nx
+// 后台任务系统示例
+
+agent EmailSender {
+    role: "邮件发送助手"
+    model: "deepseek/deepseek-chat"
+    prompt: "发送通知邮件"
+}
+
+agent ReportGenerator {
+    role: "报告生成助手"
+    model: "deepseek/deepseek-chat"
+    prompt: "生成数据分析报告"
+}
+
+job EmailJob {
+    agent: EmailSender
+    queue: "email_queue"
+    retry: 3
+    backoff: 60
+    timeout: 300
+}
+
+job ReportJob {
+    agent: ReportGenerator
+    queue: "report_queue"
+    retry: 2
+    backoff: 120
+    timeout: 600
+}
+
+flow main {
+    // ✅ defer — 确保资源清理
+    defer {
+        print("清理完成")
+    }
+
+    // 发送邮件任务
+    print("邮件任务已注册")
+
+    // 生成报告任务
+    print("报告任务已注册")
+
+    // 使用 KV 存储任务状态
+    std.kv.set("email_status", "pending")
+    std.kv.set("report_status", "pending")
+
+    // 查询任务状态
+    email_status = std.kv.get("email_status") ?? "unknown"
+    report_status = std.kv.get("report_status") ?? "unknown"
+    print("邮件状态: " + email_status)
+    print("报告状态: " + report_status)
+}
+```
+
+**运行方式**：
+```bash
+# 编译
+nexa build job_demo.nx
+
+# 启动 Worker
+nexa workers job_demo.nx --start --queue email_queue,report_queue
+
+# 查看任务状态
+nexa jobs job_demo.nx --status
+
+# 查看死信任务
+nexa jobs job_demo.nx --dead-letter
+
+# 停止 Worker
+nexa workers job_demo.nx --stop
+```
+
+**代码解析**：
+| 行号 | 说明 |
+|-----|------|
+| 17-22 | `job` 声明后台任务，配置重试和超时 |
+| 24-29 | 多个 Job 声明，不同队列和参数 |
+| 33-35 | `defer` 确保函数退出时执行清理 |
+| 41-42 | KV 存储跟踪任务状态 |
+| 45-46 | `??` 处理 KV 中可能不存在键的情况 |
 
 ---
 

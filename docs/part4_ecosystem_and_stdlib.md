@@ -16,18 +16,33 @@ comments: true
 
 ### 标准库命名空间
 
-| 命名空间 | 说明 | 主要工具 |
-|---------|------|---------|
-| `std.fs` | 文件系统操作 | `file_read`, `file_write`, `file_append`, `file_exists`, `file_list`, `file_delete` |
-| `std.http` | HTTP 网络请求 | `http_get`, `http_post`, `http_put`, `http_delete` |
-| `std.time` | 时间日期操作 | `time_now`, `time_format`, `time_diff`, `time_sleep`, `time_timestamp` |
-| `std.json` | JSON 数据处理 | `json_parse`, `json_get`, `json_stringify` |
-| `std.text` | 文本处理 | `text_split`, `text_replace`, `text_upper`, `text_lower` |
-| `std.hash` | 加密与编码 | `hash_md5`, `hash_sha256`, `base64_encode`, `base64_decode` |
-| `std.math` | 数学运算 | `math_calc`, `math_random` |
-| `std.regex` | 正则表达式 | `regex_match`, `regex_replace` |
-| `std.shell` | Shell 命令 | `shell_exec`, `shell_which` |
-| `std.ask_human` | 人机交互 | `ask_human` |
+| 命名空间 | 版本 | 说明 | 主要工具 |
+|---------|------|------|---------|
+| `std.fs` | v0.5+ | 文件系统操作 | `file_read`, `file_write`, `file_append`, `file_exists`, `file_list`, `file_delete` |
+| `std.http` | v0.5+ | HTTP 网络请求 | `http_get`, `http_post`, `http_put`, `http_delete` |
+| `std.time` | v0.5+ | 时间日期操作 | `time_now`, `time_format`, `time_diff`, `time_sleep`, `time_timestamp` |
+| `std.json` | v0.5+ | JSON 数据处理 | `json_parse`, `json_get`, `json_stringify` |
+| `std.text` | v0.5+ | 文本处理 | `text_split`, `text_replace`, `text_upper`, `text_lower` |
+| `std.hash` | v0.5+ | 加密与编码 | `hash_md5`, `hash_sha256`, `base64_encode`, `base64_decode` |
+| `std.math` | v0.5+ | 数学运算 | `math_calc`, `math_random` |
+| `std.regex` | v0.5+ | 正则表达式 | `regex_match`, `regex_replace` |
+| `std.shell` | v0.5+ | Shell 命令 | `shell_exec`, `shell_which` |
+| `std.ask_human` | v0.5+ | 人机交互 | `ask_human` |
+| `std.db.sqlite` | v1.3.5 | SQLite 操作 | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.postgres` | v1.3.5 | PostgreSQL 操作 | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.memory` | v1.3.5 | Agent 记忆 | `query`, `store`, `delete`, `list` |
+| `std.auth` | v1.3.6 | 认证与 OAuth | `oauth`, `enable_auth`, `get_user`, `jwt_sign`, `jwt_verify`, `csrf_token`, `api_key_generate` |
+| `std.kv` | v1.3.6 | 键值存储 | `open`, `get`, `set`, `del`, `has`, `list`, `expire`, `incr` |
+| `std.concurrent` | v1.3.6 | 结构化并发 | `channel`, `send`, `recv`, `spawn`, `parallel`, `race`, `after`, `schedule` |
+| `std.template` | v1.3.6 | 模板系统 | `render`, `template`, `compile`, `filter_apply`, `agent_prompt`, `agent_slot_fill` |
+| `std.pipe` | v1.3.x | 管道操作 | `apply` |
+| `std.defer` | v1.3.x | 延迟执行 | `schedule` |
+| `std.null_coalesce` | v1.3.x | 空值合并 | `apply` |
+| `std.string` | v1.3.x | 字符串插值 | `interpolate` |
+| `std.match` | v1.3.x | 模式匹配 | `pattern`, `destructure`, `variant` |
+| `std.struct` | v1.3.x | 结构体 | `register_struct`, `make_struct` |
+| `std.enum` | v1.3.x | 枚举 | `register_enum`, `make_variant` |
+| `std.trait` | v1.3.x | 特质 | `register_trait`, `register_impl`, `lookup` |
 
 !!! tip "命名空间工具调用"
     所有标准库工具通过命名空间前缀调用，如 `std.fs.file_read(path)`。详细参数和用法请参考 [标准库参考手册](stdlib_reference.md)。
@@ -305,6 +320,245 @@ flow main {
 
 ---
 
+## 🗄️ std.db.* — 数据库操作 (v1.3.5)
+
+Nexa v1.3.5 引入了三个数据库命名空间，支持 SQLite、PostgreSQL 和 Agent 记忆存储。
+
+| 命名空间 | 说明 | 核心工具 |
+|---------|------|---------|
+| `std.db.sqlite` | SQLite 操作 | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.postgres` | PostgreSQL 操作 | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.memory` | Agent 记忆 | `query`, `store`, `delete`, `list` |
+
+```nexa
+// 数据库查询助手
+agent DataAgent uses std.db.sqlite {
+    role: "数据查询助手",
+    prompt: "帮助用户查询和分析数据库中的数据"
+}
+
+flow main {
+    handle = std.db.sqlite.connect("data.db");
+    defer std.db.sqlite.close(handle);
+    
+    rows = std.db.sqlite.query(handle, "SELECT * FROM users");
+    print(rows);
+}
+```
+
+!!! info "详细用法"
+    数据库操作的完整 API 和示例请参考 [企业级架构特性](part5_enterprise.md) 和 [标准库参考手册](stdlib_reference.md)。
+
+---
+
+## 🔐 std.auth — 认证与 OAuth (v1.3.6)
+
+内置认证系统，支持 OAuth 2.0 PKCE、JWT、CSRF 和 API Key。
+
+| 核心工具 | 说明 |
+|---------|------|
+| `oauth` | 启动 OAuth 认证流程 |
+| `jwt_sign/jwt_verify/jwt_decode` | JWT 签发、验证、解码 |
+| `csrf_token/csrf_field/verify_csrf` | CSRF 保护 |
+| `api_key_generate/api_key_verify` | API Key 管理 |
+| `get_user/get_session/logout_user` | 用户会话管理 |
+
+!!! info "详细用法"
+    认证系统的完整 API 和示例请参考 [企业级架构特性](part5_enterprise.md) 和 [标准库参考手册](stdlib_reference.md)。
+
+---
+
+## 📦 std.kv — 键值存储 (v1.3.6)
+
+类型安全的键值存储，支持内存和持久化模式、TTL 过期和 Agent 专属 KV。
+
+| 核心工具 | 说明 |
+|---------|------|
+| `open/get/set/del/has/list` | 基本 KV 操作 |
+| `get_int/get_str/get_json` | 类型安全读取 |
+| `expire/ttl/incr/set_nx` | TTL、自增、条件写入 |
+| `agent_kv_query/agent_kv_store/agent_kv_context` | Agent 专属 KV |
+
+```nexa
+flow main {
+    kv_handle = std.kv.open(path: ":memory:");
+    std.kv.set(kv: kv_handle, key: "theme", value: "dark");
+    theme = std.kv.get(kv: kv_handle, key: "theme") ?? "light";
+    print(theme);  // "dark"
+}
+```
+
+!!! info "详细用法"
+    KV 存储的完整 API 和示例请参考 [企业级架构特性](part5_enterprise.md) 和 [标准库参考手册](stdlib_reference.md)。
+
+---
+
+## ⚡ std.concurrent — 结构化并发 (v1.3.6)
+
+提供 Channel、spawn、parallel、race 等并发原语。
+
+| 核心工具 | 说明 |
+|---------|------|
+| `channel/send/recv/recv_timeout/try_recv/close/select` | Channel 操作 |
+| `spawn/await_task/try_await/cancel_task` | 任务管理 |
+| `parallel/race` | 并行与竞争执行 |
+| `after/schedule/cancel_schedule/sleep_ms/thread_count` | 定时与调度 |
+
+!!! info "详细用法"
+    并发系统的完整 API 和示例请参考 [企业级架构特性](part5_enterprise.md) 和 [标准库参考手册](stdlib_reference.md)。
+
+---
+
+## 📄 std.template — 模板系统 (v1.3.6)
+
+内置模板引擎，支持变量插值、条件渲染、循环、过滤器和 Agent 插槽填充。
+
+| 核心工具 | 说明 |
+|---------|------|
+| `render/template/compile/render_compiled` | 模板渲染 |
+| `filter_apply/filter_default` | 过滤器 |
+| `agent_prompt/agent_slot_fill/agent_register` | Agent 模板 |
+
+```nexa
+flow main {
+    result = std.template.render(
+        template_str: "Hello {{name | default('Guest')}}!",
+        data: {"name": "Alice"}
+    );
+    print(result);  // "Hello Alice!"
+}
+```
+
+!!! info "详细用法"
+    模板系统的完整 API 和示例请参考 [企业级架构特性](part5_enterprise.md) 和 [标准库参考手册](stdlib_reference.md)。
+
+---
+
+## 🔗 std.pipe — 函数管道 (v1.3.x)
+
+`|>` 函数管道操作符的底层实现，将值作为第一个参数传入函数。
+
+```nexa
+flow main {
+    // x |> f 等价于 f(x)
+    result = raw_text |> std.json.json_parse |> std.json.json_get("name");
+}
+```
+
+!!! info "详细用法"
+    函数管道的完整语法和示例请参考 [高级特性](part2_advanced.md) 和 [语言参考手册](reference.md)。
+
+---
+
+## ⏳ std.defer — 延迟执行 (v1.3.x)
+
+`defer` 语句的底层实现，将表达式推迟到作用域退出时执行（LIFO 顺序）。
+
+```nexa
+flow main {
+    db_handle = std.db.sqlite.connect("data.db");
+    defer std.db.sqlite.close(db_handle);  // 退出时自动关闭
+    // ... 业务逻辑
+}
+```
+
+!!! info "详细用法"
+    defer 的完整语法和示例请参考 [高级特性](part2_advanced.md) 和 [语言参考手册](reference.md)。
+
+---
+
+## ❓ std.null_coalesce — 空值合并 (v1.3.x)
+
+`??` 操作符的底层实现，当左侧为 None/Option::None/空字典时返回右侧默认值。
+
+```nexa
+flow main {
+    value = kv.get("key") ?? "default";
+    result = Agent.run(input) ?? "no response";
+}
+```
+
+!!! info "详细用法"
+    空值合并的完整语法和示例请参考 [高级特性](part2_advanced.md) 和 [语言参考手册](reference.md)。
+
+---
+
+## 📝 std.string — 字符串插值 (v1.3.x)
+
+`#{expr}` 字符串插值的底层实现，将表达式值嵌入字符串。
+
+```nexa
+flow main {
+    name = "Alice";
+    greeting = "Hello, #{name}!";  // "Hello, Alice!"
+    score = 95;
+    report = "Score: #{score}/100, Grade: #{if score > 90 then 'A' else 'B'}";
+}
+```
+
+!!! info "详细用法"
+    字符串插值的完整语法和示例请参考 [语言参考手册](reference.md)。
+
+---
+
+## 🎯 std.match — 模式匹配 (v1.3.x)
+
+模式匹配的底层实现，支持 7 种模式类型。
+
+| 工具 | 说明 |
+|-----|------|
+| `pattern` | 匹配值与模式，返回绑定 |
+| `destructure` | 解构值 |
+| `variant` | 创建枚举变体值 |
+
+!!! info "详细用法"
+    模式匹配的完整语法和示例请参考 [高级特性](part2_advanced.md) 和 [语言参考手册](reference.md)。
+
+---
+
+## 🏗️ std.struct — 结构体 (v1.3.x)
+
+结构体定义和实例化的底层实现。
+
+| 工具 | 说明 |
+|-----|------|
+| `register_struct` | 注册结构体定义 |
+| `make_struct` | 创建结构体实例 |
+
+!!! info "详细用法"
+    结构体的完整语法和示例请参考 [高级特性](part2_advanced.md) 和 [语言参考手册](reference.md)。
+
+---
+
+## 🏷️ std.enum — 枚举 (v1.3.x)
+
+枚举定义和变体创建的底层实现。
+
+| 工具 | 说明 |
+|-----|------|
+| `register_enum` | 注册枚举定义 |
+| `make_variant` | 创建枚举变体实例 |
+
+!!! info "详细用法"
+    枚举的完整语法和示例请参考 [高级特性](part2_advanced.md) 和 [语言参考手册](reference.md)。
+
+---
+
+## 🧬 std.trait — 特质与实现 (v1.3.x)
+
+特质定义和实现的底层实现。
+
+| 工具 | 说明 |
+|-----|------|
+| `register_trait` | 注册特质定义 |
+| `register_impl` | 注册特质实现 |
+| `lookup` | 查找 ADT 定义 |
+
+!!! info "详细用法"
+    特质的完整语法和示例请参考 [高级特性](part2_advanced.md) 和 [语言参考手册](reference.md)。
+
+---
+
 ## 🔐 `secret`：敏感密钥的沙箱隔离
 
 在处理云端 API 和数据库对接时，绝对不能将 `API_KEY` 明文写在代码和 Prompt 里！Nexa 设计了原生的安全池 `.nxs` (Nexa Secure) 机制和 `secret()` 函数。
@@ -520,22 +774,45 @@ agent.run("使用 API key: sk-xxx");  // 危险！
 
 在本章中，我们学习了：
 
-| 模块 | 功能 | 使用场景 |
-|-----|------|---------|
-| `std.fs` | 文件系统 | 读写文件、目录管理 |
-| `std.http` | 网络请求 | API 调用、网页抓取 |
-| `std.time` | 时间操作 | 日程管理、时间感知 |
-| `std.shell` | 系统命令 | 运维操作、脚本执行 |
-| `std.ask_human` | 人机交互 | 审批流程、确认操作 |
-| `secret()` | 密钥管理 | API 认证、数据库连接 |
-| `img()` | 多模态 | 图像分析、视觉任务 |
+| 模块 | 版本 | 功能 | 使用场景 |
+|-----|------|------|---------|
+| `std.fs` | v0.5+ | 文件系统 | 读写文件、目录管理 |
+| `std.http` | v0.5+ | 网络请求 | API 调用、网页抓取 |
+| `std.time` | v0.5+ | 时间操作 | 日程管理、时间感知 |
+| `std.json` | v0.5+ | JSON 处理 | 数据解析与序列化 |
+| `std.text` | v0.5+ | 文本处理 | 文本分割、替换 |
+| `std.hash` | v0.5+ | 加密编码 | MD5、SHA256、Base64 |
+| `std.math` | v0.5+ | 数学运算 | 安全计算、随机数 |
+| `std.regex` | v0.5+ | 正则表达式 | 模式匹配与替换 |
+| `std.shell` | v0.5+ | 系统命令 | 运维操作、脚本执行 |
+| `std.ask_human` | v0.5+ | 人机交互 | 审批流程、确认操作 |
+| `std.db.sqlite` | v1.3.5 | SQLite | 数据持久化 |
+| `std.db.postgres` | v1.3.5 | PostgreSQL | 企业级数据库 |
+| `std.db.memory` | v1.3.5 | Agent 记忆 | Agent 上下文持久化 |
+| `std.auth` | v1.3.6 | 认证 | OAuth、JWT、CSRF |
+| `std.kv` | v1.3.6 | KV 存储 | 缓存、配置、Agent KV |
+| `std.concurrent` | v1.3.6 | 并发 | Channel、spawn、parallel |
+| `std.template` | v1.3.6 | 模板 | 动态内容生成 |
+| `std.pipe` | v1.3.x | 函数管道 | 数据变换链 |
+| `std.defer` | v1.3.x | 延迟执行 | 资源清理 |
+| `std.null_coalesce` | v1.3.x | 空值合并 | None 默认值 |
+| `std.string` | v1.3.x | 字符串插值 | 动态字符串构建 |
+| `std.match` | v1.3.x | 模式匹配 | 数据解构 |
+| `std.struct` | v1.3.x | 结构体 | 类型安全数据建模 |
+| `std.enum` | v1.3.x | 枚举 | ADT 变体 |
+| `std.trait` | v1.3.x | 特质 | 多态行为 |
+| `secret()` | v0.5+ | 密钥管理 | API 认证、数据库连接 |
+| `img()` | v0.8+ | 多模态 | 图像分析、视觉任务 |
 
-Nexa 对于物理世界模块的封装，永远是以降低开发者的心智门槛、坚守系统沙盒安全性为最高原则。这些功能为你搭建自动化王国奠定了最扎实的水电煤基建。
+Nexa 对于物理世界模块的封装，永远是以降低开发者的心智门槛、坚守系统沙盒安全性为最高原则。从 v0.5 的基础 10 个命名空间到 v1.3.x 的 25 个命名空间，这些功能为你搭建自动化王国奠定了最扎实的水电煤基建。
 
 ---
 
 ## 🔗 相关资源
 
 - [完整示例集合](examples.md) - 查看更多标准库使用示例
+- [标准库参考手册](stdlib_reference.md) - 所有 25 个命名空间的完整 API
+- [企业级架构特性](part5_enterprise.md) - 数据库/认证/KV/并发/模板详解
+- [高级特性](part2_advanced.md) - 管道/模式匹配/ADT 详解
 - [最佳实践](part6_best_practices.md) - 企业级开发经验
 - [常见问题与排查](troubleshooting.md) - 工具调用问题解决

@@ -4,770 +4,527 @@ comments: true
 
 # Nexa CLI Command Reference
 
-This document details all commands, parameters, and usage examples for the Nexa command-line tool.
+This document details all commands, parameters, and usage examples for the Nexa command-line tool. All commands strictly match the source code in `src/cli.py`.
 
 ---
 
 ## 📖 Overview
 
-Nexa CLI is the command-line interface for the Nexa language, providing compilation, execution, testing, and debugging features.
+Nexa CLI is the command-line interface for the Nexa language, providing compilation, execution, testing, inspection, linting, intent verification, HTTP serving, and background job management.
+
+### Command Overview
+
+| Command | Description | Version |
+|---------|-------------|---------|
+| `nexa build` | Compile .nx file to .py | v0.9.7+ |
+| `nexa run` | Compile and execute .nx file | v0.9.7+ |
+| `nexa test` | Compile and run tests | v0.9.7+ |
+| `nexa inspect` | Structural analysis (Agent-Native Tooling) | v1.3.0 |
+| `nexa validate` | Semantic validation | v1.3.0 |
+| `nexa lint` | Type system lint (Gradual Type System) | v1.3.1 |
+| `nexa intent check` | IDD intent check | v1.1.0 |
+| `nexa intent coverage` | IDD intent coverage | v1.1.0 |
+| `nexa serve` | Start HTTP Server | v1.3.4 |
+| `nexa routes` | List HTTP routes | v1.3.4 |
+| `nexa jobs` | Background job management | v1.3.3 |
+| `nexa workers` | Worker management | v1.3.3 |
+| `nexa cache clear` | Clear cache | v0.9.7+ |
 
 ### Installation Verification
 
 ```bash
 # Check installed version
 nexa --version
-# Output: Nexa v0.9.7-alpha
 
 # View help information
 nexa --help
 ```
 
 !!! tip "Version Display"
-    The `--version` flag displays the currently installed Nexa version, useful for verifying installation.
-    The latest version is **v0.9.7-alpha** (Python Transpiler) and **v1.0-alpha** (Rust AVM).
+    The `--version` flag displays the currently installed Nexa version. The current feature set covers v1.1–v1.3.x.
 
 ---
 
 ## 1. Core Commands
 
-### 1.1 `nexa run` - Run Program
-
-The main command for executing Nexa programs.
-
-**Syntax**:
-
-```bash
-nexa run [OPTIONS] <FILE>
-```
-
-**Parameters**:
-
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--file` | `-f` | Nexa file to run | Required |
-| `--model` | `-m` | Override default model | Config value |
-| `--verbose` | `-v` | Show verbose output | `false` |
-| `--debug` | `-d` | Enable debug mode | `false` |
-| `--output` | `-o` | Output directory | `./out` |
-| `--config` | `-c` | Configuration file path | `./nexa.yaml` |
-| `--dry-run` | | Compile only without execution | `false` |
-| `--env` | `-e` | Environment variable (KEY=VALUE) | - |
-
-**Examples**:
-
-```bash
-# Basic run
-nexa run main.nexa
-
-# Specify model
-nexa run main.nexa --model gpt-4
-
-# Debug mode
-nexa run main.nexa --debug --verbose
-
-# Set environment variables
-nexa run main.nexa -e API_KEY=sk-xxx -e DEBUG=true
-
-# Compile only without execution
-nexa run main.nexa --dry-run
-
-# Specify output directory
-nexa run main.nexa --output ./build
-```
-
-**Output Description**:
-
-```
-[INFO] Compiling main.nexa...
-[INFO] Generated: ./out/main.py
-[INFO] Executing...
-[INFO] Agent 'Analyst' started
-[INFO] Tool 'web_search' called with query: "..."
-[RESULT] Execution result...
-```
-
----
-
-### 1.2 `nexa compile` - Compile Program
+### 1.1 `nexa build` - Compile Program
 
 Compile Nexa code to Python code without execution.
 
 **Syntax**:
 
 ```bash
-nexa compile [OPTIONS] <FILE>
+nexa build <FILE>
 ```
 
 **Parameters**:
 
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--file` | `-f` | Nexa file to compile | Required |
-| `--output` | `-o` | Output directory | `./out` |
-| `--optimize` | `-O` | Optimization level (0-2) | `1` |
-| `--target` | `-t` | Target format (`python`, `ast`, `bytecode`) | `python` |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to compile | Required |
 
 **Examples**:
 
 ```bash
 # Compile to Python
-nexa compile main.nexa
+nexa build main.nx
 
-# Specify output directory
-nexa compile main.nexa -o ./dist
-
-# Output AST (Abstract Syntax Tree)
-nexa compile main.nexa --target ast
-
-# Output bytecode (AVM)
-nexa compile main.nexa --target bytecode
-
-# Highest optimization level
-nexa compile main.nexa --optimize 2
+# Compile a specific file
+nexa build examples/01_hello_world.nx
 ```
 
-**Compilation Artifacts**:
+**Output Description**:
 
 ```
-out/
-├── main.py           # Generated Python code
-├── main.ast.json     # AST structure (--target ast)
-└── main.bytecode     # AVM bytecode (--target bytecode)
+🔨 Compiling main.nx ...
+✨ Success! Built target: main.py
 ```
+
+The compilation artifact is a `.py` file in the same directory (e.g., `main.nx` → `main.py`).
+
+!!! note "include Support"
+    The `build` command supports `include` statements, which merge other .nx files' content into the current file's AST at the top.
+
+---
+
+### 1.2 `nexa run` - Run Program
+
+Compile and execute a Nexa program.
+
+**Syntax**:
+
+```bash
+nexa run <FILE>
+```
+
+**Parameters**:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to run | Required |
+
+**Examples**:
+
+```bash
+# Basic run
+nexa run main.nx
+
+# Run an example file
+nexa run examples/01_hello_world.nx
+```
+
+**Output Description**:
+
+```
+🔨 Compiling main.nx ...
+✨ Success! Built target: main.py
+🚀 Running main.py ...
+==================================================
+[INFO] Agent 'Analyst' started
+[RESULT] Execution result...
+==================================================
+✅ Execution Finished (Exit code: 0)
+```
+
+!!! warning "Interrupting Execution"
+    Press `Ctrl+C` during execution to interrupt. Output: `⚠️ Execution interrupted by user.` with exit code 130.
 
 ---
 
 ### 1.3 `nexa test` - Run Tests
 
-Execute Nexa test declarations.
+Compile a .nx file and execute all `test_` prefixed test functions.
 
 **Syntax**:
 
 ```bash
-nexa test [OPTIONS] [FILE_PATTERN]
+nexa test <FILE>
 ```
 
 **Parameters**:
 
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--pattern` | `-p` | Test name pattern | `*` |
-| `--verbose` | `-v` | Show verbose output | `false` |
-| `--report` | `-r` | Test report format (`text`, `json`, `html`) | `text` |
-| `--fail-fast` | | Stop after first failure | `false` |
-| `--coverage` | | Generate coverage report | `false` |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to test | Required |
 
 **Examples**:
 
 ```bash
-# Run all tests
-nexa test
-
-# Run tests in specific file
-nexa test tests/main_test.nexa
-
-# Run tests matching pattern
-nexa test --pattern "financial_*"
-
-# Verbose output + JSON report
-nexa test --verbose --report json
-
-# Generate coverage report
-nexa test --coverage --report html
+# Run tests
+nexa test main.nx
 ```
 
-**Test Output Example**:
+**Output Description**:
 
 ```
-Running tests...
-
-✓ test_basic_pipeline (0.45s)
-✓ test_intent_routing (1.23s)
-✓ test_protocol_validation (0.89s)
-✗ test_edge_case (0.12s) - Assertion failed: "output not as expected"
-
-Summary: 3 passed, 1 failed
-Total time: 2.69s
+🔨 Compiling main.nx ...
+✨ Success! Built target: main.py
+🧪 Testing main.nx ...
+==================================================
+[PASS] test_basic_pipeline
+[PASS] test_intent_routing
+[FAIL] test_edge_case
+      AssertionError: Output not as expected
+==================================================
+💥 1 failed, 2 passed.
 ```
 
 ---
 
-### 1.4 `nexa check` - Syntax Check
+## 2. Agent-Native Tooling Commands (v1.3.0)
 
-Static check of Nexa code syntax and types.
+### 2.1 `nexa inspect` - Structural Analysis
+
+Perform structural analysis on a .nx file, outputting descriptions of Agents, Tools, Flows, etc.
 
 **Syntax**:
 
 ```bash
-nexa check [OPTIONS] <FILE>
+nexa inspect <FILE> [--format json|text]
 ```
 
 **Parameters**:
 
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--strict` | | Enable strict mode | `false` |
-| `--format` | `-f` | Output format (`text`, `json`) | `text` |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to inspect | Required |
+| `--format` | Output format: `json` or `text` | `json` |
 
 **Examples**:
 
 ```bash
-# Basic check
-nexa check main.nexa
+# JSON format output
+nexa inspect main.nx --format json
 
-# Strict mode
-nexa check main.nexa --strict
+# Text format output
+nexa inspect main.nx --format text
+```
+
+---
+
+### 2.2 `nexa validate` - Semantic Validation
+
+Perform semantic validation on a .nx file, checking for syntax and semantic errors.
+
+**Syntax**:
+
+```bash
+nexa validate <FILE> [--json] [--quiet]
+```
+
+**Parameters**:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to validate | Required |
+| `--json` | JSON format output | `false` |
+| `--quiet` | Quiet mode, only output errors | `false` |
+
+**Examples**:
+
+```bash
+# Basic validation
+nexa validate main.nx
 
 # JSON format output
-nexa check main.nexa --format json
+nexa validate main.nx --json
+
+# Quiet mode
+nexa validate main.nx --quiet
 ```
 
-**Check Output Example**:
-
-```
-Checking main.nexa...
-
-Warning: Line 15 - Unused agent 'TempAgent'
-Error: Line 23 - Undefined protocol 'ReportFormat'
-  --> main.nexa:23:5
-   |
-23 | agent Reporter implements ReportFormat {
-   |                          ^^^^^^^^^^^^ not found
-   |
-
-Found 1 error, 1 warning
-```
+!!! warning "Exit Code"
+    Exit code is 1 when validation fails, useful for CI/CD pipelines.
 
 ---
 
-## 2. Project Management Commands
+### 2.3 `nexa lint` - Type System Lint (v1.3.1)
 
-### 2.1 `nexa init` - Initialize Project
-
-Create a new Nexa project structure.
+Run the gradual type system linter on a .nx file.
 
 **Syntax**:
 
 ```bash
-nexa init [OPTIONS] [PROJECT_NAME]
+nexa lint <FILE> [--strict] [--warn-untyped]
 ```
 
 **Parameters**:
 
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--template` | `-t` | Project template (`basic`, `web`, `cli`, `api`) | `basic` |
-| `--path` | `-p` | Project path | Current directory |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to lint | Required |
+| `--strict` | Strict mode: missing type annotations = lint error | `false` |
+| `--warn-untyped` | Warn mode: warn about missing type annotations | `false` |
 
 **Examples**:
 
 ```bash
-# Initialize in current directory
-nexa init
+# Default lint (only check code with type annotations)
+nexa lint app.nx
 
-# Create named project
-nexa init my-agent-app
+# Strict mode
+nexa lint app.nx --strict
 
-# Use template
-nexa init my-web-bot --template web
-
-# Specify path
-nexa init my-project --path ~/projects/
+# Warn about untyped code
+nexa lint app.nx --warn-untyped
 ```
 
-**Generated Project Structure**:
+!!! tip "Lint Mode Explanation"
+    - **Default mode**: Only check code that has type annotations
+    - **`--warn-untyped`**: Warn about missing type annotations
+    - **`--strict`**: Missing type annotations treated as lint errors (non-zero exit code)
 
-```
-my-agent-app/
-├── main.nexa          # Main entry file
-├── agents/            # Agent definitions directory
-│   └── example.nexa
-├── tools/             # Tool definitions directory
-│   └── helper.nexa
-├── tests/             # Tests directory
-│   └── main_test.nexa
-├── config/
-│   └── nexa.yaml      # Configuration file
-└── secrets.nxs        # Secrets file (needs configuration)
-```
+    Lint mode can also be set via `NEXA_LINT_MODE` environment variable or `nexa.toml` configuration file.
 
 ---
 
-### 2.2 `nexa config` - Configuration Management
+## 3. IDD Intent-Driven Development Commands (v1.1.0)
 
-View and manage Nexa configuration.
+### 3.1 `nexa intent check` - Intent Check
+
+Verify that code conforms to intent specifications defined in `.nxintent` files.
 
 **Syntax**:
 
 ```bash
-nexa config [COMMAND] [OPTIONS]
+nexa intent check <FILE> [--intent <INTENT_FILE>] [--verbose]
 ```
 
-**Subcommands**:
+**Parameters**:
 
-| Command | Description |
-|------|------|
-| `list` | List all configuration |
-| `get <KEY>` | Get configuration value |
-| `set <KEY> <VALUE>` | Set configuration value |
-| `init` | Initialize configuration file |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to check | Required |
+| `--intent` | Specify .nxintent file path | Auto-discover |
+| `--verbose` | Show verbose output | `false` |
 
 **Examples**:
 
 ```bash
-# List all configuration
-nexa config list
+# Basic intent check
+nexa intent check main.nx
 
-# Get specific configuration
-nexa config get model.default
+# Specify intent file
+nexa intent check main.nx --intent intents/main.nxintent
 
-# Set configuration
-nexa config set model.default gpt-4
-nexa config set debug.verbose true
-
-# Initialize configuration file
-nexa config init
+# Verbose output
+nexa intent check main.nx --verbose
 ```
 
-**Configuration File Example** (`nexa.yaml`):
-
-```yaml
-# Nexa configuration file
-model:
-  default: gpt-4
-  fallback: gpt-3.5-turbo
-  
-runtime:
-  timeout: 300
-  max_retries: 3
-  
-cache:
-  enabled: true
-  ttl: 3600
-  
-logging:
-  level: INFO
-  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-  
-secrets:
-  file: secrets.nxs
-```
+!!! warning "Exit Code"
+    Exit code is 1 when all intent checks fail.
 
 ---
 
-### 2.3 `nexa cache` - Cache Management
+### 3.2 `nexa intent coverage` - Intent Coverage
 
-Manage Nexa's LLM response cache.
+Display intent coverage report for the code.
 
 **Syntax**:
 
 ```bash
-nexa cache <COMMAND>
+nexa intent coverage <FILE> [--intent <INTENT_FILE>]
 ```
 
-**Subcommands**:
+**Parameters**:
 
-| Command | Description |
-|------|------|
-| `clear` | Clear cache directory |
-| `stats` | Show cache statistics |
-| `list` | List cache entries |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx source file to check | Required |
+| `--intent` | Specify .nxintent file path | Auto-discover |
 
 **Examples**:
 
 ```bash
-# Clear all cache
+# View coverage
+nexa intent coverage main.nx
+
+# Specify intent file
+nexa intent coverage main.nx --intent intents/main.nxintent
+```
+
+!!! tip "Improving Coverage"
+    When coverage is below 100%, the system suggests adding `@implements` annotations to increase coverage.
+
+---
+
+## 4. HTTP Server Commands (v1.3.4)
+
+### 4.1 `nexa serve` - Start HTTP Server
+
+Compile a .nx file and start the built-in HTTP server.
+
+**Syntax**:
+
+```bash
+nexa serve <FILE> [--port <PORT>]
+```
+
+**Parameters**:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx file with server declarations | Required |
+| `--port` | Specify server port | Value declared in file |
+
+**Examples**:
+
+```bash
+# Start HTTP Server
+nexa serve web_app.nx
+
+# Specify port
+nexa serve web_app.nx --port 3000
+```
+
+!!! note "server DSL"
+    Use the `server` DSL in .nx files to define HTTP servers:
+    ```nexa
+    server 8080 {
+        static "/assets" from "./public"
+        cors { origins: ["*"], methods: ["GET", "POST"] }
+        route GET "/chat" => ChatBot
+        route POST "/analyze" => DataExtractor |>> Analyzer
+    }
+    ```
+
+---
+
+### 4.2 `nexa routes` - List Routes
+
+Parse a .nx file and list all HTTP routes.
+
+**Syntax**:
+
+```bash
+nexa routes <FILE> [--json]
+```
+
+**Parameters**:
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `FILE` | Path to the .nx file with server declarations | Required |
+| `--json` | JSON format output | `false` |
+
+**Examples**:
+
+```bash
+# List routes
+nexa routes web_app.nx
+
+# JSON format output
+nexa routes web_app.nx --json
+```
+
+---
+
+## 5. Background Job Management Commands (v1.3.3)
+
+### 5.1 `nexa jobs` - Job Management
+
+Manage background jobs in the Job system.
+
+**Subcommands**:
+
+| Subcommand | Parameters | Description |
+|------------|------------|-------------|
+| `list` | `[--status <STATUS>]` | List all jobs, optionally filter by status |
+| `status` | `<JOB_ID>` | View status of a specific job |
+| `cancel` | `<JOB_ID>` | Cancel a specific job |
+| `retry` | `<JOB_ID>` | Retry a dead letter job |
+| `clear` | - | Clear completed/expired/cancelled jobs |
+
+**Status filter options** (`--status`):
+
+`pending`, `running`, `completed`, `failed`, `dead`, `cancelled`, `expired`
+
+**Examples**:
+
+```bash
+# List all jobs
+nexa jobs list
+
+# List only failed jobs
+nexa jobs list --status failed
+
+# View job status
+nexa jobs status job_123
+
+# Cancel a job
+nexa jobs cancel job_123
+
+# Retry a dead letter job
+nexa jobs retry job_456
+
+# Clear completed jobs
+nexa jobs clear
+```
+
+---
+
+### 5.2 `nexa workers` - Worker Management
+
+Manage background Job Workers.
+
+**Subcommands**:
+
+| Subcommand | Parameters | Description |
+|------------|------------|-------------|
+| `start` | `<FILE>` | Start a worker (requires compiling .nx file with job definitions) |
+| `status` | - | View worker and queue status |
+
+**Examples**:
+
+```bash
+# Start a worker
+nexa workers start jobs_app.nx
+
+# View worker status
+nexa workers status
+```
+
+!!! note "job DSL"
+    Use the `job` DSL in .nx files to define background jobs:
+    ```nexa
+    job SendEmail on "emails" (retry: 2, timeout: 120) {
+        perform(user_id) { ... }
+        on_failure(error, attempt) { ... }
+    }
+    ```
+
+---
+
+## 6. Cache Management Commands
+
+### 6.1 `nexa cache clear` - Clear Cache
+
+Clear the `.nexa_cache/` cache directory.
+
+**Syntax**:
+
+```bash
+nexa cache clear
+```
+
+**Examples**:
+
+```bash
 nexa cache clear
 # Output: ✅ Cache cleared successfully.
-
-# View cache statistics
-nexa cache stats
-
-# List cache entries
-nexa cache list
 ```
 
 !!! tip "Cache Information"
-    Nexa's intelligent cache system stores LLM responses in the `.nexa_cache/` directory:
-    - **LLM Cache**: Stored in `.nexa_cache/llm_cache.json`
-    - **Semantic Cache**: Intelligent matching based on input similarity
-    - **TTL Support**: Configurable cache expiration time
-    
-    Use `nexa cache clear` to clean the cache directory and free disk space.
-
----
-
-### 2.4 `nexa doctor` - Environment Diagnosis
-
-Check runtime environment and dependencies.
-
-**Syntax**:
-
-```bash
-nexa doctor
-```
-
-**Output Example**:
-
-```
-Nexa Environment Diagnostic
-
-✓ Nexa version: 1.0.0-alpha
-✓ Python version: 3.11.5
-✓ Python path: /usr/bin/python3
-✓ Dependencies installed
-✓ Configuration valid
-
-Model Connectivity:
-✓ OpenAI API: Connected
-✓ Anthropic API: Connected
-✗ Local LLM: Not configured
-
-Warnings:
-! OpenAI API key expires in 7 days
-! Cache directory is large (2.3GB)
-
-Environment Status: HEALTHY (with warnings)
-```
-
----
-
-## 3. Interactive Mode Commands
-
-### 3.1 `nexa repl` - Interactive REPL
-
-Start an interactive Nexa interpreter.
-
-**Syntax**:
-
-```bash
-nexa repl [OPTIONS]
-```
-
-**Parameters**:
-
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--model` | `-m` | Default model | Config value |
-| `--history` | | History file | `~/.nexa/history` |
-
-**REPL Commands**:
-
-| Command | Description |
-|------|------|
-| `.help` | Show help |
-| `.load <file>` | Load file |
-| `.run <agent>` | Run specified Agent |
-| `.clear` | Clear session |
-| `.exit` | Exit REPL |
-
-**Example Session**:
-
-```bash
-$ nexa repl
-
-Nexa REPL v1.0.0-alpha
-Type .help for commands
-
->>> agent Greeter {
-...     role: "Friendly Greeter",
-...     prompt: "Greet the user in a friendly manner"
-... }
-Created agent: Greeter
-
->>> Greeter.run("Hello")
-Hello! Nice to meet you! How can I help you?
-
->>> .load examples/chat.nexa
-Loaded 3 agents, 2 tools
-
->>> .exit
-Goodbye!
-```
-
----
-
-### 3.2 `nexa chat` - Chat Mode
-
-Direct conversational interaction with an Agent.
-
-**Syntax**:
-
-```bash
-nexa chat [OPTIONS] [AGENT_NAME]
-```
-
-**Parameters**:
-
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--model` | `-m` | Specify model | Config value |
-| `--system` | `-s` | System prompt | - |
-| `--stream` | | Enable streaming output | `true` |
-
-**Examples**:
-
-```bash
-# Start default chat
-nexa chat
-
-# Specify Agent
-nexa chat Assistant
-
-# Specify model and prompt
-nexa chat --model claude-3 --system "You are a professional programming assistant"
-
-# Disable streaming output
-nexa chat --no-stream
-```
-
----
-
-## 4. Tools and Package Management
-
-### 4.1 `nexa tool` - Tool Management
-
-Manage custom tools.
-
-**Subcommands**:
-
-| Command | Description |
-|------|------|
-| `list` | List available tools |
-| `add <name>` | Add new tool |
-| `remove <name>` | Remove tool |
-| `validate <file>` | Validate tool definition |
-
-**Examples**:
-
-```bash
-# List tools
-nexa tool list
-
-# Add tool
-nexa tool add my_custom_tool
-
-# Validate tool definition
-nexa tool validate tools/api.nexa
-```
-
----
-
-### 4.2 `nexa mcp` - MCP Management
-
-Manage MCP (Model Context Protocol) servers.
-
-**Subcommands**:
-
-| Command | Description |
-|------|------|
-| `list` | List configured MCP servers |
-| `add <name> <url>` | Add MCP server |
-| `remove <name>` | Remove MCP server |
-| `test <name>` | Test MCP connection |
-
-**Examples**:
-
-```bash
-# List MCP servers
-nexa mcp list
-
-# Add MCP server
-nexa mcp add web-search "github.com/nexa-ai/web-search-mcp"
-
-# Test connection
-nexa mcp test web-search
-
-# Remove server
-nexa mcp remove web-search
-```
-
----
-
-## 5. Debug and Diagnostic Commands
-
-### 5.1 `nexa debug` - Debug Mode
-
-Run program with verbose debug output.
-
-**Syntax**:
-
-```bash
-nexa debug [OPTIONS] <FILE>
-```
-
-**Parameters**:
-
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--breakpoint` | `-b` | Set breakpoint (line number) | - |
-| `--trace` | | Enable execution tracing | `false` |
-| `--profile` | | Enable performance profiling | `false` |
-
-**Examples**:
-
-```bash
-# Debug mode run
-nexa debug main.nexa
-
-# Set breakpoint
-nexa debug main.nexa --breakpoint 25
-
-# Execution tracing
-nexa debug main.nexa --trace
-
-# Performance profiling
-nexa debug main.nexa --profile --output ./profile
-```
-
-**Debug Output Example**:
-
-```
-[DEBUG] Loading main.nexa...
-[DEBUG] Parsing AST (12ms)
-[DEBUG] Type checking (5ms)
-[DEBUG] Compiling to Python (23ms)
-
-[TRACE] main() started
-[TRACE] → Agent 'Analyst' called with input: "..."
-[TRACE]   → Tool 'web_search' called
-[TRACE]   ← Tool returned (1.2s)
-[TRACE] ← Agent returned (2.5s)
-[TRACE] main() completed
-
-Profile Summary:
-- Agent calls: 3
-- Tool calls: 5
-- Total time: 4.2s
-- Token usage: 2,450
-```
-
----
-
-### 5.2 `nexa inspect` - Code Inspection
-
-Inspect the structure of Agents, Tools, and Protocols.
-
-**Syntax**:
-
-```bash
-nexa inspect [OPTIONS] <FILE> [ELEMENT]
-```
-
-**Parameters**:
-
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--format` | `-f` | Output format (`text`, `json`, `tree`) | `text` |
-
-**Examples**:
-
-```bash
-# Inspect all elements in file
-nexa inspect main.nexa
-
-# Inspect specific Agent
-nexa inspect main.nexa Analyst
-
-# Tree structure output
-nexa inspect main.nexa --format tree
-
-# JSON format output (for program parsing)
-nexa inspect main.nexa --format json
-```
-
-**Output Example**:
-
-```
-Agent: Analyst
-├── Role: Financial Analyst
-├── Model: gpt-4
-├── Memory: session
-├── Tools:
-│   ├── web_search
-│   └── calculator
-├── Protocol: Report
-│   ├── title: string
-│   ├── summary: string
-│   └── score: number
-└── Modifiers:
-    ├── @limit(max_tokens=2048)
-    └── @timeout(seconds=60)
-```
-
----
-
-## 6. Output and Logging Commands
-
-### 6.1 `nexa logs` - Log Viewing
-
-View runtime logs.
-
-**Syntax**:
-
-```bash
-nexa logs [OPTIONS]
-```
-
-**Parameters**:
-
-| Parameter | Short | Description | Default |
-|------|------|------|--------|
-| `--follow` | `-f` | Follow logs in real-time | `false` |
-| `--lines` | `-n` | Number of lines to show | `100` |
-| `--level` | `-l` | Log level (`DEBUG`, `INFO`, `WARN`, `ERROR`) | `INFO` |
-| `--since` | | Time range (`1h`, `1d`, `1w`) | - |
-
-**Examples**:
-
-```bash
-# View recent logs
-nexa logs
-
-# Real-time follow
-nexa logs --follow
-
-# View last 500 lines
-nexa logs --lines 500
-
-# View only error logs
-nexa logs --level ERROR
-
-# View logs from last hour
-nexa logs --since 1h
-```
+    If the cache directory doesn't exist, output: `ℹ️ No cache directory found.`
 
 ---
 
 ## 7. Global Options
 
-The following options apply to all commands:
-
-| Option | Short | Description |
-|------|------|------|
-| `--help` | `-h` | Show help information |
-| `--version` | `-V` | Show version number |
-| `--quiet` | `-q` | Quiet mode, only output errors |
-| `--verbose` | `-v` | Verbose output |
-| `--color` | | Control color output (`auto`, `always`, `never`) |
-| `--config` | `-c` | Specify configuration file path |
-
-**Examples**:
-
-```bash
-# Quiet run
-nexa run main.nexa --quiet
-
-# Verbose output
-nexa run main.nexa -vvv
-
-# Disable color output
-nexa run main.nexa --color never
-
-# Specify configuration file
-nexa run main.nexa --config ./custom/nexa.yaml
-```
+| Option | Description |
+|--------|-------------|
+| `--version` / `-v` | Display version number and exit |
+| `--help` | Display help information |
 
 ---
 
@@ -776,42 +533,30 @@ nexa run main.nexa --config ./custom/nexa.yaml
 Nexa CLI supports the following environment variables:
 
 | Variable | Description | Default |
-|------|------|--------|
-| `NEXA_CONFIG` | Configuration file path | `./nexa.yaml` |
-| `NEXA_MODEL` | Default model | Config value |
-| `NEXA_API_KEY` | API key | - |
-| `NEXA_LOG_LEVEL` | Log level | `INFO` |
-| `NEXA_CACHE_DIR` | Cache directory | `~/.nexa/cache` |
-| `NEXA_OUTPUT_DIR` | Output directory | `./out` |
+|----------|-------------|---------|
+| `NEXA_TYPE_MODE` | Runtime type checking mode (`strict`, `warn`, `forgiving`) | `warn` |
+| `NEXA_LINT_MODE` | Lint type checking mode (`default`, `warn`, `strict`) | `default` |
+| `NEXA_PORT` | HTTP Server port override | Value declared in file |
+| `PYTHONPATH` | Python module search path | Auto-set |
 
-**Examples**:
-
-```bash
-# Set environment variables
-export NEXA_MODEL=gpt-4
-export NEXA_LOG_LEVEL=DEBUG
-nexa run main.nexa
-```
+!!! tip "Type Mode Priority"
+    `NEXA_TYPE_MODE` priority: CLI flag > Environment variable > `nexa.toml` config > Default (`warn`)
 
 ---
 
 ## 9. Exit Codes
 
 | Exit Code | Description |
-|--------|------|
+|------------|-------------|
 | `0` | Success |
-| `1` | General error |
-| `2` | Configuration error |
-| `3` | Compilation error |
-| `4` | Runtime error |
-| `5` | Test failure |
-| `6` | Network error |
-| `7` | Authentication error |
+| `1` | General error / Validation failed / Intent check failed |
+| `130` | User interrupt (Ctrl+C) |
 
 ---
 
 ## 🔗 Related Resources
 
-- [Language Reference Manual](reference.md)
-- [Troubleshooting Guide](troubleshooting.md)
-- [Quickstart](quickstart.md)
+- [Language Reference Manual](reference.en.md)
+- [Stdlib API](stdlib_reference.en.md)
+- [Troubleshooting Guide](troubleshooting.en.md)
+- [Quickstart](quickstart.en.md)

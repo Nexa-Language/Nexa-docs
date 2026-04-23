@@ -17,347 +17,47 @@ comments: true
 
 ---
 
-## 🔥 Core Advantage: Code Comparison
+## 🆕 v1.1–v1.3.x Major Updates: 16 Core Features
 
-Nexa simplifies complex multi-agent collaboration into elegant declarative syntax. Click the button below to experience the difference between Nexa and traditional approaches:
+Since the v1.0-alpha release, Nexa has undergone intensive iteration across 4 priority tiers (P0–P3), adding **16 core features** with **~1500+ tests** in total. Here's an overview by priority tier:
 
-<div class="code-comparison">
+### 🔴 P0: Core Differentiation Features
 
-<div class="code-example">
-<span class="example-badge">Example 1</span>
-<span class="example-title">Agent Definition & Invocation</span>
+| Feature | Version | Description |
+|---------|---------|-------------|
+| **Intent-Driven Development (IDD)** | v1.1.0 | `intent` declarations + `nexa intent-check/coverage` verification, 104 tests |
+| **Design by Contract (DbC)** | v1.2.0 | `requires/ensures/invariant` pre/post/invariant conditions, 47 tests |
+| **Agent-Native Tooling** | v1.3.0 | `nexa inspect/validate/lint` semantic-level code analysis, 41 tests |
 
-<div class="code-toggle-card traditional" id="card-1-traditional">
-  <div class="card-header">
-    <span class="card-title">🐍 Traditional Python + LangChain</span>
-    <span class="code-lines">12 lines</span>
-  </div>
-  <div class="card-content">
-```python
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema import StrOutputParser
+### 🟡 P1: Essential Features
 
-# Define chain
-llm = ChatOpenAI(model="gpt-4", temperature=0.7)
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a professional English-Chinese translator"),
-    ("human", "{input}")
-])
-chain = prompt | llm | StrOutputParser()
+| Feature | Version | Description |
+|---------|---------|-------------|
+| **Gradual Type System** | v1.3.1 | `Int/String/Option[T]/Result[T,E]` + `NEXA_TYPE_MODE` three-tier mode, 79 tests |
+| **Error Propagation (`?` / `otherwise`)** | v1.3.2 | Rust-style `?` propagation + `otherwise` fallback, 82 tests |
+| **Background Job System** | v1.3.3 | `job` DSL + priority queue + cron + retry, 73 tests |
+| **Built-In HTTP Server** | v1.3.4 | `server` DSL + CORS/CSP + routing + hot reload, 94 tests |
+| **Database Integration** | v1.3.5 | SQLite/PostgreSQL + Agent memory queries, 79+5 tests |
 
-# Invoke
-result = chain.invoke({"input": "Hello, World!"})
-print(result)
-```
-  </div>
-</div>
+### 🟢 P2: Advanced Features
 
-<div class="code-toggle-card nexa" id="card-1-nexa">
-  <div class="card-header">
-    <span class="card-title">✨ Nexa</span>
-    <span class="code-lines">4 lines</span>
-  </div>
-  <div class="card-content">
-```nexa
-agent Translator {
-    role: "English-Chinese Translator",
-    model: "gpt-4"
-}
+| Feature | Version | Description |
+|---------|---------|-------------|
+| **Auth & OAuth** | v1.3.6 | API Key + JWT + OAuth 2.0 PKCE, 79+5 tests |
+| **Structured Concurrency** | v1.3.6 | `spawn/parallel/race/channel` + 18 APIs, 172 tests |
+| **KV Store** | v1.3.6 | SQLite backend + TTL + Agent KV, 81 tests |
+| **Template System** | v1.3.6 | `template"""..."""` + 30+ filters + Agent templates, 209 tests |
 
-result = Translator.run("Hello, World!")
-```
-  </div>
-</div>
+### 🔵 P3: Language Expressiveness
 
-<div class="toggle-button-container">
-  <button class="code-toggle-btn" onclick="
-    var trad = document.getElementById('card-1-traditional');
-    var nexa = document.getElementById('card-1-nexa');
-    var btn = event.target;
-    if (nexa.classList.contains('active')) {
-      nexa.classList.remove('active');
-      trad.classList.remove('hidden');
-      btn.innerHTML = '🔄 Click to compare with Nexa';
-      btn.classList.remove('showing-nexa');
-    } else {
-      nexa.classList.add('active');
-      trad.classList.add('hidden');
-      btn.innerHTML = '🔙 Back to traditional code';
-      btn.classList.add('showing-nexa');
-    }
-  ">🔄 Click to compare with Nexa</button>
-</div>
-
-<div class="comparison-note">
-<strong>Key Advantage:</strong> From 12 lines down to 4, no need to understand Chain, PromptTemplate, StrOutputParser and other complex concepts. Agent definition is configuration, invocation is execution.<span class="reduction-badge">67% reduction</span>
-</div>
-</div>
-
----
-
-<div class="code-example">
-<span class="example-badge">Example 2</span>
-<span class="example-title">Pipeline Orchestration</span>
-
-<div class="code-toggle-card traditional" id="card-2-traditional">
-  <div class="card-header">
-    <span class="card-title">🐍 Traditional Python + LangChain</span>
-    <span class="code-lines">18 lines</span>
-  </div>
-  <div class="card-content">
-```python
-import asyncio
-from langchain.chat_models import ChatOpenAI
-
-llm = ChatOpenAI(model="gpt-4")
-
-async def pipeline(topic: str):
-    # Step 1: Writing
-    writer_prompt = f"Write an article about {topic}"
-    draft = await llm.ainvoke(writer_prompt)
-    
-    # Step 2: Review
-    reviewer_prompt = f"Review and identify issues: {draft.content}"
-    review = await llm.ainvoke(reviewer_prompt)
-    
-    # Step 3: Polish
-    editor_prompt = f"Polish based on review: {draft.content}"
-    final = await llm.ainvoke(editor_prompt)
-    
-    return final.content
-
-result = asyncio.run(pipeline("Artificial Intelligence"))
-```
-  </div>
-</div>
-
-<div class="code-toggle-card nexa" id="card-2-nexa">
-  <div class="card-header">
-    <span class="card-title">✨ Nexa</span>
-    <span class="code-lines">5 lines</span>
-  </div>
-  <div class="card-content">
-```nexa
-agent Writer { role: "Writer", prompt: "Write articles" }
-agent Reviewer { role: "Reviewer", prompt: "Review articles" }
-agent Editor { role: "Editor", prompt: "Polish articles" }
-
-flow main {
-    result = "Artificial Intelligence" >> Writer >> Reviewer >> Editor;
-}
-```
-  </div>
-</div>
-
-<div class="toggle-button-container">
-  <button class="code-toggle-btn" onclick="
-    var trad = document.getElementById('card-2-traditional');
-    var nexa = document.getElementById('card-2-nexa');
-    var btn = event.target;
-    if (nexa.classList.contains('active')) {
-      nexa.classList.remove('active');
-      trad.classList.remove('hidden');
-      btn.innerHTML = '🔄 Click to compare with Nexa';
-      btn.classList.remove('showing-nexa');
-    } else {
-      nexa.classList.add('active');
-      trad.classList.add('hidden');
-      btn.innerHTML = '🔙 Back to traditional code';
-      btn.classList.add('showing-nexa');
-    }
-  ">🔄 Click to compare with Nexa</button>
-</div>
-
-<div class="comparison-note">
-<strong>Key Advantage:</strong> Pipeline operator <code>>></code> makes data flow crystal clear, no need to manually pass intermediate variables or handle async context. The compiler automatically optimizes execution order.<span class="reduction-badge">72% reduction</span>
-</div>
-</div>
-
----
-
-<div class="code-example">
-<span class="example-badge">Example 3</span>
-<span class="example-title">Intent Routing</span>
-
-<div class="code-toggle-card traditional" id="card-3-traditional">
-  <div class="card-header">
-    <span class="card-title">🐍 Traditional Python + re</span>
-    <span class="code-lines">17 lines</span>
-  </div>
-  <div class="card-content">
-```python
-import re
-from langchain.chat_models import ChatOpenAI
-
-llm = ChatOpenAI(model="gpt-4")
-
-def route_request(user_input: str):
-    # Hand-written regex - fragile and hard to maintain
-    if re.search(r'weather|temperature|forecast', user_input, re.I):
-        prompt = f"Answer weather question: {user_input}"
-        return llm.invoke(prompt).content
-    elif re.search(r'news|headline|latest', user_input, re.I):
-        prompt = f"Answer news question: {user_input}"
-        return llm.invoke(prompt).content
-    elif re.search(r'translate|translation', user_input, re.I):
-        prompt = f"Translate: {user_input}"
-        return llm.invoke(prompt).content
-    else:
-        return llm.invoke(f"General chat: {user_input}").content
-
-result = route_request("What's the weather like in Beijing?")
-```
-  </div>
-</div>
-
-<div class="code-toggle-card nexa" id="card-3-nexa">
-  <div class="card-header">
-    <span class="card-title">✨ Nexa</span>
-    <span class="code-lines">10 lines</span>
-  </div>
-  <div class="card-content">
-```nexa
-agent WeatherBot { role: "Weather Assistant" }
-agent NewsBot { role: "News Assistant" }
-agent Translator { role: "Translation Assistant" }
-agent ChatBot { role: "Chat Assistant" }
-
-flow main {
-    result = match user_input {
-        intent("Check weather") => WeatherBot.run(user_input),
-        intent("Check news") => NewsBot.run(user_input),
-        intent("Translate content") => Translator.run(user_input),
-        _ => ChatBot.run(user_input)
-    };
-}
-```
-  </div>
-</div>
-
-<div class="toggle-button-container">
-  <button class="code-toggle-btn" onclick="
-    var trad = document.getElementById('card-3-traditional');
-    var nexa = document.getElementById('card-3-nexa');
-    var btn = event.target;
-    if (nexa.classList.contains('active')) {
-      nexa.classList.remove('active');
-      trad.classList.remove('hidden');
-      btn.innerHTML = '🔄 Click to compare with Nexa';
-      btn.classList.remove('showing-nexa');
-    } else {
-      nexa.classList.add('active');
-      trad.classList.add('hidden');
-      btn.innerHTML = '🔙 Back to traditional code';
-      btn.classList.add('showing-nexa');
-    }
-  ">🔄 Click to compare with Nexa</button>
-</div>
-
-<div class="comparison-note">
-<strong>Key Advantage:</strong> <code>intent()</code> semantic matching replaces fragile regex expressions, using embedding vectors for semantic similarity matching - smarter and more flexible.<span class="reduction-badge">41% reduction</span>
-</div>
-</div>
-
----
-
-<div class="code-example">
-<span class="example-badge">Example 4</span>
-<span class="example-title">Concurrent DAG Execution</span>
-
-<div class="code-toggle-card traditional" id="card-4-traditional">
-  <div class="card-header">
-    <span class="card-title">🐍 Traditional Python + asyncio</span>
-    <span class="code-lines">23 lines</span>
-  </div>
-  <div class="card-content">
-```python
-import asyncio
-from langchain.chat_models import ChatOpenAI
-
-llm = ChatOpenAI(model="gpt-4")
-
-async def researcher(task: str, name: str):
-    prompt = f"{name} analysis: {task}"
-    return {name: await llm.ainvoke(prompt)}
-
-async def parallel_research(topic: str):
-    # Execute 3 researchers in parallel
-    tasks = [
-        researcher(topic, "Tech Researcher"),
-        researcher(topic, "Market Researcher"),
-        researcher(topic, "Finance Researcher")
-    ]
-    results = await asyncio.gather(*tasks)
-    
-    # Summarize results
-    combined = "\n".join([str(r) for r in results])
-    summary_prompt = f"Summarize these reports:\n{combined}"
-    final = await llm.ainvoke(summary_prompt)
-    
-    return final.content
-
-result = asyncio.run(parallel_research("AI Industry Outlook"))
-```
-  </div>
-</div>
-
-<div class="code-toggle-card nexa" id="card-4-nexa">
-  <div class="card-header">
-    <span class="card-title">✨ Nexa</span>
-    <span class="code-lines">6 lines</span>
-  </div>
-  <div class="card-content">
-```nexa
-agent TechResearcher { role: "Tech Researcher" }
-agent MarketResearcher { role: "Market Researcher" }
-agent FinanceResearcher { role: "Finance Researcher" }
-agent Summarizer { role: "Report Summarizer" }
-
-flow main {
-    result = "AI Industry Outlook" 
-        |>> [TechResearcher, MarketResearcher, FinanceResearcher] 
-        &>> Summarizer;
-}
-```
-  </div>
-</div>
-
-<div class="toggle-button-container">
-  <button class="code-toggle-btn" onclick="
-    var trad = document.getElementById('card-4-traditional');
-    var nexa = document.getElementById('card-4-nexa');
-    var btn = event.target;
-    if (nexa.classList.contains('active')) {
-      nexa.classList.remove('active');
-      trad.classList.remove('hidden');
-      btn.innerHTML = '🔄 Click to compare with Nexa';
-      btn.classList.remove('showing-nexa');
-    } else {
-      nexa.classList.add('active');
-      trad.classList.add('hidden');
-      btn.innerHTML = '🔙 Back to traditional code';
-      btn.classList.add('showing-nexa');
-    }
-  ">🔄 Click to compare with Nexa</button>
-</div>
-
-<div class="comparison-note">
-<strong>Key Advantage:</strong> DAG operators <code>|>></code> (fan-out) and <code>&>></code> (merge) implement concurrent orchestration in a single line, without needing to understand asyncio, gather, coroutines.<span class="reduction-badge">74% reduction</span>
-</div>
-</div>
-
-</div>
-
-### 📊 Code Volume Comparison Summary
-
-| Scenario | Traditional | Nexa | Reduction |
-|:---------|:-----------:|:----:|:---------:|
-| Agent Definition & Invocation | 12 lines | 4 lines | **67%** ↓ |
-| Pipeline Orchestration | 18 lines | 5 lines | **72%** ↓ |
-| Intent Routing | 17 lines | 10 lines | **41%** ↓ |
-| Concurrent DAG Execution | 23 lines | 6 lines | **74%** ↓ |
-| **Average** | **17.5 lines** | **6.25 lines** | **63%** ↓ |
+| Feature | Version | Description |
+|---------|---------|-------------|
+| **Pipe Operator `|>`** | v1.3.x | `x |> f` left-to-right data flow, 84 tests |
+| **Defer Statement** | v1.3.x | LIFO cleanup, similar to Go defer, 84 tests |
+| **Null Coalescing `??`** | v1.3.x | `expr ?? fallback` safe fallback, 84 tests |
+| **String Interpolation `#{}`** | v1.3.x | `"Hello #{name}"` Ruby-style interpolation, 100 tests |
+| **Pattern Matching + Destructuring** | v1.3.x | 7 pattern types + `match/let/for` destructuring, 91 tests |
+| **ADT (struct/enum/trait/impl)** | v1.3.x | Algebraic Data Type system, 100 tests |
 
 ---
 
@@ -370,7 +70,7 @@ Nexa v1.0-alpha introduces the revolutionary **Agent Virtual Machine (AVM)** —
 Transitioning from Python script transpilation to a standalone compiled Agent Virtual Machine written in Rust:
 
 | Feature | Description |
-|-----|------|
+|---------|-------------|
 | **High-Performance Bytecode Interpreter** | Native execution of compiled Nexa bytecode |
 | **Complete Compiler Frontend** | Lexer → Parser → AST → Bytecode |
 | **110+ Test Coverage** | Full-link testing ensuring stability |
@@ -403,7 +103,7 @@ AVM manages memory, automatically performing vectorized swapping of conversation
 ### Performance Comparison
 
 | Metric | Python Transpiler | Rust AVM |
-|------|--------------|----------|
+|--------|-------------------|----------|
 | Compile Time | ~100ms | ~5ms |
 | Startup Time | ~500ms | ~10ms |
 | Memory Usage | ~100MB | ~10MB |
@@ -516,6 +216,104 @@ agent Reviewer implements ReviewResult {
 }
 ```
 
+### Design by Contract (`requires` & `ensures`)
+
+v1.2.0 introduces Design by Contract, declaring pre/post conditions in function signatures:
+
+```nexa
+flow transfer(amount: int) -> Result
+    requires: amount > 0
+    requires: "sender has sufficient balance"
+    ensures: result.success == true
+{
+    // Execute transfer logic
+}
+```
+
+### Gradual Type System
+
+v1.3.1 introduces optional type annotations with `strict/warn/forgiving` three-tier mode:
+
+```nexa
+flow calculate(x: int, y: int) -> int {
+    return x + y
+}
+
+// Option and Result types
+let opt: Option[int] = Some(42)
+let res: Result[string, Error] = Ok("success")
+```
+
+### Error Propagation (`?` & `otherwise`)
+
+v1.3.2 introduces Rust-style error propagation operators:
+
+```nexa
+let value = parse(input) ?           // Propagate error
+let result = risky_op() otherwise "fallback"  // Provide fallback value
+```
+
+### Pattern Matching & ADT
+
+v1.3.x introduces 7 pattern types and an Algebraic Data Type system:
+
+```nexa
+// ADT definitions
+struct Point { x: Int, y: Int }
+enum Option { Some(value), None }
+enum Result { Ok(value), Err(error) }
+
+// Pattern matching
+match result {
+    Option::Some(answer) => answer
+    Option::None => "no response"
+}
+
+// Destructuring
+let (key, value) = entry
+```
+
+### Pipe Operators (`|>` & `>>`)
+
+Two pipe operators for function chaining and Agent pipelines respectively:
+
+```nexa
+// |> Function pipe: left-to-right data flow
+result |> format_output |> print
+
+// >> Agent pipeline: multi-agent pipeline
+"topic" >> Writer >> Reviewer >> Editor
+```
+
+### Null Coalescing (`??`) & Defer
+
+```nexa
+// ?? Safe fallback
+config.timeout ?? 30
+
+// defer LIFO cleanup
+defer cleanup(db)
+defer log("operation complete")
+```
+
+### String Interpolation (`#{expr}`)
+
+```nexa
+"Hello #{name}, you are #{age} years old!"
+"Status: #{result ?? 'pending'}"
+```
+
+### Built-In HTTP Server
+
+```nexa
+server 8080 {
+    static "/assets" from "./public"
+    cors { origins: ["*"], methods: ["GET", "POST"] }
+    route GET "/chat" => ChatBot
+    route POST "/analyze" => DataExtractor |>> Analyzer
+}
+```
+
 ### Semantic Control Flow (`loop until`)
 
 Control loop termination with natural language:
@@ -547,13 +345,21 @@ Nexa treats "language model prediction" as a **native computational beat**, isol
 ### Comparison with Traditional Frameworks
 
 | Feature | Traditional Python/LangChain | Nexa |
-|-----|---------------------|------|
+|---------|------------------------------|------|
 | Agent Definition | Instantiate class + config dict | Native `agent` keyword |
-| Flow Orchestration | Manual calls + state management | `flow` + pipeline operators |
+| Flow Orchestration | Manual calls + state management | `flow` + pipe operators `>>` / `|>` |
 | Intent Routing | if-else + regex | `match intent` semantic matching |
 | Output Constraints | Hand-written JSON Schema | `protocol` declarative constraints |
-| Concurrency Control | asyncio + locks | DAG operators auto-scheduling |
-| Error Retry | try-except + loops | Built-in auto-retry mechanism |
+| Concurrency Control | asyncio + locks | DAG operators + structured concurrency |
+| Error Retry | try-except + loops | Built-in auto-retry + `?` / `otherwise` |
+| Type Safety | None / Pydantic post-validation | Gradual type system + Design by Contract |
+| Data Modeling | dict / dataclass | `struct` / `enum` / `trait` ADT |
+| HTTP Server | Flask/FastAPI external | Built-in `server` DSL |
+| Database | Manual ORM integration | Built-in `db` DSL + Agent memory |
+| Authentication | Hand-written JWT/OAuth | Built-in `auth` DSL + API Key |
+| Caching | Redis manual management | Built-in KV Store + semantic cache |
+| Background Jobs | Celery/queue external | Built-in `job` DSL + priority queue |
+| Template Rendering | Jinja2 external | Built-in `template"""..."""` DSL |
 
 ---
 
@@ -567,14 +373,22 @@ Nexa treats "language model prediction" as a **native computational beat**, isol
 
 ### Advanced Learning
 
-4. **[Advanced Features](part2_advanced.en.md)** - DAG operators, concurrent processing
-5. **[Syntax Extensions](part3_extensions.en.md)** - Advanced Protocol usage
+4. **[Advanced Features](part2_advanced.en.md)** - DAG operators, pipe `|>`, pattern matching, ADT
+5. **[Syntax Extensions](part3_extensions.en.md)** - Design by Contract, type system, error propagation
 6. **[Best Practices](part6_best_practices.en.md)** - Enterprise development experience
 
 ### Deep Dive
 
 7. **[Compiler Design](part5_compiler.en.md)** - Full pipeline from AST to bytecode
-8. **[Architecture Evolution](part5_architecture_evolution.en.md)** - Rust/WASM technology roadmap
+8. **[Enterprise Features](part5_enterprise.en.md)** - HTTP Server, Database, Auth, KV, Concurrency
+9. **[Architecture Evolution](part5_architecture_evolution.en.md)** - Rust/WASM technology roadmap
+
+### Reference Manual
+
+- **[Language Reference](reference.en.md)** - Complete syntax specification
+- **[CLI Reference](cli_reference.en.md)** - All command-line tools
+- **[Stdlib API](stdlib_reference.en.md)** - All std namespaces
+- **[Error Index](error_index.en.md)** - All error codes and solutions
 
 ### Troubleshooting
 
@@ -586,5 +400,5 @@ Nexa treats "language model prediction" as a **native computational beat**, isol
 
 <div class="portal-actions" style="margin-top: 1rem;">
     <a class="md-button md-button--primary" href="quickstart.en.md">🚀 Quickstart</a>
-    <a class="md-button" href="https://github.com/your-org/nexa">📦 GitHub</a>
+    <a class="md-button" href="https://github.com/ouyangyipeng/Nexa">📦 GitHub</a>
 </div>

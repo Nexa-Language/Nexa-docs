@@ -16,18 +16,33 @@ You can directly declare agent permissions through the `uses` keyword, and Nexa 
 
 ### Standard Library Namespaces
 
-| Namespace | Description | Main Tools |
-|---------|------|---------|
-| `std.fs` | File system operations | `file_read`, `file_write`, `file_append`, `file_exists`, `file_list`, `file_delete` |
-| `std.http` | HTTP network requests | `http_get`, `http_post`, `http_put`, `http_delete` |
-| `std.time` | Time and date operations | `time_now`, `time_format`, `time_diff`, `time_sleep`, `time_timestamp` |
-| `std.json` | JSON data processing | `json_parse`, `json_get`, `json_stringify` |
-| `std.text` | Text processing | `text_split`, `text_replace`, `text_upper`, `text_lower` |
-| `std.hash` | Encryption and encoding | `hash_md5`, `hash_sha256`, `base64_encode`, `base64_decode` |
-| `std.math` | Mathematical operations | `math_calc`, `math_random` |
-| `std.regex` | Regular expressions | `regex_match`, `regex_replace` |
-| `std.shell` | Shell commands | `shell_exec`, `shell_which` |
-| `std.ask_human` | Human interaction | `ask_human` |
+| Namespace | Version | Description | Main Tools |
+|---------|---------|------|---------|
+| `std.fs` | v0.5+ | File system operations | `file_read`, `file_write`, `file_append`, `file_exists`, `file_list`, `file_delete` |
+| `std.http` | v0.5+ | HTTP network requests | `http_get`, `http_post`, `http_put`, `http_delete` |
+| `std.time` | v0.5+ | Time and date operations | `time_now`, `time_format`, `time_diff`, `time_sleep`, `time_timestamp` |
+| `std.json` | v0.5+ | JSON data processing | `json_parse`, `json_get`, `json_stringify` |
+| `std.text` | v0.5+ | Text processing | `text_split`, `text_replace`, `text_upper`, `text_lower` |
+| `std.hash` | v0.5+ | Encryption and encoding | `hash_md5`, `hash_sha256`, `base64_encode`, `base64_decode` |
+| `std.math` | v0.5+ | Mathematical operations | `math_calc`, `math_random` |
+| `std.regex` | v0.5+ | Regular expressions | `regex_match`, `regex_replace` |
+| `std.shell` | v0.5+ | Shell commands | `shell_exec`, `shell_which` |
+| `std.ask_human` | v0.5+ | Human interaction | `ask_human` |
+| `std.db.sqlite` | v1.3.5 | SQLite operations | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.postgres` | v1.3.5 | PostgreSQL operations | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.memory` | v1.3.5 | Agent memory | `query`, `store`, `delete`, `list` |
+| `std.auth` | v1.3.6 | Auth & OAuth | `oauth`, `enable_auth`, `get_user`, `jwt_sign`, `jwt_verify`, `csrf_token`, `api_key_generate` |
+| `std.kv` | v1.3.6 | Key-value store | `open`, `get`, `set`, `del`, `has`, `list`, `expire`, `incr` |
+| `std.concurrent` | v1.3.6 | Structured concurrency | `channel`, `send`, `recv`, `spawn`, `parallel`, `race`, `after`, `schedule` |
+| `std.template` | v1.3.6 | Template system | `render`, `template`, `compile`, `filter_apply`, `agent_prompt`, `agent_slot_fill` |
+| `std.pipe` | v1.3.x | Function pipe | `apply` |
+| `std.defer` | v1.3.x | Deferred execution | `schedule` |
+| `std.null_coalesce` | v1.3.x | Null coalescing | `apply` |
+| `std.string` | v1.3.x | String interpolation | `interpolate` |
+| `std.match` | v1.3.x | Pattern matching | `pattern`, `destructure`, `variant` |
+| `std.struct` | v1.3.x | Struct | `register_struct`, `make_struct` |
+| `std.enum` | v1.3.x | Enum | `register_enum`, `make_variant` |
+| `std.trait` | v1.3.x | Trait | `register_trait`, `register_impl`, `lookup` |
 
 !!! tip "Namespace Tool Invocation"
     All standard library tools are called through namespace prefix, e.g. `std.fs.file_read(path)`. For detailed parameters and usage, please refer to [Standard Library Reference](stdlib_reference.en.md).
@@ -305,6 +320,245 @@ flow main {
 
 ---
 
+## 🗄️ std.db.* — Database Operations (v1.3.5)
+
+Nexa v1.3.5 introduces three database namespaces, supporting SQLite, PostgreSQL, and Agent memory storage.
+
+| Namespace | Description | Core Tools |
+|---------|------|---------|
+| `std.db.sqlite` | SQLite operations | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.postgres` | PostgreSQL operations | `connect`, `query`, `query_one`, `execute`, `close`, `begin`, `commit`, `rollback` |
+| `std.db.memory` | Agent memory | `query`, `store`, `delete`, `list` |
+
+```nexa
+// Database query assistant
+agent DataAgent uses std.db.sqlite {
+    role: "Data Query Assistant",
+    prompt: "Help users query and analyze data in the database"
+}
+
+flow main {
+    handle = std.db.sqlite.connect("data.db");
+    defer std.db.sqlite.close(handle);
+    
+    rows = std.db.sqlite.query(handle, "SELECT * FROM users");
+    print(rows);
+}
+```
+
+!!! info "Detailed Usage"
+    For complete database API and examples, refer to [Enterprise Architecture Features](part5_enterprise.en.md) and [Standard Library Reference](stdlib_reference.en.md).
+
+---
+
+## 🔐 std.auth — Authentication & OAuth (v1.3.6)
+
+Built-in authentication system, supporting OAuth 2.0 PKCE, JWT, CSRF, and API Key.
+
+| Core Tool | Description |
+|---------|------|
+| `oauth` | Start OAuth authentication flow |
+| `jwt_sign/jwt_verify/jwt_decode` | JWT sign, verify, decode |
+| `csrf_token/csrf_field/verify_csrf` | CSRF protection |
+| `api_key_generate/api_key_verify` | API Key management |
+| `get_user/get_session/logout_user` | User session management |
+
+!!! info "Detailed Usage"
+    For complete authentication API and examples, refer to [Enterprise Architecture Features](part5_enterprise.en.md) and [Standard Library Reference](stdlib_reference.en.md).
+
+---
+
+## 📦 std.kv — Key-Value Store (v1.3.6)
+
+Type-safe key-value store, supporting in-memory and persistent modes, TTL expiration, and Agent-specific KV.
+
+| Core Tool | Description |
+|---------|------|
+| `open/get/set/del/has/list` | Basic KV operations |
+| `get_int/get_str/get_json` | Type-safe read |
+| `expire/ttl/incr/set_nx` | TTL, increment, conditional write |
+| `agent_kv_query/agent_kv_store/agent_kv_context` | Agent-specific KV |
+
+```nexa
+flow main {
+    kv_handle = std.kv.open(path: ":memory:");
+    std.kv.set(kv: kv_handle, key: "theme", value: "dark");
+    theme = std.kv.get(kv: kv_handle, key: "theme") ?? "light";
+    print(theme);  // "dark"
+}
+```
+
+!!! info "Detailed Usage"
+    For complete KV store API and examples, refer to [Enterprise Architecture Features](part5_enterprise.en.md) and [Standard Library Reference](stdlib_reference.en.md).
+
+---
+
+## ⚡ std.concurrent — Structured Concurrency (v1.3.6)
+
+Provides Channel, spawn, parallel, race and other concurrency primitives.
+
+| Core Tool | Description |
+|---------|------|
+| `channel/send/recv/recv_timeout/try_recv/close/select` | Channel operations |
+| `spawn/await_task/try_await/cancel_task` | Task management |
+| `parallel/race` | Parallel and race execution |
+| `after/schedule/cancel_schedule/sleep_ms/thread_count` | Timing and scheduling |
+
+!!! info "Detailed Usage"
+    For complete concurrency API and examples, refer to [Enterprise Architecture Features](part5_enterprise.en.md) and [Standard Library Reference](stdlib_reference.en.md).
+
+---
+
+## 📄 std.template — Template System (v1.3.6)
+
+Built-in template engine, supporting variable interpolation, conditional rendering, loops, filters, and Agent slot filling.
+
+| Core Tool | Description |
+|---------|------|
+| `render/template/compile/render_compiled` | Template rendering |
+| `filter_apply/filter_default` | Filters |
+| `agent_prompt/agent_slot_fill/agent_register` | Agent templates |
+
+```nexa
+flow main {
+    result = std.template.render(
+        template_str: "Hello {{name | default('Guest')}}!",
+        data: {"name": "Alice"}
+    );
+    print(result);  // "Hello Alice!"
+}
+```
+
+!!! info "Detailed Usage"
+    For complete template API and examples, refer to [Enterprise Architecture Features](part5_enterprise.en.md) and [Standard Library Reference](stdlib_reference.en.md).
+
+---
+
+## 🔗 std.pipe — Function Pipe (v1.3.x)
+
+Underlying implementation of the `|>` function pipe operator, passing value as the first argument to a function.
+
+```nexa
+flow main {
+    // x |> f equivalent to f(x)
+    result = raw_text |> std.json.json_parse |> std.json.json_get("name");
+}
+```
+
+!!! info "Detailed Usage"
+    For complete function pipe syntax and examples, refer to [Advanced Features](part2_advanced.en.md) and [Language Reference Manual](reference.en.md).
+
+---
+
+## ⏳ std.defer — Deferred Execution (v1.3.x)
+
+Underlying implementation of the `defer` statement, postponing expression evaluation until scope exit (LIFO order).
+
+```nexa
+flow main {
+    db_handle = std.db.sqlite.connect("data.db");
+    defer std.db.sqlite.close(db_handle);  // Auto-close on exit
+    // ... business logic
+}
+```
+
+!!! info "Detailed Usage"
+    For complete defer syntax and examples, refer to [Advanced Features](part2_advanced.en.md) and [Language Reference Manual](reference.en.md).
+
+---
+
+## ❓ std.null_coalesce — Null Coalescing (v1.3.x)
+
+Underlying implementation of the `??` operator, returning the right-side default when the left side is None/Option::None/empty dict.
+
+```nexa
+flow main {
+    value = kv.get("key") ?? "default";
+    result = Agent.run(input) ?? "no response";
+}
+```
+
+!!! info "Detailed Usage"
+    For complete null coalescing syntax and examples, refer to [Advanced Features](part2_advanced.en.md) and [Language Reference Manual](reference.en.md).
+
+---
+
+## 📝 std.string — String Interpolation (v1.3.x)
+
+Underlying implementation of `#{expr}` string interpolation, embedding expression values in strings.
+
+```nexa
+flow main {
+    name = "Alice";
+    greeting = "Hello, #{name}!";  // "Hello, Alice!"
+    score = 95;
+    report = "Score: #{score}/100, Grade: #{if score > 90 then 'A' else 'B'}";
+}
+```
+
+!!! info "Detailed Usage"
+    For complete string interpolation syntax and examples, refer to [Language Reference Manual](reference.en.md).
+
+---
+
+## 🎯 std.match — Pattern Matching (v1.3.x)
+
+Underlying implementation of pattern matching, supporting 7 pattern types.
+
+| Tool | Description |
+|-----|------|
+| `pattern` | Match value against pattern, return bindings |
+| `destructure` | Destructure a value |
+| `variant` | Create enum variant value |
+
+!!! info "Detailed Usage"
+    For complete pattern matching syntax and examples, refer to [Advanced Features](part2_advanced.en.md) and [Language Reference Manual](reference.en.md).
+
+---
+
+## 🏗️ std.struct — Struct (v1.3.x)
+
+Underlying implementation of struct definition and instantiation.
+
+| Tool | Description |
+|-----|------|
+| `register_struct` | Register struct definition |
+| `make_struct` | Create struct instance |
+
+!!! info "Detailed Usage"
+    For complete struct syntax and examples, refer to [Advanced Features](part2_advanced.en.md) and [Language Reference Manual](reference.en.md).
+
+---
+
+## 🏷️ std.enum — Enum (v1.3.x)
+
+Underlying implementation of enum definition and variant creation.
+
+| Tool | Description |
+|-----|------|
+| `register_enum` | Register enum definition |
+| `make_variant` | Create enum variant instance |
+
+!!! info "Detailed Usage"
+    For complete enum syntax and examples, refer to [Advanced Features](part2_advanced.en.md) and [Language Reference Manual](reference.en.md).
+
+---
+
+## 🧬 std.trait — Trait and Impl (v1.3.x)
+
+Underlying implementation of trait definition and implementation.
+
+| Tool | Description |
+|-----|------|
+| `register_trait` | Register trait definition |
+| `register_impl` | Register trait implementation |
+| `lookup` | Lookup ADT definitions |
+
+!!! info "Detailed Usage"
+    For complete trait syntax and examples, refer to [Advanced Features](part2_advanced.en.md) and [Language Reference Manual](reference.en.md).
+
+---
+
 ## 🔐 `secret`: Sandbox Isolation for Sensitive Keys
 
 When handling cloud APIs and database connections, you must never write `API_KEY` in plaintext in code and prompts! Nexa designed a native security pool `.nxs` (Nexa Secure) mechanism and `secret()` function.
@@ -520,22 +774,45 @@ agent.run("Use API key: sk-xxx");  // Dangerous!
 
 In this chapter, we learned:
 
-| Module | Function | Use Case |
-|-----|------|---------|
-| `std.fs` | File system | Read/write files, directory management |
-| `std.http` | Network requests | API calls, web scraping |
-| `std.time` | Time operations | Schedule management, time awareness |
-| `std.shell` | System commands | Operations tasks, script execution |
-| `std.ask_human` | Human-computer interaction | Approval processes, confirmation operations |
-| `secret()` | Key management | API authentication, database connections |
-| `img()` | Multimodal | Image analysis, vision tasks |
+| Module | Version | Function | Use Case |
+|--------|---------|----------|----------|
+| `std.fs` | v0.5+ | File system | Read/write files, directory management |
+| `std.http` | v0.5+ | Network requests | API calls, web scraping |
+| `std.time` | v0.5+ | Time operations | Schedule management, time awareness |
+| `std.json` | v0.5+ | JSON processing | Data parsing and serialization |
+| `std.text` | v0.5+ | Text processing | Text splitting, replacement |
+| `std.hash` | v0.5+ | Crypto/encoding | MD5, SHA256, Base64 |
+| `std.math` | v0.5+ | Math operations | Safe calculation, random numbers |
+| `std.regex` | v0.5+ | Regex | Pattern matching and replacement |
+| `std.shell` | v0.5+ | System commands | Operations tasks, script execution |
+| `std.ask_human` | v0.5+ | Human interaction | Approval processes, confirmation operations |
+| `std.db.sqlite` | v1.3.5 | SQLite | Data persistence |
+| `std.db.postgres` | v1.3.5 | PostgreSQL | Enterprise database |
+| `std.db.memory` | v1.3.5 | Agent memory | Agent context persistence |
+| `std.auth` | v1.3.6 | Authentication | OAuth, JWT, CSRF |
+| `std.kv` | v1.3.6 | KV store | Caching, configuration, Agent KV |
+| `std.concurrent` | v1.3.6 | Concurrency | Channel, spawn, parallel |
+| `std.template` | v1.3.6 | Template | Dynamic content generation |
+| `std.pipe` | v1.3.x | Function pipe | Data transformation chain |
+| `std.defer` | v1.3.x | Deferred execution | Resource cleanup |
+| `std.null_coalesce` | v1.3.x | Null coalescing | None default value |
+| `std.string` | v1.3.x | String interpolation | Dynamic string construction |
+| `std.match` | v1.3.x | Pattern matching | Data destructuring |
+| `std.struct` | v1.3.x | Struct | Type-safe data modeling |
+| `std.enum` | v1.3.x | Enum | ADT variants |
+| `std.trait` | v1.3.x | Trait | Polymorphic behavior |
+| `secret()` | v0.5+ | Key management | API authentication, database connections |
+| `img()` | v0.8+ | Multimodal | Image analysis, vision tasks |
 
-Nexa's encapsulation of physical world modules always takes reducing developer cognitive burden and坚守 system sandbox security as the highest principles. These features lay the most solid infrastructure for you to build an automation kingdom.
+Nexa's encapsulation of physical world modules always takes reducing developer cognitive burden and maintaining system sandbox security as the highest principles. From v0.5's 10 basic namespaces to v1.3.x's 25 namespaces, these features lay the most solid infrastructure for you to build an automation kingdom.
 
 ---
 
 ## 🔗 Related Resources
 
-- [Complete Example Collection](examples.md) - View more standard library usage examples
-- [Best Practices](part6_best_practices.md) - Enterprise development experience
-- [Troubleshooting Guide](troubleshooting.md) - Tool call problem solving
+- [Complete Example Collection](examples.en.md) - View more standard library usage examples
+- [Standard Library Reference](stdlib_reference.en.md) - Complete API for all 25 namespaces
+- [Enterprise Architecture Features](part5_enterprise.en.md) - Database/Auth/KV/Concurrency/Template details
+- [Advanced Features](part2_advanced.en.md) - Pipe/Pattern Matching/ADT details
+- [Best Practices](part6_best_practices.en.md) - Enterprise development experience
+- [Troubleshooting Guide](troubleshooting.en.md) - Tool call problem solving

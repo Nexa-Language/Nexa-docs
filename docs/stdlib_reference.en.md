@@ -2,44 +2,59 @@
 comments: true
 ---
 
-# Nexa Standard Library Reference
+# Nexa Stdlib Reference Manual
 
-This document describes all namespaces, tool functions, parameters, and usage examples of the Nexa standard library (`std`).
+This document details all namespaces, tool functions, parameters, and usage examples for the Nexa standard library (`std`). All tool signatures strictly match the source code in `src/runtime/stdlib.py`.
 
 ---
 
 ## 📋 Overview
 
-The Nexa standard library provides built-in tools that enable Agents to interact with the external world. After declaring usage permissions via the `uses` keyword, Agents can call these tools.
+Nexa's standard library provides a set of built-in tools that enable Agents to interact with the external world. After declaring usage permissions via the `uses` keyword, Agents can call these tools.
 
 ### Namespace Overview
 
-| Namespace | Description | Tool Count |
-|---------|------|---------|
-| [`std.fs`](#stdfs-file-system-operations) | File system operations | 6 |
-| [`std.http`](#stdhttp-http-network-requests) | HTTP network requests | 4 |
-| [`std.time`](#stdtime-time-and-date-operations) | Time and date operations | 5 |
-| [`std.json`](#stdjson-json-data-processing) | JSON data processing | 3 |
-| [`std.text`](#stdtext-text-processing) | Text processing | 4 |
-| [`std.hash`](#stdhash-encryption-and-encoding) | Encryption and encoding | 4 |
-| [`std.math`](#stdmath-mathematical-operations) | Mathematical operations | 2 |
-| [`std.regex`](#stdregex-regular-expressions) | Regular expressions | 2 |
-| [`std.shell`](#stdshell-shell-commands) | Shell command execution | 2 |
-| [`std.ask_human`](#stdask_human-human-interaction) | Human interaction | 1 |
+| Namespace | Description | Tool Count | Version |
+|---------|------|---------|------|
+| [`std.fs`](#stdfs-file-system-operations) | File system operations | 6 | v0.7+ |
+| [`std.http`](#stdhttp-http-network-requests) | HTTP network requests | 4 | v0.7+ |
+| [`std.time`](#stdtime-time-date-operations) | Time/date operations | 5 | v0.7+ |
+| [`std.json`](#stdjson-json-data-processing) | JSON data processing | 3 | v0.7+ |
+| [`std.text`](#stdtext-text-processing) | Text processing | 4 | v0.7+ |
+| [`std.hash`](#stdhash-encryption-and-encoding) | Encryption and encoding | 4 | v0.7+ |
+| [`std.math`](#stdmath-math-operations) | Math operations | 2 | v0.7+ |
+| [`std.regex`](#stdregex-regular-expressions) | Regular expressions | 2 | v0.7+ |
+| [`std.shell`](#stdshell-shell-commands) | Shell command execution | 2 | v0.9.7+ |
+| [`std.ask_human`](#stdask_human-human-interaction) | Human interaction | 1 | v0.9.7+ |
+| [`std.db.sqlite`](#stddbsqlite-sqlite-operations) | SQLite operations | 8 | v1.3.5 |
+| [`std.db.postgres`](#stddbpostgres-postgresql-operations) | PostgreSQL operations | 8 | v1.3.5 |
+| [`std.db.memory`](#stddbmemory-agent-memory-operations) | Agent memory operations | 4 | v1.3.5 |
+| [`std.auth`](#stdauth-authentication-and-oauth) | Authentication & OAuth | 17 | v1.3.6 |
+| [`std.kv`](#stdkv-key-value-store) | KV store | 18 | v1.3.6 |
+| [`std.concurrent`](#stdconcurrent-structured-concurrency) | Structured concurrency | 18 | v1.3.6 |
+| [`std.template`](#stdtemplate-template-system) | Template system | 18+ | v1.3.6 |
+| [`std.pipe`](#stdpipe-pipe-operator) | Pipe operator | 1 | v1.3.x |
+| [`std.defer`](#stddefer-deferred-execution) | Deferred execution | 1 | v1.3.x |
+| [`std.null_coalesce`](#stdnull_coalesce-null-coalescing) | Null coalescing | 1 | v1.3.x |
+| [`std.string`](#stdstring-string-interpolation) | String interpolation | 1 | v1.3.x |
+| [`std.match`](#stdmatch-pattern-matching) | Pattern matching | 3 | v1.3.x |
+| [`std.struct`](#stdstruct-struct) | Struct | 3 | v1.3.x |
+| [`std.enum`](#stdenum-enum) | Enum | 3 | v1.3.x |
+| [`std.trait`](#stdtrait-trait-and-impl) | Trait and impl | 5 | v1.3.x |
 
 ---
 
 ## 📁 std.fs - File System Operations
 
-File system operations are fundamental capabilities for agents to interact with the local environment.
+File system operations are the foundational capability for agents to interact with the local environment.
 
 ### Tool List
 
 | Tool | Description | Required Parameters |
 |-----|------|---------|
 | [`file_read`](#file_read) | Read file content | `path` |
-| [`file_write`](#file_write) | Write to file | `path`, `content` |
-| [`file_append`](#file_append) | Append to file | `path`, `content` |
+| [`file_write`](#file_write) | Write file | `path`, `content` |
+| [`file_append`](#file_append) | Append file content | `path`, `content` |
 | [`file_exists`](#file_exists) | Check if file exists | `path` |
 | [`file_list`](#file_list) | List directory files | `directory` |
 | [`file_delete`](#file_delete) | Delete file | `path` |
@@ -57,7 +72,7 @@ Read file content.
 | `path` | string | **Yes** | - | File path |
 | `encoding` | string | No | `utf-8` | Encoding format |
 
-**Return Value**: File content string, or error message on failure.
+**Return value**: File content string, or error message on failure.
 
 **Example**:
 
@@ -68,7 +83,7 @@ agent FileReader uses std.fs {
 }
 
 flow main {
-    content = FileReader.run("Read file /tmp/data.txt");
+    content = FileReader.run("Read the file /tmp/data.txt");
     print(content);
 }
 ```
@@ -77,7 +92,7 @@ flow main {
 
 #### file_write
 
-Write content to file. Creates directory if it doesn't exist.
+Write file content. Creates directories automatically if they don't exist.
 
 **Parameters**:
 
@@ -87,27 +102,13 @@ Write content to file. Creates directory if it doesn't exist.
 | `content` | string | **Yes** | - | File content |
 | `encoding` | string | No | `utf-8` | Encoding format |
 
-**Return Value**: Success message with character count.
-
-**Example**:
-
-```nexa
-agent FileWriter uses std.fs {
-    role: "File writing assistant",
-    prompt: "Help users write files"
-}
-
-flow main {
-    result = FileWriter.run("Write 'Hello Nexa' to /tmp/output.txt");
-    print(result);
-}
-```
+**Return value**: Success message including character count written.
 
 ---
 
 #### file_append
 
-Append content to end of file.
+Append content to the end of a file.
 
 **Parameters**:
 
@@ -117,26 +118,13 @@ Append content to end of file.
 | `content` | string | **Yes** | - | Content to append |
 | `encoding` | string | No | `utf-8` | Encoding format |
 
-**Return Value**: Success message with appended character count.
-
-**Example**:
-
-```nexa
-agent LogWriter uses std.fs {
-    role: "Log recording assistant",
-    prompt: "Help users append logs"
-}
-
-flow main {
-    LogWriter.run("Append '[2024-01-01] New log entry' to /var/log/app.log");
-}
-```
+**Return value**: Success message including character count appended.
 
 ---
 
 #### file_exists
 
-Check if file or directory exists.
+Check if a file or directory exists.
 
 **Parameters**:
 
@@ -144,60 +132,28 @@ Check if file or directory exists.
 |-----|------|-----|-------|------|
 | `path` | string | **Yes** | - | File/directory path |
 
-**Return Value**: JSON format `{ "exists": bool, "path": string }`.
-
-**Example**:
-
-```nexa
-agent FileChecker uses std.fs {
-    role: "File checking assistant",
-    prompt: "Check if file exists"
-}
-
-flow main {
-    result = FileChecker.run("Check if /tmp/config.json exists");
-    print(result);  // {"exists": true, "path": "/tmp/config.json"}
-}
-```
+**Return value**: JSON format `{ "exists": bool, "path": string }`.
 
 ---
 
 #### file_list
 
-List files in directory.
+List files in a directory.
 
 **Parameters**:
 
 | Parameter | Type | Required | Default | Description |
 |-----|------|-----|-------|------|
 | `directory` | string | **Yes** | - | Directory path |
-| `pattern` | string | No | `*` | File match pattern (glob format) |
+| `pattern` | string | No | `*` | File matching pattern (glob format) |
 
-**Return Value**: JSON format `{ "files": [string], "count": int }`.
-
-**Example**:
-
-```nexa
-agent DirectoryScanner uses std.fs {
-    role: "Directory scanning assistant",
-    prompt: "List files in directory"
-}
-
-flow main {
-    // List all files
-    all_files = DirectoryScanner.run("List all files in /tmp directory");
-    
-    // List only .txt files
-    txt_files = DirectoryScanner.run("List *.txt files in /tmp directory");
-    print(txt_files);
-}
-```
+**Return value**: JSON format `{ "files": [string], "count": int }`.
 
 ---
 
 #### file_delete
 
-Delete file.
+Delete a file.
 
 **Parameters**:
 
@@ -205,27 +161,13 @@ Delete file.
 |-----|------|-----|-------|------|
 | `path` | string | **Yes** | - | File path |
 
-**Return Value**: Success or error message.
-
-**Example**:
-
-```nexa
-agent FileCleaner uses std.fs {
-    role: "File cleanup assistant",
-    prompt: "Delete specified files"
-}
-
-flow main {
-    result = FileCleaner.run("Delete /tmp/old_data.txt");
-    print(result);
-}
-```
+**Return value**: Success or error message.
 
 ---
 
 ## 🌐 std.http - HTTP Network Requests
 
-Native network request capabilities supporting RESTful API calls.
+Native network request capability, supporting RESTful API calls.
 
 ### Tool List
 
@@ -247,24 +189,10 @@ Send HTTP GET request.
 | Parameter | Type | Required | Default | Description |
 |-----|------|-----|-------|------|
 | `url` | string | **Yes** | - | Request URL |
-| `headers` | object | No | `{}` | Request headers dictionary |
+| `headers` | object | No | `{}` | Request headers dict |
 | `timeout` | int | No | `30` | Timeout in seconds |
 
-**Return Value**: Response content string.
-
-**Example**:
-
-```nexa
-agent WebFetcher uses std.http {
-    role: "Web fetching assistant",
-    prompt: "Fetch web content"
-}
-
-flow main {
-    content = WebFetcher.run("GET https://api.example.com/data");
-    print(content);
-}
-```
+**Return value**: Response content string.
 
 ---
 
@@ -278,26 +206,11 @@ Send HTTP POST request.
 |-----|------|-----|-------|------|
 | `url` | string | **Yes** | - | Request URL |
 | `data` | string | **Yes** | - | Request body content |
-| `headers` | object | No | `{}` | Request headers dictionary |
+| `headers` | object | No | `{}` | Request headers dict |
 | `content_type` | string | No | `application/json` | Content type |
 | `timeout` | int | No | `30` | Timeout in seconds |
 
-**Return Value**: JSON format `{ "status": int, "body": string }`.
-
-**Example**:
-
-```nexa
-agent ApiClient uses std.http {
-    role: "API client",
-    prompt: "Call RESTful API"
-}
-
-flow main {
-    payload = '{"name": "Nexa", "version": "1.0"}';
-    result = ApiClient.run(f"POST {payload} to https://api.example.com/create");
-    print(result);
-}
-```
+**Return value**: JSON format `{ "status": int, "body": string }`.
 
 ---
 
@@ -311,24 +224,11 @@ Send HTTP PUT request.
 |-----|------|-----|-------|------|
 | `url` | string | **Yes** | - | Request URL |
 | `data` | string | **Yes** | - | Request body content |
-| `headers` | object | No | `{}` | Request headers dictionary |
+| `headers` | object | No | `{}` | Request headers dict |
+| `content_type` | string | No | `application/json` | Content type |
 | `timeout` | int | No | `30` | Timeout in seconds |
 
-**Return Value**: JSON format `{ "status": int, "body": string }`.
-
-**Example**:
-
-```nexa
-agent DataUpdater uses std.http {
-    role: "Data update assistant",
-    prompt: "Update remote data"
-}
-
-flow main {
-    update_data = '{"status": "completed"}';
-    result = DataUpdater.run(f"PUT {update_data} to https://api.example.com/item/123");
-}
-```
+**Return value**: JSON format `{ "status": int, "body": string }`.
 
 ---
 
@@ -341,27 +241,14 @@ Send HTTP DELETE request.
 | Parameter | Type | Required | Default | Description |
 |-----|------|-----|-------|------|
 | `url` | string | **Yes** | - | Request URL |
-| `headers` | object | No | `{}` | Request headers dictionary |
+| `headers` | object | No | `{}` | Request headers dict |
 | `timeout` | int | No | `30` | Timeout in seconds |
 
-**Return Value**: JSON format `{ "status": int, "body": string }`.
-
-**Example**:
-
-```nexa
-agent ResourceDeleter uses std.http {
-    role: "Resource deletion assistant",
-    prompt: "Delete remote resources"
-}
-
-flow main {
-    result = ResourceDeleter.run("DELETE https://api.example.com/item/123");
-}
-```
+**Return value**: JSON format `{ "status": int, "body": string }`.
 
 ---
 
-## 🕐 std.time - Time and Date Operations
+## 🕐 std.time - Time/Date Operations
 
 Time-related operation tools.
 
@@ -387,43 +274,13 @@ Get current time.
 |-----|------|-----|-------|------|
 | `format` | string | No | `%Y-%m-%d %H:%M:%S` | Time format |
 
-**Return Value**: Formatted time string.
-
-**Format Specifiers**:
-
-| Format | Description | Example |
-|-------|------|------|
-| `%Y` | Year | 2024 |
-| `%m` | Month | 01-12 |
-| `%d` | Day | 01-31 |
-| `%H` | Hour (24-hour) | 00-23 |
-| `%M` | Minute | 00-59 |
-| `%S` | Second | 00-59 |
-
-**Example**:
-
-```nexa
-agent TimeHelper uses std.time {
-    role: "Time assistant",
-    prompt: "Provide time-related services"
-}
-
-flow main {
-    // Default format
-    now = TimeHelper.run("Get current time");
-    print(now);  // 2024-01-15 10:30:00
-    
-    // Custom format
-    date_only = TimeHelper.run("Get current date in format %Y-%m-%d");
-    print(date_only);  // 2024-01-15
-}
-```
+**Return value**: Formatted time string.
 
 ---
 
 #### time_diff
 
-Calculate difference between two times.
+Calculate the difference between two times.
 
 **Parameters**:
 
@@ -433,23 +290,7 @@ Calculate difference between two times.
 | `end` | string | **Yes** | - | End time (ISO format) |
 | `unit` | string | No | `seconds` | Unit: `seconds`/`minutes`/`hours`/`days` |
 
-**Return Value**: JSON format `{ "value": float, "unit": string, "days": int, "seconds": float }`.
-
-**Example**:
-
-```nexa
-agent DurationCalculator uses std.time {
-    role: "Duration calculator",
-    prompt: "Calculate time difference"
-}
-
-flow main {
-    result = DurationCalculator.run(
-        "Calculate hours between 2024-01-01T00:00:00 and 2024-01-02T12:00:00"
-    );
-    print(result);  // {"value": 36, "unit": "hours", ...}
-}
-```
+**Return value**: JSON format `{ "value": float, "unit": string, "days": int, "seconds": float }`.
 
 ---
 
@@ -464,23 +305,7 @@ Convert ISO format time to specified format.
 | `iso_string` | string | **Yes** | - | ISO time string |
 | `format` | string | No | `%Y-%m-%d %H:%M:%S` | Output format |
 
-**Return Value**: Formatted time string.
-
-**Example**:
-
-```nexa
-agent DateFormatter uses std.time {
-    role: "Date formatting assistant",
-    prompt: "Convert time format"
-}
-
-flow main {
-    result = DateFormatter.run(
-        "Format 2024-01-15T10:30:00 to show only date"
-    );
-    print(result);  // 2024-01-15
-}
-```
+**Return value**: Formatted time string.
 
 ---
 
@@ -494,22 +319,7 @@ Pause execution for specified seconds.
 |-----|------|-----|-------|------|
 | `seconds` | int | **Yes** | - | Sleep seconds |
 
-**Return Value**: JSON format `{ "sleep": int }`.
-
-**Example**:
-
-```nexa
-agent DelayedTask uses std.time {
-    role: "Delayed task assistant",
-    prompt: "Execute delayed tasks"
-}
-
-flow main {
-    print("Starting wait...");
-    DelayedTask.run("Wait for 5 seconds");
-    print("Wait complete!");
-}
-```
+**Return value**: JSON format `{ "sleep": int }`.
 
 ---
 
@@ -519,21 +329,7 @@ Get current Unix timestamp.
 
 **Parameters**: None
 
-**Return Value**: JSON format `{ "timestamp": int }`.
-
-**Example**:
-
-```nexa
-agent TimestampGenerator uses std.time {
-    role: "Timestamp generator",
-    prompt: "Generate timestamps"
-}
-
-flow main {
-    ts = TimestampGenerator.run("Get current timestamp");
-    print(ts);  // {"timestamp": 1705312200}
-}
-```
+**Return value**: JSON format `{ "timestamp": int }`.
 
 ---
 
@@ -561,28 +357,13 @@ Parse JSON string.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | JSON string |
 
-**Return Value**: Formatted JSON string (easy to read).
-
-**Example**:
-
-```nexa
-agent JsonParser uses std.json {
-    role: "JSON parsing assistant",
-    prompt: "Parse JSON data"
-}
-
-flow main {
-    raw = '{"name":"Nexa","version":1.0}';
-    parsed = JsonParser.run(f"Parse {raw}");
-    print(parsed);
-}
-```
+**Return value**: Formatted JSON string (readable).
 
 ---
 
 #### json_get
 
-Extract value from specified JSON path.
+Extract value at specified path from JSON.
 
 **Parameters**:
 
@@ -591,26 +372,7 @@ Extract value from specified JSON path.
 | `text` | string | **Yes** | - | JSON string |
 | `path` | string | **Yes** | - | Path (e.g., `data.items.0`) |
 
-**Return Value**: Value at the specified path.
-
-**Path Format**:
-- Use `.` to separate levels
-- Array indices use numbers, e.g., `items.0.name`
-
-**Example**:
-
-```nexa
-agent DataExtractor uses std.json {
-    role: "Data extraction assistant",
-    prompt: "Extract data from JSON"
-}
-
-flow main {
-    json_data = '{"user":{"name":"Alice","age":30}}';
-    name = DataExtractor.run(f"Get user.name from {json_data}");
-    print(name);  // "Alice"
-}
-```
+**Return value**: Value at the path.
 
 ---
 
@@ -623,24 +385,9 @@ Serialize data to JSON string.
 | Parameter | Type | Required | Default | Description |
 |-----|------|-----|-------|------|
 | `data` | string | **Yes** | - | Data object (JSON format string) |
-| `indent` | int | No | `2` | Indent spaces |
+| `indent` | int | No | `2` | Indentation spaces |
 
-**Return Value**: Formatted JSON string.
-
-**Example**:
-
-```nexa
-agent JsonSerializer uses std.json {
-    role: "JSON serialization assistant",
-    prompt: "Serialize data to JSON"
-}
-
-flow main {
-    data = '{"name":"Nexa"}';
-    result = JsonSerializer.run(f"Serialize {data} with 4-space indent");
-    print(result);
-}
-```
+**Return value**: Formatted JSON string.
 
 ---
 
@@ -654,14 +401,14 @@ Text processing tools.
 |-----|------|---------|
 | [`text_split`](#text_split) | Split text | `text` |
 | [`text_replace`](#text_replace) | Replace text | `text`, `old`, `new` |
-| [`text_upper`](#text_upper) | Convert to uppercase | `text` |
-| [`text_lower`](#text_lower) | Convert to lowercase | `text` |
+| [`text_upper`](#text_upper) | To uppercase | `text` |
+| [`text_lower`](#text_lower) | To lowercase | `text` |
 
 ---
 
 #### text_split
 
-Split text into parts.
+Split text into multiple parts.
 
 **Parameters**:
 
@@ -669,24 +416,9 @@ Split text into parts.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | Text to split |
 | `delimiter` | string | No | `\n` | Delimiter |
-| `max_splits` | int | No | `-1` | Maximum splits (-1 means unlimited) |
+| `max_splits` | int | No | `-1` | Max split count (-1 = unlimited) |
 
-**Return Value**: JSON format `{ "parts": [string], "count": int }`.
-
-**Example**:
-
-```nexa
-agent TextSplitter uses std.text {
-    role: "Text splitting assistant",
-    prompt: "Split text"
-}
-
-flow main {
-    text = "one,two,three,four";
-    result = TextSplitter.run(f"Split {text} by comma");
-    print(result);  // {"parts": ["one", "two", "three", "four"], "count": 4}
-}
-```
+**Return value**: JSON format `{ "parts": [string], "count": int }`.
 
 ---
 
@@ -701,24 +433,9 @@ Replace content in text.
 | `text` | string | **Yes** | - | Original text |
 | `old` | string | **Yes** | - | Content to replace |
 | `new` | string | **Yes** | - | Replacement content |
-| `count` | int | No | `-1` | Replace count (-1 means all) |
+| `count` | int | No | `-1` | Replace count (-1 = all) |
 
-**Return Value**: Replaced text.
-
-**Example**:
-
-```nexa
-agent TextReplacer uses std.text {
-    role: "Text replacement assistant",
-    prompt: "Replace content in text"
-}
-
-flow main {
-    text = "Hello World, Hello Nexa";
-    result = TextReplacer.run(f"Replace Hello with Hi in {text}");
-    print(result);  // "Hi World, Hi Nexa"
-}
-```
+**Return value**: Replaced text.
 
 ---
 
@@ -732,7 +449,7 @@ Convert text to uppercase.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | Input text |
 
-**Return Value**: Uppercase text.
+**Return value**: Uppercase text.
 
 ---
 
@@ -746,7 +463,7 @@ Convert text to lowercase.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | Input text |
 
-**Return Value**: Lowercase text.
+**Return value**: Lowercase text.
 
 ---
 
@@ -775,21 +492,7 @@ Calculate MD5 hash of text.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | Input text |
 
-**Return Value**: 32-character MD5 hash string.
-
-**Example**:
-
-```nexa
-agent HashHelper uses std.hash {
-    role: "Hash calculation assistant",
-    prompt: "Calculate text hash"
-}
-
-flow main {
-    hash = HashHelper.run("Calculate MD5 of 'Hello Nexa'");
-    print(hash);  // 32-character hash value
-}
-```
+**Return value**: 32-character MD5 hash string.
 
 ---
 
@@ -803,7 +506,7 @@ Calculate SHA256 hash of text.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | Input text |
 
-**Return Value**: 64-character SHA256 hash string.
+**Return value**: 64-character SHA256 hash string.
 
 ---
 
@@ -817,7 +520,7 @@ Encode text to Base64 format.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | Input text |
 
-**Return Value**: Base64 encoded string.
+**Return value**: Base64 encoded string.
 
 ---
 
@@ -831,13 +534,13 @@ Decode Base64 text.
 |-----|------|-----|-------|------|
 | `text` | string | **Yes** | - | Base64 encoded text |
 
-**Return Value**: Decoded original text.
+**Return value**: Decoded original text.
 
 ---
 
-## 🔢 std.math - Mathematical Operations
+## 🔢 std.math - Math Operations
 
-Mathematical calculation tools.
+Math calculation tools.
 
 ### Tool List
 
@@ -850,7 +553,7 @@ Mathematical calculation tools.
 
 #### math_calc
 
-Safely calculate mathematical expression.
+Safely calculate math expression.
 
 **Parameters**:
 
@@ -858,30 +561,16 @@ Safely calculate mathematical expression.
 |-----|------|-----|-------|------|
 | `expression` | string | **Yes** | - | Math expression |
 
-**Return Value**: JSON format `{ "result": number, "expression": string }`.
+**Return value**: JSON format `{ "result": number, "expression": string }`.
 
-!!! warning "Security Limitation"
-    Only allows digits and `+-*/.()` characters, other characters are rejected.
-
-**Example**:
-
-```nexa
-agent Calculator uses std.math {
-    role: "Math calculation assistant",
-    prompt: "Calculate math expressions"
-}
-
-flow main {
-    result = Calculator.run("Calculate (10 + 5) * 2");
-    print(result);  // {"result": 30, "expression": "(10 + 5) * 2"}
-}
-```
+!!! warning "Safety Limit"
+    Only numbers and `+-*/.()` characters are allowed; other characters are rejected.
 
 ---
 
 #### math_random
 
-Generate random integer within specified range.
+Generate a random integer within specified range.
 
 **Parameters**:
 
@@ -890,21 +579,7 @@ Generate random integer within specified range.
 | `min_val` | int | **Yes** | - | Minimum value |
 | `max_val` | int | **Yes** | - | Maximum value |
 
-**Return Value**: Random integer.
-
-**Example**:
-
-```nexa
-agent RandomGenerator uses std.math {
-    role: "Random number generator",
-    prompt: "Generate random numbers"
-}
-
-flow main {
-    num = RandomGenerator.run("Generate random number between 1 and 100");
-    print(num);
-}
-```
+**Return value**: Random integer.
 
 ---
 
@@ -931,24 +606,9 @@ Match text using regular expression.
 |-----|------|-----|-------|------|
 | `pattern` | string | **Yes** | - | Regex pattern |
 | `text` | string | **Yes** | - | Text to match |
-| `flags` | string | No | `""` | Flags: `i`(ignore case), `m`(multiline), `s`(singleline) |
+| `flags` | string | No | `""` | Flags: `i`(case-insensitive), `m`(multiline), `s`(singleline) |
 
-**Return Value**: JSON format `{ "matches": [string], "count": int }`.
-
-**Example**:
-
-```nexa
-agent PatternMatcher uses std.regex {
-    role: "Pattern matching assistant",
-    prompt: "Match regex patterns"
-}
-
-flow main {
-    text = "Email: test@example.com, Phone: 123-456-7890";
-    emails = PatternMatcher.run(f"Match all email addresses in {text}");
-    print(emails);
-}
-```
+**Return value**: JSON format `{ "matches": [string], "count": int }`.
 
 ---
 
@@ -965,13 +625,13 @@ Replace text using regular expression.
 | `text` | string | **Yes** | - | Text to process |
 | `flags` | string | No | `""` | Flags |
 
-**Return Value**: Replaced text.
+**Return value**: Replaced text.
 
 ---
 
 ## 💻 std.shell - Shell Commands
 
-Execute system shell commands.
+Execute system Shell commands.
 
 ### Tool List
 
@@ -984,7 +644,7 @@ Execute system shell commands.
 
 #### shell_exec
 
-Execute shell command.
+Execute Shell command.
 
 **Parameters**:
 
@@ -993,33 +653,16 @@ Execute shell command.
 | `command` | string | **Yes** | - | Command to execute |
 | `timeout` | int | No | `30` | Timeout in seconds |
 
-**Return Value**: JSON format `{ "stdout": string, "stderr": string, "returncode": int, "success": bool }`.
+**Return value**: JSON format `{ "stdout": string, "stderr": string, "returncode": int, "success": bool }`.
 
 !!! warning "Security Warning"
-    Shell command execution has potential risks. Please ensure:
-    - Don't execute dangerous commands (like `rm -rf /`)
-    - Validate input parameters
-    - Set reasonable timeout
-
-**Example**:
-
-```nexa
-agent ShellRunner uses std.shell {
-    role: "Shell execution assistant",
-    prompt: "Execute system commands"
-}
-
-flow main {
-    result = ShellRunner.run("Execute ls -la /tmp");
-    print(result.stdout);
-}
-```
+    Shell command execution has potential risks. Ensure you don't execute dangerous commands, validate input parameters, and set reasonable timeouts.
 
 ---
 
 #### shell_which
 
-Find executable file path for command.
+Find executable file path for a command.
 
 **Parameters**:
 
@@ -1027,7 +670,7 @@ Find executable file path for command.
 |-----|------|-----|-------|------|
 | `command` | string | **Yes** | - | Command name |
 
-**Return Value**: JSON format `{ "command": string, "path": string, "found": bool }`.
+**Return value**: JSON format `{ "command": string, "path": string, "found": bool }`.
 
 ---
 
@@ -1045,7 +688,7 @@ Human-in-the-Loop interaction tool.
 
 #### ask_human
 
-Request user input for Human-in-the-Loop interaction.
+Request user input, implementing Human-in-the-Loop interaction.
 
 **Parameters**:
 
@@ -1054,7 +697,7 @@ Request user input for Human-in-the-Loop interaction.
 | `prompt` | string | **Yes** | - | Prompt message |
 | `default` | string | No | `""` | Default value (used when user doesn't input) |
 
-**Return Value**: User input string.
+**Return value**: User input string.
 
 **Example**:
 
@@ -1065,24 +708,479 @@ agent HumanInterface uses std.ask_human {
 }
 
 flow main {
-    // Wait for user input
-    confirmation = HumanInterface.run("Please confirm if to continue? [y/n]");
-    
-    if (confirmation == "y") {
-        print("User confirmed, continuing...");
-    } else {
-        print("User rejected, stopping");
-    }
+    confirmation = HumanInterface.run("Please confirm whether to continue? [y/n]");
 }
+```
+
+---
+
+## 🗄️ std.db.sqlite - SQLite Operations (v1.3.5)
+
+SQLite database operation toolset.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_db_sqlite_connect` | Connect to SQLite | `path` |
+| `std_db_sqlite_query` | Query all rows | `handle_json`, `sql` |
+| `std_db_sqlite_query_one` | Query single row | `handle_json`, `sql` |
+| `std_db_sqlite_execute` | Execute write operation | `handle_json`, `sql` |
+| `std_db_sqlite_close` | Close connection | `handle_json` |
+| `std_db_sqlite_begin` | Begin transaction | `handle_json` |
+| `std_db_sqlite_commit` | Commit transaction | `handle_json` |
+| `std_db_sqlite_rollback` | Rollback transaction | `handle_json` |
+
+**Usage Example**:
+
+```nexa
+db app_db = connect("sqlite://data.db")
+
+flow main {
+    result = DbAgent.run("Query all records from users table");
+}
+```
+
+---
+
+## 🗄️ std.db.postgres - PostgreSQL Operations (v1.3.5)
+
+PostgreSQL database operation toolset.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_db_postgres_connect` | Connect to PostgreSQL | `url` |
+| `std_db_postgres_query` | Query all rows | `handle_json`, `sql` |
+| `std_db_postgres_query_one` | Query single row | `handle_json`, `sql` |
+| `std_db_postgres_execute` | Execute write operation | `handle_json`, `sql` |
+| `std_db_postgres_close` | Close connection | `handle_json` |
+| `std_db_postgres_begin` | Begin transaction | `handle_json` |
+| `std_db_postgres_commit` | Commit transaction | `handle_json` |
+| `std_db_postgres_rollback` | Rollback transaction | `handle_json` |
+
+---
+
+## 🗄️ std.db.memory - Agent Memory Operations (v1.3.5)
+
+Agent-specific memory database operations.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_db_memory_query` | Agent memory query | `handle_json`, `agent_name`, `key` |
+| `std_db_memory_store` | Agent memory store | `handle_json`, `agent_name`, `key`, `value` |
+| `std_db_memory_delete` | Agent memory delete | `handle_json`, `agent_name`, `key` |
+| `std_db_memory_list` | Agent memory list | `handle_json`, `agent_name` |
+
+---
+
+## 🔐 std.auth - Authentication and OAuth (v1.3.6)
+
+Three-layer authentication system: API Key + JWT (HS256) + OAuth 2.0 (PKCE flow).
+
+### Tool List (17 tools)
+
+| Tool | Description |
+|-----|------|
+| `std_auth_oauth` | OAuth authentication flow |
+| `std_auth_enable_auth` | Enable authentication |
+| `std_auth_get_user` | Get current user |
+| `std_auth_get_session` | Get session info |
+| `std_auth_session_data` | Get session data |
+| `std_auth_set_session` | Set session data |
+| `std_auth_logout_user` | User logout |
+| `std_auth_require_auth` | Auth requirement middleware |
+| `std_auth_jwt_sign` | JWT signing |
+| `std_auth_jwt_verify` | JWT verification |
+| `std_auth_jwt_decode` | JWT decoding |
+| `std_auth_csrf_token` | CSRF token generation |
+| `std_auth_csrf_field` | CSRF form field |
+| `std_auth_verify_csrf` | CSRF verification |
+| `std_auth_api_key_generate` | API Key generation (format: `nexa-ak-{random32hex}`) |
+| `std_auth_api_key_verify` | API Key verification |
+| `std_auth_auth_context` | Agent auth context |
+
+**Usage Example**:
+
+```nexa
+auth myAuth = enable_auth("providers_json")
+
+flow main {
+    key = std.auth.api_key_generate("my_agent")
+    // Format: nexa-ak-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+```
+
+---
+
+## 📦 std.kv - Key-Value Store (v1.3.6)
+
+Built-in KV Store with SQLite backend, TTL support, and Agent semantic queries.
+
+### Tool List (18 tools)
+
+**General KV Operations (15)**:
+
+| Tool | Description |
+|-----|------|
+| `std_kv_open` | Open KV Store |
+| `std_kv_get` | Get value |
+| `std_kv_get_int` | Get integer value |
+| `std_kv_get_str` | Get string value |
+| `std_kv_get_json` | Get JSON value |
+| `std_kv_set` | Set value |
+| `std_kv_set_nx` | Set only if not exists |
+| `std_kv_del` | Delete key |
+| `std_kv_has` | Check if key exists |
+| `std_kv_list` | List all keys |
+| `std_kv_expire` | Set TTL |
+| `std_kv_ttl` | Get remaining TTL |
+| `std_kv_flush` | Flush Store |
+| `std_kv_incr` | Increment integer value |
+
+**Agent-Native KV Operations (3)**:
+
+| Tool | Description |
+|-----|------|
+| `std_kv_agent_kv_query` | Agent semantic query |
+| `std_kv_agent_kv_store` | Agent memory store |
+| `std_kv_agent_kv_context` | Agent context-aware retrieval |
+
+**Usage Example**:
+
+```nexa
+kv myCache = open("sqlite://cache.db")
+
+flow main {
+    result = CacheAgent.run("Cache user preference data");
+}
+```
+
+---
+
+## ⚡ std.concurrent - Structured Concurrency (v1.3.6)
+
+Structured concurrency module providing channel, spawn, parallel, race and 18 APIs.
+
+### Tool List (18 tools)
+
+| Tool | Description |
+|-----|------|
+| `std_concurrent_channel` | Create channel |
+| `std_concurrent_send` | Send message |
+| `std_concurrent_recv` | Receive message |
+| `std_concurrent_recv_timeout` | Receive with timeout |
+| `std_concurrent_try_recv` | Try receive |
+| `std_concurrent_close` | Close channel |
+| `std_concurrent_select` | Multi-channel select |
+| `std_concurrent_spawn` | Spawn task |
+| `std_concurrent_await_task` | Await task completion |
+| `std_concurrent_try_await` | Try await |
+| `std_concurrent_cancel_task` | Cancel task |
+| `std_concurrent_parallel` | Parallel execution |
+| `std_concurrent_race` | Race execution |
+| `std_concurrent_after` | Delayed execution |
+| `std_concurrent_schedule` | Periodic scheduling |
+| `std_concurrent_cancel_schedule` | Cancel schedule |
+| `std_concurrent_sleep_ms` | Millisecond sleep |
+| `std_concurrent_thread_count` | Get thread count |
+
+**Concurrency DSL Syntax**:
+
+```nexa
+concurrent_decl {
+    spawn my_task { ... }
+    parallel [task_a, task_b, task_c]
+    race [fast_task, slow_task]
+    channel ch = channel()
+    after 500ms { cleanup() }
+    schedule every 30s { health_check() }
+}
+```
+
+---
+
+## 📄 std.template - Template System (v1.3.6)
+
+Template rendering engine supporting `template"""..."""` syntax, 30+ filters, and Agent template extensions.
+
+### Tool List (18+ tools)
+
+**Core Template Operations**:
+
+| Tool | Description |
+|-----|------|
+| `std_template_render` | Render template string |
+| `std_template_template` | Load external template file |
+| `std_template_compile` | Compile template |
+| `std_template_render_compiled` | Render compiled template |
+| `std_template_filter_apply` | Apply filter chain |
+
+**Agent-Native Template Operations**:
+
+| Tool | Description |
+|-----|------|
+| `std_template_agent_prompt` | Agent prompt template |
+| `std_template_agent_slot_fill` | Agent multi-source slot filling |
+| `std_template_agent_register` | Register Agent template |
+| `std_template_agent_list` | List Agent templates |
+
+**Filter Tools**:
+
+| Tool | Description |
+|-----|------|
+| `std_template_filter_upper` | To uppercase |
+| `std_template_filter_lower` | To lowercase |
+| `std_template_filter_capitalize` | Capitalize first letter |
+| `std_template_filter_trim` | Trim whitespace |
+| `std_template_filter_default` | Default value |
+| `std_template_filter_length` | Length |
+| `std_template_filter_json` | JSON serialization |
+| `std_template_filter_truncate` | Truncate |
+| `std_template_filter_replace` | Replace |
+| `std_template_filter_escape` | HTML escape |
+| `std_template_filter_date` | Date formatting |
+| `std_template_filter_sort` | Sort |
+| `std_template_filter_unique` | Unique values |
+| `std_template_filter_number` | Number formatting |
+| `std_template_filter_url_encode` | URL encoding |
+| `std_template_filter_strip_tags` | Strip HTML tags |
+| `std_template_filter_word_count` | Word count |
+| `std_template_filter_line_count` | Line count |
+| `std_template_filter_indent` | Indent |
+| `std_template_filter_abs` | Absolute value |
+| `std_template_filter_ceil` | Ceiling |
+| `std_template_filter_floor` | Floor |
+
+**Template DSL Syntax**:
+
+```nexa
+// Template strings
+template"""Hello {{name | upper}}!"""
+template"""{{#for item in items}}{{@index}}:{{item}}{{/for}}"""
+template"""{{#if is_admin}}Admin{{#elif is_mod}}Mod{{#else}}User{{/if}}"""
+template"""{{> card user_data}}"""
+```
+
+**30+ Filters**: upper/lower/capitalize/trim/truncate(n)/replace(from,to)/escape/raw/safe/default(val)/length/first/last/reverse/join(sep)/slice(start,end)/json/number(n)/url_encode/strip_tags/word_count/line_count/indent/date/sort/unique/abs/ceil/floor
+
+**ForLoop Metadata**: `@index`, `@index1`, `@first`, `@last`, `@length`, `@even`, `@odd`
+
+---
+
+## 🔗 std.pipe - Pipe Operator (v1.3.x)
+
+StdTool wrapper for the pipe operator `|>`.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_pipe_apply` | Pipe function application | `func`, `input` |
+
+**Syntax**:
+
+```nexa
+// |> Pipe operator: left-to-right data flow
+result |> format_output |> print
+data |> std.text.upper
+prompt |> agent.run |> extract_answer
+```
+
+---
+
+## ⏳ std.defer - Deferred Execution (v1.3.x)
+
+StdTool wrapper for defer statements, ensuring LIFO cleanup.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_defer_schedule` | Register deferred function | `func` |
+
+**Syntax**:
+
+```nexa
+defer cleanup(db)
+defer log("operation complete")
+```
+
+---
+
+## ❓ std.null_coalesce - Null Coalescing (v1.3.x)
+
+StdTool wrapper for the `??` operator.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_null_coalesce_apply` | Null coalescing | `left`, `right` |
+
+**Syntax**:
+
+```nexa
+result ?? "fallback"
+config.timeout ?? 30
+agent.run(prompt) ?? "I couldn't process that"
+```
+
+---
+
+## 📝 std.string - String Interpolation (v1.3.x)
+
+StdTool wrapper for `#{expr}` string interpolation.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_string_interpolate` | String interpolation | `template`, `data` |
+
+**Syntax**:
+
+```nexa
+"Hello #{name}, you are #{age} years old!"
+"Status: #{result ?? 'pending'}"
+"Agent #{agent.name} responding"
+```
+
+**Interpolation Expression Support**:
+
+| Expression Type | Example | Python Translation |
+|-----------|------|-------------|
+| Simple identifier | `#{name}` | `name` |
+| Dot access | `#{user.name}` | `user["name"]` |
+| Bracket access | `#{arr[0]}` | `arr[0]` |
+| Combined | `#{data.items[0].name}` | `data["items"][0]["name"]` |
+
+**Type Conversion Rules**:
+
+| Input Type | Output |
+|---------|------|
+| `None` | `""` (empty string) |
+| `bool` | `"true"/"false"` |
+| `int/float` | `str(value)` |
+| `dict/list` | `json.dumps(value)` |
+| `Option::Some` | unwrap inner value |
+| `Option::None` | `""` |
+
+---
+
+## 🎯 std.match - Pattern Matching (v1.3.x)
+
+StdTool wrapper for pattern matching and destructuring.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_match_pattern` | Pattern matching | `value`, `pattern` |
+| `std_match_destructure` | Destructuring | `value`, `pattern` |
+| `std_match_variant` | Construct variant | `enum_name`, `variant_name`, `value` |
+
+**7 Pattern Types**:
+
+1. **Wildcard**: `_` — matches anything
+2. **Variable**: `name` — matches and binds variable
+3. **Literal**: `42`, `"hello"`, `true`, `false` — matches exact value
+4. **Tuple**: `(a, b)` — matches tuple/array
+5. **Array**: `[a, b, ..rest]` — matches array + rest collector
+6. **Map**: `{ name, age: a, ..other }` — matches dict + rest collector
+7. **Variant**: `Option::Some(v)` — matches enum variant
+
+---
+
+## 🏗️ std.struct - Struct (v1.3.x)
+
+StdTool wrapper for ADT struct.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_adt_register_struct` | Register struct | `name`, `fields` |
+| `std_adt_make_struct` | Create struct instance | `name`, `values` |
+| `std_adt_lookup` | Lookup struct | `name` |
+
+**Syntax**:
+
+```nexa
+struct Point { x: Int, y: Int }
+let p = Point(x: 1, y: 2)
+```
+
+**Handle-as-dict format**:
+
+```json
+{"_nexa_struct": "Point", "_nexa_struct_id": 1, "x": 1, "y": 2}
+```
+
+---
+
+## 🏷️ std.enum - Enum (v1.3.x)
+
+StdTool wrapper for ADT enum.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_adt_register_enum` | Register enum | `name`, `variants` |
+| `std_adt_make_variant` | Create variant | `name`, `variant`, `value` |
+| `std_adt_lookup` | Lookup enum | `name` |
+
+**Syntax**:
+
+```nexa
+enum Option { Some(value), None }
+enum Result { Ok(value), Err(error) }
+let opt = Option::Some(42)
+```
+
+**Handle-as-dict format**:
+
+```json
+// Value variant
+{"_nexa_variant": "Some", "_nexa_enum": "Option", "_nexa_variant_id": 1, "value": 42}
+// Unit variant
+{"_nexa_variant": "None", "_nexa_enum": "Option"}
+```
+
+---
+
+## 🧬 std.trait - Trait and Impl (v1.3.x)
+
+StdTool wrapper for ADT trait/impl.
+
+### Tool List
+
+| Tool | Description | Required Parameters |
+|-----|------|---------|
+| `std_adt_register_trait` | Register trait | `name`, `methods` |
+| `std_adt_register_impl` | Register impl | `trait_name`, `type_name`, `methods` |
+| `std_adt_lookup` | Lookup trait/impl | `name` |
+| `std_adt_summary` | Get ADT overview | None |
+| `std_adt_reset` | Reset all ADT registries | None |
+
+**Syntax**:
+
+```nexa
+trait Printable { fn format() -> String }
+impl Printable for Point { fn format() -> String { ... } }
 ```
 
 ---
 
 ## 🔧 Usage
 
-### Declare Usage Permission
+### Declaring Usage Permissions
 
-Use `uses` keyword in Agent definition:
+Use the `uses` keyword in Agent definitions:
 
 ```nexa
 // Single namespace
@@ -1094,6 +1192,27 @@ agent MyAgent uses std.fs {
 agent MultiToolAgent uses std.fs, std.http, std.time {
     prompt: "..."
 }
+
+// New namespaces
+agent DbAgent uses std.db.sqlite, std.db.memory {
+    prompt: "..."
+}
+
+agent AuthAgent uses std.auth {
+    prompt: "..."
+}
+
+agent CacheAgent uses std.kv {
+    prompt: "..."
+}
+
+agent ConcurrentAgent uses std.concurrent {
+    prompt: "..."
+}
+
+agent TemplateAgent uses std.template {
+    prompt: "..."
+}
 ```
 
 ### Runtime Invocation
@@ -1102,12 +1221,11 @@ Agents call tools via natural language instructions:
 
 ```nexa
 agent Assistant uses std.fs, std.http {
-    role: "Multi-function assistant",
-    prompt: "Help users complete file and network operations"
+    role: "Multi-purpose assistant",
+    prompt: "Help users with file and network operations"
 }
 
 flow main {
-    // Natural language tool invocation
     result = Assistant.run("Read /tmp/data.txt and POST to https://api.example.com/upload");
     print(result);
 }
@@ -1124,7 +1242,7 @@ agent LogManager uses std.fs, std.time {
     role: "Log management expert",
     model: "deepseek/deepseek-chat",
     prompt: """
-    You are a log management expert, you can:
+    You are a log management expert who can:
     - Read and analyze log files
     - Create and append log entries
     - Provide timestamp information
@@ -1143,7 +1261,7 @@ flow main {
 }
 ```
 
-### API Data Fetcher Agent
+### API Data Fetching Agent
 
 ```nexa
 agent DataFetcher uses std.http, std.json {
@@ -1154,12 +1272,28 @@ agent DataFetcher uses std.http, std.json {
 flow main {
     task = """
     1. GET https://api.example.com/users
-    2. Parse returned JSON
-    3. Extract name field of first user
+    2. Parse the returned JSON
+    3. Extract the name field of the first user
     """;
     
     name = DataFetcher.run(task);
     print(f"First user: {name}");
+}
+```
+
+### Database + KV Cache Agent
+
+```nexa
+db app_db = connect("sqlite://data.db")
+kv cache = open("sqlite://cache.db")
+
+agent DbCacheAgent uses std.db.sqlite, std.kv {
+    role: "Database cache assistant",
+    prompt: "Query database and cache results"
+}
+
+flow main {
+    result = DbCacheAgent.run("Query users table and cache popular users");
 }
 ```
 
@@ -1169,12 +1303,18 @@ flow main {
 
 | Version | Updates |
 |-----|---------|
+| v1.3.6 | Added `std.auth`, `std.kv`, `std.concurrent`, `std.template` namespaces |
+| v1.3.5 | Added `std.db.sqlite`, `std.db.postgres`, `std.db.memory` namespaces |
+| v1.3.x | Added `std.pipe`, `std.defer`, `std.null_coalesce`, `std.string`, `std.match`, `std.struct`, `std.enum`, `std.trait` namespaces |
 | v1.0 | Added `std.text`, `std.hash`, `std.math`, `std.regex` namespaces |
 | v0.9.7 | Added `std.shell`, `std.ask_human` namespaces |
-| v0.9 | Completed file operation tools (`append`, `delete`) |
-| v0.8 | Added HTTP PUT/DELETE methods |
-| v0.7 | Initial standard library release (`std.fs`, `std.http`, `std.time`) |
+| v0.7 | Initial stdlib release (`std.fs`, `std.http`, `std.time`) |
 
 ---
 
-*Last updated: 2026-03-28 | Based on Nexa v0.9.7-alpha / v1.0-alpha AVM*
+## 🔗 Related Resources
+
+- [Language Reference Manual](reference.en.md)
+- [CLI Reference](cli_reference.en.md)
+- [Error Index](error_index.en.md)
+- [Quickstart](quickstart.en.md)

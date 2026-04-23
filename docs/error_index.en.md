@@ -11,7 +11,7 @@ This index contains all error codes, cause analysis, and solutions that may be g
 ## 📖 How to Use This Index
 
 1. **Search by Error Code**: If you see an error code like `E001`, look it up directly in the table below
-2. **Browse by Category**: Errors are categorized into compile-time errors, runtime errors, tool errors, etc.
+2. **Browse by Category**: Errors are categorized into compile-time errors, runtime errors, contract errors, type errors, etc.
 3. **View Solutions**: Each error comes with detailed cause analysis and resolution suggestions
 
 ---
@@ -109,893 +109,726 @@ agent MyAgent {
 
 // ✅ Correct: Add required properties
 agent MyAgent {
-    role: "Intelligent Assistant",       // Required
-    prompt: "Help users solve problems", // Required
-    model: "gpt-4"          // Optional
-}
-```
-
----
-
-### E004 - Duplicate Declaration
-
-**Error Message**:
-```
-Error E004: Duplicate declaration 'Analyst'
-  --> main.nexa:25:1
-   |
-25 | agent Analyst {
-   | ^^^^^^^^^^^^^ 'Analyst' already declared at line 10
-```
-
-**Cause**:
-- Multiple Agents, Tools, or Protocols with the same name defined in the same scope
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Duplicate declaration
-agent Analyst { role: "Analyst", prompt: "..." }
-agent Analyst { role: "Data Analyst", prompt: "..." }  // Duplicate!
-
-// ✅ Correct: Use different names
-agent DataAnalyst { role: "Data Analyst", prompt: "..." }
-agent MarketAnalyst { role: "Market Analyst", prompt: "..." }
-```
-
----
-
-### E005 - Invalid Model Identifier
-
-**Error Message**:
-```
-Error E005: Invalid model identifier 'gpt5'
-  --> main.nexa:12:12
-   |
-12 |     model: "gpt5",
-   |            ^^^^^ 'gpt5' is not a valid model
-```
-
-**Cause**:
-- Model name typo
-- Using an unsupported model
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Invalid model name
-agent MyAgent {
     role: "Assistant",
-    prompt: "...",
-    model: "gpt5"  // Doesn't exist
-}
-
-// ✅ Correct: Use valid model
-agent MyAgent {
-    role: "Assistant",
-    prompt: "...",
-    model: "gpt-4"  // Or gpt-4o, claude-3-sonnet, etc.
-}
-```
-
-**Supported Models List**:
-- OpenAI: `gpt-4`, `gpt-4-turbo`, `gpt-4o`, `gpt-3.5-turbo`
-- Anthropic: `claude-3-opus`, `claude-3-sonnet`, `claude-3-haiku`
-- Local: `llama-2`, `mistral`, etc. (requires local model configuration)
-
----
-
-### E006 - Protocol Not Found
-
-**Error Message**:
-```
-Error E006: Protocol 'ReportFormat' not found
-  --> main.nexa:18:30
-   |
-18 | agent Reporter implements ReportFormat {
-   |                              ^^^^^^^^^^^^^ not declared
-```
-
-**Cause**:
-- Protocol referenced by `implements` is not declared
-- Protocol name typo
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Referencing undeclared Protocol
-agent Reporter implements ReportFormat {
-    role: "Reporter",
-    prompt: "..."
-}
-
-// ✅ Correct: Declare Protocol first
-protocol ReportFormat {
-    title: "string",
-    content: "string"
-}
-
-agent Reporter implements ReportFormat {
-    role: "Reporter",
-    prompt: "..."
+    prompt: "Help users solve problems",
+    model: "gpt-4"
 }
 ```
 
 ---
 
-### E007 - Tool Not Found
+### E004 - Syntax Error
 
 **Error Message**:
 ```
-Error E007: Tool 'web_search' not found
-  --> main.nexa:20:20
+Error E004: Syntax error
+  --> main.nexa:5:1
    |
-20 | agent Searcher uses web_search {
-   |                    ^^^^^^^^^^ not declared
+5 | agent { }
+   | ^^^^^^^^ Expected IDENTIFIER after 'agent'
 ```
 
 **Cause**:
-- Tool referenced by `uses` is not declared
-- Tool name typo
-- Standard library not imported
+- Missing identifier name
+- Incomplete syntax structure
+- Invalid syntax construct
 
-**Solution**:
-
-```nexa
-// ❌ Wrong: Referencing undeclared Tool
-agent Searcher uses web_search {
-    role: "Search Assistant",
-    prompt: "..."
-}
-
-// ✅ Correct Method 1: Declare Tool
-tool web_search {
-    description: "Search the web",
-    parameters: {"query": "string"}
-}
-
-agent Searcher uses web_search {
-    role: "Search Assistant",
-    prompt: "..."
-}
-
-// ✅ Correct Method 2: Use Standard Library
-agent Searcher uses std.web_search {
-    role: "Search Assistant",
-    prompt: "..."
-}
-```
+**Solution**: Check that the syntax conforms to the Nexa specification. Refer to the [Language Reference Manual](reference.en.md).
 
 ---
 
-### E008 - Syntax Error
+### E005 - Duplicate Declaration
 
 **Error Message**:
 ```
-Error E008: Syntax error
-  --> main.nexa:30:1
+Error E005: Duplicate declaration 'MyAgent'
+  --> main.nexa:20:1
    |
-30 | agent MyAgent
-   | ^^^^^^^^^^^^^ expected '{' after agent name
+20 | agent MyAgent { ... }
+   | ^^^^^^^^^^^^^ 'MyAgent' already declared
 ```
 
 **Cause**:
-- Missing necessary syntax elements (brackets, commas, etc.)
-- Keyword typo
-- Indentation or format issues
+- Same-named Agent, Tool, or Protocol declared multiple times in the same file
 
-**Solution**:
-
-```nexa
-// ❌ Wrong: Missing braces
-agent MyAgent
-    role: "Assistant"
-
-// ✅ Correct: Complete syntax
-agent MyAgent {
-    role: "Assistant",
-    prompt: "..."
-}
-```
-
----
-
-### E009 - Invalid Regex
-
-**Error Message**:
-```
-Error E009: Invalid regex pattern
-  --> main.nexa:15:20
-   |
-15 |     fast_match r"[a-z" against input
-   |                 ^^^^^ unterminated character class
-```
-
-**Cause**:
-- Regex syntax error used in `fast_match`
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Incomplete regex
-semantic_if "Match email" fast_match r"[a-z+@" against input {
-    ...
-}
-
-// ✅ Correct: Complete regex
-semantic_if "Match email" fast_match r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" against input {
-    ...
-}
-```
-
----
-
-### E010 - Invalid Property Value
-
-**Error Message**:
-```
-Error E010: Invalid property value for 'memory'
-  --> main.nexa:12:14
-   |
-12 |     memory: "permanent",
-   |              ^^^^^^^^^^ expected 'short', 'long', or 'session'
-```
-
-**Cause**:
-- Property value not in allowed options range
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Invalid memory value
-agent MyAgent {
-    role: "Assistant",
-    prompt: "...",
-    memory: "permanent"  // Invalid
-}
-
-// ✅ Correct: Use valid value
-agent MyAgent {
-    role: "Assistant",
-    prompt: "...",
-    memory: "long"  // Valid values: short, session, long
-}
-```
+**Solution**: Use different names or remove the duplicate declaration.
 
 ---
 
 ## 2. Runtime Errors (E1xx)
 
-Runtime errors occur during program execution, usually related to external resources or configuration.
+Runtime errors occur during program execution.
 
-### E101 - Agent Execution Timeout
+### E101 - Agent Execution Failed
 
 **Error Message**:
 ```
-Runtime Error E101: Agent execution timeout
-  Agent: 'Analyst'
-  Timeout: 60 seconds
+Error E101: Agent execution failed
+  Agent 'Analyst' failed after 3 retries
 ```
 
 **Cause**:
-- Agent execution time exceeded limit
-- Slow model response
-- Network connection issues
+- LLM API call failed (network error, invalid API Key)
+- Model output format doesn't match expectations
+- Execution timeout
 
 **Solution**:
 
 ```nexa
-// Solution 1: Increase timeout
-@timeout(seconds=120)
-agent Analyst {
-    role: "Analyst",
-    prompt: "..."
-}
-
-// Solution 2: Use faster model
-agent Analyst {
-    role: "Analyst",
-    prompt: "...",
-    model: "gpt-3.5-turbo"  // Faster than gpt-4
-}
-
-// Solution 3: Add fallback
-agent Analyst {
-    role: "Analyst",
-    prompt: "...",
-    fallback: "gpt-3.5-turbo"
-}
-```
-
----
-
-### E102 - Model Call Failed
-
-**Error Message**:
-```
-Runtime Error E102: Model API call failed
-  Model: 'gpt-4'
-  Status: 429 - Rate limit exceeded
-  Message: You have exceeded your API rate limit
-```
-
-**Cause**:
-- API key invalid or expired
-- API quota exhausted
-- Network connection issues
-- Model service unavailable
-
-**Solution**:
-
-```bash
-# Check API key
-nexa doctor
-
-# Update key configuration
-nexa config set api.openai_key "sk-xxx"
-```
-
-```nexa
-// Add fallback model
+// Set fallback model
 agent MyAgent {
-    role: "Assistant",
-    prompt: "...",
     model: "gpt-4",
-    fallback: "gpt-3.5-turbo"  // Downgrade when main model fails
+    fallback: "gpt-3.5-turbo",
+    timeout: 60,
+    retry: 5
 }
 ```
 
 ---
 
-### E103 - Protocol Validation Failed
+### E102 - Tool Execution Failed
 
 **Error Message**:
 ```
-Runtime Error E103: Protocol validation failed
-  Agent: 'Reporter'
-  Protocol: 'Report'
-  Missing fields: ['summary']
-  Invalid fields: {'score': 'expected number, got string'}
+Error E102: Tool execution failed
+  Tool 'web_search' returned error: HTTP timeout
 ```
 
 **Cause**:
-- Agent output doesn't match Protocol-defined format
-- Field type mismatch
+- External service unavailable
+- Incorrect tool parameters
+- Execution timeout
 
-**Solution**:
-
-```nexa
-// Check Protocol definition
-protocol Report {
-    title: "string",
-    summary: "string",   // Ensure required fields
-    score: "number"      // Ensure correct type
-}
-
-// Optimize Agent prompt to ensure output format
-agent Reporter implements Report {
-    role: "Reporter",
-    prompt: """
-    Generate structured report, must include the following fields:
-    - title: Report title (string)
-    - summary: Report summary (string)
-    - score: Rating (number, 0-100)
-    """
-}
-```
+**Solution**: Check tool parameters, network connection, and timeout settings.
 
 ---
 
-### E104 - Tool Execution Error
+### E103 - Pipeline Execution Failed
 
 **Error Message**:
 ```
-Runtime Error E104: Tool execution error
-  Tool: 'web_search'
-  Error: Connection timeout
+Error E103: Pipeline execution failed
+  Pipeline stage 'Reviewer' failed
 ```
 
 **Cause**:
-- External service depended on by tool is unavailable
-- Network connection issues
-- Tool parameter errors
+- An Agent in the pipeline failed to execute
+- Data format mismatch between stages
 
-**Solution**:
-
-```nexa
-// Add error handling
-try {
-    result = web_search.run(query);
-} catch (error) {
-    print("Search failed: " + error);
-    result = "Unable to perform search";
-}
-```
+**Solution**: Check each Agent's independent execution in the pipeline, ensure data format compatibility.
 
 ---
 
-### E105 - Authentication Failed
+### E104 - Intent Routing Failed
 
 **Error Message**:
 ```
-Runtime Error E105: Authentication failed
-  Service: OpenAI API
-  Reason: Invalid API key
+Error E104: Intent routing failed
+  No matching intent for input: "..."
 ```
 
 **Cause**:
-- API key invalid or expired
-- Key not properly configured
+- Intent matcher cannot recognize user input
+- All intent branches unmatched
 
-**Solution**:
-
-```bash
-# Check environment configuration
-nexa doctor
-
-# Configure key
-# Method 1: Environment variable
-export OPENAI_API_KEY="sk-xxx"
-
-# Method 2: secrets.nxs file
-echo 'OPENAI_API_KEY: "sk-xxx"' > secrets.nxs
-
-# Method 3: Configuration command
-nexa config set api.openai_key "sk-xxx"
-```
-
----
-
-### E106 - Loop Exceeded Maximum Iterations
-
-**Error Message**:
-```
-Runtime Error E106: Loop exceeded maximum iterations
-  Loop: line 45
-  Max iterations: 10
-```
-
-**Cause**:
-- `loop until` condition never satisfied
-- Logic error causing infinite loop
-
-**Solution**:
+**Solution**: Add a `_` wildcard branch as default handling.
 
 ```nexa
-// ❌ Wrong: Potential infinite loop
-loop {
-    draft = Editor.run(feedback);
-    feedback = Critic.run(draft);
-} until ("Perfect")  // Condition too strict, may never be satisfied
-
-// ✅ Correct: Add safe exit
-max_iterations = 5;
-count = 0;
-loop {
-    draft = Editor.run(feedback);
-    feedback = Critic.run(draft);
-    count = count + 1;
-    if count >= max_iterations {
-        print("Reached maximum iterations");
-        break;
-    }
-} until ("Article quality acceptable")
-```
-
----
-
-### E107 - Intent Match Failed
-
-**Error Message**:
-```
-Runtime Error E107: No intent matched
-  Input: "Book me a flight ticket"
-  Available intents: ["Check weather", "Set reminder", "Play music"]
-```
-
-**Cause**:
-- `match intent` didn't match any branch
-- Missing default branch `_`
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Missing default branch
 match user_input {
     intent("Check weather") => WeatherBot.run(user_input),
-    intent("Set reminder") => ReminderBot.run(user_input)
-    // Error if neither matches
-}
-
-// ✅ Correct: Add default branch
-match user_input {
-    intent("Check weather") => WeatherBot.run(user_input),
-    intent("Set reminder") => ReminderBot.run(user_input),
-    _ => DefaultBot.run(user_input)  // Fallback handling
+    intent("Check news") => NewsBot.run(user_input),
+    _ => ChatBot.run(user_input)    // Default branch
 }
 ```
 
 ---
 
-## 3. Configuration Errors (E2xx)
+## 3. Contract Errors (E2xx) — v1.2.0+
 
-Configuration errors relate to project configuration and environment settings.
-
-### E201 - Configuration File Not Found
+### E201 - ContractViolation (requires Precondition Violation)
 
 **Error Message**:
 ```
-Error E201: Configuration file not found
-  Path: ./nexa.yaml
+ContractViolation(requires:deterministic, message="amount must be positive")
+  --> transfer.nexa:5
 ```
 
 **Cause**:
-- Configuration file doesn't exist
-- Configuration file path error
-
-**Solution**:
-
-```bash
-# Initialize configuration file
-nexa config init
-
-# Or specify configuration file path
-nexa run main.nexa --config ./config/nexa.yaml
-```
-
----
-
-### E202 - Invalid Configuration Value
-
-**Error Message**:
-```
-Error E202: Invalid configuration value
-  Key: model.temperature
-  Value: "hot"
-  Expected: number between 0 and 2
-```
-
-**Cause**:
-- Configuration value type or range error
-
-**Solution**:
-
-```yaml
-# ❌ Wrong
-model:
-  temperature: "hot"
-
-# ✅ Correct
-model:
-  temperature: 0.7  # 0.0 - 2.0
-```
-
----
-
-### E203 - Secrets File Error
-
-**Error Message**:
-```
-Error E203: Secrets file error
-  File: secrets.nxs
-  Reason: File format invalid
-```
-
-**Cause**:
-- `secrets.nxs` file format error
-- Secrets file permission issues
-
-**Solution**:
-
-```bash
-# Check file format
-cat secrets.nxs
-
-# Ensure correct format
-echo 'OPENAI_API_KEY: "sk-xxx"' > secrets.nxs
-echo 'ANTHROPIC_API_KEY: "sk-ant-xxx"' >> secrets.nxs
-
-# Set correct file permissions
-chmod 600 secrets.nxs
-```
-
----
-
-## 4. Tool and MCP Errors (E3xx)
-
-### E301 - MCP Server Connection Failed
-
-**Error Message**:
-```
-Error E301: MCP server connection failed
-  Server: web-search-mcp
-  Reason: Connection refused
-```
-
-**Cause**:
-- MCP server not started or unreachable
-- Network connection issues
-
-**Solution**:
-
-```bash
-# Check MCP server status
-nexa mcp test web-search
-
-# Re-add MCP server
-nexa mcp remove web-search
-nexa mcp add web-search "github.com/nexa-ai/web-search-mcp"
-```
-
----
-
-### E302 - Tool Parameter Validation Failed
-
-**Error Message**:
-```
-Error E302: Tool parameter validation failed
-  Tool: 'web_search'
-  Parameter: 'query'
-  Error: Required parameter missing
-```
-
-**Cause**:
-- Missing required parameters when calling tool
-- Parameter type mismatch
+- `requires` deterministic condition not satisfied (e.g., `amount > 0` but negative value passed)
+- `requires` semantic condition not satisfied (e.g., "sender has sufficient balance" but balance insufficient)
 
 **Solution**:
 
 ```nexa
-// ❌ Wrong: Missing required parameter
-result = web_search.run();
-
-// ✅ Correct: Provide required parameter
-result = web_search.run(query: "Nexa language");
-```
-
----
-
-### E303 - Standard Library Tool Not Found
-
-**Error Message**:
-```
-Error E303: Standard library tool not found
-  Tool: 'std.json.parse'
-  Reason: Tool not registered in namespace
-```
-
-**Cause**:
-- Tool namespace spelling error
-- Using non-existent tool
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Namespace spelling error
-result = std.json.parse(text);  // Correct
-
-// ❌ Wrong: Using old naming convention
-result = std.fs.read(path);     // New version: std.fs.file_read
-
-// ✅ Correct: Use full tool name
-result = std.json.json_parse(text);
-result = std.fs.file_read(path);
-```
-
----
-
-## 4.1 AVM Runtime Errors (E4xx) - v1.0-alpha
-
-### E401 - AVM Bytecode Execution Failed
-
-**Error Message**:
-```
-Error E401: AVM bytecode execution failed
-  Opcode: FireForget
-  Reason: Agent list cannot be empty
-```
-
-**Cause**:
-- DAG operator parameter configuration error
-- Invalid Agent ID
-
-**Solution**:
-
-```nexa
-// ❌ Wrong: Empty Agent list
-notification || [];  // Cannot use empty list
-
-// ✅ Correct: Specify at least one Agent
-notification || [EmailBot];
-```
-
----
-
-### E402 - WASM Sandbox Permission Denied
-
-**Error Message**:
-```
-Error E402: WASM sandbox permission denied
-  Tool: 'shell_exec'
-  Required: Elevated
-  Current: Standard
-```
-
-**Cause**:
-- Tool requires higher permission level
-- WASM resource limit exceeded
-
-**Solution**:
-
-```nexa
-// Declare required permissions in agent definition
-agent SystemAgent uses std.shell {
-    role: "System Management Assistant",
-    prompt: "...",
-    // Need to elevate permissions in runtime configuration
-}
-```
-
----
-
-### E403 - Vector Memory Page Overflow
-
-**Error Message**:
-```
-Error E403: Vector memory page overflow
-  Active pages: 256
-  Max allowed: 128
-```
-
-**Cause**:
-- Conversation history too long exceeds memory limit
-- Page compression not enabled
-
-**Solution**:
-
-```nexa
-// Use memory property to control memory length
-agent LongConversationBot {
-    role: "Long Conversation Assistant",
-    memory: "compressed",  // Enable compression mode
-    // Or limit memory turns
-}
-```
-
----
-
-### E404 - Consensus Operation Timeout
-
-**Error Message**:
-```
-Error E404: Consensus operation timeout
-  Agents: [ExpertA, ExpertB, ExpertC]
-  Waited: 60s
-  Completed: 2/3
-```
-
-**Cause**:
-- Consensus operator `&&` wait timeout
-- Some Agents not responding
-
-**Solution**:
-
-```nexa
-// Use timeout decorator to control wait time
-@timeout(seconds=120)
-agent ConsensusJudge {
-    role: "Consensus Judge",
-    prompt: "..."
-}
-
-// Or use fire-forget instead
-decision = question || [ExpertA, ExpertB, ExpertC];
-```
-
----
-
-## 5. Warning Messages (W0xx)
-
-Warnings don't prevent program execution, but it's recommended to fix them to avoid potential issues.
-
-### W001 - Unused Declaration
-
-**Warning Message**:
-```
-Warning W001: Unused agent 'TempAgent'
-  --> main.nexa:15:1
-```
-
-**Solution**:
-- Delete unused declaration, or
-- Use the declaration in code
-
----
-
-### W002 - Performance Warning
-
-**Warning Message**:
-```
-Warning W002: Potential performance issue
-  Agent 'SlowAgent' has high temperature (1.5) and long prompt
-  This may cause inconsistent or slow responses
-```
-
-**Solution**:
-- Lower `temperature` value
-- Simplify prompt
-- Use faster model
-
----
-
-### W003 - Deprecation Warning
-
-**Warning Message**:
-```
-Warning W003: Deprecated feature
-  'semantic_match' is deprecated, use 'semantic_if' instead
-```
-
-**Solution**:
-- Update code to use new syntax
-
----
-
-## 6. Error Handling Best Practices
-
-### 6.1 Use try/catch
-
-```nexa
-flow main(input: string) {
-    try {
-        result = RiskyAgent.run(input);
-        print(result);
-    } catch (error) {
-        print("Execution failed: " + error);
-        result = FallbackAgent.run(input);
+// Deterministic contract: ensure input parameters satisfy conditions
+flow transfer(amount: int) -> Result
+    requires: amount > 0
+{
+    if (amount <= 0) {
+        return Result::Err("Invalid amount");
     }
+    // ...
+}
+
+// Semantic contract: ensure input satisfies semantic requirements
+flow review(code: string) -> Report
+    requires: "input contains valid source code"
+{
+    // ...
 }
 ```
 
-### 6.2 Add Fallback
+---
+
+### E202 - ContractViolation (ensures Postcondition Violation)
+
+**Error Message**:
+```
+ContractViolation(ensures:semantic, message="result must include actionable feedback")
+  --> review.nexa:8
+```
+
+**Cause**:
+- `ensures` deterministic condition not satisfied (e.g., `result.success == true` but returned failure)
+- `ensures` semantic condition not satisfied (e.g., "result includes actionable feedback" but output has no suggestions)
+
+**Solution**: Ensure function return values satisfy postconditions, or adjust conditions to be more reasonable.
+
+---
+
+### E203 - ContractViolation (invariant Violation)
+
+**Error Message**:
+```
+ContractViolation(invariant:deterministic, message="state must be idle or running")
+```
+
+**Cause**:
+- `invariant` condition violated during object lifecycle
+
+**Solution**: Ensure object state always satisfies invariant constraints.
+
+---
+
+## 4. Type Errors (E3xx) — v1.3.1+
+
+### E301 - TypeViolation (strict Mode Type Violation)
+
+**Error Message**:
+```
+TypeViolation: Expected Int, got String
+  --> main.nexa:10
+   |
+10 | let x: Int = "hello"
+   |               ^^^^^^^ Type mismatch
+```
+
+**Cause**:
+- Under `NEXA_TYPE_MODE=strict` mode, type mismatch causes runtime error
+
+**Solution**:
 
 ```nexa
-agent MyAgent {
-    role: "Assistant",
-    prompt: "...",
-    model: "gpt-4",
-    fallback: "gpt-3.5-turbo"  // Auto downgrade when main model fails
+// Ensure type matches
+let x: Int = 42           // ✅ Correct
+let y: String = "hello"   // ✅ Correct
+
+// Or switch to warn mode
+// Set NEXA_TYPE_MODE=warn
+```
+
+---
+
+### E302 - TypeWarning (warn Mode Type Warning)
+
+**Error Message**:
+```
+TypeWarning: Expected Int, got String (mode: warn)
+  --> main.nexa:10
+```
+
+**Cause**:
+- Under `NEXA_TYPE_MODE=warn` mode, type mismatch only emits a warning; program continues execution
+
+**Solution**: Fix type annotations or values to ensure type consistency.
+
+---
+
+### E303 - Protocol Type Validation Failed
+
+**Error Message**:
+```
+Error E303: Protocol validation failed
+  Protocol 'ReviewResult' field 'score' expected int, got string
+```
+
+**Cause**:
+- Agent output doesn't match `protocol`-defined field types
+- LLM-returned JSON format doesn't match protocol
+
+**Solution**:
+
+```nexa
+// Use implements to constrain Agent output
+agent Reviewer implements ReviewResult {
+    prompt: "Review the code. Return JSON with score (int) and summary (string)."
 }
 ```
 
-### 6.3 Set Reasonable Timeout
+---
+
+## 5. Database Errors (E4xx) — v1.3.5+
+
+### E401 - DatabaseError (Connection Failed)
+
+**Error Message**:
+```
+DatabaseError: Failed to connect to sqlite://data.db
+```
+
+**Cause**:
+- Database file path doesn't exist
+- SQLite file permission issues
+- PostgreSQL connection parameter errors
+
+**Solution**: Check database path, permissions, and connection parameters.
+
+---
+
+### E402 - DatabaseError (Query Failed)
+
+**Error Message**:
+```
+DatabaseError: Query failed: SELECT * FROM nonexistent_table
+```
+
+**Cause**:
+- SQL syntax error
+- Table or column doesn't exist
+- Parameter binding error
+
+**Solution**: Check SQL statement and table structure.
+
+---
+
+### E403 - DatabaseError (Transaction Failed)
+
+**Error Message**:
+```
+DatabaseError: Transaction failed, rolled back
+```
+
+**Cause**:
+- An operation in the transaction failed, causing rollback
+
+**Solution**: Check each operation in the transaction, ensure data consistency.
+
+---
+
+## 6. Auth Errors (E5xx) — v1.3.6+
+
+### E501 - AuthError (Authentication Failed)
+
+**Error Message**:
+```
+AuthError: Invalid API key format
+```
+
+**Cause**:
+- API Key format incorrect (should be `nexa-ak-{32hex}` format)
+- API Key expired or revoked
+
+**Solution**: Use `std.auth.api_key_generate` to generate a correctly formatted API Key.
+
+---
+
+### E502 - AuthError (JWT Error)
+
+**Error Message**:
+```
+AuthError: JWT signature verification failed
+```
+
+**Cause**:
+- JWT signature verification failed
+- JWT expired
+- JWT format incorrect
+
+**Solution**: Check JWT key configuration and token validity period.
+
+---
+
+### E503 - AuthError (CSRF Validation Failed)
+
+**Error Message**:
+```
+AuthError: CSRF token validation failed
+```
+
+**Cause**:
+- CSRF Token mismatch
+- Token expired
+
+**Solution**: Ensure the form contains the correct CSRF Token.
+
+---
+
+### E504 - AuthError (OAuth Flow Error)
+
+**Error Message**:
+```
+AuthError: OAuth PKCE flow failed
+```
+
+**Cause**:
+- OAuth Provider configuration error
+- PKCE code_verifier mismatch
+- redirect_uri mismatch
+
+**Solution**: Check OAuth Provider configuration (client_id, client_secret, redirect_uri).
+
+---
+
+## 7. KV Store Errors (E6xx) — v1.3.6+
+
+### E601 - KVError (Operation Failed)
+
+**Error Message**:
+```
+KVError: Key 'user_prefs' not found
+```
+
+**Cause**:
+- Key doesn't exist
+- KV Store not opened
+- TTL expired
+
+**Solution**: Use `??` operator to provide default values, or check key existence first.
 
 ```nexa
-@timeout(seconds=30)
-agent QuickAgent {
-    role: "Quick Response Assistant",
-    prompt: "Answer user questions concisely"
+value = kv.get("user_prefs") ?? "default"
+if (kv.has("user_prefs")) {
+    value = kv.get("user_prefs")
 }
 ```
 
-### 6.4 Prevent Infinite Loops
+---
+
+### E602 - KVError (Serialization Failed)
+
+**Error Message**:
+```
+KVError: Failed to deserialize value for key 'config'
+```
+
+**Cause**:
+- Stored data type doesn't match read type
+- Data corruption
+
+**Solution**: Use type-safe read methods (`kv_get_int`, `kv_get_str`, `kv_get_json`).
+
+---
+
+## 8. Concurrency Errors (E7xx) — v1.3.6+
+
+### E701 - ConcurrencyError (Task Cancelled)
+
+**Error Message**:
+```
+ConcurrencyError: Task 'my_task' was cancelled
+```
+
+**Cause**:
+- Task actively cancelled by `cancel_task`
+- Task automatically cancelled due to timeout
+
+**Solution**: Check task logic, ensure cancellation is expected behavior.
+
+---
+
+### E702 - ConcurrencyError (Channel Closed)
+
+**Error Message**:
+```
+ConcurrencyError: Channel is closed
+```
+
+**Cause**:
+- Sending message to a closed channel
+- Receiving message from a closed channel
+
+**Solution**: Check channel status before send/receive, or use `try_recv` to avoid blocking.
+
+---
+
+### E703 - ConcurrencyError (race All Failed)
+
+**Error Message**:
+```
+ConcurrencyError: All tasks in race failed
+```
+
+**Cause**:
+- All tasks in `race` failed
+
+**Solution**: Ensure at least one task can complete successfully.
+
+---
+
+## 9. Template Errors (E8xx) — v1.3.6+
+
+### E801 - TemplateError (Compilation Failed)
+
+**Error Message**:
+```
+TemplateError: Failed to compile template: unclosed {{#for}} block
+```
+
+**Cause**:
+- Template syntax error (unclosed block)
+- Filter name doesn't exist
+
+**Solution**: Check template syntax, ensure all blocks are properly closed.
+
+---
+
+### E802 - TemplateError (Rendering Failed)
+
+**Error Message**:
+```
+TemplateError: Failed to render template: variable 'name' not found
+```
+
+**Cause**:
+- Variable referenced in template doesn't exist in data
+- Data format mismatch
+
+**Solution**: Use `| default(val)` filter to provide default values.
 
 ```nexa
-max_iterations = 5;
-count = 0;
-loop {
-    // ... loop body
-    count = count + 1;
-    if count >= max_iterations {
-        break;
-    }
-} until ("Condition satisfied")
+template"""Hello {{name | default("Guest")}}!"""
 ```
+
+---
+
+## 10. Pattern Matching Errors (E9xx) — v1.3.x+
+
+### E901 - PatternMatchError (No Matching Branch)
+
+**Error Message**:
+```
+PatternMatchError: No matching pattern for value
+```
+
+**Cause**:
+- No branch in `match` expression matches the current value
+- Missing `_` wildcard branch
+
+**Solution**: Add a `_` wildcard branch as default match.
+
+```nexa
+match result {
+    Option::Some(v) => v
+    Option::None => "no response"
+    _ => "unknown"    // Wildcard fallback
+}
+```
+
+---
+
+### E902 - PatternMatchError (Destructuring Failed)
+
+**Error Message**:
+```
+PatternMatchError: Destructuring failed for pattern (a, b)
+```
+
+**Cause**:
+- Destructuring pattern doesn't match data structure (e.g., using tuple pattern on non-tuple value)
+
+**Solution**: Ensure destructuring pattern matches data structure type.
+
+---
+
+## 11. ADT Errors (EAx) — v1.3.x+
+
+### EA01 - ADTError (Struct Operation Failed)
+
+**Error Message**:
+```
+ADTError: Struct 'Point' not found
+```
+
+**Cause**:
+- Referenced unregistered struct
+- Field access doesn't exist
+
+**Solution**: Ensure struct is declared and field names are correct.
+
+---
+
+### EA02 - ADTError (Enum Operation Failed)
+
+**Error Message**:
+```
+ADTError: Variant 'Some' not found in enum 'Option'
+```
+
+**Cause**:
+- Referenced unregistered enum variant
+- Variant name typo
+
+**Solution**: Ensure enum and variant names are correct.
+
+---
+
+### EA03 - ADTError (Trait Method Call Failed)
+
+**Error Message**:
+```
+ADTError: No impl found for trait 'Printable' on type 'Point'
+```
+
+**Cause**:
+- Type doesn't implement the trait
+- Missing `impl` declaration
+
+**Solution**: Add an `impl` declaration.
+
+```nexa
+impl Printable for Point {
+    fn format() -> String { ... }
+}
+```
+
+---
+
+## 12. Job System Errors (EBx) — v1.3.3+
+
+### EB01 - JobError (Job Execution Failed)
+
+**Error Message**:
+```
+JobError: Job 'SendEmail' failed after 2 retries
+```
+
+**Cause**:
+- Job logic execution failed
+- Retry count exhausted
+
+**Solution**: Check `on_failure` handling logic, increase retry count.
+
+---
+
+### EB02 - JobError (Job Timeout)
+
+**Error Message**:
+```
+JobError: Job 'AnalyzeDoc' timed out after 120s
+```
+
+**Cause**:
+- Job execution time exceeded timeout setting
+
+**Solution**: Increase timeout value or optimize job logic.
+
+---
+
+### EB03 - JobError (Dead Letter Job)
+
+**Error Message**:
+```
+JobError: Job 'SendEmail' is in dead letter queue
+```
+
+**Cause**:
+- All job retries failed, entered dead letter queue
+
+**Solution**: Use `nexa jobs retry <job_id>` to retry dead letter jobs.
+
+---
+
+## 13. HTTP Server Errors (ECx) — v1.3.4+
+
+### EC01 - HTTPError (Route Not Found)
+
+**Error Message**:
+```
+HTTPError: No route found for GET /unknown
+```
+
+**Cause**:
+- Request path not defined in server DSL
+
+**Solution**: Add the corresponding route in the server declaration.
+
+---
+
+### EC02 - ContractViolation (HTTP Contract Violation)
+
+**Error Message**:
+```
+ContractViolation(requires) → HTTP 401 Unauthorized
+ContractViolation(ensures) → HTTP 403 Forbidden
+```
+
+**Cause**:
+- HTTP request violated route's `requires` precondition → 401
+- HTTP response violated `ensures` postcondition → 403
+
+**Solution**: Ensure requests satisfy preconditions and responses satisfy postconditions.
+
+---
+
+## 📊 Error Code Quick Reference Table
+
+| Error Code | Category | Description |
+|------------|----------|-------------|
+| E001 | Compile-time | Undeclared identifier |
+| E002 | Compile-time | Type mismatch |
+| E003 | Compile-time | Missing required property |
+| E004 | Compile-time | Syntax error |
+| E005 | Compile-time | Duplicate declaration |
+| E101 | Runtime | Agent execution failed |
+| E102 | Runtime | Tool execution failed |
+| E103 | Runtime | Pipeline execution failed |
+| E104 | Runtime | Intent routing failed |
+| E201 | Contract | requires precondition violation |
+| E202 | Contract | ensures postcondition violation |
+| E203 | Contract | invariant violation |
+| E301 | Type | TypeViolation (strict) |
+| E302 | Type | TypeWarning (warn) |
+| E303 | Type | Protocol type validation failed |
+| E401 | Database | Connection failed |
+| E402 | Database | Query failed |
+| E403 | Database | Transaction failed |
+| E501 | Auth | Authentication failed |
+| E502 | Auth | JWT error |
+| E503 | Auth | CSRF validation failed |
+| E504 | Auth | OAuth flow error |
+| E601 | KV | Operation failed |
+| E602 | KV | Serialization failed |
+| E701 | Concurrency | Task cancelled |
+| E702 | Concurrency | Channel closed |
+| E703 | Concurrency | race all failed |
+| E801 | Template | Compilation failed |
+| E802 | Template | Rendering failed |
+| E901 | Pattern Matching | No matching branch |
+| E902 | Pattern Matching | Destructuring failed |
+| EA01 | ADT | Struct operation failed |
+| EA02 | ADT | Enum operation failed |
+| EA03 | ADT | Trait method call failed |
+| EB01 | Job | Job execution failed |
+| EB02 | Job | Job timeout |
+| EB03 | Job | Dead letter job |
+| EC01 | HTTP | Route not found |
+| EC02 | HTTP | Contract violation |
 
 ---
 
 ## 🔗 Related Resources
 
-- [Troubleshooting Guide](troubleshooting.md)
-- [CLI Command Reference](cli_reference.md)
-- [Language Reference Manual](reference.md)
+- [Language Reference Manual](reference.en.md)
+- [Standard Library API](stdlib_reference.en.md)
+- [Troubleshooting Guide](troubleshooting.en.md)
+- [Quick Start](quickstart.en.md)

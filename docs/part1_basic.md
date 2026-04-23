@@ -29,20 +29,22 @@ agent FriendlyBot {
 
 ### 属性总览表
 
-| 属性 | 类型 | 必填 | 默认值 | 说明 |
-|-----|------|-----|-------|------|
-| `role` | string | 否 | - | Agent 的角色描述，作为系统提示词的一部分 |
-| `prompt` | string | **是** | - | Agent 的核心任务指令 |
-| `model` | string | 否 | 默认模型 | 指定使用的 LLM 模型 |
-| `memory` | string | 否 | - | 记忆模式：`persistent`（持久化）等 |
-| `stream` | boolean | 否 | false | 是否启用流式输出 |
-| `cache` | boolean | 否 | false | 是否启用智能缓存 |
-| `experience` | string | 否 | - | 长期记忆文件路径 |
-| `fallback` | string/list | 否 | - | 备用模型配置 |
-| `tools` | list | 否 | [] | 可用工具列表 |
-| `max_tokens` | int | 否 | - | 最大输出 token 数 |
-| `timeout` | int | 否 | 30 | 执行超时时间（秒） |
-| `retry` | int | 否 | 3 | 失败重试次数 |
+| 属性 | 类型 | 必填 | 默认值 | 版本 | 说明 |
+|-----|------|-----|-------|------|------|
+| `role` | string | 否 | - | v0.5+ | Agent 的角色描述，作为系统提示词的一部分 |
+| `prompt` | string | **是** | - | v0.5+ | Agent 的核心任务指令 |
+| `model` | string | 否 | 默认模型 | v0.5+ | 指定使用的 LLM 模型 |
+| `memory` | string | 否 | - | v0.5+ | 记忆模式：`persistent`（持久化）等 |
+| `stream` | boolean | 否 | false | v0.5+ | 是否启用流式输出 |
+| `cache` | boolean | 否 | false | v0.5+ | 是否启用智能缓存 |
+| `experience` | string | 否 | - | v0.5+ | 长期记忆文件路径 |
+| `fallback` | string/list | 否 | - | v0.5+ | 备用模型配置 |
+| `tools` | list | 否 | [] | v0.5+ | 可用工具列表 |
+| `max_tokens` | int | 否 | - | v0.5+ | 最大输出 token 数 |
+| `timeout` | int | 否 | 30 | v0.5+ | 执行超时时间（秒） |
+| `retry` | int | 否 | 3 | v0.5+ | 失败重试次数 |
+| `requires` | clause | 否 | - | v1.2+ | 前置条件契约条款 |
+| `ensures` | clause | 否 | - | v1.2+ | 后置条件契约条款 |
 
 ### 属性详细说明
 
@@ -760,16 +762,56 @@ agent Bot {
 
 ---
 
+## 🆕 v1.3.x 新声明关键字速览
+
+Nexa v1.3.x 引入了多个新的声明关键字，它们扩展了语言的表达力和企业级能力。以下是快速概览，详细用法请参考对应章节。
+
+### 数据建模关键字
+
+| 关键字 | 版本 | 说明 | 示例 |
+|-------|------|------|------|
+| `struct` | v1.3.x | 定义结构体 | `struct Point { x: Int, y: Int }` |
+| `enum` | v1.3.x | 定义枚举 | `enum Option[T] { Some(T), None }` |
+| `trait` | v1.3.x | 定义特质 | `trait Printable { fn format() -> String }` |
+| `impl` | v1.3.x | 实现特质 | `impl Printable for Point { ... }` |
+| `type` | v1.0.2+ | 定义语义类型 | `type Email = string @ "valid email"` |
+
+### 企业级声明关键字
+
+| 关键字 | 版本 | 说明 | 示例 |
+|-------|------|------|------|
+| `job` | v1.3.3 | 定义后台任务 | `job SendEmail { handler: ..., retry: 3 }` |
+| `server` | v1.3.4 | 定义 HTTP 服务 | `server MyApp { route GET "/hello" { ... } }` |
+| `db` | v1.3.5 | 定义数据库 | `db main_db { type: sqlite, path: "data.db" }` |
+| `auth` | v1.3.6 | 定义认证 | `auth my_auth { providers: ["google"] }` |
+| `kv` | v1.3.7 | 定义 KV 存储 | `kv my_cache { path: ":memory:" }` |
+
+### 契约关键字
+
+| 关键字 | 版本 | 说明 | 示例 |
+|-------|------|------|------|
+| `requires` | v1.2.0 | 前置条件 | `requires: amount > 0` |
+| `ensures` | v1.2.0 | 后置条件 | `ensures: result.success == true` |
+| `invariant` | v1.2.0 | 不变式 | `invariant: state in ["idle", "running"]` |
+
+!!! info "深入学习"
+    - 数据建模关键字（struct/enum/trait/impl）的详细用法请参考 [高级特性](part2_advanced.md)
+    - 企业级声明关键字（job/server/db/auth/kv）的详细用法请参考 [企业级架构特性](part5_enterprise.md)
+    - 契约关键字（requires/ensures/invariant）的详细用法请参考 [语法扩展](part3_extensions.md)
+
+---
+
 ## 📝 本章小结
 
 在这一章里，我们学习了：
 
 1. **Agent 的定义**：使用 `agent` 关键字定义智能体
-2. **核心属性**：`role`, `prompt`, `model`, `memory`, `stream`, `cache` 等
+2. **核心属性**：`role`, `prompt`, `model`, `memory`, `stream`, `cache`, `requires`, `ensures` 等
 3. **流程控制**：使用 `flow main` 作为程序入口
 4. **工具挂载**：使用 `uses` 关键字加载标准库工具
 5. **常见模式**：简单对话、专业领域、工具增强、高可用等模式
 6. **常见错误**：模型格式、定义顺序、属性拼写等
+7. **v1.3.x 新关键字**：struct/enum/trait/impl/type/job/server/db/auth/kv/requires/ensures/invariant
 
 但这仅仅发挥出大语言模型单打独斗（Single-Agent Task）的实力。真实的业务系统充满复杂冗长的协同交错：如何让十几个分工明确的代理接力完成任务？又该如何在各执一词的代理间达成完美共识？
 
@@ -780,5 +822,8 @@ agent Bot {
 ## 🔗 相关资源
 
 - [快速入门教程](quickstart.md) - 30 分钟掌握 Nexa
+- [高级特性](part2_advanced.md) - 管道/模式匹配/ADT 详解
+- [语法扩展](part3_extensions.md) - 契约/类型/错误传播
+- [企业级架构](part5_enterprise.md) - HTTP Server/数据库/认证
 - [完整示例集合](examples.md) - 更多实战代码
 - [常见问题与排查](troubleshooting.md) - 解决开发问题

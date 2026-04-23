@@ -616,27 +616,350 @@ flow main {
 
 ---
 
+## 🔗 函数管道操作符 `|>` (v1.3.x)
+
+与 Agent 管道 `>>` 不同，`|>` 是**函数级**管道操作符：将左侧的值作为右侧函数的第一个参数传入。这让你可以像 Unix 管道一样链式调用标准库工具和自定义函数。
+
+### 基本语法
+
+```nexa
+// x |> f  等价于  f(x)
+// x |> f |> g  等价于  g(f(x))
+```
+
+### 与 Agent 管道 `>>` 的区别
+
+| 操作符 | 级别 | 语义 | 示例 |
+|-------|------|------|------|
+| `>>` | Agent 级 | `B.run(A.run(input))` | `input >> Translator >> Reviewer` |
+| `|>` | 函数级 | `f(x)` | `data |> json_parse |> json_get` |
+
+### 完整示例
+
+```nexa
+flow main {
+    raw_text = '{"name": "Nexa", "version": "1.3"}';
+    
+    // 函数管道：解析 JSON → 提取字段 → 格式化
+    result = raw_text
+        |> std.json.json_parse
+        |> std.json.json_get("name");
+    
+    print(result);  // 输出: Nexa
+    
+    // 与字符串插值组合
+    greeting = "Hello, #{result}!";
+    print(greeting);  // 输出: Hello, Nexa!
+}
+```
+
+!!! tip "何时使用 `|>` vs `>>`"
+    - 处理**数据变换**（JSON 解析、文本处理、数学计算）时使用 `|>`
+    - 处理**Agent 串联**（翻译→校对→格式化）时使用 `>>`
+    - 两者可以组合：`input |> preprocess |> format >> Agent1 >> Agent2`
+
+---
+
+## ❓ 空值合并操作符 `??` (v1.3.x)
+
+`??` 在 DAG 操作符中用于条件分支，但在 v1.3.x 中它还承担了**空值合并**的角色：当左侧为 `None`、`Option::None` 或空字典时，返回右侧的默认值。
+
+### 基本语法
+
+```nexa
+// value ?? fallback
+// 如果 value 为 None/Option::None/空dict，返回 fallback
+// 否则返回 value 本身
+```
+
+### 完整示例
+
+```nexa
+flow main {
+    // KV 存储中键可能不存在
+    user_name = kv.get("user_name") ?? "Guest";
+    
+    // Agent 可能返回 Option::None
+    result = Analyzer.run(input) ?? "No analysis available";
+    
+    // 数据库查询可能返回空
+    record = db.query_one("SELECT * FROM users WHERE id = 1") ?? {"name": "Unknown"};
+    
+    print(user_name);   // Guest（如果键不存在）
+    print(result);      // No analysis available（如果 Agent 返回 None）
+}
+```
+
+!!! warning "注意 `??` 的双重语义"
+    - 在 DAG 上下文中：`input ?? AgentA : AgentB` 表示条件分支
+    - 在表达式上下文中：`value ?? fallback` 表示空值合并
+    - 编译器根据上下文自动区分两种用法
+
+---
+
+## ⏳ 延迟执行 `defer` (v1.3.x)
+
+`defer` 语句将表达式推迟到当前作用域退出时执行，遵循 **LIFO（后进先出）** 顺序。常用于资源清理、日志记录和事务回滚。
+
+### 基本语法
+
+```nexa
+defer expression;
+// expression 会在当前 scope 退出时执行（LIFO 顺序）
+```
+
+### 完整示例
+
+```nexa
+flow main {
+    db_handle = std.db.sqlite.connect("data.db");
+    defer std.db.sqlite.close(db_handle);  // 退出时自动关闭连接
+    
+    kv_handle = std.kv.open(":memory:");
+    defer std.kv.flush(kv_handle);  // 退出时自动刷新 KV
+    
+    // 正常业务逻辑
+    std.db.sqlite.execute(db_handle, "INSERT INTO users VALUES (1, 'Alice')");
+    result = std.db.sqlite.query(db_handle, "SELECT * FROM users");
+    
+    // 无论正常退出还是异常，defer 都会按 LIFO 执行：
+    // 1. 先 flush KV
+    // 2. 再 close DB
+}
+```
+
+!!! tip "defer 执行顺序"
+    多个 `defer` 按 **LIFO** 顺序执行（类似 Go/Rust 的 defer）：
+    ```nexa
+    defer print("first");   // 最后执行
+    defer print("second");  // 第二执行
+    defer print("third");   // 最先执行
+    // 输出顺序: third → second → first
+    ```
+
+---
+
+## 🎯 模式匹配 (v1.3.x)
+
+Nexa v1.3.x 引入了强大的模式匹配系统，支持 7 种模式类型，让你可以优雅地解构和处理复杂数据结构。
+
+### 基本语法
+
+```nexa
+match value {
+    Pattern1 => expression1,
+    Pattern2 => expression2,
+    _ => default_expression
+}
+```
+
+### 支持的模式类型
+
+| 模式类型 | 语法 | 示例 |
+|---------|------|------|
+| 通配符模式 | `_` | `_ => "default"` |
+| 变量绑定模式 | `name` | `x => x + 1` |
+| 字面量模式 | `value` | `0 => "zero"` |
+| 构造器模式 | `Type::Variant(args)` | `Option::Some(v) => v` |
+| 元组模式 | `(a, b, ...)` | `(x, y) => x + y` |
+| 字段模式 | `{field: pattern}` | `{name: n} => n` |
+| 或模式 | `P1 | P2` | `1 | 2 => "small"` |
+
+### 完整示例
+
+```nexa
+flow main {
+    // 匹配 Option 类型
+    result = Analyzer.run(input);
+    
+    match result {
+        Option::Some(data) => print("Got data: #{data}"),
+        Option::None => print("No data available"),
+        _ => print("Unexpected result")
+    }
+    
+    // 匹配 Result 类型
+    response = http_get("https://api.example.com/data");
+    
+    match response {
+        Result::Ok(body) => process(body),
+        Result::Err(error) => print("Error: #{error}"),
+        _ => print("Unknown response")
+    }
+    
+    // 解构元组
+    coords = (10, 20);
+    match coords {
+        (0, 0) => print("Origin"),
+        (x, 0) => print("On x-axis at #{x}"),
+        (0, y) => print("On y-axis at #{y}"),
+        (x, y) => print("At (#{x}, #{y})")
+    }
+    
+    // 解构 struct
+    match user_record {
+        {name: n, age: a} => print("#{n} is #{a} years old"),
+        {name: n} => print("#{n}, age unknown")
+    }
+}
+```
+
+### Let 解构
+
+```nexa
+// 在 let 语句中直接解构
+let (x, y) = coords;
+let {name: user_name, age: user_age} = user_record;
+let Option::Some(value) = result;  // 如果是 None 则抛出 PatternMatchError
+```
+
+### For 解构
+
+```nexa
+// 在 for 循环中解构
+for each (key, value) in kv.list(kv_handle) {
+    print("#{key}: #{value}");
+}
+```
+
+---
+
+## 🏗️ 代数数据类型：Struct、Enum、Trait (v1.3.x)
+
+Nexa v1.3.x 引入了完整的 ADT（代数数据类型）系统，包括结构体（Struct）、枚举（Enum）和特质（Trait），为 Agent 数据建模提供类型安全的基础。
+
+### Struct 声明
+
+```nexa
+struct Point {
+    x: Int,
+    y: Int
+}
+
+struct User {
+    name: String,
+    age: Int,
+    email: Option[String]
+}
+```
+
+### 创建 Struct 实例
+
+```nexa
+// 使用 Field Init 表达式
+p = Point { x: 10, y: 20 };
+u = User { name: "Alice", age: 30, email: Option::Some("alice@example.com") };
+```
+
+### Enum 声明
+
+```nexa
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+enum Option[T] {
+    Some(T),
+    None
+}
+
+enum Result[T, E] {
+    Ok(T),
+    Err(E)
+}
+```
+
+### 创建 Enum Variant
+
+```nexa
+// Variant Call 表达式
+c = Color::Red;
+some_val = Option::Some(42);
+none_val = Option::None;
+ok_result = Result::Ok("success");
+err_result = Result::Err("file not found");
+```
+
+### Trait 声明与 Impl
+
+```nexa
+// 定义 Trait
+trait Printable {
+    fn format() -> String
+}
+
+trait Serializable {
+    fn to_json() -> String
+    fn from_json(data: String) -> Self
+}
+
+// 为类型实现 Trait
+impl Printable for Point {
+    fn format() -> String {
+        "Point(#{self.x}, #{self.y})"
+    }
+}
+
+impl Printable for User {
+    fn format() -> String {
+        "#{self.name} (age: #{self.age})"
+    }
+}
+```
+
+### ADT 与模式匹配组合
+
+```nexa
+// Struct + 模式匹配
+match shape {
+    Point { x: 0, y: 0 } => "Origin",
+    Point { x, y } => "At (#{x}, #{y})"
+}
+
+// Enum + 模式匹配
+match result {
+    Result::Ok(data) => process(data),
+    Result::Err(msg) => handle_error(msg)
+}
+
+// Trait 方法调用
+formatted = p.format();  // 调用 Printable trait 的 format 方法
+```
+
+!!! info "ADT 运行时实现"
+    Nexa 的 ADT 在运行时采用 **handle-as-dict** 模式：所有 struct 实例和 enum variant 在底层都是字典，带有 `_nexa_type`、`_nexa_variant` 等 prefixed key。这使得 ADT 可以无缝与 Agent 的 JSON 输出交互。
+
+---
+
 ## 📊 本章小结
 
 在本章中，我们学习了 Nexa 的高级编排特性：
 
-| 特性 | 关键字 | 用途 |
-|-----|-------|------|
-| 管道操作 | `>>` | Agent 串联 |
-| 意图路由 | `match intent` | 请求分发 |
-| 分叉操作 | `|>>` | 并行处理 |
-| 合流操作 | `&>>` | 结果整合 |
-| 条件分支 | `??` | 路径选择 |
-| 语义循环 | `loop until` | 迭代优化 |
-| 语义条件 | `semantic_if` | 智能判断 |
-| 异常处理 | `try/catch` | 错误处理 |
+| 特性 | 关键字 | 版本 | 用途 |
+|-----|-------|------|------|
+| Agent 管道 | `>>` | v0.5+ | Agent 串联 |
+| 函数管道 | `|>` | v1.3.x | 函数链式调用 |
+| 意图路由 | `match intent` | v0.5+ | 请求分发 |
+| 分叉操作 | `|>>` | v0.9.7+ | 并行处理 |
+| 合流操作 | `&>>` | v0.9.7+ | 结果整合 |
+| DAG 条件分支 | `??` | v0.9.7+ | 路径选择 |
+| 空值合并 | `??` | v1.3.x | None 默认值 |
+| 语义循环 | `loop until` | v0.5+ | 迭代优化 |
+| 语义条件 | `semantic_if` | v0.5+ | 智能判断 |
+| 异常处理 | `try/catch` | v0.9.5+ | 错误处理 |
+| 延迟执行 | `defer` | v1.3.x | 资源清理 |
+| 模式匹配 | `match` | v1.3.x | 数据解构 |
+| 代数数据类型 | `struct/enum/trait` | v1.3.x | 类型安全建模 |
 
-这些特性让 Nexa 能够优雅地处理最复杂的智能体编排场景，从简单的流水线到复杂的 DAG 拓扑，从确定性的分支到语义级别的条件判断。
+这些特性让 Nexa 能够优雅地处理最复杂的智能体编排场景，从简单的流水线到复杂的 DAG 拓扑，从确定性的分支到语义级别的条件判断，再到类型安全的数据建模。
 
 ---
 
 ## 🔗 相关资源
 
 - [完整示例集合](examples.md) - 查看更多 DAG 操作符示例
-- [语法扩展](part3_extensions.md) - 学习 Protocol 高级用法
+- [语法扩展](part3_extensions.md) - 学习 Protocol 与契约高级用法
+- [语言参考手册](reference.md) - 查看完整语法规范
 - [最佳实践](part6_best_practices.md) - 企业级开发经验

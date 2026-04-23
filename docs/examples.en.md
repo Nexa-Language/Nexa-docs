@@ -36,6 +36,14 @@ This document provides a series of complete, runnable Nexa example code covering
 - [Example 15: Intelligent Customer Service System](#example-15-intelligent-customer-service-system)
 - [Example 16: Code Generation and Testing](#example-16-code-generation-and-testing)
 
+### v1.3.x New Feature Examples
+- [Example 17: Design by Contract (DbC)](#example-17-design-by-contract-dbc)
+- [Example 18: Error Propagation and Recovery](#example-18-error-propagation-and-recovery)
+- [Example 19: Pattern Matching and ADT](#example-19-pattern-matching-and-adt)
+- [Example 20: HTTP Server + Database](#example-20-http-server--database)
+- [Example 21: Concurrent Data Processing](#example-21-concurrent-data-processing)
+- [Example 22: Background Job System](#example-22-background-job-system)
+
 ---
 
 ## Basic Examples
@@ -1150,6 +1158,460 @@ flow main {
     print(initial_code.code);
 }
 ```
+
+---
+
+## v1.3.x New Feature Examples
+
+### Example 17: Design by Contract (DbC)
+
+**Purpose**: Demonstrate the use of requires/ensures/invariant contracts and ContractViolation integration with HTTP.
+
+**Complete Code**:
+
+```nexa
+// contract_demo.nx
+// Design by Contract example
+
+agent DataProcessor {
+    role: "Data processing expert"
+    model: "deepseek/deepseek-chat"
+    prompt: "Process input data and return structured results"
+    requires: "input must be non-empty and contain valid data"
+    ensures: "output contains processed summary"
+}
+
+agent QualityChecker {
+    role: "Quality inspector"
+    model: "deepseek/deepseek-chat"
+    prompt: "Check data quality"
+    requires: "data must be formatted as JSON"
+    ensures: "quality_score is between 0 and 100"
+}
+
+flow main {
+    // ✅ Normal call — satisfies requires condition
+    raw_data = '{"items": [1, 2, 3], "status": "active"}'
+    result = DataProcessor.run(raw_data)
+    print("Processing result: " + result)
+
+    // ✅ Use otherwise to handle contract violations
+    empty_data = ""
+    safe_result = DataProcessor.run(empty_data) otherwise "default result"
+    print("Safe result: " + safe_result)
+
+    // ✅ Contract chain — multiple Agent contracts verified sequentially
+    processed = DataProcessor.run(raw_data)
+    quality = QualityChecker.run(processed) otherwise "quality unknown"
+    print("Quality score: " + quality)
+}
+```
+
+**How to Run**:
+```bash
+nexa run contract_demo.nx
+```
+
+**Code Explanation**:
+| Line | Description |
+|-----|------|
+| 7-8 | `requires` defines preconditions that must be satisfied before calling |
+| 9 | `ensures` defines postconditions that output must satisfy |
+| 20 | `otherwise` provides a fallback result when contract is violated |
+| 23-24 | Contract chain: multiple Agent contracts verified sequentially |
+
+---
+
+### Example 18: Error Propagation and Recovery
+
+**Purpose**: Demonstrate the use of `?` error propagation operator and `otherwise` error recovery operator.
+
+**Complete Code**:
+
+```nexa
+// error_propagation_demo.nx
+// Error propagation and recovery example
+
+agent Fetcher {
+    role: "Data fetcher"
+    model: "deepseek/deepseek-chat"
+    prompt: "Fetch data from specified source"
+}
+
+agent Parser {
+    role: "Data parser"
+    model: "deepseek/deepseek-chat"
+    prompt: "Parse raw data into structured format"
+}
+
+agent Analyzer {
+    role: "Data analyzer"
+    model: "deepseek/deepseek-chat"
+    prompt: "Analyze data and generate insights"
+}
+
+flow main {
+    // ✅ Use ? to propagate errors — any step failure propagates up the chain
+    result = Fetcher.run("source_url")
+        |> Parser.run?
+        |> Analyzer.run?
+
+    // ✅ Use otherwise to provide fallback at each step
+    safe_result = Fetcher.run("source_url") otherwise "no data"
+        |> Parser.run? otherwise "parse failed"
+        |> Analyzer.run? otherwise "analysis unavailable"
+
+    print("Safe result: " + safe_result)
+
+    // ✅ Combine ? and otherwise
+    data = Fetcher.run("source_url")?
+    if data != None {
+        parsed = Parser.run(data) otherwise "raw data: " + data
+        print("Parsed result: " + parsed)
+    } otherwise {
+        print("Data fetch failed, using cache")
+        cached = std.kv.get("cache_key") ?? "default cache data"
+        print("Cached data: " + cached)
+    }
+}
+```
+
+**How to Run**:
+```bash
+nexa run error_propagation_demo.nx
+```
+
+**Code Explanation**:
+| Line | Description |
+|-----|------|
+| 19-21 | `?` operator: errors propagate automatically, any step failure fails the whole chain |
+| 24-26 | `otherwise` operator: provides fallback at each step, ensuring chain doesn't break |
+| 30-37 | Combining `?` with `otherwise`, plus `??` null coalescing |
+
+---
+
+### Example 19: Pattern Matching and ADT
+
+**Purpose**: Demonstrate the combined use of struct/enum/trait algebraic data types with pattern matching.
+
+**Complete Code**:
+
+```nexa
+// pattern_adt_demo.nx
+// Pattern matching and ADT example
+
+// Define struct
+struct User {
+    name: string
+    age: int
+    email: string
+}
+
+// Define enum
+enum Status {
+    Active
+    Inactive
+    Suspended(reason: string)
+}
+
+// Define trait
+trait Displayable {
+    fn display(self) -> string
+}
+
+impl Displayable for User {
+    fn display(self) -> string {
+        "#{self.name} (#{self.age}) — #{self.email}"
+    }
+}
+
+flow main {
+    // Create struct instance
+    user = User{name: "Alice", age: 30, email: "alice@example.com"}
+
+    // Create enum variant
+    status = Status.Active
+    suspended = Status.Suspended{reason: "rule violation"}
+
+    // ✅ Pattern matching
+    match status {
+        Status.Active -> print("User is active")
+        Status.Inactive -> print("User is inactive")
+        Status.Suspended{reason} -> print("User suspended: " + reason)
+    }
+
+    // ✅ Let destructuring
+    let User{name, age} = user
+    print("Name: " + name + ", Age: " + age)
+
+    // ✅ Trait method call
+    display_text = user.display()
+    print("Display: " + display_text)
+
+    // ✅ For destructuring
+    users = [User{name: "Bob", age: 25, email: "bob@test.com"},
+             User{name: "Carol", age: 28, email: "carol@test.com"}]
+    for let User{name, age} in users {
+        print("#{name}: #{age} years old")
+    }
+}
+```
+
+**How to Run**:
+```bash
+nexa run pattern_adt_demo.nx
+```
+
+**Code Explanation**:
+| Line | Description |
+|-----|------|
+| 6-10 | `struct` defines data structure with typed fields |
+| 13-17 | `enum` defines enumeration with data-carrying variants |
+| 20-22 | `trait` defines behavior interface |
+| 24-27 | `impl` implements trait methods for a concrete type |
+| 32-36 | `match` pattern matching, branching by variant |
+| 39 | `let` destructuring to extract struct fields |
+| 42 | Trait method call |
+| 45-48 | `for let` destructuring iteration over collections |
+
+---
+
+### Example 20: HTTP Server + Database
+
+**Purpose**: Demonstrate the integration of HTTP Server with database, building a complete API service.
+
+**Complete Code**:
+
+```nexa
+// http_db_demo.nx
+// HTTP Server + Database integration example
+
+db AppDB {
+    type: "sqlite"
+    path: ":memory:"
+}
+
+agent ItemHandler {
+    role: "Item management assistant"
+    model: "deepseek/deepseek-chat"
+    prompt: "Handle item-related requests"
+    requires: "request must contain valid item data"
+    ensures: "response contains item details"
+}
+
+server ItemAPI {
+    route "/api/items": ItemHandler
+    route "/api/items/search": ItemHandler
+}
+
+flow main {
+    // Initialize database
+    db_handle = std.db.sqlite.connect(":memory:")
+    std.db.sqlite.execute(db_handle, "CREATE TABLE items (id INT, name TEXT, price FLOAT)")
+    std.db.sqlite.execute(db_handle, "INSERT INTO items VALUES (1, 'Widget', 9.99)")
+    std.db.sqlite.execute(db_handle, "INSERT INTO items VALUES (2, 'Gadget', 19.99)")
+
+    // Query data
+    items = std.db.sqlite.query(db_handle, "SELECT * FROM items")
+    print("Items in database: " + items)
+
+    // Start HTTP Server
+    // nexa serve http_db_demo.nx --port 8080
+    // Contract violations auto-map: requires → 401, ensures → 403
+
+    std.db.sqlite.close(db_handle)
+}
+```
+
+**How to Run**:
+```bash
+# Build first
+nexa build http_db_demo.nx
+
+# Start HTTP Server
+nexa serve http_db_demo.nx --port 8080
+
+# View routes
+nexa routes http_db_demo.nx
+```
+
+**Code Explanation**:
+| Line | Description |
+|-----|------|
+| 6-9 | `db` declares database configuration |
+| 17-20 | `server` declares HTTP routes |
+| 24-28 | SQLite initialization: create table, insert data |
+| 30 | Query data |
+| 33 | Contract violations automatically map to HTTP status codes |
+
+---
+
+### Example 21: Concurrent Data Processing
+
+**Purpose**: Demonstrate the use of structured concurrency, Channel, and race.
+
+**Complete Code**:
+
+```nexa
+// concurrent_demo.nx
+// Concurrent data processing example
+
+agent FastSource {
+    role: "Fast data source"
+    model: "deepseek/deepseek-chat"
+    prompt: "Return data quickly"
+}
+
+agent SlowSource {
+    role: "Slow data source"
+    model: "deepseek/deepseek-chat"
+    prompt: "Return data but may be slower"
+}
+
+agent Aggregator {
+    role: "Data aggregator"
+    model: "deepseek/deepseek-chat"
+    prompt: "Aggregate data from multiple sources"
+}
+
+flow main {
+    // ✅ race — multi-source competition, take fastest result
+    result = std.concurrent.race([
+        FastSource.run("query1"),
+        SlowSource.run("query2")
+    ])
+    print("Fastest result: " + result)
+
+    // ✅ Channel — producer-consumer pattern
+    ch = std.concurrent.channel(10)
+
+    // Send data to Channel
+    std.concurrent.ch_send(ch, "data_item_1")
+    std.concurrent.ch_send(ch, "data_item_2")
+
+    // Receive data from Channel
+    item1 = std.concurrent.ch_recv(ch) ?? "no data"
+    item2 = std.concurrent.ch_recv(ch) ?? "no data"
+    print("Received: " + item1 + ", " + item2)
+
+    // ✅ spawn — launch concurrent tasks
+    task1 = std.concurrent.spawn(FastSource.run("task_a"))
+    task2 = std.concurrent.spawn(SlowSource.run("task_b"))
+
+    // Wait for all tasks to complete
+    results = std.concurrent.join_all([task1, task2])
+    print("All results: " + results)
+
+    // ✅ |> pipe to combine concurrent results
+    final = results |> Aggregator.run
+    print("Aggregated result: " + final)
+}
+```
+
+**How to Run**:
+```bash
+nexa run concurrent_demo.nx
+```
+
+**Code Explanation**:
+| Line | Description |
+|-----|------|
+| 23-26 | `race` multi-source competition, take fastest result |
+| 29-38 | `channel` producer-consumer pattern, `??` handles empty channel |
+| 41-42 | `spawn` launches concurrent tasks |
+| 45 | `join_all` waits for all tasks to complete |
+| 48 | `|>` pipe to combine concurrent results |
+
+---
+
+### Example 22: Background Job System
+
+**Purpose**: Demonstrate Job declaration, Worker startup, and task lifecycle management.
+
+**Complete Code**:
+
+```nexa
+// job_demo.nx
+// Background job system example
+
+agent EmailSender {
+    role: "Email sending assistant"
+    model: "deepseek/deepseek-chat"
+    prompt: "Send notification emails"
+}
+
+agent ReportGenerator {
+    role: "Report generation assistant"
+    model: "deepseek/deepseek-chat"
+    prompt: "Generate data analysis reports"
+}
+
+job EmailJob {
+    agent: EmailSender
+    queue: "email_queue"
+    retry: 3
+    backoff: 60
+    timeout: 300
+}
+
+job ReportJob {
+    agent: ReportGenerator
+    queue: "report_queue"
+    retry: 2
+    backoff: 120
+    timeout: 600
+}
+
+flow main {
+    // ✅ defer — ensure resource cleanup
+    defer {
+        print("Cleanup completed")
+    }
+
+    // Email job registered
+    print("Email job registered")
+
+    // Report job registered
+    print("Report job registered")
+
+    // Use KV store to track job status
+    std.kv.set("email_status", "pending")
+    std.kv.set("report_status", "pending")
+
+    // Query job status
+    email_status = std.kv.get("email_status") ?? "unknown"
+    report_status = std.kv.get("report_status") ?? "unknown"
+    print("Email status: " + email_status)
+    print("Report status: " + report_status)
+}
+```
+
+**How to Run**:
+```bash
+# Build
+nexa build job_demo.nx
+
+# Start Worker
+nexa workers job_demo.nx --start --queue email_queue,report_queue
+
+# View job status
+nexa jobs job_demo.nx --status
+
+# View dead letter jobs
+nexa jobs job_demo.nx --dead-letter
+
+# Stop Worker
+nexa workers job_demo.nx --stop
+```
+
+**Code Explanation**:
+| Line | Description |
+|-----|------|
+| 17-22 | `job` declares background task with retry and timeout configuration |
+| 24-29 | Multiple Job declarations with different queues and parameters |
+| 33-35 | `defer` ensures cleanup on function exit |
+| 41-42 | KV store tracks task status |
+| 45-46 | `??` handles potentially missing keys in KV |
 
 ---
 

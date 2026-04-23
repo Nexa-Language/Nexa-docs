@@ -16,7 +16,13 @@ This document summarizes common problems and their solutions when using Nexa. If
 - [Model Call Issues](#4-model-call-issues)
 - [Tool Call Issues](#5-tool-call-issues)
 - [Protocol Related Issues](#6-protocol-related-issues)
-- [Debugging Tips](#7-debugging-tips)
+- [Contract and Type Issues (v1.2+)](#7-contract-and-type-issues)
+- [Database Issues (v1.3.5+)](#8-database-issues)
+- [Authentication Issues (v1.3.6+)](#9-authentication-issues)
+- [Concurrency Issues (v1.3.6+)](#10-concurrency-issues)
+- [HTTP Server Issues (v1.3.4+)](#11-http-server-issues)
+- [Job System Issues (v1.3.3+)](#12-job-system-issues)
+- [Debugging Tips](#13-debugging-tips)
 
 ---
 
@@ -662,9 +668,576 @@ protocol DataTypes {
 
 ---
 
-## 7. Debugging Tips
+## 7. Contract and Type Issues (v1.2+)
 
-### 7.1 Use `nexa build` to View Generated Code
+### 7.1 ContractViolation: requires Precondition Violation
+
+**Symptom**:
+```
+ContractViolation: requires precondition failed: "input must be non-empty"
+```
+
+**Cause**: The `requires` contract condition was not satisfied before function/Agent execution.
+
+**Solutions**:
+
+1. **Check input data**: Ensure parameters satisfy the `requires` condition
+```nexa
+agent Validator {
+    requires: "input must be non-empty"
+    role: "validator"
+    prompt: "validate input"
+}
+
+// ✅ Correct: ensure input is non-empty
+flow main {
+    data = "some content"
+    result = Validator.run(data)
+}
+
+// ❌ Wrong: passing empty value
+flow main {
+    data = ""
+    result = Validator.run(data)  // ContractViolation!
+}
+```
+
+2. **Use `??` to provide default values**:
+```nexa
+flow main {
+    data = raw_input ?? "default content"
+    result = Validator.run(data)
+}
+```
+
+3. **Use `otherwise` to handle contract violations**:
+```nexa
+flow main {
+    result = Validator.run(data) otherwise "fallback result"
+}
+```
+
+### 7.2 ContractViolation: ensures Postcondition Violation
+
+**Symptom**:
+```
+ContractViolation: ensures postcondition failed: "output must contain summary"
+```
+
+**Cause**: Agent output did not satisfy the `ensures` condition.
+
+**Solutions**:
+
+1. **Optimize prompt**: Make Agent output more reliably satisfy postconditions
+2. **Use `implements` for automatic retry correction**: Protocol + implements will auto-retry
+3. **Relax ensures conditions**: If conditions are too strict, relax them appropriately
+
+### 7.3 ContractViolation: invariant Violation
+
+**Symptom**:
+```
+ContractViolation: invariant violation: "count must be >= 0"
+```
+
+**Cause**: Object state violated invariant constraints during operations.
+
+**Solutions**:
+
+1. **Check state change logic**: Ensure all operations maintain invariants
+2. **Use `old` expression to verify state changes**:
+```nexa
+db MyDB {
+    invariant: "count >= 0"
+    ensures: "count == old(count) + 1"
+}
+```
+
+### 7.4 TypeViolation: strict Mode Type Violation
+
+**Symptom**:
+```
+TypeViolation: expected type 'int', got 'str'
+```
+
+**Cause**: In `NEXA_TYPE_MODE=strict` mode, type mismatches throw exceptions directly.
+
+**Solutions**:
+
+1. **Switch to warn mode** (recommended during development):
+```bash
+export NEXA_TYPE_MODE=warn
+nexa run script.nx
+```
+
+2. **Add type annotations**: Ensure variables and functions have correct type declarations
+3. **Use type narrowing**:
+```nexa
+flow main {
+    value: int = some_input
+    // After type narrowing, value is guaranteed to be int
+}
+```
+
+### 7.5 TypeWarning: warn Mode Type Warning
+
+**Symptom**:
+```
+TypeWarning: variable 'x' inferred as 'str', annotated as 'int'
+```
+
+**Cause**: In `NEXA_TYPE_MODE=warn` mode, type mismatches only produce warnings without interrupting execution.
+
+**Solutions**:
+
+1. **Check warning messages**: Confirm whether it's a genuine type issue
+2. **Fix type annotations**: Make annotations consistent with actual values
+3. **Use `nexa lint` to check**:
+```bash
+nexa lint script.nx --warn-untyped
+```
+
+---
+
+## 8. Database Issues (v1.3.5+)
+
+### 8.1 DatabaseError: Connection Failed
+
+**Symptom**:
+```
+DatabaseError: failed to connect to SQLite database: /path/to/db.sqlite
+```
+
+**Cause**: Database file path doesn't exist or insufficient permissions.
+
+**Solutions**:
+
+1. **Check file path**: Ensure path is correct and has write permissions
+```nexa
+db MyDB {
+    type: "sqlite"
+    path: "./data/app.db"  // Use relative path
+}
+```
+
+2. **Use in-memory database** (during development):
+```nexa
+db MyDB {
+    type: "sqlite"
+    path: ":memory:"  // In-memory database, no file needed
+}
+```
+
+3. **Create data directory**:
+```bash
+mkdir -p ./data
+```
+
+### 8.2 DatabaseError: Query Failed
+
+**Symptom**:
+```
+DatabaseError: query failed: SELECT * FROM users
+```
+
+**Cause**: SQL syntax error or table doesn't exist.
+
+**Solutions**:
+
+1. **Check SQL syntax**: Ensure SQL statements are correct
+2. **Ensure table is created**: Execute CREATE TABLE before querying
+```nexa
+flow main {
+    db_handle = std.db.sqlite.connect(":memory:")
+    std.db.sqlite.execute(db_handle, "CREATE TABLE users (id INT, name TEXT)")
+    std.db.sqlite.execute(db_handle, "INSERT INTO users VALUES (1, 'Alice')")
+    result = std.db.sqlite.query(db_handle, "SELECT * FROM users")
+    std.db.sqlite.close(db_handle)
+}
+```
+
+3. **Use parameterized queries**: Avoid SQL injection
+```nexa
+result = std.db.sqlite.query(db_handle, "SELECT * FROM users WHERE id = ?", params: [1])
+```
+
+### 8.3 DatabaseError: Transaction Failed
+
+**Symptom**:
+```
+DatabaseError: transaction failed: commit error
+```
+
+**Cause**: Transaction commit failed, possibly due to concurrent conflicts or constraint violations.
+
+**Solutions**:
+
+1. **Use explicit transaction control**:
+```nexa
+std.db.sqlite.begin(db_handle)
+std.db.sqlite.execute(db_handle, "INSERT ...")
+std.db.sqlite.commit(db_handle)  // Explicit commit
+```
+
+2. **Catch errors and rollback**:
+```nexa
+flow main {
+    std.db.sqlite.begin(db_handle)
+    result = std.db.sqlite.execute(db_handle, "INSERT ...") otherwise {
+        std.db.sqlite.rollback(db_handle)
+    }
+}
+```
+
+---
+
+## 9. Authentication Issues (v1.3.6+)
+
+### 9.1 AuthError: Authentication Failed
+
+**Symptom**:
+```
+AuthError: authentication failed: invalid credentials
+```
+
+**Cause**: Incorrect username/password or misconfigured authentication.
+
+**Solutions**:
+
+1. **Check auth declaration configuration**:
+```nexa
+auth MyApp {
+    type: "jwt"
+    secret: secret.JWT_SECRET
+    algorithms: ["HS256"]
+}
+```
+
+2. **Ensure secrets are configured**: Check `secrets.nxs` file
+3. **Use `nexa validate` to check configuration**:
+```bash
+nexa validate script.nx
+```
+
+### 9.2 AuthError: JWT Error
+
+**Symptom**:
+```
+AuthError: JWT error: token expired
+```
+
+**Cause**: JWT token expired or signature invalid.
+
+**Solutions**:
+
+1. **Set reasonable expiration time**:
+```nexa
+auth MyApp {
+    type: "jwt"
+    secret: secret.JWT_SECRET
+    expires_in: 3600  // 1 hour
+}
+```
+
+2. **Use std.auth.jwt_verify to validate token**:
+```nexa
+flow main {
+    valid = std.auth.jwt_verify(token, secret.JWT_SECRET)
+    if valid {
+        // Process request
+    } otherwise {
+        // Return 401
+    }
+}
+```
+
+### 9.3 AuthError: CSRF Validation Failed
+
+**Symptom**:
+```
+AuthError: CSRF validation failed: missing csrf_token
+```
+
+**Cause**: Request missing CSRF token or token mismatch.
+
+**Solutions**:
+
+1. **Include CSRF token in forms**:
+```nexa
+flow main {
+    csrf_token = std.auth.csrf_generate(session_id)
+    // Include token in form/request
+}
+```
+
+2. **Validate CSRF token**:
+```nexa
+flow main {
+    valid = std.auth.csrf_validate(session_id, submitted_token)
+    if valid {
+        // Process request
+    } otherwise {
+        // Reject request
+    }
+}
+```
+
+### 9.4 AuthError: OAuth Flow Error
+
+**Symptom**:
+```
+AuthError: OAuth flow error: invalid redirect_uri
+```
+
+**Cause**: OAuth configuration error (redirect_uri mismatch, invalid client_id, etc.).
+
+**Solutions**:
+
+1. **Check OAuth configuration**: Ensure redirect_uri matches what's registered with the OAuth provider
+2. **Use std.auth.oauth_* tools for step-by-step debugging**:
+```nexa
+flow main {
+    auth_url = std.auth.oauth_github_authorize(client_id, redirect_uri)
+    // User visits auth_url to authorize, then callback
+    token = std.auth.oauth_github_callback(code, client_id, client_secret)
+}
+```
+
+---
+
+## 10. Concurrency Issues (v1.3.6+)
+
+### 10.1 ConcurrencyError: Task Cancelled
+
+**Symptom**:
+```
+ConcurrencyError: task cancelled: timeout exceeded
+```
+
+**Cause**: Concurrent task terminated due to timeout or explicit cancellation.
+
+**Solutions**:
+
+1. **Set reasonable timeout**:
+```nexa
+flow main {
+    result = std.concurrent.spawn(task_fn, timeout: 30)
+}
+```
+
+2. **Use `otherwise` to handle cancellation**:
+```nexa
+flow main {
+    result = std.concurrent.spawn(task_fn) otherwise "fallback"
+}
+```
+
+### 10.2 ConcurrencyError: Channel Closed
+
+**Symptom**:
+```
+ConcurrencyError: channel closed: cannot send to closed channel
+```
+
+**Cause**: Attempting to send data to a closed Channel.
+
+**Solutions**:
+
+1. **Check Channel status**: Confirm Channel is not closed before sending
+2. **Use `??` to handle empty channel**:
+```nexa
+flow main {
+    ch = std.concurrent.channel(10)
+    value = std.concurrent.ch_recv(ch) ?? "default"
+}
+```
+
+3. **Close Channel correctly**: Only close after all senders are done
+
+### 10.3 ConcurrencyError: race All Failed
+
+**Symptom**:
+```
+ConcurrencyError: race all failed: no task completed successfully
+```
+
+**Cause**: All concurrent tasks in `race` failed.
+
+**Solutions**:
+
+1. **Add more candidate tasks**: Provide more alternatives
+2. **Use `otherwise` to provide fallback for each task**:
+```nexa
+flow main {
+    result = std.concurrent.race([
+        primary_task otherwise None,
+        backup_task otherwise None
+    ])
+}
+```
+
+---
+
+## 11. HTTP Server Issues (v1.3.4+)
+
+### 11.1 Route Not Found (EC01)
+
+**Symptom**:
+```
+HTTPError: route not found: POST /api/unknown
+```
+
+**Cause**: Requested path not defined in server declaration.
+
+**Solutions**:
+
+1. **Check route definition**: Ensure server declaration includes the route
+```nexa
+server MyApp {
+    route "/api/data": DataAgent
+    route "/api/process": ProcessAgent
+}
+```
+
+2. **Use `nexa routes` to view all routes**:
+```bash
+nexa routes script.nx
+```
+
+3. **Check request method and path**: Ensure HTTP method (GET/POST) matches the route
+
+### 11.2 Contract Violation Maps to HTTP Status Code (EC02)
+
+**Symptom**:
+```
+HTTP 401: ContractViolation (requires precondition failed)
+HTTP 403: ContractViolation (ensures postcondition failed)
+```
+
+**Cause**: Contract violations automatically map to HTTP status codes (requires → 401, ensures → 403).
+
+**Solutions**:
+
+1. **This is by design**: Contract violations automatically convert to corresponding HTTP error codes
+2. **Client should handle HTTP error codes correctly**:
+```nexa
+flow main {
+    response = std.http.post("/api/data", data) otherwise {
+        // Handle 401/403 errors
+    }
+}
+```
+
+3. **Relax contract conditions**: If conditions are too strict causing frequent 401/403
+
+### 11.3 Port Conflict
+
+**Symptom**:
+```
+Error: Port 8080 is already in use
+```
+
+**Cause**: Specified port is already occupied by another service.
+
+**Solutions**:
+
+1. **Use a different port**:
+```bash
+nexa serve script.nx --port 9090
+```
+
+2. **Find the process occupying the port**:
+```bash
+lsof -i :8080
+kill <PID>
+```
+
+---
+
+## 12. Job System Issues (v1.3.3+)
+
+### 12.1 JobError: Job Execution Failed (EB01)
+
+**Symptom**:
+```
+JobError: job execution failed: email_job_001
+```
+
+**Cause**: Error occurred during background job execution.
+
+**Solutions**:
+
+1. **Check Job definition**: Ensure job declaration and logic are correct
+```nexa
+job EmailJob {
+    agent: EmailAgent
+    queue: "email_queue"
+    retry: 3
+    backoff: 60
+}
+```
+
+2. **View Job status**:
+```bash
+nexa jobs script.nx --status
+```
+
+3. **Use `otherwise` to handle failures**: Add error recovery in Job logic
+
+### 12.2 JobError: Job Timeout (EB02)
+
+**Symptom**:
+```
+JobError: job timeout: email_job_001 exceeded 300s
+```
+
+**Cause**: Job execution time exceeded the set timeout.
+
+**Solutions**:
+
+1. **Increase timeout**:
+```nexa
+job EmailJob {
+    agent: EmailAgent
+    timeout: 600  // Increase to 10 minutes
+}
+```
+
+2. **Optimize Agent performance**: Reduce prompt complexity or use a faster model
+
+### 12.3 JobError: Dead Letter Job (EB03)
+
+**Symptom**:
+```
+JobError: dead letter job: email_job_001 failed after 3 retries
+```
+
+**Cause**: Job still fails after exhausting retry attempts, enters dead letter queue.
+
+**Solutions**:
+
+1. **Check dead letter jobs**:
+```bash
+nexa jobs script.nx --dead-letter
+```
+
+2. **Retry dead letter job**:
+```bash
+nexa jobs script.nx --retry-dead-letter email_job_001
+```
+
+3. **Increase retry count or adjust backoff strategy**:
+```nexa
+job EmailJob {
+    retry: 5        // Increase retry count
+    backoff: 120    // Increase backoff time
+}
+```
+
+---
+
+## 13. Debugging Tips
+
+### 13.1 Use `nexa build` to View Generated Code
 
 ```bash
 # Generate Python code for debugging
@@ -675,7 +1248,7 @@ nexa build script.nx
 python out_script.py
 ```
 
-### 7.2 Enable Verbose Logging
+### 13.2 Enable Verbose Logging
 
 ```bash
 # Enable debug mode at runtime
@@ -686,7 +1259,7 @@ export NEXA_DEBUG=1
 nexa run script.nx
 ```
 
-### 7.3 Check Intermediate Results
+### 13.3 Check Intermediate Results
 
 Use `print` in flow to output intermediate results:
 ```nexa
@@ -699,7 +1272,7 @@ flow main {
 }
 ```
 
-### 7.4 Debug with Python SDK
+### 13.4 Debug with Python SDK
 
 ```python
 from src.nexa_sdk import NexaRuntime
@@ -714,7 +1287,7 @@ result = runtime.run_script("script.nx")
 print(result)
 ```
 
-### 7.5 Check Cache Status
+### 13.5 Check Cache Status
 
 ```bash
 # View cache statistics
@@ -726,24 +1299,53 @@ nexa cache clear
 
 ---
 
-## 8. Error Code Quick Reference
+## 14. Error Code Quick Reference
 
 | Error Code | Meaning | Common Cause |
 |---------|-----|---------|
 | `E001` | Parse error | Syntax error, mismatched brackets |
 | `E002` | Undefined identifier | Agent/Tool undefined or typo |
 | `E003` | Type error | Parameter type mismatch |
-| `E101` | API Key error | Key not configured or invalid |
-| `E102` | Network error | Connection timeout, proxy issue |
-| `E103` | Rate Limit | Request frequency exceeded |
-| `E201` | Tool not found | uses not declared or path error |
-| `E202` | Tool execution error | Parameter error, timeout |
-| `E301` | Protocol validation failed | Output format doesn't match definition |
-| `E302` | Protocol type error | Field type mismatch |
+| `E004` | Syntax error | Incorrect keyword usage |
+| `E005` | Duplicate declaration | Same-name Agent/Protocol defined twice |
+| `E101` | Agent execution failed | Model call failed, prompt error |
+| `E102` | Tool execution failed | Tool parameter error, timeout |
+| `E103` | Pipeline execution failed | Agent pipeline interrupted |
+| `E104` | Intent routing failed | No matching intent |
+| `E201` | ContractViolation (requires) | Precondition not satisfied |
+| `E202` | ContractViolation (ensures) | Postcondition not satisfied |
+| `E203` | ContractViolation (invariant) | Invariant violation |
+| `E301` | TypeViolation (strict) | strict mode type violation |
+| `E302` | TypeWarning (warn) | warn mode type warning |
+| `E303` | Protocol type validation failed | Field type mismatch |
+| `E401` | DatabaseError (connection) | Database connection failed |
+| `E402` | DatabaseError (query) | SQL syntax error or table not found |
+| `E403` | DatabaseError (transaction) | Transaction commit/rollback failed |
+| `E501` | AuthError (authentication) | Invalid credentials |
+| `E502` | AuthError (JWT) | Token expired or signature invalid |
+| `E503` | AuthError (CSRF) | CSRF token mismatch |
+| `E504` | AuthError (OAuth) | OAuth flow configuration error |
+| `E601` | KVError (operation) | KV store operation failed |
+| `E602` | KVError (serialization) | Data serialization/deserialization failed |
+| `E701` | ConcurrencyError (cancelled) | Task cancelled or timeout |
+| `E702` | ConcurrencyError (channel) | Channel closed |
+| `E703` | ConcurrencyError (race) | race all failed |
+| `E801` | TemplateError (compilation) | Template syntax error |
+| `E802` | TemplateError (rendering) | Template rendering failed |
+| `E901` | PatternMatchError (no match) | No matching branch |
+| `E902` | PatternMatchError (destructuring) | Destructuring failed |
+| `EA01` | ADTError (Struct) | Struct operation failed |
+| `EA02` | ADTError (Enum) | Enum operation failed |
+| `EA03` | ADTError (Trait) | Trait method call failed |
+| `EB01` | JobError (execution) | Job execution failed |
+| `EB02` | JobError (timeout) | Job timeout |
+| `EB03` | JobError (dead letter) | Dead letter job |
+| `EC01` | HTTPError (route) | Route not found |
+| `EC02` | ContractViolation (HTTP) | HTTP contract violation |
 
 ---
 
-## 9. Getting Help
+## 15. Getting Help
 
 If the above solutions don't resolve your issue:
 

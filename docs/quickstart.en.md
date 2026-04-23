@@ -52,7 +52,30 @@ EOF
 # Check if installation was successful
 nexa --version
 
-# Should output something like: Nexa v1.0-alpha
+# Should output something like: Nexa v1.3.x
+```
+
+### 5. Common CLI Commands Quick Reference
+
+```bash
+# Build and run
+nexa build main.nexa          # Compile program
+nexa run main.nexa            # Run program
+nexa test main.nexa           # Run tests
+
+# Analysis and checking
+nexa inspect main.nexa        # Structural analysis
+nexa validate main.nexa       # Semantic validation
+nexa lint main.nexa           # Type system lint (v1.3.1+)
+nexa intent check main.nexa   # Intent check (v1.1+)
+nexa intent coverage main.nexa # Intent coverage (v1.1+)
+
+# Service and jobs
+nexa serve main.nexa          # Start HTTP Server (v1.3.4+)
+nexa routes main.nexa         # List routes (v1.3.4+)
+nexa jobs main.nexa --all     # Job management (v1.3.3+)
+nexa workers main.nexa        # Worker management (v1.3.3+)
+nexa cache clear              # Clear cache
 ```
 
 ---

@@ -618,29 +618,350 @@ flow main {
 
 ---
 
+## 🔗 Function Pipe Operator `|>` (v1.3.x)
+
+Unlike the Agent pipeline `>>`, `|>` is a **function-level** pipe operator: it passes the left-hand value as the first argument to the right-hand function. This lets you chain standard library tools and custom functions like Unix pipes.
+
+### Basic Syntax
+
+```nexa
+// x |> f  equivalent to  f(x)
+// x |> f |> g  equivalent to  g(f(x))
+```
+
+### Difference from Agent Pipeline `>>`
+
+| Operator | Level | Semantics | Example |
+|----------|-------|-----------|---------|
+| `>>` | Agent level | `B.run(A.run(input))` | `input >> Translator >> Reviewer` |
+| `|>` | Function level | `f(x)` | `data |> json_parse |> json_get` |
+
+### Complete Example
+
+```nexa
+flow main {
+    raw_text = '{"name": "Nexa", "version": "1.3"}';
+    
+    // Function pipe: parse JSON → extract field → format
+    result = raw_text
+        |> std.json.json_parse
+        |> std.json.json_get("name");
+    
+    print(result);  // Output: Nexa
+    
+    // Combined with string interpolation
+    greeting = "Hello, #{result}!";
+    print(greeting);  // Output: Hello, Nexa!
+}
+```
+
+!!! tip "When to Use `|>` vs `>>`"
+    - Use `|>` for **data transformation** (JSON parsing, text processing, math calculations)
+    - Use `>>` for **Agent chaining** (translate → proofread → format)
+    - They can be combined: `input |> preprocess |> format >> Agent1 >> Agent2`
+
+---
+
+## ❓ Null Coalescing Operator `??` (v1.3.x)
+
+`??` is used for conditional branching in DAG operators, but in v1.3.x it also serves as a **null coalescing** operator: when the left side is `None`, `Option::None`, or an empty dict, it returns the right side's default value.
+
+### Basic Syntax
+
+```nexa
+// value ?? fallback
+// If value is None/Option::None/empty dict, return fallback
+// Otherwise return value itself
+```
+
+### Complete Example
+
+```nexa
+flow main {
+    // Key may not exist in KV store
+    user_name = kv.get("user_name") ?? "Guest";
+    
+    // Agent may return Option::None
+    result = Analyzer.run(input) ?? "No analysis available";
+    
+    // Database query may return empty
+    record = db.query_one("SELECT * FROM users WHERE id = 1") ?? {"name": "Unknown"};
+    
+    print(user_name);   // Guest (if key doesn't exist)
+    print(result);      // No analysis available (if Agent returns None)
+}
+```
+
+!!! warning "Note the Dual Semantics of `??`"
+    - In DAG context: `input ?? AgentA : AgentB` means conditional branching
+    - In expression context: `value ?? fallback` means null coalescing
+    - The compiler automatically distinguishes between the two usages based on context
+
+---
+
+## ⏳ Deferred Execution `defer` (v1.3.x)
+
+The `defer` statement postpones expression evaluation until the current scope exits, following **LIFO (Last-In-First-Out)** order. Commonly used for resource cleanup, logging, and transaction rollback.
+
+### Basic Syntax
+
+```nexa
+defer expression;
+// expression will execute when the current scope exits (LIFO order)
+```
+
+### Complete Example
+
+```nexa
+flow main {
+    db_handle = std.db.sqlite.connect("data.db");
+    defer std.db.sqlite.close(db_handle);  // Auto-close connection on exit
+    
+    kv_handle = std.kv.open(":memory:");
+    defer std.kv.flush(kv_handle);  // Auto-flush KV on exit
+    
+    // Normal business logic
+    std.db.sqlite.execute(db_handle, "INSERT INTO users VALUES (1, 'Alice')");
+    result = std.db.sqlite.query(db_handle, "SELECT * FROM users");
+    
+    // Whether normal exit or exception, defer executes in LIFO order:
+    // 1. First flush KV
+    // 2. Then close DB
+}
+```
+
+!!! tip "defer Execution Order"
+    Multiple `defer` statements execute in **LIFO** order (similar to Go/Rust):
+    ```nexa
+    defer print("first");   // Executes last
+    defer print("second");  // Executes second
+    defer print("third");   // Executes first
+    // Output order: third → second → first
+    ```
+
+---
+
+## 🎯 Pattern Matching (v1.3.x)
+
+Nexa v1.3.x introduces a powerful pattern matching system supporting 7 pattern types, allowing you to elegantly destructure and process complex data structures.
+
+### Basic Syntax
+
+```nexa
+match value {
+    Pattern1 => expression1,
+    Pattern2 => expression2,
+    _ => default_expression
+}
+```
+
+### Supported Pattern Types
+
+| Pattern Type | Syntax | Example |
+|-------------|--------|---------|
+| Wildcard Pattern | `_` | `_ => "default"` |
+| Variable Binding Pattern | `name` | `x => x + 1` |
+| Literal Pattern | `value` | `0 => "zero"` |
+| Constructor Pattern | `Type::Variant(args)` | `Option::Some(v) => v` |
+| Tuple Pattern | `(a, b, ...)` | `(x, y) => x + y` |
+| Field Pattern | `{field: pattern}` | `{name: n} => n` |
+| Or Pattern | `P1 | P2` | `1 | 2 => "small"` |
+
+### Complete Example
+
+```nexa
+flow main {
+    // Match Option type
+    result = Analyzer.run(input);
+    
+    match result {
+        Option::Some(data) => print("Got data: #{data}"),
+        Option::None => print("No data available"),
+        _ => print("Unexpected result")
+    }
+    
+    // Match Result type
+    response = http_get("https://api.example.com/data");
+    
+    match response {
+        Result::Ok(body) => process(body),
+        Result::Err(error) => print("Error: #{error}"),
+        _ => print("Unknown response")
+    }
+    
+    // Destructure tuple
+    coords = (10, 20);
+    match coords {
+        (0, 0) => print("Origin"),
+        (x, 0) => print("On x-axis at #{x}"),
+        (0, y) => print("On y-axis at #{y}"),
+        (x, y) => print("At (#{x}, #{y})")
+    }
+    
+    // Destructure struct
+    match user_record {
+        {name: n, age: a} => print("#{n} is #{a} years old"),
+        {name: n} => print("#{n}, age unknown")
+    }
+}
+```
+
+### Let Destructuring
+
+```nexa
+// Direct destructuring in let statement
+let (x, y) = coords;
+let {name: user_name, age: user_age} = user_record;
+let Option::Some(value) = result;  // Throws PatternMatchError if None
+```
+
+### For Destructuring
+
+```nexa
+// Destructuring in for loop
+for each (key, value) in kv.list(kv_handle) {
+    print("#{key}: #{value}");
+}
+```
+
+---
+
+## 🏗️ Algebraic Data Types: Struct, Enum, Trait (v1.3.x)
+
+Nexa v1.3.x introduces a complete ADT (Algebraic Data Type) system including structs, enums, and traits, providing a type-safe foundation for Agent data modeling.
+
+### Struct Declaration
+
+```nexa
+struct Point {
+    x: Int,
+    y: Int
+}
+
+struct User {
+    name: String,
+    age: Int,
+    email: Option[String]
+}
+```
+
+### Creating Struct Instances
+
+```nexa
+// Using Field Init expression
+p = Point { x: 10, y: 20 };
+u = User { name: "Alice", age: 30, email: Option::Some("alice@example.com") };
+```
+
+### Enum Declaration
+
+```nexa
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+enum Option[T] {
+    Some(T),
+    None
+}
+
+enum Result[T, E] {
+    Ok(T),
+    Err(E)
+}
+```
+
+### Creating Enum Variants
+
+```nexa
+// Variant Call expression
+c = Color::Red;
+some_val = Option::Some(42);
+none_val = Option::None;
+ok_result = Result::Ok("success");
+err_result = Result::Err("file not found");
+```
+
+### Trait Declaration and Impl
+
+```nexa
+// Define Trait
+trait Printable {
+    fn format() -> String
+}
+
+trait Serializable {
+    fn to_json() -> String
+    fn from_json(data: String) -> Self
+}
+
+// Implement Trait for a type
+impl Printable for Point {
+    fn format() -> String {
+        "Point(#{self.x}, #{self.y})"
+    }
+}
+
+impl Printable for User {
+    fn format() -> String {
+        "#{self.name} (age: #{self.age})"
+    }
+}
+```
+
+### ADT Combined with Pattern Matching
+
+```nexa
+// Struct + pattern matching
+match shape {
+    Point { x: 0, y: 0 } => "Origin",
+    Point { x, y } => "At (#{x}, #{y})"
+}
+
+// Enum + pattern matching
+match result {
+    Result::Ok(data) => process(data),
+    Result::Err(msg) => handle_error(msg)
+}
+
+// Trait method call
+formatted = p.format();  // Call Printable trait's format method
+```
+
+!!! info "ADT Runtime Implementation"
+    Nexa's ADTs use the **handle-as-dict** pattern at runtime: all struct instances and enum variants are dictionaries under the hood, with `_nexa_type`, `_nexa_variant`, and other prefixed keys. This allows ADTs to seamlessly interact with Agent JSON output.
+
+---
+
 ## 📊 Chapter Summary
 
 In this chapter, we learned Nexa's advanced orchestration features:
 
-| Feature | Keyword | Use Case |
-|-----|-------|------|
-| Pipeline Operation | `>>` | Agent chaining |
-| Intent Routing | `match intent` | Request dispatching |
-| Fork Operation | `|>>` | Parallel processing |
-| Merge Operation | `&>>` | Result integration |
-| Conditional Branch | `??` | Path selection |
-| Fire-and-Forget | `||` | Async notification |
-| Consensus | `&&` | Voting decision |
-| Semantic Loop | `loop until` | Iterative optimization |
-| Semantic Condition | `semantic_if` | Intelligent judgment |
-| Exception Handling | `try/catch` | Error handling |
+| Feature | Keyword | Version | Use Case |
+|---------|---------|---------|----------|
+| Agent Pipeline | `>>` | v0.5+ | Agent chaining |
+| Function Pipe | `|>` | v1.3.x | Function chaining |
+| Intent Routing | `match intent` | v0.5+ | Request dispatching |
+| Fork Operation | `|>>` | v0.9.7+ | Parallel processing |
+| Merge Operation | `&>>` | v0.9.7+ | Result integration |
+| DAG Conditional Branch | `??` | v0.9.7+ | Path selection |
+| Null Coalescing | `??` | v1.3.x | None default value |
+| Semantic Loop | `loop until` | v0.5+ | Iterative optimization |
+| Semantic Condition | `semantic_if` | v0.5+ | Intelligent judgment |
+| Exception Handling | `try/catch` | v0.9.5+ | Error handling |
+| Deferred Execution | `defer` | v1.3.x | Resource cleanup |
+| Pattern Matching | `match` | v1.3.x | Data destructuring |
+| Algebraic Data Types | `struct/enum/trait` | v1.3.x | Type-safe modeling |
 
-These features enable Nexa to elegantly handle the most complex agent orchestration scenarios, from simple pipelines to complex DAG topologies, from deterministic branching to semantic-level conditional judgment.
+These features enable Nexa to elegantly handle the most complex agent orchestration scenarios, from simple pipelines to complex DAG topologies, from deterministic branching to semantic-level conditional judgment, to type-safe data modeling.
 
 ---
 
 ## 🔗 Related Resources
 
-- [Complete Example Collection](examples.md) - View more DAG operator examples
-- [Syntax Extensions](part3_extensions.md) - Learn advanced Protocol usage
-- [Best Practices](part6_best_practices.md) - Enterprise development experience
+- [Complete Example Collection](examples.en.md) - View more DAG operator examples
+- [Syntax Extensions](part3_extensions.en.md) - Learn Protocol and contract advanced usage
+- [Language Reference Manual](reference.en.md) - View complete syntax specification
+- [Best Practices](part6_best_practices.en.md) - Enterprise development experience

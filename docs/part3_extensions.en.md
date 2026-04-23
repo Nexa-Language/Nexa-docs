@@ -600,24 +600,295 @@ flow main {
 
 ---
 
+## 🛡️ Design by Contract (DbC) — v1.2.0+
+
+Nexa v1.2.0 introduces Design by Contract (DbC), borrowing design concepts from the Eiffel language, elevating `requires` (preconditions), `ensures` (postconditions), and `invariant` (invariants) to language-level keywords. This makes Agent input/output validation no longer optional "defensive programming," but contract clauses enforced by the compiler.
+
+### Basic Syntax
+
+```nexa
+// Deterministic contract: expressions directly evaluated at runtime
+flow transfer(amount: int, sender: string) -> Result
+    requires: amount > 0
+    requires: sender != ""
+    ensures: result.success == true
+{
+    // Function body
+}
+
+// Semantic contract: natural language conditions evaluated by LLM
+flow review(code: string) -> Report
+    requires: "input contains valid source code"
+    ensures: "result includes actionable feedback with specific suggestions"
+{
+    // Function body
+}
+```
+
+### Contract Clause Types
+
+| Clause Type | Keyword | Evaluation Method | Description |
+|------------|---------|-------------------|-------------|
+| Precondition | `requires` | Deterministic/Semantic | Must be satisfied before function call |
+| Postcondition | `ensures` | Deterministic/Semantic | Must be satisfied after function return |
+| Invariant | `invariant` | Deterministic/Semantic | Must always hold during object lifecycle |
+
+### Deterministic vs Semantic Contracts
+
+```nexa
+// Deterministic contract — directly evaluated at runtime (zero LLM cost)
+flow calculate_price(quantity: int, price: float) -> float
+    requires: quantity > 0           // Deterministic: numeric comparison
+    requires: price >= 0             // Deterministic: numeric comparison
+    ensures: result >= 0             // Deterministic: numeric comparison
+{
+    return quantity * price;
+}
+
+// Semantic contract — LLM evaluated (suitable for natural language judgment)
+flow analyze_sentiment(text: string) -> SentimentReport
+    requires: "input is a coherent English text"       // Semantic: needs LLM judgment
+    ensures: "result correctly reflects the emotional tone"  // Semantic: needs LLM judgment
+{
+    // ...
+}
+```
+
+### `old` Expression (Referencing Pre-State)
+
+In `ensures` clauses, you can use `old(expr)` to reference values before function execution:
+
+```nexa
+flow increment_counter(counter: Counter) -> Counter
+    requires: counter.value >= 0
+    ensures: result.value == old(counter.value) + 1
+{
+    counter.value = counter.value + 1;
+    return counter;
+}
+```
+
+### ContractViolation and HTTP Integration
+
+Contract violations automatically map to HTTP status codes in the HTTP Server:
+
+| Violation Type | HTTP Status Code | Description |
+|---------------|-----------------|-------------|
+| `requires` violation | 401 Unauthorized | Request didn't satisfy precondition |
+| `ensures` violation | 403 Forbidden | Response didn't satisfy postcondition |
+
+```nexa
+server MyApp {
+    route "/transfer" {
+        requires: amount > 0       // Violation → HTTP 401
+        ensures: result.success    // Violation → HTTP 403
+        
+        handler: transfer_flow
+    }
+}
+```
+
+!!! warning "Contract Violations Are Exceptions"
+    When a contract is violated, the runtime throws a `ContractViolation` exception (error codes E201-E203). In `strict` type mode, this causes program interruption; in `forgiving` mode, only a warning is logged.
+
+---
+
+## 🔬 Gradual Type System — v1.3.1+
+
+Nexa v1.3.1 introduces a Gradual Type System supporting three type checking modes, allowing you to flexibly choose type strictness based on project stage.
+
+### Type Checking Modes
+
+Controlled via environment variable `NEXA_TYPE_MODE`:
+
+| Mode | Value | Behavior | Use Case |
+|------|-------|----------|----------|
+| **strict** | `strict` | Type mismatch → throws `TypeViolation` exception | Production |
+| **warn** | `warn` | Type mismatch → emits `TypeWarning`, program continues | Development/debugging |
+| **forgiving** | `forgiving` | Type mismatch → silently ignored | Rapid prototyping |
+
+```bash
+# Set type checking mode
+export NEXA_TYPE_MODE=strict   # Strict mode
+export NEXA_TYPE_MODE=warn     # Warning mode
+export NEXA_TYPE_MODE=forgiving  # Forgiving mode
+```
+
+### Lint Mode
+
+Control type annotation coverage checking via `NEXA_LINT_MODE` or `nexa lint --warn-untyped`:
+
+| Lint Mode | Value | Behavior |
+|----------|-------|----------|
+| **off** | `off` | Don't check type annotations |
+| **warn** | `warn` | Warn about unannotated variables/functions |
+| **strict** | `strict` | All public functions must be annotated |
+
+```bash
+# Check type annotation coverage
+nexa lint main.nexa --warn-untyped
+
+# Strict lint mode
+nexa lint main.nexa --strict
+```
+
+### Type Expressions
+
+Nexa supports rich type expressions for `protocol`, `struct`, function signatures, etc.:
+
+```nexa
+// Basic types
+let x: Int = 42
+let y: String = "hello"
+let z: Bool = true
+
+// Generic types
+let items: List[Int] = [1, 2, 3]
+let config: Dict[String, Any] = {"key": "value"}
+
+// Option type — may be None
+let maybe: Option[Int] = Option::Some(42)
+let nothing: Option[Int] = Option::None
+
+// Result type — may succeed or fail
+let ok: Result[Int, String] = Result::Ok(42)
+let err: Result[Int, String] = Result::Err("not found")
+
+// Union type — multiple possible types
+let mixed: Int | String = 42
+
+// Semantic type
+type Email = String @ "valid email address format"
+```
+
+### Type Narrowing
+
+Nexa supports flow-sensitive type narrowing, automatically narrowing variable types after conditional checks:
+
+```nexa
+let value: Option[Int] = Option::Some(42);
+
+// Narrow to Int after None check
+if (value != Option::None) {
+    // Here value type narrows to Int
+    print(value + 1);  // Safe: value confirmed non-None
+}
+
+// Narrow after isinstance check
+let mixed: Int | String = get_value();
+if (mixed is Int) {
+    // Here mixed type narrows to Int
+    print(mixed * 2);
+}
+```
+
+---
+
+## 🚨 Error Propagation (`?` and `otherwise`) — v1.3.2+
+
+Nexa v1.3.2 introduces Rust-style error propagation operators `?` and `otherwise`, allowing you to elegantly handle errors in Agent execution without nested `try/catch`.
+
+### `?` Error Propagation Operator
+
+When an Agent or function returns a `Result` type, the `?` operator:
+
+- If `Result::Ok(value)` → extracts `value` and continues execution
+- If `Result::Err(error)` → immediately propagates error upward, interrupting current flow
+
+```nexa
+flow main {
+    // Traditional approach: manually handle each error
+    result1 = Agent1.run(input);
+    if (result1 is Result::Err) { return result1; }
+    value1 = result1.value;
+    
+    result2 = Agent2.run(value1);
+    if (result2 is Result::Err) { return result2; }
+    value2 = result2.value;
+    
+    // ? operator approach: one line handles it
+    value1 = Agent1.run(input)?;     // Error auto-propagates upward
+    value2 = Agent2.run(value1)?;    // Error auto-propagates upward
+    print(value2);                   // Only reached if all succeed
+}
+```
+
+### `otherwise` Error Recovery Operator
+
+When `?` propagates errors too aggressively, `otherwise` provides in-place recovery capability:
+
+```nexa
+flow main {
+    // otherwise: execute recovery logic on error
+    result = RiskyAgent.run(input) otherwise FallbackAgent.run(input);
+    
+    // otherwise can also use a lambda
+    data = db.query("SELECT * FROM users") otherwise {"users": []};
+    
+    // Combined usage
+    value = Agent1.run(input)?
+        |> process
+        |> format
+        otherwise "default output";
+}
+```
+
+### `?` vs `otherwise` Comparison
+
+| Operator | Behavior | Use Case |
+|----------|----------|----------|
+| `?` | Propagates error upward, interrupts current flow | Error unrecoverable, must abort |
+| `otherwise` | Recovers error in-place, continues execution | Error recoverable, has fallback |
+
+### Complete Example: Data Processing Pipeline with Error Propagation
+
+```nexa
+flow process_data(raw: string) -> Result[Report, string] {
+    // Each step may fail, ? auto-propagates errors
+    parsed = std.json.json_parse(raw)?;
+    validated = Validator.run(parsed)?;
+    enriched = Enricher.run(validated) otherwise validated;  // Use original data if Enricher fails
+    report = Formatter.run(enriched)?;
+    
+    return Result::Ok(report);
+}
+
+flow main {
+    // Handle errors at top level
+    result = process_data(raw_input);
+    
+    match result {
+        Result::Ok(report) => print("Success: #{report.title}"),
+        Result::Err(error) => print("Failed: #{error}")
+    }
+}
+```
+
+---
+
 ## 📝 Chapter Summary
 
 In this chapter, we learned:
 
-| Feature | Description | Use Case |
-|-----|------|---------|
-| `protocol` | Define output format constraints | Structured data extraction |
-| `implements` | Agent implements protocol | Ensure output format consistency |
-| Auto Retry | Validation failure auto-correction | Improve system reliability |
-| Model Routing | Multi-model routing | Cost optimization, high availability |
-| Semantic Types | Semantic type constraints | Intelligent data validation |
+| Feature | Version | Description | Use Case |
+|---------|---------|-------------|----------|
+| `protocol` | v0.5+ | Define output format constraints | Structured data extraction |
+| `implements` | v0.5+ | Agent implements protocol | Ensure output format consistency |
+| Auto Retry | v0.5+ | Validation failure auto-correction | Improve system reliability |
+| Model Routing | v0.5+ | Multi-model routing | Cost optimization, high availability |
+| Semantic Types | v1.0.2+ | Semantic type constraints | Intelligent data validation |
+| Design by Contract | v1.2.0+ | requires/ensures/invariant | Input/output contract validation |
+| Gradual Type System | v1.3.1+ | strict/warn/forgiving | Gradual type safety |
+| Error Propagation | v1.3.2+ | `?` and `otherwise` | Elegant error handling |
 
-By combining the rigid contracts of `protocol` with dynamic `fallback` flow networks, and the semantic type system introduced in v1.0.2, Nexa never abandons the "robustness and boundary determinism" genes accumulated over decades of traditional software engineering while granting high "thinking flexibility." This is also a decisive step for Agent development toward the track of formalization.
+By combining the rigid contracts of `protocol` with dynamic `fallback` flow networks, along with v1.2.0's Design by Contract, v1.3.1's Gradual Type System, and v1.3.2's error propagation mechanism, Nexa never abandons the "robustness and boundary determinism" genes accumulated over decades of traditional software engineering while granting high "thinking flexibility." This is also a decisive step for Agent development toward the track of formalization.
 
 ---
 
 ## 🔗 Related Resources
 
-- [Complete Example Collection](examples.md) - View more Protocol examples
-- [Best Practices](part6_best_practices.md) - Enterprise-level Protocol design patterns
-- [Troubleshooting Guide](troubleshooting.md) - Protocol-related problem solving
+- [Complete Example Collection](examples.en.md) - View more Protocol examples
+- [Advanced Features](part2_advanced.en.md) - Pattern matching and ADT
+- [Language Reference Manual](reference.en.md) - View complete syntax specification
+- [Best Practices](part6_best_practices.en.md) - Enterprise-level Protocol design patterns
+- [Troubleshooting Guide](troubleshooting.en.md) - Protocol-related problem solving

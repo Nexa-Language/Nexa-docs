@@ -600,24 +600,295 @@ flow main {
 
 ---
 
+## 🛡️ 契约式编程 (Design by Contract) — v1.2.0+
+
+Nexa v1.2.0 引入了契约式编程（Design by Contract, DbC），借鉴 Eiffel 语言的设计理念，将 `requires`（前置条件）、`ensures`（后置条件）和 `invariant`（不变式）提升为语言级关键字。这让 Agent 的输入输出验证不再是可选的"防御性编程"，而是编译器强制检查的契约条款。
+
+### 基本语法
+
+```nexa
+// 确定性契约：可由运行时直接评估的表达式
+flow transfer(amount: int, sender: string) -> Result
+    requires: amount > 0
+    requires: sender != ""
+    ensures: result.success == true
+{
+    // 函数体
+}
+
+// 语义契约：由 LLM 评估的自然语言条件
+flow review(code: string) -> Report
+    requires: "input contains valid source code"
+    ensures: "result includes actionable feedback with specific suggestions"
+{
+    // 函数体
+}
+```
+
+### 契约条款类型
+
+| 条款类型 | 关键字 | 评估方式 | 说明 |
+|---------|--------|---------|------|
+| 前置条件 | `requires` | 确定性/语义 | 函数调用前必须满足 |
+| 后置条件 | `ensures` | 确定性/语义 | 函数返回后必须满足 |
+| 不变式 | `invariant` | 确定性/语义 | 对象生命周期中始终满足 |
+
+### 确定性 vs 语义契约
+
+```nexa
+// 确定性契约 — 运行时直接评估（零 LLM 开销）
+flow calculate_price(quantity: int, price: float) -> float
+    requires: quantity > 0           // 确定性：数值比较
+    requires: price >= 0             // 确定性：数值比较
+    ensures: result >= 0             // 确定性：数值比较
+{
+    return quantity * price;
+}
+
+// 语义契约 — LLM 评估（适合自然语言判断）
+flow analyze_sentiment(text: string) -> SentimentReport
+    requires: "input is a coherent English text"       // 语义：需要 LLM 判断
+    ensures: "result correctly reflects the emotional tone"  // 语义：需要 LLM 判断
+{
+    // ...
+}
+```
+
+### `old` 表达式（引用前置状态）
+
+在 `ensures` 条款中，可以使用 `old(expr)` 引用函数执行前的值：
+
+```nexa
+flow increment_counter(counter: Counter) -> Counter
+    requires: counter.value >= 0
+    ensures: result.value == old(counter.value) + 1
+{
+    counter.value = counter.value + 1;
+    return counter;
+}
+```
+
+### ContractViolation 与 HTTP 集成
+
+契约违反在 HTTP Server 中自动映射为 HTTP 状态码：
+
+| 契约违反类型 | HTTP 状态码 | 说明 |
+|-------------|------------|------|
+| `requires` 违反 | 401 Unauthorized | 请求未满足前置条件 |
+| `ensures` 违反 | 403 Forbidden | 响应未满足后置条件 |
+
+```nexa
+server MyApp {
+    route "/transfer" {
+        requires: amount > 0       // 违反 → HTTP 401
+        ensures: result.success    // 违反 → HTTP 403
+        
+        handler: transfer_flow
+    }
+}
+```
+
+!!! warning "契约违反是异常"
+    当契约被违反时，运行时会抛出 `ContractViolation` 异常（错误码 E201-E203）。在 `strict` 类型模式下，这会导致程序中断；在 `forgiving` 模式下，仅记录警告。
+
+---
+
+## 🔬 渐进式类型系统 — v1.3.1+
+
+Nexa v1.3.1 引入渐进式类型系统（Gradual Type System），支持三种类型检查模式，让你可以根据项目阶段灵活选择类型严格程度。
+
+### 类型检查模式
+
+通过环境变量 `NEXA_TYPE_MODE` 控制：
+
+| 模式 | 值 | 行为 | 适用场景 |
+|------|-----|------|---------|
+| **strict** | `strict` | 类型不匹配 → 抛出 `TypeViolation` 异常 | 生产环境 |
+| **warn** | `warn` | 类型不匹配 → 发出 `TypeWarning`，程序继续 | 开发调试 |
+| **forgiving** | `forgiving` | 类型不匹配 → 静默忽略 | 快速原型 |
+
+```bash
+# 设置类型检查模式
+export NEXA_TYPE_MODE=strict   # 严格模式
+export NEXA_TYPE_MODE=warn     # 警告模式
+export NEXA_TYPE_MODE=forgiving  # 宽容模式
+```
+
+### Lint 模式
+
+通过 `NEXA_LINT_MODE` 或 `nexa lint --warn-untyped` 控制类型标注覆盖率检查：
+
+| Lint 模式 | 值 | 行为 |
+|----------|-----|------|
+| **off** | `off` | 不检查类型标注 |
+| **warn** | `warn` | 未标注的变量/函数发出警告 |
+| **strict** | `strict` | 所有公共函数必须标注 |
+
+```bash
+# 检查类型标注覆盖率
+nexa lint main.nexa --warn-untyped
+
+# 严格 lint 模式
+nexa lint main.nexa --strict
+```
+
+### 类型表达式
+
+Nexa 支持丰富的类型表达式，用于 `protocol`、`struct`、函数签名等：
+
+```nexa
+// 基础类型
+let x: Int = 42
+let y: String = "hello"
+let z: Bool = true
+
+// 泛型类型
+let items: List[Int] = [1, 2, 3]
+let config: Dict[String, Any] = {"key": "value"}
+
+// Option 类型 — 可能为 None
+let maybe: Option[Int] = Option::Some(42)
+let nothing: Option[Int] = Option::None
+
+// Result 类型 — 可能成功或失败
+let ok: Result[Int, String] = Result::Ok(42)
+let err: Result[Int, String] = Result::Err("not found")
+
+// Union 类型 — 多种可能类型
+let mixed: Int | String = 42
+
+// 语义类型
+type Email = String @ "valid email address format"
+```
+
+### 类型收窄（Type Narrowing）
+
+Nexa 支持流敏感的类型收窄，在条件检查后自动缩小变量类型：
+
+```nexa
+let value: Option[Int] = Option::Some(42);
+
+// None 检查后收窄为 Int
+if (value != Option::None) {
+    // 此处 value 类型收窄为 Int
+    print(value + 1);  // 安全：value 已确认非 None
+}
+
+// isinstance 检查后收窄
+let mixed: Int | String = get_value();
+if (mixed is Int) {
+    // 此处 mixed 类型收窄为 Int
+    print(mixed * 2);
+}
+```
+
+---
+
+## 🚨 错误传播 (`?` 与 `otherwise`) — v1.3.2+
+
+Nexa v1.3.2 引入了 Rust 风格的错误传播操作符 `?` 和 `otherwise`，让你可以优雅地处理 Agent 执行中的错误，无需层层嵌套 `try/catch`。
+
+### `?` 错误传播操作符
+
+当 Agent 或函数返回 `Result` 类型时，`?` 操作符会：
+
+- 如果是 `Result::Ok(value)` → 直接提取 `value` 继续执行
+- 如果是 `Result::Err(error)` → 立即向上层传播错误，中断当前 flow
+
+```nexa
+flow main {
+    // 传统写法：需要手动处理每个错误
+    result1 = Agent1.run(input);
+    if (result1 is Result::Err) { return result1; }
+    value1 = result1.value;
+    
+    result2 = Agent2.run(value1);
+    if (result2 is Result::Err) { return result2; }
+    value2 = result2.value;
+    
+    // ? 操作符写法：一行搞定
+    value1 = Agent1.run(input)?;     // 错误自动向上传播
+    value2 = Agent2.run(value1)?;    // 错误自动向上传播
+    print(value2);                   // 只有全部成功才到达这里
+}
+```
+
+### `otherwise` 错误恢复操作符
+
+当 `?` 传播错误过于激进时，`otherwise` 提供了就地恢复的能力：
+
+```nexa
+flow main {
+    // otherwise：错误时执行恢复逻辑
+    result = RiskyAgent.run(input) otherwise FallbackAgent.run(input);
+    
+    // otherwise 也可以使用 lambda
+    data = db.query("SELECT * FROM users") otherwise {"users": []};
+    
+    // 组合使用
+    value = Agent1.run(input)?
+        |> process
+        |> format
+        otherwise "default output";
+}
+```
+
+### `?` 与 `otherwise` 的区别
+
+| 操作符 | 行为 | 适用场景 |
+|-------|------|---------|
+| `?` | 错误向上传播，中断当前 flow | 错误不可恢复，必须中止 |
+| `otherwise` | 错误就地恢复，继续执行 | 错误可恢复，有备用方案 |
+
+### 完整示例：带错误传播的数据处理流水线
+
+```nexa
+flow process_data(raw: string) -> Result[Report, string] {
+    // 每一步都可能失败，? 自动传播错误
+    parsed = std.json.json_parse(raw)?;
+    validated = Validator.run(parsed)?;
+    enriched = Enricher.run(validated) otherwise validated;  // Enricher 失败时用原始数据
+    report = Formatter.run(enriched)?;
+    
+    return Result::Ok(report);
+}
+
+flow main {
+    // 顶层处理错误
+    result = process_data(raw_input);
+    
+    match result {
+        Result::Ok(report) => print("Success: #{report.title}"),
+        Result::Err(error) => print("Failed: #{error}")
+    }
+}
+```
+
+---
+
 ## 📝 本章小结
 
 在本章中，我们学习了：
 
-| 特性 | 说明 | 使用场景 |
-|-----|------|---------|
-| `protocol` | 定义输出格式约束 | 结构化数据提取 |
-| `implements` | Agent 实现协议 | 确保输出格式一致 |
-| 自动重试 | 验证失败自动修正 | 提高系统可靠性 |
-| Model Routing | 多模型路由 | 成本优化、高可用 |
-| Semantic Types | 语义类型约束 | 智能数据验证 |
+| 特性 | 版本 | 说明 | 使用场景 |
+|-----|------|------|---------|
+| `protocol` | v0.5+ | 定义输出格式约束 | 结构化数据提取 |
+| `implements` | v0.5+ | Agent 实现协议 | 确保输出格式一致 |
+| 自动重试 | v0.5+ | 验证失败自动修正 | 提高系统可靠性 |
+| Model Routing | v0.5+ | 多模型路由 | 成本优化、高可用 |
+| Semantic Types | v1.0.2+ | 语义类型约束 | 智能数据验证 |
+| Design by Contract | v1.2.0+ | requires/ensures/invariant | 输入输出契约验证 |
+| Gradual Type System | v1.3.1+ | strict/warn/forgiving | 渐进式类型安全 |
+| Error Propagation | v1.3.2+ | `?` 与 `otherwise` | 优雅错误处理 |
 
-通过将 `protocol` 的刚性契约与动态 `fallback` 流转网络相结合，再配合 v1.0.2 引入的语义类型系统，Nexa 在赋予高度"思考灵活性"的同时，从未抛弃几十年来传统软件工程所积累的"鲁棒性与边界确定性"基因。这也是 Agent 开发向正规化轨道迈出的决定性一步。
+通过将 `protocol` 的刚性契约与动态 `fallback` 流转网络相结合，再配合 v1.2.0 的契约式编程、v1.3.1 的渐进式类型系统和 v1.3.2 的错误传播机制，Nexa 在赋予高度"思考灵活性"的同时，从未抛弃几十年来传统软件工程所积累的"鲁棒性与边界确定性"基因。这也是 Agent 开发向正规化轨道迈出的决定性一步。
 
 ---
 
 ## 🔗 相关资源
 
 - [完整示例集合](examples.md) - 查看 Protocol 更多示例
+- [高级特性](part2_advanced.md) - 模式匹配与 ADT
+- [语言参考手册](reference.md) - 查看完整语法规范
 - [最佳实践](part6_best_practices.md) - 企业级 Protocol 设计模式
 - [常见问题与排查](troubleshooting.md) - Protocol 相关问题解决

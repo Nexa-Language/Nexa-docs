@@ -29,20 +29,22 @@ agent FriendlyBot {
 
 ### Property Overview Table
 
-| Property | Type | Required | Default | Description |
-|-----|------|-----|-------|------|
-| `role` | string | No | - | Agent's role description, as part of the system prompt |
-| `prompt` | string | **Yes** | - | Agent's core task instruction |
-| `model` | string | No | Default model | Specifies the LLM model to use |
-| `memory` | string | No | - | Memory mode: `persistent`, etc. |
-| `stream` | boolean | No | false | Whether to enable streaming output |
-| `cache` | boolean | No | false | Whether to enable intelligent caching |
-| `experience` | string | No | - | Long-term memory file path |
-| `fallback` | string/list | No | - | Backup model configuration |
-| `tools` | list | No | [] | Available tools list |
-| `max_tokens` | int | No | - | Maximum output token count |
-| `timeout` | int | No | 30 | Execution timeout (seconds) |
-| `retry` | int | No | 3 | Number of retry attempts on failure |
+| Property | Type | Required | Default | Version | Description |
+|-----|------|-----|-------|---------|------|
+| `role` | string | No | - | v0.5+ | Agent's role description, as part of the system prompt |
+| `prompt` | string | **Yes** | - | v0.5+ | Agent's core task instruction |
+| `model` | string | No | Default model | v0.5+ | Specifies the LLM model to use |
+| `memory` | string | No | - | v0.5+ | Memory mode: `persistent`, etc. |
+| `stream` | boolean | No | false | v0.5+ | Whether to enable streaming output |
+| `cache` | boolean | No | false | v0.5+ | Whether to enable intelligent caching |
+| `experience` | string | No | - | v0.5+ | Long-term memory file path |
+| `fallback` | string/list | No | - | v0.5+ | Backup model configuration |
+| `tools` | list | No | [] | v0.5+ | Available tools list |
+| `max_tokens` | int | No | - | v0.5+ | Maximum output token count |
+| `timeout` | int | No | 30 | v0.5+ | Execution timeout (seconds) |
+| `retry` | int | No | 3 | v0.5+ | Number of retry attempts on failure |
+| `requires` | clause | No | - | v1.2+ | Precondition contract clause |
+| `ensures` | clause | No | - | v1.2+ | Postcondition contract clause |
 
 ### Property Detailed Explanation
 
@@ -772,16 +774,56 @@ agent Bot {
 
 ---
 
+## 🆕 v1.3.x New Declaration Keywords Quick Reference
+
+Nexa v1.3.x introduces multiple new declaration keywords that extend the language's expressiveness and enterprise capabilities. Here's a quick overview; for detailed usage, refer to the corresponding chapters.
+
+### Data Modeling Keywords
+
+| Keyword | Version | Description | Example |
+|---------|---------|-------------|---------|
+| `struct` | v1.3.x | Define struct | `struct Point { x: Int, y: Int }` |
+| `enum` | v1.3.x | Define enum | `enum Option[T] { Some(T), None }` |
+| `trait` | v1.3.x | Define trait | `trait Printable { fn format() -> String }` |
+| `impl` | v1.3.x | Implement trait | `impl Printable for Point { ... }` |
+| `type` | v1.0.2+ | Define semantic type | `type Email = string @ "valid email"` |
+
+### Enterprise Declaration Keywords
+
+| Keyword | Version | Description | Example |
+|---------|---------|-------------|---------|
+| `job` | v1.3.3 | Define background job | `job SendEmail { handler: ..., retry: 3 }` |
+| `server` | v1.3.4 | Define HTTP server | `server MyApp { route GET "/hello" { ... } }` |
+| `db` | v1.3.5 | Define database | `db main_db { type: sqlite, path: "data.db" }` |
+| `auth` | v1.3.6 | Define authentication | `auth my_auth { providers: ["google"] }` |
+| `kv` | v1.3.7 | Define KV store | `kv my_cache { path: ":memory:" }` |
+
+### Contract Keywords
+
+| Keyword | Version | Description | Example |
+|---------|---------|-------------|---------|
+| `requires` | v1.2.0 | Precondition | `requires: amount > 0` |
+| `ensures` | v1.2.0 | Postcondition | `ensures: result.success == true` |
+| `invariant` | v1.2.0 | Invariant | `invariant: state in ["idle", "running"]` |
+
+!!! info "Deep Learning"
+    - Data modeling keywords (struct/enum/trait/impl) detailed usage: [Advanced Features](part2_advanced.en.md)
+    - Enterprise declaration keywords (job/server/db/auth/kv) detailed usage: [Enterprise Architecture Features](part5_enterprise.en.md)
+    - Contract keywords (requires/ensures/invariant) detailed usage: [Syntax Extensions](part3_extensions.en.md)
+
+---
+
 ## 📝 Chapter Summary
 
 In this chapter, we learned:
 
 1. **Agent Definition**: Using the `agent` keyword to define intelligent agents
-2. **Core Properties**: `role`, `prompt`, `model`, `memory`, `stream`, `cache`, etc.
+2. **Core Properties**: `role`, `prompt`, `model`, `memory`, `stream`, `cache`, `requires`, `ensures`, etc.
 3. **Flow Control**: Using `flow main` as program entry point
 4. **Tool Mounting**: Using the `uses` keyword to load standard library tools
 5. **Common Patterns**: Simple conversation, professional domain, tool-enhanced, high-availability patterns
 6. **Common Errors**: Model format, definition order, property spelling, etc.
+7. **v1.3.x New Keywords**: struct/enum/trait/impl/type/job/server/db/auth/kv/requires/ensures/invariant
 
 But this only unleashes the large language model's single-agent task capability. Real business systems are filled with complex and lengthy collaborative interleaving: How to make a dozen agents with clear divisions of labor complete tasks in relay? How to achieve perfect consensus among agents with different opinions?
 
@@ -791,6 +833,9 @@ Don't blink, this is exactly what the next chapter **Multi-Agent Scheduling and 
 
 ## 🔗 Related Resources
 
-- [Quickstart Tutorial](quickstart.md) - Master Nexa in 30 minutes
-- [Complete Example Collection](examples.md) - More practical code
-- [Troubleshooting Guide](troubleshooting.md) - Solve development issues
+- [Quickstart Tutorial](quickstart.en.md) - Master Nexa in 30 minutes
+- [Advanced Features](part2_advanced.en.md) - Pipe/Pattern Matching/ADT details
+- [Syntax Extensions](part3_extensions.en.md) - Contract/Type/Error Propagation
+- [Enterprise Architecture](part5_enterprise.en.md) - HTTP Server/Database/Auth
+- [Complete Example Collection](examples.en.md) - More practical code
+- [Troubleshooting Guide](troubleshooting.en.md) - Solve development issues
