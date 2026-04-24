@@ -1,0 +1,3301 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/en/quickstart/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../preface/">
+      
+      
+        
+          <link rel="alternate" href="../../quickstart/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Quickstart - Nexa Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quickstart-master-nexa-basics-in-30-minutes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Nexa Documentation" class="md-header__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quickstart
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../quickstart/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part1_basic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Grammar Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  In-depth Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Community & Future
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference Manual
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Nexa Documentation" class="md-nav__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-install-nexa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Install Nexa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-api-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Configure API Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Verify Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-common-cli-commands-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Common CLI Commands Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Core Concepts Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Core Concepts Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept-1-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 1: Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-2-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 2: Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-3-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 3: Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-1-hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Exercise 1: Hello World
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Exercise 1: Hello World">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-project-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Create Project File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-write-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Write Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-run-the-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Run the Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-2-agent-with-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Exercise 2: Agent with Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Exercise 2: Agent with Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Explanation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-multi-agent-collaboration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Exercise 3: Multi-Agent Collaboration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Exercise 3: Multi-Agent Collaboration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-operator-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Operator &gt;&gt; Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-4-intent-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 Exercise 4: Intent Routing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎨 Exercise 4: Intent Routing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intent-routing-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intent Routing Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-5-structured-output-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Exercise 5: Structured Output (Protocol)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Exercise 5: Structured Output (Protocol)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-protocol-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Protocol Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Learning Checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ FAQ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-api-key-not-found-error-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: "API key not found" error at runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-model-call-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2: Model call failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-how-to-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: How to debug?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-more-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: More questions?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preface & Philosophy
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preface & Philosophy
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reshaping Agent Paradigm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Background & Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios & Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Grammar Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part1_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Syntax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part2_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem & Stdlib
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    In-depth Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    In-depth Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compiler Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community & Future
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community & Future
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Manual
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference Manual
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stdlib API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-install-nexa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Install Nexa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-api-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Configure API Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Verify Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-common-cli-commands-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Common CLI Commands Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Core Concepts Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Core Concepts Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept-1-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 1: Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-2-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 2: Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concept-3-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept 3: Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-1-hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Exercise 1: Hello World
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Exercise 1: Hello World">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-project-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Create Project File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-write-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Write Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-run-the-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Run the Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-2-agent-with-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Exercise 2: Agent with Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Exercise 2: Agent with Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Explanation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-3-multi-agent-collaboration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Exercise 3: Multi-Agent Collaboration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Exercise 3: Multi-Agent Collaboration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-operator-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Operator &gt;&gt; Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-4-intent-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎨 Exercise 4: Intent Routing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎨 Exercise 4: Intent Routing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intent-routing-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intent Routing Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-5-structured-output-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Exercise 5: Structured Output (Protocol)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Exercise 5: Structured Output (Protocol)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-code_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-protocol-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Protocol Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Learning Checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ FAQ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-api-key-not-found-error-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1: "API key not found" error at runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-model-call-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2: Model call failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-how-to-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3: How to debug?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-more-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4: More questions?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="quickstart-master-nexa-basics-in-30-minutes">Quickstart: Master Nexa Basics in 30 Minutes<a class="headerlink" href="#quickstart-master-nexa-basics-in-30-minutes" title="Permanent link">&para;</a></h1>
+<p>Welcome to Nexa! This tutorial will guide you from scratch to mastering Nexa's core concepts and basic usage in 30 minutes.</p>
+<hr />
+<h2 id="prerequisites">📋 Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h3 id="1-system-requirements">1. System Requirements<a class="headerlink" href="#1-system-requirements" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>≥ 3.10</td>
+</tr>
+<tr>
+<td>Operating System</td>
+<td>Linux / macOS / Windows (WSL)</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>≥ 4GB</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-install-nexa">2. Install Nexa<a class="headerlink" href="#2-install-nexa" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-org/nexa.git
+<span class="nb">cd</span><span class="w"> </span>nexa
+
+<span class="c1"># Install dependencies (recommended in a virtual environment)</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div>
+<h3 id="3-configure-api-keys">3. Configure API Keys<a class="headerlink" href="#3-configure-api-keys" title="Permanent link">&para;</a></h3>
+<p>Nexa requires API keys for large language models to run. Create a <code>secrets.nxs</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the key file in the project root</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>secrets.nxs<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">OPENAI_API_KEY = &quot;sk-your-openai-key&quot;</span>
+<span class="s">DEEPSEEK_API_KEY = &quot;sk-your-deepseek-key&quot;</span>
+<span class="s">MINIMAX_API_KEY = &quot;your-minimax-key&quot;</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Security Notice</p>
+<ul>
+<li><strong>Never</strong> commit <code>secrets.nxs</code> to Git</li>
+<li>This file is already configured in <code>.gitignore</code>, ensure it's not accidentally committed</li>
+</ul>
+</div>
+<h3 id="4-verify-installation">4. Verify Installation<a class="headerlink" href="#4-verify-installation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if installation was successful</span>
+nexa<span class="w"> </span>--version
+
+<span class="c1"># Should output something like: Nexa v1.3.x</span>
+</code></pre></div>
+<h3 id="5-common-cli-commands-quick-reference">5. Common CLI Commands Quick Reference<a class="headerlink" href="#5-common-cli-commands-quick-reference" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Build and run</span>
+nexa<span class="w"> </span>build<span class="w"> </span>main.nexa<span class="w">          </span><span class="c1"># Compile program</span>
+nexa<span class="w"> </span>run<span class="w"> </span>main.nexa<span class="w">            </span><span class="c1"># Run program</span>
+nexa<span class="w"> </span><span class="nb">test</span><span class="w"> </span>main.nexa<span class="w">           </span><span class="c1"># Run tests</span>
+
+<span class="c1"># Analysis and checking</span>
+nexa<span class="w"> </span>inspect<span class="w"> </span>main.nexa<span class="w">        </span><span class="c1"># Structural analysis</span>
+nexa<span class="w"> </span>validate<span class="w"> </span>main.nexa<span class="w">       </span><span class="c1"># Semantic validation</span>
+nexa<span class="w"> </span>lint<span class="w"> </span>main.nexa<span class="w">           </span><span class="c1"># Type system lint (v1.3.1+)</span>
+nexa<span class="w"> </span>intent<span class="w"> </span>check<span class="w"> </span>main.nexa<span class="w">   </span><span class="c1"># Intent check (v1.1+)</span>
+nexa<span class="w"> </span>intent<span class="w"> </span>coverage<span class="w"> </span>main.nexa<span class="w"> </span><span class="c1"># Intent coverage (v1.1+)</span>
+
+<span class="c1"># Service and jobs</span>
+nexa<span class="w"> </span>serve<span class="w"> </span>main.nexa<span class="w">          </span><span class="c1"># Start HTTP Server (v1.3.4+)</span>
+nexa<span class="w"> </span>routes<span class="w"> </span>main.nexa<span class="w">         </span><span class="c1"># List routes (v1.3.4+)</span>
+nexa<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>main.nexa<span class="w"> </span>--all<span class="w">     </span><span class="c1"># Job management (v1.3.3+)</span>
+nexa<span class="w"> </span>workers<span class="w"> </span>main.nexa<span class="w">        </span><span class="c1"># Worker management (v1.3.3+)</span>
+nexa<span class="w"> </span>cache<span class="w"> </span>clear<span class="w">              </span><span class="c1"># Clear cache</span>
+</code></pre></div>
+<hr />
+<h2 id="core-concepts-overview">🎯 Core Concepts Overview<a class="headerlink" href="#core-concepts-overview" title="Permanent link">&para;</a></h2>
+<p>Before we start coding, let's quickly understand Nexa's three core concepts:</p>
+<h3 id="concept-1-agent">Concept 1: Agent<a class="headerlink" href="#concept-1-agent" title="Permanent link">&para;</a></h3>
+<p><strong>What is an Agent?</strong></p>
+<p>An Agent is a "first-class citizen" in Nexa, representing an AI assistant with specific capabilities. You can think of it as a "role" that has:</p>
+<ul>
+<li><strong>Role</strong> (role): Who it is</li>
+<li><strong>System Prompt</strong> (prompt): What it should do</li>
+<li><strong>Model</strong> (model): Which LLM it uses</li>
+<li><strong>Tools</strong> (tools): What tools it can use (optional)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>// Simplest Agent definition
+agent Greeter {
+    role: &quot;Friendly greeting assistant&quot;,
+    prompt: &quot;You are a warm and friendly assistant, helping users with concise language.&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+</code></pre></div>
+<h3 id="concept-2-flow">Concept 2: Flow<a class="headerlink" href="#concept-2-flow" title="Permanent link">&para;</a></h3>
+<p><strong>What is a Flow?</strong></p>
+<p>A Flow is an Agent's workflow and the entry point for program execution. Similar to the <code>main</code> function in other languages.</p>
+<div class="highlight"><pre><span></span><code>flow main {
+    // This is the main logic of the program
+    result = Greeter.run(&quot;Hello!&quot;);
+    print(result);
+}
+</code></pre></div>
+<h3 id="concept-3-protocol">Concept 3: Protocol<a class="headerlink" href="#concept-3-protocol" title="Permanent link">&para;</a></h3>
+<p><strong>What is a Protocol?</strong></p>
+<p>A Protocol is used to constrain an Agent's output format, ensuring structured data is returned. This is important when you need to pass Agent output to other systems.</p>
+<div class="highlight"><pre><span></span><code>// Define an output protocol
+protocol UserInfo {
+    name: &quot;string&quot;,
+    age: &quot;int&quot;,
+    interest: &quot;string&quot;
+}
+
+// Agent implements this protocol
+agent InfoExtractor implements UserInfo {
+    prompt: &quot;Extract personal information from user input&quot;
+}
+</code></pre></div>
+<hr />
+<h2 id="exercise-1-hello-world">🚀 Exercise 1: Hello World<a class="headerlink" href="#exercise-1-hello-world" title="Permanent link">&para;</a></h2>
+<p>Let's write our first Nexa program!</p>
+<h3 id="step-1-create-project-file">Step 1: Create Project File<a class="headerlink" href="#step-1-create-project-file" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>my-first-nexa
+<span class="nb">cd</span><span class="w"> </span>my-first-nexa
+</code></pre></div>
+<h3 id="step-2-write-code">Step 2: Write Code<a class="headerlink" href="#step-2-write-code" title="Permanent link">&para;</a></h3>
+<p>Create file <code>hello.nx</code>:</p>
+<div class="highlight"><pre><span></span><code>// hello.nx - Your first Nexa program
+
+// Define a simple Agent
+agent HelloBot {
+    role: &quot;Enthusiastic greeting robot&quot;,
+    prompt: &quot;You are a friendly assistant. Respond to users with warm, concise language, no more than 50 words.&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+// Main flow
+flow main {
+    // Call the Agent
+    response = HelloBot.run(&quot;Hello, please introduce yourself!&quot;);
+
+    // Output the result
+    print(response);
+}
+</code></pre></div>
+<h3 id="step-3-run-the-program">Step 3: Run the Program<a class="headerlink" href="#step-3-run-the-program" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>run<span class="w"> </span>hello.nx
+</code></pre></div>
+<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Hello! I&#39;m HelloBot, a warm and friendly AI assistant! Nice to meet you, how can I help you? 😊
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Congratulations!</p>
+<p>You have successfully run your first Nexa program!</p>
+</div>
+<hr />
+<h2 id="exercise-2-agent-with-tools">🛠️ Exercise 2: Agent with Tools<a class="headerlink" href="#exercise-2-agent-with-tools" title="Permanent link">&para;</a></h2>
+<p>In real applications, Agents usually need to call external tools. Let's add a calculator tool to an Agent.</p>
+<h3 id="complete-code">Complete Code<a class="headerlink" href="#complete-code" title="Permanent link">&para;</a></h3>
+<p>Create file <code>calculator.nx</code>:</p>
+<div class="highlight"><pre><span></span><code>// calculator.nx - Agent with tool example
+
+// Define tool (simplified version)
+tool Calculator {
+    description: &quot;Perform mathematical calculations, supports addition, subtraction, multiplication, and division&quot;,
+    parameters: {
+        &quot;expression&quot;: &quot;string  // Mathematical expression, e.g. &#39;2+3*4&#39;&quot;
+    }
+}
+
+// Define Agent that uses this tool
+agent MathAssistant uses Calculator {
+    role: &quot;Math Assistant&quot;,
+    prompt: &quot;&quot;&quot;
+    You are a math assistant. When users need to perform calculations, use the Calculator tool.
+    After calculation, explain the result in concise language.
+    &quot;&quot;&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+flow main {
+    // User question
+    question = &quot;Please help me calculate (123 + 456) * 2?&quot;
+
+    // Agent processing
+    result = MathAssistant.run(question)
+
+    // Output
+    print(result)
+}
+</code></pre></div>
+<h3 id="run">Run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>run<span class="w"> </span>calculator.nx
+</code></pre></div>
+<h3 id="expected-output_1">Expected Output<a class="headerlink" href="#expected-output_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Let me calculate for you:
+
+(123 + 456) * 2 = 579 * 2 = 1158
+
+The answer is 1158.
+</code></pre></div>
+<h3 id="code-explanation">Code Explanation<a class="headerlink" href="#code-explanation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4-9</td>
+<td><code>tool Calculator {...}</code></td>
+<td>Define a tool with description and parameters</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>uses Calculator</code></td>
+<td>Tell the Agent it can use this tool</td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>MathAssistant.run(question)</code></td>
+<td>Have the Agent process the user question</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="exercise-3-multi-agent-collaboration">🔄 Exercise 3: Multi-Agent Collaboration<a class="headerlink" href="#exercise-3-multi-agent-collaboration" title="Permanent link">&para;</a></h2>
+<p>Nexa's power lies in multi-agent collaboration. Let's create a "translation-proofreading" pipeline.</p>
+<h3 id="complete-code_1">Complete Code<a class="headerlink" href="#complete-code_1" title="Permanent link">&para;</a></h3>
+<p>Create file <code>translation_pipeline.nx</code>:</p>
+<div class="highlight"><pre><span></span><code>// translation_pipeline.nx - Multi-Agent collaboration example
+
+// Step 1: Translation
+agent Translator {
+    role: &quot;Professional Translator&quot;,
+    prompt: &quot;You are a professional English-to-Chinese translator. Translate the English text provided by the user into fluent Chinese, preserving the original meaning.&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+// Step 2: Proofreading
+agent Proofreader {
+    role: &quot;Chinese Proofreader&quot;,
+    prompt: &quot;You are a Chinese proofreading expert. Check if the translation is smooth and accurate, and correct any issues.&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+flow main {
+    // Original text
+    english_text = &quot;Artificial intelligence is transforming the way we live and work.&quot;
+
+    // Method 1: Step-by-step call (easy to understand)
+    // translated = Translator.run(english_text)
+    // final_result = Proofreader.run(translated)
+
+    // Method 2: Pipeline operator (recommended, more concise)
+    final_result = english_text &gt;&gt; Translator &gt;&gt; Proofreader
+
+    print(&quot;Original: &quot; + english_text)
+    print(&quot;Translation: &quot; + final_result)
+}
+</code></pre></div>
+<h3 id="run_1">Run<a class="headerlink" href="#run_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>run<span class="w"> </span>translation_pipeline.nx
+</code></pre></div>
+<h3 id="expected-output_2">Expected Output<a class="headerlink" href="#expected-output_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Original: Artificial intelligence is transforming the way we live and work.
+Translation: 人工智能正在改变我们生活和工作的方式。
+</code></pre></div>
+<h3 id="pipeline-operator-details">Pipeline Operator <code>&gt;&gt;</code> Details<a class="headerlink" href="#pipeline-operator-details" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// The pipeline operator passes the output of the previous Agent to the next Agent
+input &gt;&gt; AgentA &gt;&gt; AgentB &gt;&gt; AgentC
+
+// Equivalent to:
+temp1 = AgentA.run(input)
+temp2 = AgentB.run(temp1)
+result = AgentC.run(temp2)
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Best Practice</p>
+<p>When you have more than 2 Agents in series, it's recommended to use the pipeline operator for cleaner code.</p>
+</div>
+<hr />
+<h2 id="exercise-4-intent-routing">🎨 Exercise 4: Intent Routing<a class="headerlink" href="#exercise-4-intent-routing" title="Permanent link">&para;</a></h2>
+<p>User requests can be diverse. How to dispatch to different Agents based on intent? Use <code>match intent</code>!</p>
+<h3 id="complete-code_2">Complete Code<a class="headerlink" href="#complete-code_2" title="Permanent link">&para;</a></h3>
+<p>Create file <code>smart_router.nx</code>:</p>
+<div class="highlight"><pre><span></span><code>// smart_router.nx - Intent routing example
+
+// Weather query Agent
+agent WeatherBot {
+    role: &quot;Weather Assistant&quot;,
+    prompt: &quot;You are responsible for answering weather-related questions. Provide concise and accurate weather information.&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+// News query Agent
+agent NewsBot {
+    role: &quot;News Assistant&quot;,
+    prompt: &quot;You are responsible for answering news-related questions. Provide the latest and most important news summaries.&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+// Casual chat Agent
+agent ChatBot {
+    role: &quot;Chat Partner&quot;,
+    prompt: &quot;You are a friendly chat partner, engaging in daily conversations with users.&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+flow main {
+    // User input
+    user_message = &quot;What&#39;s the weather like in Beijing today?&quot;
+
+    // Intent routing
+    response = match user_message {
+        intent(&quot;query weather&quot;) =&gt; WeatherBot.run(user_message),
+        intent(&quot;query news&quot;) =&gt; NewsBot.run(user_message),
+        _ =&gt; ChatBot.run(user_message)  // Default branch
+    }
+
+    print(response)
+}
+</code></pre></div>
+<h3 id="run_2">Run<a class="headerlink" href="#run_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>run<span class="w"> </span>smart_router.nx
+</code></pre></div>
+<h3 id="expected-output_3">Expected Output<a class="headerlink" href="#expected-output_3" title="Permanent link">&para;</a></h3>
+<p>When user inputs "What's the weather like in Beijing today?":</p>
+<div class="highlight"><pre><span></span><code>Beijing is sunny today, temperature 15-25°C, good air quality, suitable for outdoor activities.
+</code></pre></div>
+<h3 id="intent-routing-flow">Intent Routing Flow<a class="headerlink" href="#intent-routing-flow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>User Input
+    ↓
+┌─────────────────────┐
+│   Intent Classifier │
+│      (Built-in)     │
+└─────────────────────┘
+    ↓
+┌─────┬─────┬─────┐
+│Weather│News│Other│
+└─────┴─────┴─────┘
+    ↓     ↓     ↓
+ Weather News  Chat
+  Bot    Bot   Bot
+</code></pre></div>
+<hr />
+<h2 id="exercise-5-structured-output-protocol">📊 Exercise 5: Structured Output (Protocol)<a class="headerlink" href="#exercise-5-structured-output-protocol" title="Permanent link">&para;</a></h2>
+<p>When you need an Agent to return data in a specific format, use <code>protocol</code>.</p>
+<h3 id="complete-code_3">Complete Code<a class="headerlink" href="#complete-code_3" title="Permanent link">&para;</a></h3>
+<p>Create file <code>structured_output.nx</code>:</p>
+<div class="highlight"><pre><span></span><code>// structured_output.nx - Structured output example
+
+// Define output protocol
+protocol BookReview {
+    title: &quot;string&quot;,      // Book title
+    author: &quot;string&quot;,     // Author
+    rating: &quot;int&quot;,        // Rating (1-10)
+    summary: &quot;string&quot;,    // Summary
+    recommendation: &quot;string&quot;  // Recommendation
+}
+
+// Agent implementing the protocol
+agent Reviewer implements BookReview {
+    role: &quot;Book Reviewer&quot;,
+    prompt: &quot;&quot;&quot;
+    You are a professional book reviewer. Provide a structured review based on the book information provided by the user.
+    Ensure the output is in strict JSON format.
+    &quot;&quot;&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+flow main {
+    // Request a book review
+    book_name = &quot;The Three-Body Problem&quot;
+    result = Reviewer.run(&quot;Please write a review for &quot; + book_name)
+
+    // Result is already a structured object, can be used directly
+    print(&quot;Title: &quot; + result.title)
+    print(&quot;Author: &quot; + result.author)
+    print(&quot;Rating: &quot; + result.rating + &quot;/10&quot;)
+    print(&quot;Summary: &quot; + result.summary)
+    print(&quot;Recommendation: &quot; + result.recommendation)
+}
+</code></pre></div>
+<h3 id="run_3">Run<a class="headerlink" href="#run_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>run<span class="w"> </span>structured_output.nx
+</code></pre></div>
+<h3 id="expected-output_4">Expected Output<a class="headerlink" href="#expected-output_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Title: The Three-Body Problem
+Author: Liu Cixin
+Rating: 9/10
+Summary: An epic science fiction novel about the grand confrontation between humanity and the Trisolaran civilization.
+Recommendation: Highly recommended for all sci-fi enthusiasts, this is a milestone in Chinese science fiction!
+</code></pre></div>
+<h3 id="how-protocol-works">How Protocol Works<a class="headerlink" href="#how-protocol-works" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>graph LR
+    A[Agent Call] --&gt; B[LLM Generation]
+    B --&gt; C{Format Validation}
+    C --&gt;|Success| D[Return Object]
+    C --&gt;|Failure| E[Auto Retry]
+    E --&gt; B
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Auto-Correction Mechanism</p>
+<p>When an Agent's output doesn't conform to the Protocol, Nexa automatically triggers a retry, feeding the error information back to the LLM for correction. You don't need to handle it manually!</p>
+</div>
+<hr />
+<h2 id="learning-checkpoints">✅ Learning Checkpoints<a class="headerlink" href="#learning-checkpoints" title="Permanent link">&para;</a></h2>
+<p>After completing the above exercises, you should be able to:</p>
+<ul>
+<li>[ ] Create and run basic Nexa programs</li>
+<li>[ ] Define Agents and set their properties</li>
+<li>[ ] Use <code>flow main</code> as the program entry point</li>
+<li>[ ] Use the pipeline operator <code>&gt;&gt;</code> to chain multiple Agents</li>
+<li>[ ] Use <code>match intent</code> to implement intent routing</li>
+<li>[ ] Use <code>protocol</code> to constrain output format</li>
+</ul>
+<hr />
+<h2 id="next-steps">🎓 Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Now that you've mastered the basics of Nexa, we recommend continuing with:</p>
+<ol>
+<li><strong><a href="../part1_basic/">Basic Syntax</a></strong> - Learn all Agent properties in depth</li>
+<li><strong><a href="../part2_advanced/">Advanced Features</a></strong> - Learn DAG operators and concurrent processing</li>
+<li><strong><a href="../part3_extensions/">Syntax Extensions</a></strong> - Master advanced Protocol usage</li>
+<li><strong><a href="../examples/">Example Collection</a></strong> - View more real-world examples</li>
+</ol>
+<hr />
+<h2 id="faq">❓ FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<h3 id="q1-api-key-not-found-error-at-runtime">Q1: "API key not found" error at runtime<a class="headerlink" href="#q1-api-key-not-found-error-at-runtime" title="Permanent link">&para;</a></h3>
+<p>Make sure the <code>secrets.nxs</code> file exists and contains the correct API keys:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if file exists</span>
+ls<span class="w"> </span>secrets.nxs
+
+<span class="c1"># View content (be careful not to leak it)</span>
+cat<span class="w"> </span>secrets.nxs
+</code></pre></div>
+<h3 id="q2-model-call-failed">Q2: Model call failed<a class="headerlink" href="#q2-model-call-failed" title="Permanent link">&para;</a></h3>
+<p>Check if the model name format is correct:</p>
+<div class="highlight"><pre><span></span><code>// ✅ Correct format: provider/model-name
+model: &quot;deepseek/deepseek-chat&quot;
+model: &quot;openai/gpt-4&quot;
+
+// ❌ Wrong format
+model: &quot;gpt-4&quot;  // Missing provider prefix
+model: &quot;deepseek-chat&quot;  // Wrong format
+</code></pre></div>
+<h3 id="q3-how-to-debug">Q3: How to debug?<a class="headerlink" href="#q3-how-to-debug" title="Permanent link">&para;</a></h3>
+<p>Use <code>nexa build</code> to view the generated Python code:</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>build<span class="w"> </span>hello.nx
+<span class="c1"># Will generate out_hello.py file</span>
+</code></pre></div>
+<h3 id="q4-more-questions">Q4: More questions?<a class="headerlink" href="#q4-more-questions" title="Permanent link">&para;</a></h3>
+<p>Check the <a href="../troubleshooting/">Troubleshooting Guide</a> for more help.</p>
+<hr />
+<div align="center">
+  <p>🎉 Congratulations on completing the quickstart! Continue exploring the endless possibilities of Nexa!</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="../../search/search_index.json"
+  data-current-page="quickstart.en.md"
+  data-current-title="Quickstart"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="../../img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="../../javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Index">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Index
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../preface/" class="md-footer__link md-footer__link--next" aria-label="Next: Reshaping Agent Paradigm">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Reshaping Agent Paradigm
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>

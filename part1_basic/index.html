@@ -1,0 +1,4100 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/part1_basic/">
+      
+      
+        <link rel="prev" href="../contribution/">
+      
+      
+        <link rel="next" href="../part2_advanced/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+          <link rel="alternate" href="../en/part1_basic/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>基础语法 - Nexa 官方文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="Nexa 官方文档" class="md-header__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa 官方文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              基础语法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../en/part1_basic/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  主页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  语法指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  深入设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  社区与未来
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考资源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考手册
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nexa 官方文档" class="md-nav__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa 官方文档
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前言与理念
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    前言与理念
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    重构智能体开发范式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调研背景与技术演进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    典型场景与对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献与参与
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法指南
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    语法指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础语法
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础语法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 核心原语：定义大语言模型代理 (agent 关键字)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Agent 属性详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Agent 属性详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        属性总览表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        属性详细说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="属性详细说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        role（角色语义场）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prompt（任务执行描述）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        model（动态智脑映射）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        memory（记忆持久化）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stream（流式推写开关）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cache（智能缓存）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        experience（长期记忆）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fallback（模型灾备降级）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-decorators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Agent 修饰器（Decorators）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Agent 修饰器（Decorators）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可用修饰器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修饰器与属性等价关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        � 控制流枢纽：flow 和 .run()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="� 控制流枢纽：flow 和 .run()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Hello World 完整实战解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flow 语法详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .run() 方法详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 传统控制流 (v1.0.1+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 传统控制流 (v1.0.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ifelse-ifelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if/else if/else 语句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        for each 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        while 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#break-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        break 和 continue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v101_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔢 二元运算符与比较运算符 (v1.0.1+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔢 二元运算符与比较运算符 (v1.0.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算术运算符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        比较运算符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑运算符
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-v101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐍 Python 逃生舱 (v1.0.1+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐍 Python 逃生舱 (v1.0.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 内置工具的挂载与环境沙盒穿透 (uses 关键字)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 内置工具的挂载与环境沙盒穿透 (uses 关键字)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本用法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        标准库工具一览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Agent 定义常见模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Agent 定义常见模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 1：简单对话 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 2：专业领域 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 3：工具增强 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 4：高可用 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ 常见错误与解决方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ 常见错误与解决方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 1：模型格式错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 2：Agent 定义顺序错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 3：属性名拼写错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 4：忘记必要的属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🆕 v1.3.x 新声明关键字速览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🆕 v1.3.x 新声明关键字速览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据建模关键字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        企业级声明关键字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        契约关键字
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 本章小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 相关资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part2_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法扩展
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生态与标准库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    深入设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    深入设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译器设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    企业级架构特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构演进与未来(Rust/WASM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最佳实践
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与未来
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    社区与未来
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    未来展望
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与生态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    完整示例集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题与排查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考手册
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考手册
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI 命令参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标准库 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 核心原语：定义大语言模型代理 (agent 关键字)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Agent 属性详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Agent 属性详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        属性总览表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        属性详细说明
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="属性详细说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        role（角色语义场）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prompt（任务执行描述）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        model（动态智脑映射）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        memory（记忆持久化）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stream（流式推写开关）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cache（智能缓存）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        experience（长期记忆）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fallback（模型灾备降级）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-decorators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Agent 修饰器（Decorators）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Agent 修饰器（Decorators）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        可用修饰器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修饰器与属性等价关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        � 控制流枢纽：flow 和 .run()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="� 控制流枢纽：flow 和 .run()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Hello World 完整实战解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        运行结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flow 语法详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .run() 方法详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 传统控制流 (v1.0.1+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 传统控制流 (v1.0.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ifelse-ifelse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if/else if/else 语句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        for each 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        while 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#break-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        break 和 continue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v101_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔢 二元运算符与比较运算符 (v1.0.1+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔢 二元运算符与比较运算符 (v1.0.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算术运算符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        比较运算符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        逻辑运算符
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-v101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐍 Python 逃生舱 (v1.0.1+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐍 Python 逃生舱 (v1.0.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完整示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 内置工具的挂载与环境沙盒穿透 (uses 关键字)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 内置工具的挂载与环境沙盒穿透 (uses 关键字)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基本用法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        标准库工具一览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Agent 定义常见模式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Agent 定义常见模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 1：简单对话 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 2：专业领域 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 3：工具增强 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式 4：高可用 Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ 常见错误与解决方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ 常见错误与解决方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 1：模型格式错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 2：Agent 定义顺序错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 3：属性名拼写错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误 4：忘记必要的属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🆕 v1.3.x 新声明关键字速览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🆕 v1.3.x 新声明关键字速览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据建模关键字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        企业级声明关键字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        契约关键字
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 本章小结
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 相关资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="2">2. 基础语法：定义你的首个跨维度团队<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<p>本章将介绍 Nexa 中最核心、最基础的语法元素。读完本章并掌握这些结构之后，你就可以毫无负担地抛弃绝大多数繁重且不稳定的传统 Python 智能体开发框架，使用声明式、富有表达力的方法来构筑你的第一代智能体团队。</p>
+<hr />
+<h2 id="agent">🏗️ 核心原语：定义大语言模型代理 (<code>agent</code> 关键字)<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h2>
+<p>在 Nexa 语言的哲学中，所有能够"思考"、接收上下文并输出结构化或非结构化文字的主体都被称为 <code>agent</code>。由于 Nexa 将 Agent 提权到了"一等公民"的位置，你可以像定义一个结构体 (Struct) 或类 (Class) 那样去书写它。</p>
+<p>它是承载系统 Prompt、预设模型路由、身份角色以及工具配置的基本块（Block）。我们先来看一个最基础的定义方式：</p>
+<div class="highlight"><pre><span></span><code>// 所有的属性全都在大括号内进行声明，不存在外部多余的 Client 实例化
+agent FriendlyBot {
+    role: &quot;Casual conversationalist&quot;,
+    model: &quot;minimax/minimax-m2.5&quot;,
+    prompt: &quot;You are a very friendly ChatBot for casual conversations.&quot;
+}
+</code></pre></div>
+<hr />
+<h2 id="agent_1">📋 Agent 属性详解<a class="headerlink" href="#agent_1" title="Permanent link">&para;</a></h2>
+<h3 id="_1">属性总览表<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>必填</th>
+<th>默认值</th>
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>role</code></td>
+<td>string</td>
+<td>否</td>
+<td>-</td>
+<td>v0.5+</td>
+<td>Agent 的角色描述，作为系统提示词的一部分</td>
+</tr>
+<tr>
+<td><code>prompt</code></td>
+<td>string</td>
+<td><strong>是</strong></td>
+<td>-</td>
+<td>v0.5+</td>
+<td>Agent 的核心任务指令</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>string</td>
+<td>否</td>
+<td>默认模型</td>
+<td>v0.5+</td>
+<td>指定使用的 LLM 模型</td>
+</tr>
+<tr>
+<td><code>memory</code></td>
+<td>string</td>
+<td>否</td>
+<td>-</td>
+<td>v0.5+</td>
+<td>记忆模式：<code>persistent</code>（持久化）等</td>
+</tr>
+<tr>
+<td><code>stream</code></td>
+<td>boolean</td>
+<td>否</td>
+<td>false</td>
+<td>v0.5+</td>
+<td>是否启用流式输出</td>
+</tr>
+<tr>
+<td><code>cache</code></td>
+<td>boolean</td>
+<td>否</td>
+<td>false</td>
+<td>v0.5+</td>
+<td>是否启用智能缓存</td>
+</tr>
+<tr>
+<td><code>experience</code></td>
+<td>string</td>
+<td>否</td>
+<td>-</td>
+<td>v0.5+</td>
+<td>长期记忆文件路径</td>
+</tr>
+<tr>
+<td><code>fallback</code></td>
+<td>string/list</td>
+<td>否</td>
+<td>-</td>
+<td>v0.5+</td>
+<td>备用模型配置</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>list</td>
+<td>否</td>
+<td>[]</td>
+<td>v0.5+</td>
+<td>可用工具列表</td>
+</tr>
+<tr>
+<td><code>max_tokens</code></td>
+<td>int</td>
+<td>否</td>
+<td>-</td>
+<td>v0.5+</td>
+<td>最大输出 token 数</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>int</td>
+<td>否</td>
+<td>30</td>
+<td>v0.5+</td>
+<td>执行超时时间（秒）</td>
+</tr>
+<tr>
+<td><code>retry</code></td>
+<td>int</td>
+<td>否</td>
+<td>3</td>
+<td>v0.5+</td>
+<td>失败重试次数</td>
+</tr>
+<tr>
+<td><code>requires</code></td>
+<td>clause</td>
+<td>否</td>
+<td>-</td>
+<td>v1.2+</td>
+<td>前置条件契约条款</td>
+</tr>
+<tr>
+<td><code>ensures</code></td>
+<td>clause</td>
+<td>否</td>
+<td>-</td>
+<td>v1.2+</td>
+<td>后置条件契约条款</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">属性详细说明<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="role"><code>role</code>（角色语义场）<a class="headerlink" href="#role" title="Permanent link">&para;</a></h4>
+<p>定义该代理的系统角色（System Persona）。这不仅仅是一个标签，在底层编译为 Python 运行时时，它会作为系统提示词的极高权重顶层注入点，赋能模型的上下文边界。</p>
+<div class="highlight"><pre><span></span><code>agent FinancialAdvisor {
+    role: &quot;资深金融分析师，专注于科技股投资策略&quot;,
+    prompt: &quot;根据用户需求提供专业的投资建议...&quot;
+}
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">最佳实践</p>
+<ul>
+<li>角色描述应该<strong>具体而专业</strong>，避免模糊的描述如"你是一个助手"</li>
+<li>可以包含专业领域、经验年限、专长技能等信息</li>
+<li>好的角色描述能显著提升模型输出的专业性和一致性</li>
+</ul>
+</div>
+<h4 id="prompt"><code>prompt</code>（任务执行描述）<a class="headerlink" href="#prompt" title="Permanent link">&para;</a></h4>
+<p>这是驱动模型行动的核心指令区，支持多行纯文本字面量表达。在这里，你不需要处理转义甚至复杂的 Token 拼接，一切都自然发生。</p>
+<div class="highlight"><pre><span></span><code>// 单行 prompt
+agent Translator {
+    prompt: &quot;将用户输入翻译成中文&quot;
+}
+
+// 多行 prompt（推荐用于复杂任务）
+agent CodeReviewer {
+    prompt: &quot;&quot;&quot;
+    你是一位代码审查专家。请审查提交的代码，关注以下方面：
+
+    1. 代码质量和可读性
+    2. 潜在的 bug 和边界情况
+    3. 性能优化建议
+    4. 安全漏洞
+
+    输出格式：
+    - 问题列表（如有）
+    - 改进建议
+    - 总体评价
+    &quot;&quot;&quot;
+}
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">常见错误</p>
+<p>不要在 prompt 中写具体的输出示例，这可能导致模型过度拟合。如果需要约束输出格式，请使用 <code>protocol</code>。</p>
+</div>
+<h4 id="model"><code>model</code>（动态智脑映射）<a class="headerlink" href="#model" title="Permanent link">&para;</a></h4>
+<p><strong>（极具破坏性优势的特性）</strong> 原生的模型硬线链接。这使得我们可以在不同的代理之间按需无缝切换背后的引擎。</p>
+<p><strong>正确格式</strong>：<code>提供商/模型名</code></p>
+<div class="highlight"><pre><span></span><code>// ✅ 正确格式
+agent Bot {
+    model: &quot;openai/gpt-4&quot;
+}
+
+agent AnotherBot {
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+agent ThirdBot {
+    model: &quot;minimax/minimax-m2.5&quot;
+}
+
+// ❌ 错误格式 - 缺少提供商前缀
+agent WrongBot {
+    model: &quot;gpt-4&quot;  // 会报错！
+}
+</code></pre></div>
+<p><strong>支持的提供商前缀</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>说明</th>
+<th>示例模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openai/</code></td>
+<td>OpenAI GPT 系列</td>
+<td><code>gpt-4</code>, <code>gpt-4-turbo</code>, <code>gpt-3.5-turbo</code></td>
+</tr>
+<tr>
+<td><code>deepseek/</code></td>
+<td>DeepSeek 系列</td>
+<td><code>deepseek-chat</code>, <code>deepseek-coder</code></td>
+</tr>
+<tr>
+<td><code>minimax/</code></td>
+<td>MiniMax 系列</td>
+<td><code>minimax-m2.5</code></td>
+</tr>
+<tr>
+<td><code>anthropic/</code></td>
+<td>Anthropic Claude 系列</td>
+<td><code>claude-3-sonnet</code>, <code>claude-3-opus</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">模型选择建议</p>
+<ul>
+<li><strong>简单任务</strong>（翻译、摘要）：使用轻量模型如 <code>deepseek-chat</code></li>
+<li><strong>复杂推理</strong>（代码生成、分析）：使用强模型如 <code>gpt-4</code></li>
+<li><strong>实时响应</strong>：选择响应速度快的模型</li>
+</ul>
+</div>
+<h4 id="memory"><code>memory</code>（记忆持久化）<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h4>
+<p>代理的记忆模式，允许 Agent 自动管理多轮对话状态。</p>
+<div class="highlight"><pre><span></span><code>agent ChatBot {
+    prompt: &quot;你是一个友好的聊天助手&quot;,
+    memory: &quot;persistent&quot;  // 启用持久化记忆
+}
+
+flow main {
+    // 第一次调用
+    ChatBot.run(&quot;我叫张三&quot;);
+
+    // 第二次调用 - Agent 会记住之前的对话
+    ChatBot.run(&quot;我叫什么名字？&quot;);  // 会回答&quot;张三&quot;
+}
+</code></pre></div>
+<h4 id="stream"><code>stream</code>（流式推写开关）<a class="headerlink" href="#stream" title="Permanent link">&para;</a></h4>
+<p>将其设置为 <code>true</code> 可以直接启用大模型的 Token 级流式响应。让 Agent 边思考边输出，实现对终端用户无卡顿的实时反馈。</p>
+<div class="highlight"><pre><span></span><code>agent StreamBot {
+    prompt: &quot;你是一个故事创作助手&quot;,
+    stream: true  // 启用流式输出
+}
+</code></pre></div>
+<h4 id="cache"><code>cache</code>（智能缓存）<a class="headerlink" href="#cache" title="Permanent link">&para;</a></h4>
+<p>启用后，相同或相似的请求会复用之前的结果，大幅减少 Token 消耗和响应时间。</p>
+<div class="highlight"><pre><span></span><code>agent CachedBot {
+    prompt: &quot;回答常见问题&quot;,
+    cache: true  // 启用语义缓存
+}
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">缓存机制</p>
+<ul>
+<li>基于<strong>语义相似度</strong>匹配，不仅是精确匹配</li>
+<li>缓存存储在 <code>.nexa_cache/</code> 目录下</li>
+<li>可通过 <code>nexa cache clear</code> 清除缓存</li>
+</ul>
+</div>
+<h4 id="experience"><code>experience</code>（长期记忆）<a class="headerlink" href="#experience" title="Permanent link">&para;</a></h4>
+<p>加载长期记忆文件，让 Agent 具备持久化的知识和经验。</p>
+<div class="highlight"><pre><span></span><code>agent SmartBot {
+    prompt: &quot;基于历史经验回答问题&quot;,
+    experience: &quot;bot_memory.md&quot;  // 加载记忆文件
+}
+</code></pre></div>
+<p>记忆文件格式示例（<code>bot_memory.md</code>）：</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># Bot 记忆库</span>
+
+<span class="gu">## 用户偏好</span>
+<span class="k">-</span><span class="w"> </span>喜欢简洁的回答
+<span class="k">-</span><span class="w"> </span>偏好技术类话题
+
+<span class="gu">## 常见问题解答</span>
+<span class="k">-</span><span class="w"> </span>什么是 Agent？Agent 是能够感知环境并采取行动的实体。
+
+<span class="gu">## 经验教训</span>
+<span class="k">-</span><span class="w"> </span>不要假设用户的技术背景
+<span class="k">-</span><span class="w"> </span>复杂概念需要分步解释
+</code></pre></div>
+<h4 id="fallback"><code>fallback</code>（模型灾备降级）<a class="headerlink" href="#fallback" title="Permanent link">&para;</a></h4>
+<p>由于 API RateLimit 或意外宕机导致请求失败时，通过设定 <code>fallback</code> 模型作为容灾选项，在运行时无缝切换。</p>
+<div class="highlight"><pre><span></span><code>// 单个备用模型
+agent ResilientBot {
+    model: &quot;openai/gpt-4&quot;,
+    fallback: &quot;deepseek/deepseek-chat&quot;,  // gpt-4 不可用时自动切换
+    prompt: &quot;...&quot;
+}
+
+// 多级备用（v0.9.7+）
+agent HighAvailabilityBot {
+    model: [&quot;openai/gpt-4&quot;, fallback: &quot;anthropic/claude-3-sonnet&quot;, fallback: &quot;deepseek/deepseek-chat&quot;],
+    prompt: &quot;...&quot;
+}
+</code></pre></div>
+<hr />
+<h2 id="agent-decorators">🎯 Agent 修饰器（Decorators）<a class="headerlink" href="#agent-decorators" title="Permanent link">&para;</a></h2>
+<p>v1.0 引入了 Agent 修饰器语法，允许在 Agent 定义前添加元数据配置。</p>
+<h3 id="_3">可用修饰器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>修饰器</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@limit</code></td>
+<td><code>max_tokens</code></td>
+<td>限制最大输出 token 数</td>
+</tr>
+<tr>
+<td><code>@timeout</code></td>
+<td><code>seconds</code></td>
+<td>设置执行超时时间</td>
+</tr>
+<tr>
+<td><code>@retry</code></td>
+<td><code>count</code></td>
+<td>设置失败重试次数</td>
+</tr>
+<tr>
+<td><code>@temperature</code></td>
+<td><code>value</code></td>
+<td>设置模型温度参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">使用示例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// 限制输出长度
+@limit(max_tokens=500)
+agent ConciseBot {
+    prompt: &quot;用简洁的语言回答问题&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;
+}
+
+// 设置超时和重试
+@timeout(seconds=60)
+@retry(count=5)
+agent ResilientBot {
+    prompt: &quot;处理可能耗时的任务&quot;,
+    model: &quot;openai/gpt-4&quot;
+}
+
+// 组合多个修饰器
+@limit(max_tokens=1000)
+@timeout(seconds=120)
+@retry(count=3)
+@temperature(value=0.7)
+agent ProductionBot {
+    role: &quot;生产环境智能助手&quot;,
+    prompt: &quot;提供高质量的专业回答&quot;,
+    model: &quot;anthropic/claude-3-sonnet&quot;
+}
+</code></pre></div>
+<h3 id="_5">修饰器与属性等价关系<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>修饰器语法与 Agent 属性是等价的：</p>
+<div class="highlight"><pre><span></span><code>// 使用修饰器
+@timeout(seconds=60)
+@retry(count=3)
+agent Bot1 {
+    prompt: &quot;...&quot;
+}
+
+// 等价于使用属性
+agent Bot1 {
+    prompt: &quot;...&quot;,
+    timeout: 60,
+    retry: 3
+}
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">选择建议</p>
+<ul>
+<li><strong>使用修饰器</strong>：当需要突出运行时配置（如超时、重试）时</li>
+<li><strong>使用属性</strong>：当配置较多且需要统一管理时</li>
+<li>两种方式可以混用，修饰器优先级更高</li>
+</ul>
+</div>
+<hr />
+<h2 id="flow-run">� 控制流枢纽：<code>flow</code> 和 <code>.run()</code><a class="headerlink" href="#flow-run" title="Permanent link">&para;</a></h2>
+<p>只定义 Agent 就像是为不同的部门招募到了世界顶级的员工，但不给他们分配办公桌和网络，他们就永远是沉睡的状态。我们需要一个载体来激活与编排他们。这一切都在 <code>flow</code> 中发生。</p>
+<p>在 Nexa 中，通常系统的入口流都会被命名为 <code>flow main</code>，这就类似于 C 语言或 Java 控制台运行时的 <code>main</code> 函数，是单文件乃至整个项目开始执行（Execution Entrypoint）的第一帧。</p>
+<h3 id="hello-world">⚡ Hello World 完整实战解析<a class="headerlink" href="#hello-world" title="Permanent link">&para;</a></h3>
+<p>让我们仔细拆解一个最经典的 <code>01_hello_world.nx</code> 脚本：</p>
+<div class="highlight"><pre><span></span><code>// 1. 定义智能体：我们给了它一个友好的性格，并且不需要指定模型（使用默认降级）
+agent HelloWorldBot {
+    role: &quot;A very helpful and concise assistant.&quot;,
+    prompt: &quot;You must always greet the user cheerfully and briefly in less than 20 words.&quot;
+}
+
+// 2. 启动流入口
+flow main {
+    // 变量赋值：在 Nexa 中，字符串通常蕴含着自然语义请求，你可以直接通过等号注入
+    greeting_request = &quot;Say hello to Nexa developers all around the world!&quot;;
+
+    // 调用 agent 的 .run() 方法，将指令发送给模型进行推理并返回响应。
+    // 这里底层发生的并发、网络请求、RateLimit 回退均对用户隐匿。
+    response = HelloWorldBot.run(greeting_request);
+
+    // 打印结果
+    print(response);
+}
+</code></pre></div>
+<h3 id="_6">运行结果<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nexa<span class="w"> </span>run<span class="w"> </span>hello_world.nx
+
+Hello,<span class="w"> </span>Nexa<span class="w"> </span>developers!<span class="w"> </span>🌍<span class="w"> </span>Welcome<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>future<span class="w"> </span>of<span class="w"> </span>agent<span class="w"> </span>programming!
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">运行时的底层机制</p>
+<p>当敲下执行命令时，Nexa 编译器首先会建立静态的图节点，对传入传出的数据类型进行静态核对，确保整个脚本没有孤儿死锁。随后将其无缝转译为高效的异步 Python 运行时（利用 <code>asyncio</code>），唤醒 <code>HelloWorldBot</code> 实例。这不仅是全网最为极简的 Agent Hello World，更是最安全的一个。</p>
+</div>
+<h3 id="flow"><code>flow</code> 语法详解<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// 基本语法
+flow &lt;flow_name&gt; {
+    // 语句...
+}
+
+// 带参数的 flow（v0.9+）
+flow process_user(user_id: string, action: string) {
+    // 使用参数
+    result = Agent.run(user_id + &quot; wants to &quot; + action);
+}
+</code></pre></div>
+<h3 id="run"><code>.run()</code> 方法详解<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// 基本调用
+result = Agent.run(&quot;your input&quot;);
+
+// 带多参数调用
+result = Agent.run(&quot;primary input&quot;, &quot;additional context&quot;);
+
+// 链式调用（管道）
+result = input &gt;&gt; Agent1 &gt;&gt; Agent2 &gt;&gt; Agent3;
+</code></pre></div>
+<hr />
+<h2 id="v101">🔀 传统控制流 (v1.0.1+)<a class="headerlink" href="#v101" title="Permanent link">&para;</a></h2>
+<p>除了 Nexa 特有的语义控制流（<code>match intent</code>、<code>loop until</code>、<code>semantic_if</code>），v1.0.1 引入了与传统编程语言一致的确定性控制流语句，让开发者能够更灵活地处理逻辑分支。</p>
+<h3 id="ifelse-ifelse">if/else if/else 语句<a class="headerlink" href="#ifelse-ifelse" title="Permanent link">&para;</a></h3>
+<p>传统的确定性条件分支：</p>
+<div class="highlight"><pre><span></span><code>// 确定性 if/else if/else 语句
+score = 85;
+
+if score &gt;= 90 {
+    grade = &quot;A&quot;;
+    print(&quot;优秀！&quot;);
+} else if score &gt;= 80 {
+    grade = &quot;B&quot;;
+    print(&quot;良好！&quot;);
+} else if score &gt;= 70 {
+    grade = &quot;C&quot;;
+    print(&quot;中等&quot;);
+} else if score &gt;= 60 {
+    grade = &quot;D&quot;;
+    print(&quot;及格&quot;);
+} else {
+    grade = &quot;F&quot;;
+    print(&quot;需要改进&quot;);
+}
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">与语义控制流的区别</p>
+<ul>
+<li><strong>传统 if/else</strong>: 基于确定性的布尔表达式，适合数值比较、状态检查</li>
+<li><strong>semantic_if</strong>: 基于自然语言语义判断，需要 LLM 推理</li>
+<li>选择原则：能用确定性条件就用传统 if，语义判断才用 semantic_if</li>
+</ul>
+</div>
+<h3 id="for-each">for each 循环<a class="headerlink" href="#for-each" title="Permanent link">&para;</a></h3>
+<p>遍历数组或集合：</p>
+<div class="highlight"><pre><span></span><code>// 遍历数组
+items = [&quot;苹果&quot;, &quot;香蕉&quot;, &quot;樱桃&quot;, &quot;橙子&quot;];
+
+for item in items {
+    print(&quot;水果: &quot; + item);
+}
+
+// 带索引的遍历（结合计数器）
+index = 0;
+for item in items {
+    print(f&quot;第 {index + 1} 个: {item}&quot;);
+    index = index + 1;
+}
+</code></pre></div>
+<h3 id="while">while 循环<a class="headerlink" href="#while" title="Permanent link">&para;</a></h3>
+<p>基于条件的循环：</p>
+<div class="highlight"><pre><span></span><code>// while 循环示例
+count = 0;
+
+while count &lt; 5 {
+    print(f&quot;计数: {count}&quot;);
+    count = count + 1;
+}
+</code></pre></div>
+<h3 id="break-continue">break 和 continue<a class="headerlink" href="#break-continue" title="Permanent link">&para;</a></h3>
+<p>循环控制语句：</p>
+<div class="highlight"><pre><span></span><code>// break - 终止循环
+items = [&quot;a&quot;, &quot;b&quot;, &quot;stop&quot;, &quot;c&quot;, &quot;d&quot;];
+
+for item in items {
+    if item == &quot;stop&quot; {
+        print(&quot;找到停止点，退出循环&quot;);
+        break;
+    }
+    print(&quot;处理: &quot; + item);
+}
+
+// continue - 跳过当前迭代
+for item in items {
+    if item == &quot;stop&quot; {
+        continue;  // 跳过这个元素
+    }
+    print(&quot;处理: &quot; + item);
+}
+</code></pre></div>
+<hr />
+<h2 id="v101_1">🔢 二元运算符与比较运算符 (v1.0.1+)<a class="headerlink" href="#v101_1" title="Permanent link">&para;</a></h2>
+<h3 id="_7">算术运算符<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// 算术运算
+a = 10;
+b = 3;
+
+sum = a + b;      // 加法: 13
+diff = a - b;     // 减法: 7
+product = a * b;  // 乘法: 30
+quotient = a / b; // 除法: 3.33...
+remainder = a % b; // 取模: 1
+</code></pre></div>
+<h3 id="_8">比较运算符<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// 比较运算（返回布尔值）
+a = 10;
+b = 5;
+
+equal = a == b;       // 等于: false
+not_equal = a != b;   // 不等于: true
+greater = a &gt; b;      // 大于: true
+less = a &lt; b;         // 小于: false
+greater_eq = a &gt;= b;  // 大于等于: true
+less_eq = a &lt;= b;     // 小于等于: false
+</code></pre></div>
+<h3 id="_9">逻辑运算符<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// 逻辑运算
+a = true;
+b = false;
+
+result_and = a and b;  // 逻辑与: false
+result_or = a or b;    // 逻辑或: true
+</code></pre></div>
+<hr />
+<h2 id="python-v101">🐍 Python 逃生舱 (v1.0.1+)<a class="headerlink" href="#python-v101" title="Permanent link">&para;</a></h2>
+<p>当需要使用 Python 特有的库或功能时，可以使用 Python 逃生舱直接嵌入 Python 代码：</p>
+<h3 id="_10">基本语法<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Python 逃生舱 - 直接嵌入 Python 代码
+python! &quot;&quot;&quot;
+import numpy as np
+import pandas as pd
+
+# 创建数据
+data = np.array([1, 2, 3, 4, 5])
+mean_value = data.mean()
+std_value = data.std()
+
+print(f&quot;均值: {mean_value}&quot;)
+print(f&quot;标准差: {std_value}&quot;)
+&quot;&quot;&quot;
+</code></pre></div>
+<h3 id="_11">使用场景<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>科学计算</strong>：使用 NumPy、SciPy 等库</li>
+<li><strong>数据处理</strong>：使用 Pandas 进行数据分析</li>
+<li><strong>可视化</strong>：使用 Matplotlib 绘图</li>
+<li><strong>系统集成</strong>：调用系统 API 或第三方库</li>
+</ol>
+<h3 id="_12">完整示例<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>agent DataAnalyzer {
+    role: &quot;数据分析助手&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;,
+    prompt: &quot;分析数据并给出洞察&quot;
+}
+
+flow main {
+    // 使用 Python 进行数据预处理
+    python! &quot;&quot;&quot;
+import json
+
+# 模拟数据
+data = [
+    {&quot;name&quot;: &quot;Alice&quot;, &quot;score&quot;: 85},
+    {&quot;name&quot;: &quot;Bob&quot;, &quot;score&quot;: 92},
+    {&quot;name&quot;: &quot;Charlie&quot;, &quot;score&quot;: 78}
+]
+
+# 计算统计信息
+scores = [d[&quot;score&quot;] for d in data]
+avg_score = sum(scores) / len(scores)
+max_score = max(scores)
+
+print(f&quot;平均分: {avg_score}&quot;)
+print(f&quot;最高分: {max_score}&quot;)
+&quot;&quot;&quot;
+
+    // 然后让 Agent 分析结果
+    result = DataAnalyzer.run(&quot;分析学生成绩分布&quot;);
+    print(result);
+}
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">安全提示</p>
+<ul>
+<li>Python 逃生舱中的代码会直接执行，请确保代码安全</li>
+<li>建议仅在受信任的环境中使用</li>
+<li>避免在逃生舱中处理敏感数据</li>
+</ul>
+</div>
+<hr />
+<h2 id="uses">🔍 内置工具的挂载与环境沙盒穿透 (<code>uses</code> 关键字)<a class="headerlink" href="#uses" title="Permanent link">&para;</a></h2>
+<p>如果仅仅是在控制台里产生字符串，大模型也不过是个会"聊天"的花瓶。真正的大模型智能体（Agent）要能与数字世界互动（比如查天气、删文件、写表格）。</p>
+<p>在传统的 Python 胶水代码开发中，要想让大模型调用一个函数，你需要使用极其反人类的 JSON Schema 语法去手写 Function Calling 配置。并且，一旦函数签名发生变更，你的 Schema 如果忘了跟着改，整个调用链就会在运行时崩溃。</p>
+<p>而在 Nexa 宇宙中，一切只需要一个原生的 <code>uses</code> 关键字声明！Nexa 把函数绑定逻辑通过反射机制（Reflection）直接做进了编译器。</p>
+<h3 id="_13">基本用法<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>agent Interactor {
+    // 原生语法级载入沙盒环境包
+    uses [std.ask_human, std.os.file_read]
+
+    prompt: &quot;当遇到不确定的风险操作时，优先调用 ask_human 将情况反馈给人类审查并获取许可。必要时使用 file_read 查阅本地配置。&quot;
+}
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">从根本上消灭 Schema 烦恼</p>
+<p>上文中使用的 <code>std.ask_human</code> 和 <code>std.os.file_read</code> 是 Nexa 内置标准包。当使用 <code>uses</code> 装载后，<strong>Nexa 的编译器会在背后自动爬取这些 Python 工具内部的函数签名与 <code>docstring</code>，并将它们编译组装为各大模型厂商适配的 Native Function Calling Payload！</strong>这意味着开发者完全不需要手写 JSON，甚至不需要思考不同模型对工具调用的不同要求。它甚至支持通过类型提示来进行参数验证！</p>
+</div>
+<h3 id="_14">标准库工具一览<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命名空间</th>
+<th>工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std.fs</code></td>
+<td><code>file_read</code>, <code>file_write</code></td>
+<td>文件系统操作</td>
+</tr>
+<tr>
+<td><code>std.http</code></td>
+<td><code>get</code>, <code>post</code></td>
+<td>HTTP 请求</td>
+</tr>
+<tr>
+<td><code>std.time</code></td>
+<td><code>now</code>, <code>sleep</code></td>
+<td>时间相关操作</td>
+</tr>
+<tr>
+<td><code>std.shell</code></td>
+<td><code>execute</code></td>
+<td>执行 shell 命令</td>
+</tr>
+<tr>
+<td><code>std.ask_human</code></td>
+<td><code>call</code></td>
+<td>人机交互询问</td>
+</tr>
+<tr>
+<td><code>std.json</code></td>
+<td><code>parse</code>, <code>stringify</code></td>
+<td>JSON 处理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_15">使用示例<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// 文件处理 Agent
+agent FileAssistant uses std.fs {
+    prompt: &quot;帮助用户管理文件，可以读取和写入文件&quot;
+}
+
+// 网络请求 Agent
+agent WebScraper uses std.http {
+    prompt: &quot;从网页获取内容并提取信息&quot;
+}
+
+// 多工具 Agent
+agent MultiToolAgent uses std.fs, std.http, std.time {
+    prompt: &quot;我可以处理文件、访问网络、获取时间&quot;
+}
+</code></pre></div>
+<hr />
+<h2 id="agent_2">🎯 Agent 定义常见模式<a class="headerlink" href="#agent_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-agent">模式 1：简单对话 Agent<a class="headerlink" href="#1-agent" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>agent ChatBot {
+    role: &quot;友好的聊天助手&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;,
+    prompt: &quot;与用户进行友好的日常对话&quot;
+}
+</code></pre></div>
+<h3 id="2-agent">模式 2：专业领域 Agent<a class="headerlink" href="#2-agent" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>agent LegalAdvisor {
+    role: &quot;资深法律顾问，专攻合同法&quot;,
+    model: &quot;openai/gpt-4&quot;,
+    prompt: &quot;&quot;&quot;
+    为用户提供专业的法律建议，特别是合同相关的问题。
+    注意：提醒用户这只是参考建议，不构成正式的法律意见。
+    &quot;&quot;&quot;,
+    memory: &quot;persistent&quot;
+}
+</code></pre></div>
+<h3 id="3-agent">模式 3：工具增强 Agent<a class="headerlink" href="#3-agent" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>agent DataAnalyst uses std.fs, std.http {
+    role: &quot;数据分析师&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;,
+    prompt: &quot;分析数据并生成报告&quot;,
+    cache: true
+}
+</code></pre></div>
+<h3 id="4-agent">模式 4：高可用 Agent<a class="headerlink" href="#4-agent" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>agent ProductionBot {
+    role: &quot;生产环境助手&quot;,
+    model: [&quot;openai/gpt-4&quot;, fallback: &quot;deepseek/deepseek-chat&quot;],
+    prompt: &quot;...&quot;,
+    cache: true,
+    timeout: 60
+}
+</code></pre></div>
+<hr />
+<h2 id="_16">⚠️ 常见错误与解决方案<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="1">错误 1：模型格式错误<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// ❌ 错误
+agent Bot {
+    model: &quot;gpt-4&quot;  // 缺少提供商前缀
+}
+
+// ✅ 正确
+agent Bot {
+    model: &quot;openai/gpt-4&quot;
+}
+</code></pre></div>
+<h3 id="2agent">错误 2：Agent 定义顺序错误<a class="headerlink" href="#2agent" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// ❌ 错误：Agent 定义在 flow 之后
+flow main {
+    result = MyBot.run(&quot;hello&quot;);
+}
+
+agent MyBot {
+    prompt: &quot;...&quot;
+}
+
+// ✅ 正确：Agent 定义在 flow 之前
+agent MyBot {
+    prompt: &quot;...&quot;
+}
+
+flow main {
+    result = MyBot.run(&quot;hello&quot;);
+}
+</code></pre></div>
+<h3 id="3">错误 3：属性名拼写错误<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// ❌ 常见拼写错误
+agent Bot {
+    promt: &quot;...&quot;,      // 应为 prompt
+    moedl: &quot;gpt-4&quot;,    // 应为 model
+    rol: &quot;助手&quot;        // 应为 role
+}
+
+// ✅ 正确拼写
+agent Bot {
+    prompt: &quot;...&quot;,
+    model: &quot;openai/gpt-4&quot;,
+    role: &quot;助手&quot;
+}
+</code></pre></div>
+<h3 id="4">错误 4：忘记必要的属性<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// ❌ 错误：缺少 prompt
+agent Bot {
+    role: &quot;助手&quot;  // 只有 role 没有 prompt
+}
+
+// ✅ 正确
+agent Bot {
+    role: &quot;助手&quot;,
+    prompt: &quot;帮助用户解决问题&quot;  // prompt 是必需的
+}
+</code></pre></div>
+<hr />
+<h2 id="v13x">🆕 v1.3.x 新声明关键字速览<a class="headerlink" href="#v13x" title="Permanent link">&para;</a></h2>
+<p>Nexa v1.3.x 引入了多个新的声明关键字，它们扩展了语言的表达力和企业级能力。以下是快速概览，详细用法请参考对应章节。</p>
+<h3 id="_17">数据建模关键字<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>版本</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>struct</code></td>
+<td>v1.3.x</td>
+<td>定义结构体</td>
+<td><code>struct Point { x: Int, y: Int }</code></td>
+</tr>
+<tr>
+<td><code>enum</code></td>
+<td>v1.3.x</td>
+<td>定义枚举</td>
+<td><code>enum Option[T] { Some(T), None }</code></td>
+</tr>
+<tr>
+<td><code>trait</code></td>
+<td>v1.3.x</td>
+<td>定义特质</td>
+<td><code>trait Printable { fn format() -&gt; String }</code></td>
+</tr>
+<tr>
+<td><code>impl</code></td>
+<td>v1.3.x</td>
+<td>实现特质</td>
+<td><code>impl Printable for Point { ... }</code></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>v1.0.2+</td>
+<td>定义语义类型</td>
+<td><code>type Email = string @ "valid email"</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_18">企业级声明关键字<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>版本</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>job</code></td>
+<td>v1.3.3</td>
+<td>定义后台任务</td>
+<td><code>job SendEmail { handler: ..., retry: 3 }</code></td>
+</tr>
+<tr>
+<td><code>server</code></td>
+<td>v1.3.4</td>
+<td>定义 HTTP 服务</td>
+<td><code>server MyApp { route GET "/hello" { ... } }</code></td>
+</tr>
+<tr>
+<td><code>db</code></td>
+<td>v1.3.5</td>
+<td>定义数据库</td>
+<td><code>db main_db { type: sqlite, path: "data.db" }</code></td>
+</tr>
+<tr>
+<td><code>auth</code></td>
+<td>v1.3.6</td>
+<td>定义认证</td>
+<td><code>auth my_auth { providers: ["google"] }</code></td>
+</tr>
+<tr>
+<td><code>kv</code></td>
+<td>v1.3.7</td>
+<td>定义 KV 存储</td>
+<td><code>kv my_cache { path: ":memory:" }</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_19">契约关键字<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>版本</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>requires</code></td>
+<td>v1.2.0</td>
+<td>前置条件</td>
+<td><code>requires: amount &gt; 0</code></td>
+</tr>
+<tr>
+<td><code>ensures</code></td>
+<td>v1.2.0</td>
+<td>后置条件</td>
+<td><code>ensures: result.success == true</code></td>
+</tr>
+<tr>
+<td><code>invariant</code></td>
+<td>v1.2.0</td>
+<td>不变式</td>
+<td><code>invariant: state in ["idle", "running"]</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">深入学习</p>
+<ul>
+<li>数据建模关键字（struct/enum/trait/impl）的详细用法请参考 <a href="../part2_advanced/">高级特性</a></li>
+<li>企业级声明关键字（job/server/db/auth/kv）的详细用法请参考 <a href="../part5_enterprise/">企业级架构特性</a></li>
+<li>契约关键字（requires/ensures/invariant）的详细用法请参考 <a href="../part3_extensions/">语法扩展</a></li>
+</ul>
+</div>
+<hr />
+<h2 id="_20">📝 本章小结<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<p>在这一章里，我们学习了：</p>
+<ol>
+<li><strong>Agent 的定义</strong>：使用 <code>agent</code> 关键字定义智能体</li>
+<li><strong>核心属性</strong>：<code>role</code>, <code>prompt</code>, <code>model</code>, <code>memory</code>, <code>stream</code>, <code>cache</code>, <code>requires</code>, <code>ensures</code> 等</li>
+<li><strong>流程控制</strong>：使用 <code>flow main</code> 作为程序入口</li>
+<li><strong>工具挂载</strong>：使用 <code>uses</code> 关键字加载标准库工具</li>
+<li><strong>常见模式</strong>：简单对话、专业领域、工具增强、高可用等模式</li>
+<li><strong>常见错误</strong>：模型格式、定义顺序、属性拼写等</li>
+<li><strong>v1.3.x 新关键字</strong>：struct/enum/trait/impl/type/job/server/db/auth/kv/requires/ensures/invariant</li>
+</ol>
+<p>但这仅仅发挥出大语言模型单打独斗（Single-Agent Task）的实力。真实的业务系统充满复杂冗长的协同交错：如何让十几个分工明确的代理接力完成任务？又该如何在各执一词的代理间达成完美共识？</p>
+<p>不要眨眼，这正是下一章 <strong>多 Agent 调度与控制（高级特性）</strong> 将为你呈现的真正编排魔法。</p>
+<hr />
+<h2 id="_21">🔗 相关资源<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../quickstart/">快速入门教程</a> - 30 分钟掌握 Nexa</li>
+<li><a href="../part2_advanced/">高级特性</a> - 管道/模式匹配/ADT 详解</li>
+<li><a href="../part3_extensions/">语法扩展</a> - 契约/类型/错误传播</li>
+<li><a href="../part5_enterprise/">企业级架构</a> - HTTP Server/数据库/认证</li>
+<li><a href="../examples/">完整示例集合</a> - 更多实战代码</li>
+<li><a href="../troubleshooting/">常见问题与排查</a> - 解决开发问题</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="../search/search_index.json"
+  data-current-page="part1_basic.md"
+  data-current-title="基础语法"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="../img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="../javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../contribution/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 贡献与参与">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                贡献与参与
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../part2_advanced/" class="md-footer__link md-footer__link--next" aria-label="下一页: 高级特性">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                高级特性
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>

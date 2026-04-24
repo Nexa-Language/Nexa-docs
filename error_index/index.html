@@ -1,0 +1,3880 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/error_index/">
+      
+      
+        <link rel="prev" href="../stdlib_reference/">
+      
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+          <link rel="alternate" href="../en/error_index/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>错误索引 - Nexa 官方文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nexa" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="Nexa 官方文档" class="md-header__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa 官方文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              错误索引
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../en/error_index/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  主页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part1_basic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  语法指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  深入设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  社区与未来
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考资源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考手册
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nexa 官方文档" class="md-nav__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa 官方文档
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前言与理念
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    前言与理念
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    重构智能体开发范式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调研背景与技术演进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    典型场景与对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献与参与
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法指南
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    语法指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part1_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础语法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part2_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法扩展
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生态与标准库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    深入设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    深入设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译器设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    企业级架构特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构演进与未来(Rust/WASM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最佳实践
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与未来
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    社区与未来
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    未来展望
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与生态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    完整示例集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题与排查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考手册
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考手册
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI 命令参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标准库 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误索引
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 如何使用本索引
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-e0xx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 编译时错误 (E0xx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 编译时错误 (E0xx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e001-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E001 - 未声明的标识符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e002-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E002 - 类型不匹配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e003-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E003 - 缺少必需属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e004-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E004 - 语法错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e005-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E005 - 重复声明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-e1xx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 运行时错误 (E1xx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 运行时错误 (E1xx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e101-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E101 - Agent 执行失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e102-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E102 - Tool 执行失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e103-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E103 - 管道执行失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e104-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E104 - Intent 路由失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-e2xx-v120" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 契约错误 (E2xx) — v1.2.0+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 契约错误 (E2xx) — v1.2.0+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e201-contractviolation-requires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E201 - ContractViolation (requires 前置条件违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e202-contractviolation-ensures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E202 - ContractViolation (ensures 后置条件违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e203-contractviolation-invariant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E203 - ContractViolation (invariant 不变式违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-e3xx-v131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 类型错误 (E3xx) — v1.3.1+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 类型错误 (E3xx) — v1.3.1+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e301-typeviolation-strict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E301 - TypeViolation (strict 模式类型违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e302-typewarning-warn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E302 - TypeWarning (warn 模式类型警告)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e303-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E303 - Protocol 类型验证失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-e4xx-v135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 数据库错误 (E4xx) — v1.3.5+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 数据库错误 (E4xx) — v1.3.5+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e401-databaseerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E401 - DatabaseError (连接失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e402-databaseerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E402 - DatabaseError (查询失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e403-databaseerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E403 - DatabaseError (事务失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-e5xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 认证错误 (E5xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 认证错误 (E5xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e501-autherror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E501 - AuthError (认证失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e502-autherror-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E502 - AuthError (JWT 错误)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e503-autherror-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E503 - AuthError (CSRF 验证失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e504-autherror-oauth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E504 - AuthError (OAuth 流程错误)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-kv-e6xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. KV 存储错误 (E6xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. KV 存储错误 (E6xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e601-kverror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E601 - KVError (操作失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e602-kverror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E602 - KVError (序列化失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-e7xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 并发错误 (E7xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 并发错误 (E7xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e701-concurrencyerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E701 - ConcurrencyError (任务取消)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e702-concurrencyerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E702 - ConcurrencyError (通道关闭)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e703-concurrencyerror-race" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E703 - ConcurrencyError (race 全部失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-e8xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 模板错误 (E8xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 模板错误 (E8xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e801-templateerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E801 - TemplateError (编译失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e802-templateerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E802 - TemplateError (渲染失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-e9xx-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 模式匹配错误 (E9xx) — v1.3.x+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 模式匹配错误 (E9xx) — v1.3.x+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e901-patternmatcherror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E901 - PatternMatchError (无匹配分支)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e902-patternmatcherror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E902 - PatternMatchError (解构失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-adt-eax-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. ADT 错误 (EAx) — v1.3.x+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. ADT 错误 (EAx) — v1.3.x+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ea01-adterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EA01 - ADTError (结构体操作失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ea02-adterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EA02 - ADTError (枚举操作失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ea03-adterror-trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EA03 - ADTError (Trait 方法调用失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-job-ebx-v133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Job 系统错误 (EBx) — v1.3.3+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Job 系统错误 (EBx) — v1.3.3+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eb01-joberror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EB01 - JobError (任务执行失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eb02-joberror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EB02 - JobError (任务超时)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eb03-joberror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EB03 - JobError (死信任务)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-http-server-ecx-v134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. HTTP Server 错误 (ECx) — v1.3.4+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. HTTP Server 错误 (ECx) — v1.3.4+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ec01-httperror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EC01 - HTTPError (路由未找到)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ec02-contractviolation-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EC02 - ContractViolation (HTTP 契约违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 错误码速查表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 相关资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 如何使用本索引
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-e0xx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 编译时错误 (E0xx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 编译时错误 (E0xx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e001-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E001 - 未声明的标识符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e002-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E002 - 类型不匹配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e003-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E003 - 缺少必需属性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e004-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E004 - 语法错误
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e005-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E005 - 重复声明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-e1xx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 运行时错误 (E1xx)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 运行时错误 (E1xx)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e101-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E101 - Agent 执行失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e102-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E102 - Tool 执行失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e103-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E103 - 管道执行失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e104-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E104 - Intent 路由失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-e2xx-v120" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 契约错误 (E2xx) — v1.2.0+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 契约错误 (E2xx) — v1.2.0+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e201-contractviolation-requires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E201 - ContractViolation (requires 前置条件违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e202-contractviolation-ensures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E202 - ContractViolation (ensures 后置条件违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e203-contractviolation-invariant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E203 - ContractViolation (invariant 不变式违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-e3xx-v131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 类型错误 (E3xx) — v1.3.1+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 类型错误 (E3xx) — v1.3.1+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e301-typeviolation-strict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E301 - TypeViolation (strict 模式类型违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e302-typewarning-warn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E302 - TypeWarning (warn 模式类型警告)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e303-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E303 - Protocol 类型验证失败
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-e4xx-v135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 数据库错误 (E4xx) — v1.3.5+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 数据库错误 (E4xx) — v1.3.5+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e401-databaseerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E401 - DatabaseError (连接失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e402-databaseerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E402 - DatabaseError (查询失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e403-databaseerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E403 - DatabaseError (事务失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-e5xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 认证错误 (E5xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 认证错误 (E5xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e501-autherror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E501 - AuthError (认证失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e502-autherror-jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E502 - AuthError (JWT 错误)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e503-autherror-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E503 - AuthError (CSRF 验证失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e504-autherror-oauth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E504 - AuthError (OAuth 流程错误)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-kv-e6xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. KV 存储错误 (E6xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. KV 存储错误 (E6xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e601-kverror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E601 - KVError (操作失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e602-kverror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E602 - KVError (序列化失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-e7xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 并发错误 (E7xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 并发错误 (E7xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e701-concurrencyerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E701 - ConcurrencyError (任务取消)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e702-concurrencyerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E702 - ConcurrencyError (通道关闭)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e703-concurrencyerror-race" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E703 - ConcurrencyError (race 全部失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-e8xx-v136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 模板错误 (E8xx) — v1.3.6+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 模板错误 (E8xx) — v1.3.6+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e801-templateerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E801 - TemplateError (编译失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e802-templateerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E802 - TemplateError (渲染失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-e9xx-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 模式匹配错误 (E9xx) — v1.3.x+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 模式匹配错误 (E9xx) — v1.3.x+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#e901-patternmatcherror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E901 - PatternMatchError (无匹配分支)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e902-patternmatcherror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E902 - PatternMatchError (解构失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-adt-eax-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. ADT 错误 (EAx) — v1.3.x+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. ADT 错误 (EAx) — v1.3.x+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ea01-adterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EA01 - ADTError (结构体操作失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ea02-adterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EA02 - ADTError (枚举操作失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ea03-adterror-trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EA03 - ADTError (Trait 方法调用失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-job-ebx-v133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Job 系统错误 (EBx) — v1.3.3+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Job 系统错误 (EBx) — v1.3.3+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eb01-joberror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EB01 - JobError (任务执行失败)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eb02-joberror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EB02 - JobError (任务超时)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eb03-joberror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EB03 - JobError (死信任务)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-http-server-ecx-v134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. HTTP Server 错误 (ECx) — v1.3.4+
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. HTTP Server 错误 (ECx) — v1.3.4+">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ec01-httperror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EC01 - HTTPError (路由未找到)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ec02-contractviolation-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EC02 - ContractViolation (HTTP 契约违反)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 错误码速查表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 相关资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="nexa">Nexa 错误索引<a class="headerlink" href="#nexa" title="Permanent link">&para;</a></h1>
+<p>本索引收录了 Nexa 编译器和运行时可能产生的所有错误代码、原因分析和解决方案。</p>
+<hr />
+<h2 id="_1">📖 如何使用本索引<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>按错误码查找</strong>：如果你看到类似 <code>E001</code> 的错误码，直接在下方表格中查找</li>
+<li><strong>按类别浏览</strong>：错误按编译时错误、运行时错误、契约错误、类型错误等分类</li>
+<li><strong>查看解决方案</strong>：每个错误都附带详细的原因分析和解决建议</li>
+</ol>
+<hr />
+<h2 id="1-e0xx">1. 编译时错误 (E0xx)<a class="headerlink" href="#1-e0xx" title="Permanent link">&para;</a></h2>
+<p>编译时错误在代码编译阶段检测，表示代码存在语法或语义问题。</p>
+<h3 id="e001-">E001 - 未声明的标识符<a class="headerlink" href="#e001-" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E001: Undeclared identifier &#39;X&#39;
+  --&gt; main.nexa:15:5
+   |
+15 |     result = UnknownAgent.run(input);
+   |              ^^^^^^^^^^^^^ &#39;UnknownAgent&#39; not found
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 引用了未定义的 Agent、Tool 或 Protocol
+- 标识符拼写错误
+- 忘记引入必要的模块</p>
+<p><strong>解决方案</strong>：</p>
+<div class="highlight"><pre><span></span><code>// ❌ 错误：未声明
+result = WeatherBot.run(input);
+
+// ✅ 正确：先声明再使用
+agent WeatherBot {
+    role: &quot;天气助手&quot;,
+    prompt: &quot;回答天气相关问题&quot;
+}
+
+result = WeatherBot.run(input);
+</code></pre></div>
+<hr />
+<h3 id="e002-">E002 - 类型不匹配<a class="headerlink" href="#e002-" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E002: Type mismatch
+  --&gt; main.nexa:23:20
+   |
+23 | protocol Report { score: &quot;number&quot; }
+   |                    ^^^^^ expected &#39;number&#39;, found &#39;string&#39;
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- Protocol 字段类型与实际输出不匹配
+- 类型标注格式错误</p>
+<p><strong>解决方案</strong>：</p>
+<div class="highlight"><pre><span></span><code>// ❌ 错误：类型标注格式错误
+protocol Report {
+    score: number    // 类型未加引号
+}
+
+// ✅ 正确：类型标注需要加引号
+protocol Report {
+    score: &quot;number&quot;  // 正确格式
+}
+</code></pre></div>
+<hr />
+<h3 id="e003-">E003 - 缺少必需属性<a class="headerlink" href="#e003-" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E003: Missing required property &#39;role&#39;
+  --&gt; main.nexa:10:1
+   |
+10 | agent MyAgent {
+   | ^^^^^^^^^^^^^ &#39;role&#39; property is required
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- Agent 缺少必需的 <code>role</code> 属性
+- Agent 缺少必需的 <code>prompt</code> 属性</p>
+<p><strong>解决方案</strong>：</p>
+<div class="highlight"><pre><span></span><code>// ❌ 错误：缺少必需属性
+agent MyAgent {
+    model: &quot;gpt-4&quot;
+}
+
+// ✅ 正确：添加必需属性
+agent MyAgent {
+    role: &quot;助手&quot;,
+    prompt: &quot;帮助用户解决问题&quot;,
+    model: &quot;gpt-4&quot;
+}
+</code></pre></div>
+<hr />
+<h3 id="e004-">E004 - 语法错误<a class="headerlink" href="#e004-" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E004: Syntax error
+  --&gt; main.nexa:5:1
+   |
+5 | agent { }
+   | ^^^^^^^^ Expected IDENTIFIER after &#39;agent&#39;
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 缺少标识符名称
+- 语法结构不完整
+- 使用了无效的语法构造</p>
+<p><strong>解决方案</strong>：检查语法是否符合 Nexa 规范，参考 <a href="../reference/">语言参考手册</a>。</p>
+<hr />
+<h3 id="e005-">E005 - 重复声明<a class="headerlink" href="#e005-" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E005: Duplicate declaration &#39;MyAgent&#39;
+  --&gt; main.nexa:20:1
+   |
+20 | agent MyAgent { ... }
+   | ^^^^^^^^^^^^^ &#39;MyAgent&#39; already declared
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 同一文件中重复声明了相同名称的 Agent、Tool 或 Protocol</p>
+<p><strong>解决方案</strong>：使用不同的名称或删除重复声明。</p>
+<hr />
+<h2 id="2-e1xx">2. 运行时错误 (E1xx)<a class="headerlink" href="#2-e1xx" title="Permanent link">&para;</a></h2>
+<p>运行时错误在程序执行过程中发生。</p>
+<h3 id="e101-agent">E101 - Agent 执行失败<a class="headerlink" href="#e101-agent" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E101: Agent execution failed
+  Agent &#39;Analyst&#39; failed after 3 retries
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- LLM API 调用失败（网络错误、API Key 无效）
+- 模型返回格式不符合预期
+- 执行超时</p>
+<p><strong>解决方案</strong>：</p>
+<div class="highlight"><pre><span></span><code>// 设置备用模型
+agent MyAgent {
+    model: &quot;gpt-4&quot;,
+    fallback: &quot;gpt-3.5-turbo&quot;,
+    timeout: 60,
+    retry: 5
+}
+</code></pre></div>
+<hr />
+<h3 id="e102-tool">E102 - Tool 执行失败<a class="headerlink" href="#e102-tool" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E102: Tool execution failed
+  Tool &#39;web_search&#39; returned error: HTTP timeout
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 外部服务不可用
+- 工具参数不正确
+- 执行超时</p>
+<p><strong>解决方案</strong>：检查工具参数、网络连接和超时设置。</p>
+<hr />
+<h3 id="e103-">E103 - 管道执行失败<a class="headerlink" href="#e103-" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E103: Pipeline execution failed
+  Pipeline stage &#39;Reviewer&#39; failed
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 管道中某个 Agent 执行失败
+- 数据传递格式不匹配</p>
+<p><strong>解决方案</strong>：检查管道中每个 Agent 的独立执行情况，确保数据格式兼容。</p>
+<hr />
+<h3 id="e104-intent">E104 - Intent 路由失败<a class="headerlink" href="#e104-intent" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E104: Intent routing failed
+  No matching intent for input: &quot;...&quot;
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 意图匹配器无法识别用户输入
+- 所有 intent 分支都未匹配</p>
+<p><strong>解决方案</strong>：添加 <code>_</code> 通配符分支作为默认处理。</p>
+<div class="highlight"><pre><span></span><code>match user_input {
+    intent(&quot;查询天气&quot;) =&gt; WeatherBot.run(user_input),
+    intent(&quot;查询新闻&quot;) =&gt; NewsBot.run(user_input),
+    _ =&gt; ChatBot.run(user_input)    // 默认分支
+}
+</code></pre></div>
+<hr />
+<h2 id="3-e2xx-v120">3. 契约错误 (E2xx) — v1.2.0+<a class="headerlink" href="#3-e2xx-v120" title="Permanent link">&para;</a></h2>
+<h3 id="e201-contractviolation-requires">E201 - ContractViolation (requires 前置条件违反)<a class="headerlink" href="#e201-contractviolation-requires" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ContractViolation(requires:deterministic, message=&quot;amount must be positive&quot;)
+  --&gt; transfer.nexa:5
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- <code>requires</code> 确定性条件不满足（如 <code>amount &gt; 0</code> 但传入负数）
+- <code>requires</code> 语义条件不满足（如 "sender has sufficient balance" 但余额不足）</p>
+<p><strong>解决方案</strong>：</p>
+<div class="highlight"><pre><span></span><code>// 确定性契约：确保传入参数满足条件
+flow transfer(amount: int) -&gt; Result
+    requires: amount &gt; 0
+{
+    if (amount &lt;= 0) {
+        return Result::Err(&quot;Invalid amount&quot;);
+    }
+    // ...
+}
+
+// 语义契约：确保输入满足语义要求
+flow review(code: string) -&gt; Report
+    requires: &quot;input contains valid source code&quot;
+{
+    // ...
+}
+</code></pre></div>
+<hr />
+<h3 id="e202-contractviolation-ensures">E202 - ContractViolation (ensures 后置条件违反)<a class="headerlink" href="#e202-contractviolation-ensures" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ContractViolation(ensures:semantic, message=&quot;result must include actionable feedback&quot;)
+  --&gt; review.nexa:8
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- <code>ensures</code> 确定性条件不满足（如 <code>result.success == true</code> 但返回失败）
+- <code>ensures</code> 语义条件不满足（如 "result includes actionable feedback" 但输出无建议）</p>
+<p><strong>解决方案</strong>：确保函数返回值满足后置条件，或调整条件使其更合理。</p>
+<hr />
+<h3 id="e203-contractviolation-invariant">E203 - ContractViolation (invariant 不变式违反)<a class="headerlink" href="#e203-contractviolation-invariant" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ContractViolation(invariant:deterministic, message=&quot;state must be idle or running&quot;)
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- <code>invariant</code> 条件在对象生命周期中被违反</p>
+<p><strong>解决方案</strong>：确保对象状态始终满足不变式约束。</p>
+<hr />
+<h2 id="4-e3xx-v131">4. 类型错误 (E3xx) — v1.3.1+<a class="headerlink" href="#4-e3xx-v131" title="Permanent link">&para;</a></h2>
+<h3 id="e301-typeviolation-strict">E301 - TypeViolation (strict 模式类型违反)<a class="headerlink" href="#e301-typeviolation-strict" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>TypeViolation: Expected Int, got String
+  --&gt; main.nexa:10
+   |
+10 | let x: Int = &quot;hello&quot;
+   |               ^^^^^^^ Type mismatch
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- <code>NEXA_TYPE_MODE=strict</code> 模式下，类型不匹配导致运行时错误</p>
+<p><strong>解决方案</strong>：</p>
+<div class="highlight"><pre><span></span><code>// 确保类型匹配
+let x: Int = 42           // ✅ 正确
+let y: String = &quot;hello&quot;   // ✅ 正确
+
+// 或切换到 warn 模式
+// 设置 NEXA_TYPE_MODE=warn
+</code></pre></div>
+<hr />
+<h3 id="e302-typewarning-warn">E302 - TypeWarning (warn 模式类型警告)<a class="headerlink" href="#e302-typewarning-warn" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>TypeWarning: Expected Int, got String (mode: warn)
+  --&gt; main.nexa:10
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- <code>NEXA_TYPE_MODE=warn</code> 模式下，类型不匹配仅发出警告，程序继续执行</p>
+<p><strong>解决方案</strong>：修复类型标注或值，确保类型一致。</p>
+<hr />
+<h3 id="e303-protocol">E303 - Protocol 类型验证失败<a class="headerlink" href="#e303-protocol" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>Error E303: Protocol validation failed
+  Protocol &#39;ReviewResult&#39; field &#39;score&#39; expected int, got string
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- Agent 输出不符合 <code>protocol</code> 定义的字段类型
+- LLM 返回的 JSON 格式与协议不匹配</p>
+<p><strong>解决方案</strong>：</p>
+<div class="highlight"><pre><span></span><code>// 使用 implements 约束 Agent 输出
+agent Reviewer implements ReviewResult {
+    prompt: &quot;Review the code. Return JSON with score (int) and summary (string).&quot;
+}
+</code></pre></div>
+<hr />
+<h2 id="5-e4xx-v135">5. 数据库错误 (E4xx) — v1.3.5+<a class="headerlink" href="#5-e4xx-v135" title="Permanent link">&para;</a></h2>
+<h3 id="e401-databaseerror">E401 - DatabaseError (连接失败)<a class="headerlink" href="#e401-databaseerror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>DatabaseError: Failed to connect to sqlite://data.db
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 数据库文件路径不存在
+- SQLite 文件权限问题
+- PostgreSQL 连接参数错误</p>
+<p><strong>解决方案</strong>：检查数据库路径、权限和连接参数。</p>
+<hr />
+<h3 id="e402-databaseerror">E402 - DatabaseError (查询失败)<a class="headerlink" href="#e402-databaseerror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>DatabaseError: Query failed: SELECT * FROM nonexistent_table
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- SQL 语法错误
+- 表或列不存在
+- 参数绑定错误</p>
+<p><strong>解决方案</strong>：检查 SQL 语句和表结构。</p>
+<hr />
+<h3 id="e403-databaseerror">E403 - DatabaseError (事务失败)<a class="headerlink" href="#e403-databaseerror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>DatabaseError: Transaction failed, rolled back
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 事务中的操作失败导致回滚</p>
+<p><strong>解决方案</strong>：检查事务中的每个操作，确保数据一致性。</p>
+<hr />
+<h2 id="6-e5xx-v136">6. 认证错误 (E5xx) — v1.3.6+<a class="headerlink" href="#6-e5xx-v136" title="Permanent link">&para;</a></h2>
+<h3 id="e501-autherror">E501 - AuthError (认证失败)<a class="headerlink" href="#e501-autherror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>AuthError: Invalid API key format
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- API Key 格式不正确（应为 <code>nexa-ak-{32hex}</code> 格式）
+- API Key 已过期或被撤销</p>
+<p><strong>解决方案</strong>：使用 <code>std.auth.api_key_generate</code> 生成正确格式的 API Key。</p>
+<hr />
+<h3 id="e502-autherror-jwt">E502 - AuthError (JWT 错误)<a class="headerlink" href="#e502-autherror-jwt" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>AuthError: JWT signature verification failed
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- JWT 签名验证失败
+- JWT 过期
+- JWT 格式不正确</p>
+<p><strong>解决方案</strong>：检查 JWT 密钥配置和 Token 有效期。</p>
+<hr />
+<h3 id="e503-autherror-csrf">E503 - AuthError (CSRF 验证失败)<a class="headerlink" href="#e503-autherror-csrf" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>AuthError: CSRF token validation failed
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- CSRF Token 不匹配
+- Token 过期</p>
+<p><strong>解决方案</strong>：确保表单中包含正确的 CSRF Token。</p>
+<hr />
+<h3 id="e504-autherror-oauth">E504 - AuthError (OAuth 流程错误)<a class="headerlink" href="#e504-autherror-oauth" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>AuthError: OAuth PKCE flow failed
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- OAuth Provider 配置错误
+- PKCE code_verifier 不匹配
+- redirect_uri 不匹配</p>
+<p><strong>解决方案</strong>：检查 OAuth Provider 配置（client_id, client_secret, redirect_uri）。</p>
+<hr />
+<h2 id="7-kv-e6xx-v136">7. KV 存储错误 (E6xx) — v1.3.6+<a class="headerlink" href="#7-kv-e6xx-v136" title="Permanent link">&para;</a></h2>
+<h3 id="e601-kverror">E601 - KVError (操作失败)<a class="headerlink" href="#e601-kverror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>KVError: Key &#39;user_prefs&#39; not found
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 键不存在
+- KV Store 未打开
+- TTL 过期</p>
+<p><strong>解决方案</strong>：使用 <code>??</code> 操作符提供默认值，或先检查键是否存在。</p>
+<div class="highlight"><pre><span></span><code>value = kv.get(&quot;user_prefs&quot;) ?? &quot;default&quot;
+if (kv.has(&quot;user_prefs&quot;)) {
+    value = kv.get(&quot;user_prefs&quot;)
+}
+</code></pre></div>
+<hr />
+<h3 id="e602-kverror">E602 - KVError (序列化失败)<a class="headerlink" href="#e602-kverror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>KVError: Failed to deserialize value for key &#39;config&#39;
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 存储的数据类型与读取类型不匹配
+- 数据损坏</p>
+<p><strong>解决方案</strong>：使用类型安全的读取方法（<code>kv_get_int</code>, <code>kv_get_str</code>, <code>kv_get_json</code>）。</p>
+<hr />
+<h2 id="8-e7xx-v136">8. 并发错误 (E7xx) — v1.3.6+<a class="headerlink" href="#8-e7xx-v136" title="Permanent link">&para;</a></h2>
+<h3 id="e701-concurrencyerror">E701 - ConcurrencyError (任务取消)<a class="headerlink" href="#e701-concurrencyerror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ConcurrencyError: Task &#39;my_task&#39; was cancelled
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 任务被 <code>cancel_task</code> 主动取消
+- 任务超时被自动取消</p>
+<p><strong>解决方案</strong>：检查任务逻辑，确保取消是预期行为。</p>
+<hr />
+<h3 id="e702-concurrencyerror">E702 - ConcurrencyError (通道关闭)<a class="headerlink" href="#e702-concurrencyerror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ConcurrencyError: Channel is closed
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 向已关闭的通道发送消息
+- 从已关闭的通道接收消息</p>
+<p><strong>解决方案</strong>：在发送/接收前检查通道状态，或使用 <code>try_recv</code> 避免阻塞。</p>
+<hr />
+<h3 id="e703-concurrencyerror-race">E703 - ConcurrencyError (race 全部失败)<a class="headerlink" href="#e703-concurrencyerror-race" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ConcurrencyError: All tasks in race failed
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- <code>race</code> 中所有任务都失败</p>
+<p><strong>解决方案</strong>：确保至少有一个任务能够成功完成。</p>
+<hr />
+<h2 id="9-e8xx-v136">9. 模板错误 (E8xx) — v1.3.6+<a class="headerlink" href="#9-e8xx-v136" title="Permanent link">&para;</a></h2>
+<h3 id="e801-templateerror">E801 - TemplateError (编译失败)<a class="headerlink" href="#e801-templateerror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>TemplateError: Failed to compile template: unclosed {{#for}} block
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 模板语法错误（未闭合的块）
+- 过滤器名称不存在</p>
+<p><strong>解决方案</strong>：检查模板语法，确保所有块正确闭合。</p>
+<hr />
+<h3 id="e802-templateerror">E802 - TemplateError (渲染失败)<a class="headerlink" href="#e802-templateerror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>TemplateError: Failed to render template: variable &#39;name&#39; not found
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 模板中引用的变量在数据中不存在
+- 数据格式不匹配</p>
+<p><strong>解决方案</strong>：使用 <code>| default(val)</code> 过滤器提供默认值。</p>
+<div class="highlight"><pre><span></span><code>template&quot;&quot;&quot;Hello {{name | default(&quot;Guest&quot;)}}!&quot;&quot;&quot;
+</code></pre></div>
+<hr />
+<h2 id="10-e9xx-v13x">10. 模式匹配错误 (E9xx) — v1.3.x+<a class="headerlink" href="#10-e9xx-v13x" title="Permanent link">&para;</a></h2>
+<h3 id="e901-patternmatcherror">E901 - PatternMatchError (无匹配分支)<a class="headerlink" href="#e901-patternmatcherror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>PatternMatchError: No matching pattern for value
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- <code>match</code> 表达式中没有分支匹配当前值
+- 缺少 <code>_</code> 通配符分支</p>
+<p><strong>解决方案</strong>：添加 <code>_</code> 通配符分支作为默认匹配。</p>
+<div class="highlight"><pre><span></span><code>match result {
+    Option::Some(v) =&gt; v
+    Option::None =&gt; &quot;no response&quot;
+    _ =&gt; &quot;unknown&quot;    // 通配符兜底
+}
+</code></pre></div>
+<hr />
+<h3 id="e902-patternmatcherror">E902 - PatternMatchError (解构失败)<a class="headerlink" href="#e902-patternmatcherror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>PatternMatchError: Destructuring failed for pattern (a, b)
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 解构模式与数据结构不匹配（如对非元组值使用元组模式）</p>
+<p><strong>解决方案</strong>：确保解构模式与数据结构类型一致。</p>
+<hr />
+<h2 id="11-adt-eax-v13x">11. ADT 错误 (EAx) — v1.3.x+<a class="headerlink" href="#11-adt-eax-v13x" title="Permanent link">&para;</a></h2>
+<h3 id="ea01-adterror">EA01 - ADTError (结构体操作失败)<a class="headerlink" href="#ea01-adterror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ADTError: Struct &#39;Point&#39; not found
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 引用未注册的结构体
+- 字段访问不存在</p>
+<p><strong>解决方案</strong>：确保结构体已声明，字段名正确。</p>
+<hr />
+<h3 id="ea02-adterror">EA02 - ADTError (枚举操作失败)<a class="headerlink" href="#ea02-adterror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ADTError: Variant &#39;Some&#39; not found in enum &#39;Option&#39;
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 引用未注册的枚举变体
+- 变体名称拼写错误</p>
+<p><strong>解决方案</strong>：确保枚举和变体名称正确。</p>
+<hr />
+<h3 id="ea03-adterror-trait">EA03 - ADTError (Trait 方法调用失败)<a class="headerlink" href="#ea03-adterror-trait" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ADTError: No impl found for trait &#39;Printable&#39; on type &#39;Point&#39;
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 类型未实现该 trait
+- impl 声明缺失</p>
+<p><strong>解决方案</strong>：添加 <code>impl</code> 声明。</p>
+<div class="highlight"><pre><span></span><code>impl Printable for Point {
+    fn format() -&gt; String { ... }
+}
+</code></pre></div>
+<hr />
+<h2 id="12-job-ebx-v133">12. Job 系统错误 (EBx) — v1.3.3+<a class="headerlink" href="#12-job-ebx-v133" title="Permanent link">&para;</a></h2>
+<h3 id="eb01-joberror">EB01 - JobError (任务执行失败)<a class="headerlink" href="#eb01-joberror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>JobError: Job &#39;SendEmail&#39; failed after 2 retries
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 任务逻辑执行失败
+- 重试次数耗尽</p>
+<p><strong>解决方案</strong>：检查 <code>on_failure</code> 处理逻辑，增加 retry 次数。</p>
+<hr />
+<h3 id="eb02-joberror">EB02 - JobError (任务超时)<a class="headerlink" href="#eb02-joberror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>JobError: Job &#39;AnalyzeDoc&#39; timed out after 120s
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 任务执行时间超过 timeout 设置</p>
+<p><strong>解决方案</strong>：增加 timeout 值或优化任务逻辑。</p>
+<hr />
+<h3 id="eb03-joberror">EB03 - JobError (死信任务)<a class="headerlink" href="#eb03-joberror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>JobError: Job &#39;SendEmail&#39; is in dead letter queue
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 任务重试全部失败，进入死信队列</p>
+<p><strong>解决方案</strong>：使用 <code>nexa jobs retry &lt;job_id&gt;</code> 重试死信任务。</p>
+<hr />
+<h2 id="13-http-server-ecx-v134">13. HTTP Server 错误 (ECx) — v1.3.4+<a class="headerlink" href="#13-http-server-ecx-v134" title="Permanent link">&para;</a></h2>
+<h3 id="ec01-httperror">EC01 - HTTPError (路由未找到)<a class="headerlink" href="#ec01-httperror" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>HTTPError: No route found for GET /unknown
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- 请求路径未在 server DSL 中定义</p>
+<p><strong>解决方案</strong>：在 server 声明中添加对应路由。</p>
+<hr />
+<h3 id="ec02-contractviolation-http">EC02 - ContractViolation (HTTP 契约违反)<a class="headerlink" href="#ec02-contractviolation-http" title="Permanent link">&para;</a></h3>
+<p><strong>错误信息</strong>：
+<div class="highlight"><pre><span></span><code>ContractViolation(requires) → HTTP 401 Unauthorized
+ContractViolation(ensures) → HTTP 403 Forbidden
+</code></pre></div></p>
+<p><strong>原因</strong>：
+- HTTP 请求违反了路由的 <code>requires</code> 前置条件 → 401
+- HTTP 响应违反了 <code>ensures</code> 后置条件 → 403</p>
+<p><strong>解决方案</strong>：确保请求满足前置条件，响应满足后置条件。</p>
+<hr />
+<h2 id="_2">📊 错误码速查表<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>类别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E001</td>
+<td>编译时</td>
+<td>未声明的标识符</td>
+</tr>
+<tr>
+<td>E002</td>
+<td>编译时</td>
+<td>类型不匹配</td>
+</tr>
+<tr>
+<td>E003</td>
+<td>编译时</td>
+<td>缺少必需属性</td>
+</tr>
+<tr>
+<td>E004</td>
+<td>编译时</td>
+<td>语法错误</td>
+</tr>
+<tr>
+<td>E005</td>
+<td>编译时</td>
+<td>重复声明</td>
+</tr>
+<tr>
+<td>E101</td>
+<td>运行时</td>
+<td>Agent 执行失败</td>
+</tr>
+<tr>
+<td>E102</td>
+<td>运行时</td>
+<td>Tool 执行失败</td>
+</tr>
+<tr>
+<td>E103</td>
+<td>运行时</td>
+<td>管道执行失败</td>
+</tr>
+<tr>
+<td>E104</td>
+<td>运行时</td>
+<td>Intent 路由失败</td>
+</tr>
+<tr>
+<td>E201</td>
+<td>契约</td>
+<td>requires 前置条件违反</td>
+</tr>
+<tr>
+<td>E202</td>
+<td>契约</td>
+<td>ensures 后置条件违反</td>
+</tr>
+<tr>
+<td>E203</td>
+<td>契约</td>
+<td>invariant 不变式违反</td>
+</tr>
+<tr>
+<td>E301</td>
+<td>类型</td>
+<td>TypeViolation (strict)</td>
+</tr>
+<tr>
+<td>E302</td>
+<td>类型</td>
+<td>TypeWarning (warn)</td>
+</tr>
+<tr>
+<td>E303</td>
+<td>类型</td>
+<td>Protocol 类型验证失败</td>
+</tr>
+<tr>
+<td>E401</td>
+<td>数据库</td>
+<td>连接失败</td>
+</tr>
+<tr>
+<td>E402</td>
+<td>数据库</td>
+<td>查询失败</td>
+</tr>
+<tr>
+<td>E403</td>
+<td>数据库</td>
+<td>事务失败</td>
+</tr>
+<tr>
+<td>E501</td>
+<td>认证</td>
+<td>认证失败</td>
+</tr>
+<tr>
+<td>E502</td>
+<td>认证</td>
+<td>JWT 错误</td>
+</tr>
+<tr>
+<td>E503</td>
+<td>认证</td>
+<td>CSRF 验证失败</td>
+</tr>
+<tr>
+<td>E504</td>
+<td>认证</td>
+<td>OAuth 流程错误</td>
+</tr>
+<tr>
+<td>E601</td>
+<td>KV</td>
+<td>操作失败</td>
+</tr>
+<tr>
+<td>E602</td>
+<td>KV</td>
+<td>序列化失败</td>
+</tr>
+<tr>
+<td>E701</td>
+<td>并发</td>
+<td>任务取消</td>
+</tr>
+<tr>
+<td>E702</td>
+<td>并发</td>
+<td>通道关闭</td>
+</tr>
+<tr>
+<td>E703</td>
+<td>并发</td>
+<td>race 全部失败</td>
+</tr>
+<tr>
+<td>E801</td>
+<td>模板</td>
+<td>编译失败</td>
+</tr>
+<tr>
+<td>E802</td>
+<td>模板</td>
+<td>渲染失败</td>
+</tr>
+<tr>
+<td>E901</td>
+<td>模式匹配</td>
+<td>无匹配分支</td>
+</tr>
+<tr>
+<td>E902</td>
+<td>模式匹配</td>
+<td>解构失败</td>
+</tr>
+<tr>
+<td>EA01</td>
+<td>ADT</td>
+<td>结构体操作失败</td>
+</tr>
+<tr>
+<td>EA02</td>
+<td>ADT</td>
+<td>枚举操作失败</td>
+</tr>
+<tr>
+<td>EA03</td>
+<td>ADT</td>
+<td>Trait 方法调用失败</td>
+</tr>
+<tr>
+<td>EB01</td>
+<td>Job</td>
+<td>任务执行失败</td>
+</tr>
+<tr>
+<td>EB02</td>
+<td>Job</td>
+<td>任务超时</td>
+</tr>
+<tr>
+<td>EB03</td>
+<td>Job</td>
+<td>死信任务</td>
+</tr>
+<tr>
+<td>EC01</td>
+<td>HTTP</td>
+<td>路由未找到</td>
+</tr>
+<tr>
+<td>EC02</td>
+<td>HTTP</td>
+<td>契约违反</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">🔗 相关资源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../reference/">语言参考手册</a></li>
+<li><a href="../stdlib_reference/">标准库 API</a></li>
+<li><a href="../troubleshooting/">常见问题与排查</a></li>
+<li><a href="../quickstart/">快速入门</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="../search/search_index.json"
+  data-current-page="error_index.md"
+  data-current-title="错误索引"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="../img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="../javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../stdlib_reference/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 标准库 API">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                标准库 API
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>

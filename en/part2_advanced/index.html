@@ -1,0 +1,4184 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/en/part2_advanced/">
+      
+      
+        <link rel="prev" href="../part1_basic/">
+      
+      
+        <link rel="next" href="../part3_extensions/">
+      
+      
+        
+          <link rel="alternate" href="../../part2_advanced/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Advanced Features - Nexa Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-advanced-features-orchestration-of-complex-agent-networks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Nexa Documentation" class="md-header__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Advanced Features
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../part2_advanced/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../part1_basic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Grammar Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  In-depth Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Community & Future
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference Manual
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Nexa Documentation" class="md-nav__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preface & Philosophy
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preface & Philosophy
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reshaping Agent Paradigm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Background & Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios & Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Grammar Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part1_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Syntax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Features
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-operator-pipeline-data-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛤️ Pipeline Operator: &gt;&gt; (Pipeline Data Bus)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛤️ Pipeline Operator: &gt;&gt; (Pipeline Data Bus)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pain-points-of-traditional-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pain Points of Traditional Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nexa-pipeline-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nexa Pipeline Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-operator-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Operator Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-operator-complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Operator Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intent-routing-match-intent-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Intent Routing: match intent Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 Intent Routing: match intent Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intent-routing-flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intent Routing Flow Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intent-routing-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intent Routing Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dag-topology-orchestration-ultimate-multi-way-fork-and-merge-v097" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕸️ DAG Topology Orchestration: Ultimate Multi-way Fork and Merge (v0.9.7+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕸️ DAG Topology Orchestration: Ultimate Multi-way Fork and Merge (v0.9.7+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dag-operator-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Operator Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork-operator-fan-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fork Operator |&gt;&gt; (Fan-out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-operator-mergefan-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge Operator &amp;&gt;&gt; (Merge/Fan-in)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-branch-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional Branch Operator ??
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fire-and-forget-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fire-and-Forget Operator ||
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consensus-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consensus Operator &amp;&amp;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dag-operator-complete-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Operator Complete Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-dag-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining DAG Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dag-operator-complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Operator Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-review-and-reflection-loop-loop-until" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔁 Semantic Review and Reflection Loop: loop ... until
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔁 Semantic Review and Reflection Loop: loop ... until">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventing-infinite-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preventing Infinite Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loop-control-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loop Control Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-conditional-judgment-semantic_if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 Semantic Conditional Judgment: semantic_if
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Semantic Conditional Judgment: semantic_if">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fast-match-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast Match Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-handling-trycatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Exception Handling: try/catch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Exception Handling: try/catch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-pipe-operator-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Function Pipe Operator |&gt; (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Function Pipe Operator |&gt; (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#difference-from-agent-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Difference from Agent Pipeline &gt;&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#null-coalescing-operator-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ Null Coalescing Operator ?? (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ Null Coalescing Operator ?? (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deferred-execution-defer-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏳ Deferred Execution defer (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏳ Deferred Execution defer (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-matching-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Pattern Matching (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Pattern Matching (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-pattern-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Pattern Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-destructuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Let Destructuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-destructuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Destructuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algebraic-data-types-struct-enum-trait-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Algebraic Data Types: Struct, Enum, Trait (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Algebraic Data Types: Struct, Enum, Trait (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#struct-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Struct Declaration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-struct-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Struct Instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enum-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enum Declaration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-enum-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Enum Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trait-declaration-and-impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trait Declaration and Impl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adt-combined-with-pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADT Combined with Pattern Matching
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Chapter Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Related Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem & Stdlib
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    In-depth Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    In-depth Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compiler Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community & Future
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community & Future
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Manual
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference Manual
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stdlib API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-operator-pipeline-data-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛤️ Pipeline Operator: &gt;&gt; (Pipeline Data Bus)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛤️ Pipeline Operator: &gt;&gt; (Pipeline Data Bus)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pain-points-of-traditional-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pain Points of Traditional Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nexa-pipeline-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nexa Pipeline Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-operator-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Operator Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-operator-complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Operator Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intent-routing-match-intent-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 Intent Routing: match intent Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 Intent Routing: match intent Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intent-routing-flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intent Routing Flow Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intent-routing-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intent Routing Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dag-topology-orchestration-ultimate-multi-way-fork-and-merge-v097" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕸️ DAG Topology Orchestration: Ultimate Multi-way Fork and Merge (v0.9.7+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕸️ DAG Topology Orchestration: Ultimate Multi-way Fork and Merge (v0.9.7+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dag-operator-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Operator Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork-operator-fan-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fork Operator |&gt;&gt; (Fan-out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-operator-mergefan-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge Operator &amp;&gt;&gt; (Merge/Fan-in)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-branch-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional Branch Operator ??
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fire-and-forget-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fire-and-Forget Operator ||
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consensus-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consensus Operator &amp;&amp;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dag-operator-complete-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Operator Complete Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-dag-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining DAG Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dag-operator-complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAG Operator Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-review-and-reflection-loop-loop-until" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔁 Semantic Review and Reflection Loop: loop ... until
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔁 Semantic Review and Reflection Loop: loop ... until">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preventing-infinite-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preventing Infinite Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loop-control-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loop Control Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-conditional-judgment-semantic_if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 Semantic Conditional Judgment: semantic_if
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Semantic Conditional Judgment: semantic_if">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fast-match-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fast Match Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-handling-trycatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Exception Handling: try/catch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Exception Handling: try/catch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-pipe-operator-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Function Pipe Operator |&gt; (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Function Pipe Operator |&gt; (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#difference-from-agent-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Difference from Agent Pipeline &gt;&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#null-coalescing-operator-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ Null Coalescing Operator ?? (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ Null Coalescing Operator ?? (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deferred-execution-defer-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏳ Deferred Execution defer (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏳ Deferred Execution defer (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pattern-matching-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Pattern Matching (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Pattern Matching (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-syntax_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-pattern-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Pattern Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#let-destructuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Let Destructuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-destructuring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Destructuring
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algebraic-data-types-struct-enum-trait-v13x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Algebraic Data Types: Struct, Enum, Trait (v1.3.x)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Algebraic Data Types: Struct, Enum, Trait (v1.3.x)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#struct-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Struct Declaration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-struct-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Struct Instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enum-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enum Declaration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-enum-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Enum Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trait-declaration-and-impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trait Declaration and Impl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adt-combined-with-pattern-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADT Combined with Pattern Matching
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Chapter Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Related Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="3-advanced-features-orchestration-of-complex-agent-networks">3. Advanced Features: Orchestration of Complex Agent Networks<a class="headerlink" href="#3-advanced-features-orchestration-of-complex-agent-networks" title="Permanent link">&para;</a></h1>
+<p>If defining roles with the <code>agent</code> keyword is just creating individual gears, then the true "industrial revolution" in the Nexa universe is embodied in its unparalleled <strong>collaborative orchestration network</strong>.</p>
+<p>Nexa's core design moat since the v0.5 architecture upgrade has been elevating complex, asynchronous and race-condition-filled multi-stage agent interactions to the level of <strong>language keywords</strong>. In this chapter, we'll explore in detail how to leverage pipelines (<code>&gt;&gt;</code>), intent routing (<code>match intent</code>), concurrent aggregation (<code>join</code>), DAG operators, and the incredible semantic loops (<code>loop until</code>) in enterprise-grade Agent frameworks.</p>
+<hr />
+<h2 id="pipeline-operator-pipeline-data-bus">🛤️ Pipeline Operator: <code>&gt;&gt;</code> (Pipeline Data Bus)<a class="headerlink" href="#pipeline-operator-pipeline-data-bus" title="Permanent link">&para;</a></h2>
+<p>In most tasks (such as academic translation, code writing and testing chains), multi-agent collaboration is simply a pure pipeline: the output of the previous Agent (Output Task) along with its historical context should be passed completely and without loss as input to the next Agent.</p>
+<h3 id="pain-points-of-traditional-approach">Pain Points of Traditional Approach<a class="headerlink" href="#pain-points-of-traditional-approach" title="Permanent link">&para;</a></h3>
+<p>If we use the traditional approach represented by LangChain to build this chain segment:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pain points of traditional languages: filled with intermediate variables and implicit state loss</span>
+<span class="n">draft</span> <span class="o">=</span> <span class="n">Writer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span>
+<span class="n">translated_draft</span> <span class="o">=</span> <span class="n">Translator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">draft</span><span class="p">)</span>
+<span class="n">reviewer_feedback</span> <span class="o">=</span> <span class="n">Reviewer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">translated_draft</span><span class="p">)</span>
+</code></pre></div>
+<p>You'll find that not only do you define a bunch of single-use intermediate variables (leading to poor memory management), but you're also prone to various runtime errors due to different type wrappers (like <code>BaseMessage</code> objects vs plain <code>str</code>).</p>
+<h3 id="nexa-pipeline-operator">Nexa Pipeline Operator<a class="headerlink" href="#nexa-pipeline-operator" title="Permanent link">&para;</a></h3>
+<p>In Nexa, we can use the expressive Unix-like pipeline operator <code>&gt;&gt;</code> in one go:</p>
+<div class="highlight"><pre><span></span><code>// From Nexa practical code collection (Pipeline Pattern)
+flow main {
+    res = Coder.run(&quot;Generate a fast sorting algorithm in Python&quot;) &gt;&gt; Reviewer &gt;&gt; HumanInterface;
+
+    // The return result will directly be the final form produced by the pipeline end (HumanInterface)
+}
+</code></pre></div>
+<h3 id="pipeline-operator-details">Pipeline Operator Details<a class="headerlink" href="#pipeline-operator-details" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Equivalent Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A &gt;&gt; B</code></td>
+<td><code>B.run(A.run(input))</code></td>
+<td>Pass A's output to B</td>
+</tr>
+<tr>
+<td><code>A &gt;&gt; B &gt;&gt; C</code></td>
+<td><code>C.run(B.run(A.run(input)))</code></td>
+<td>Three-stage pipeline</td>
+</tr>
+<tr>
+<td><code>input &gt;&gt; A &gt;&gt; B</code></td>
+<td><code>B.run(A.run(input))</code></td>
+<td>Start from input</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition success">
+<p class="admonition-title">Compiler Magic Behind the Elegance</p>
+<p>When you type <code>A &gt;&gt; B</code>, the Nexa compiler doesn't simply transpile it to linear function blocking calls. Under the hood, Nexa's Orchestrator automatically builds a DAG (Directed Acyclic Graph), which preserves the context sliding window from <code>Coder</code> to <code>Reviewer</code>, and strictly follows Promise ready state to activate the next node. This saves you countless lines of state maintenance code.</p>
+</div>
+<h3 id="pipeline-operator-complete-example">Pipeline Operator Complete Example<a class="headerlink" href="#pipeline-operator-complete-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Translation pipeline
+agent Translator {
+    role: &quot;Professional Translator&quot;,
+    prompt: &quot;Translate English to Chinese, preserve original meaning, fluent language&quot;
+}
+
+agent Proofreader {
+    role: &quot;Proofreading Editor&quot;,
+    prompt: &quot;Proofread translation, correct errors, polish language&quot;
+}
+
+agent Formatter {
+    role: &quot;Formatting Expert&quot;,
+    prompt: &quot;Organize text into standard format&quot;
+}
+
+flow main {
+    english_text = &quot;Artificial intelligence is transforming the world.&quot;;
+
+    // Three-stage pipeline
+    final_result = english_text &gt;&gt; Translator &gt;&gt; Proofreader &gt;&gt; Formatter;
+
+    print(final_result);
+}
+</code></pre></div>
+<p><strong>Execution Result</strong>:
+<div class="highlight"><pre><span></span><code>人工智能正在改变世界。
+</code></pre></div></p>
+<hr />
+<h2 id="intent-routing-match-intent-protocol">🔀 Intent Routing: <code>match intent</code> Protocol<a class="headerlink" href="#intent-routing-match-intent-protocol" title="Permanent link">&para;</a></h2>
+<p>User instructions are always unpredictable. In many customer service/support bots, some users want to check the weather, some want to send emails, and others just want to hear a joke or chat.</p>
+<p>If we use a "super large model" to handle all tasks:</p>
+<ol>
+<li>It consumes a large amount of billing tokens even when receiving trivial messages.</li>
+<li>Context is severely polluted, potentially incorrectly triggering system high-risk "delete database" tools when chatting.</li>
+</ol>
+<p>Therefore, high-concurrency systems in the industry often advocate "front-end micro routing classifiers" (NLU/Intent Router) to achieve peak shaving and valley filling, then hand over actual processing to domain expert agents mounted behind.</p>
+<h3 id="basic-syntax">Basic Syntax<a class="headerlink" href="#basic-syntax" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>match user_input {
+    intent(&quot;intent description 1&quot;) =&gt; Agent1.run(user_input),
+    intent(&quot;intent description 2&quot;) =&gt; Agent2.run(user_input),
+    _ =&gt; DefaultAgent.run(user_input)  // Default branch
+}
+</code></pre></div>
+<h3 id="complete-example">Complete Example<a class="headerlink" href="#complete-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Nexa in action: Multi-intent routing
+flow main {
+    req = &quot;Tell me what is happening in the global tech world today!&quot;;
+
+    // Using natural semantics and intent matching mechanism to directly decouple verbose and fragile if-else
+    match req {
+        intent(&quot;Check local weather&quot;) =&gt; WeatherBot.run(req) &gt;&gt; Translator,
+        intent(&quot;Check daily news&quot;)    =&gt; NewsBot.run(req) &gt;&gt; Translator,
+        _ =&gt; SmallTalkBot.run(req)
+    }
+}
+</code></pre></div>
+<h3 id="intent-routing-flow-diagram">Intent Routing Flow Diagram<a class="headerlink" href="#intent-routing-flow-diagram" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>User Input
+    │
+    ▼
+┌─────────────────────┐
+│  Intent Classifier  │
+│    (Built-in)       │
+│ Embedding + Similarity │
+└─────────────────────┘
+    │
+    ├── intent(&quot;weather&quot;) ──────► WeatherBot
+    │
+    ├── intent(&quot;news&quot;) ──────► NewsBot
+    │
+    └── default (_) ────────────► SmallTalkBot
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Parsing <code>intent()</code> Underlying Implementation</p>
+<p>Here <code>intent("...")</code> is essentially not simple string or regex matching. Nexa internally carries an ultra-lightweight Embeddings matching model specifically for intent classification. In the background, it rapidly calculates cosine similarity with each branch's <code>Condition</code>, seamlessly routing execution flow into the most appropriate branch. To implement a similar mechanism in Python, you would need at least a ChromaDB service and a complex Top-K retrieval pool.</p>
+</div>
+<h3 id="intent-routing-best-practices">Intent Routing Best Practices<a class="headerlink" href="#intent-routing-best-practices" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Be specific with intent descriptions</strong>: Avoid vague descriptions</li>
+<li><strong>Set reasonable default branch</strong>: Handle unknown intents</li>
+<li><strong>Consider using fast models</strong>: Intent classification doesn't require complex reasoning</li>
+</ol>
+<div class="highlight"><pre><span></span><code>// ✅ Good intent descriptions
+intent(&quot;Check weather forecast or current weather conditions&quot;)
+intent(&quot;Check stock prices or financial data&quot;)
+intent(&quot;Book flights, hotels, or restaurants&quot;)
+
+// ❌ Bad intent descriptions
+intent(&quot;weather&quot;)  // Too vague
+intent(&quot;other&quot;)    // No practical meaning
+</code></pre></div>
+<hr />
+<h2 id="dag-topology-orchestration-ultimate-multi-way-fork-and-merge-v097">🕸️ DAG Topology Orchestration: Ultimate Multi-way Fork and Merge (v0.9.7+)<a class="headerlink" href="#dag-topology-orchestration-ultimate-multi-way-fork-and-merge-v097" title="Permanent link">&para;</a></h2>
+<p>When dealing with intelligence-intensive tasks (such as investment research report generation or core system difficult code optimization), it's necessary to have multiple roles conduct "back-to-back" independent research separately, then aggregate for cross-discussion. Nexa v0.9.7 revolutionarily introduced native handling of complex graph structures (DAG) topology operators.</p>
+<h3 id="dag-operator-overview">DAG Operator Overview<a class="headerlink" href="#dag-operator-overview" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Pipeline</td>
+<td>Sequential passing</td>
+<td><code>A &gt;&gt; B</code></td>
+</tr>
+<tr>
+<td><code>|&gt;&gt;</code></td>
+<td>Fan-out</td>
+<td>Parallel send to multiple Agents</td>
+<td><code>input |&gt;&gt; [A, B, C]</code></td>
+</tr>
+<tr>
+<td><code>&amp;&gt;&gt;</code></td>
+<td>Merge/Fan-in</td>
+<td>Merge multiple results to one Agent</td>
+<td><code>[A, B] &amp;&gt;&gt; C</code></td>
+</tr>
+<tr>
+<td><code>??</code></td>
+<td>Conditional Branch</td>
+<td>Select path based on condition</td>
+<td><code>input ?? A : B</code></td>
+</tr>
+<tr>
+<td><code>||</code></td>
+<td>Async Fork</td>
+<td>Send without waiting for result</td>
+<td><code>input || [A, B]</code></td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>Consensus Merge</td>
+<td>Require all Agents to agree</td>
+<td><code>[A, B] &amp;&amp; Judge</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fork-operator-fan-out">Fork Operator <code>|&gt;&gt;</code> (Fan-out)<a class="headerlink" href="#fork-operator-fan-out" title="Permanent link">&para;</a></h3>
+<p><strong>Parallel clone</strong> upstream data and send to multiple Agents, waiting for all results to return.</p>
+<div class="highlight"><pre><span></span><code>// Fork operator - Parallel send to multiple Agents
+flow main {
+    topic = &quot;Quantum Computing Applications&quot;;
+
+    // Send topic to three Agents in parallel simultaneously
+    results = topic |&gt;&gt; [Researcher, Analyst, Writer];
+
+    // results is an array containing outputs from all three Agents
+    print(results);
+}
+</code></pre></div>
+<p><strong>Flow Diagram</strong>:
+<div class="highlight"><pre><span></span><code>       topic
+         │
+         ├──────────┬──────────┐
+         │          │          │
+         ▼          ▼          ▼
+    Researcher   Analyst    Writer
+         │          │          │
+         └──────────┴──────────┘
+                    │
+                    ▼
+               [Result Array]
+</code></pre></div></p>
+<p><strong>Use Cases</strong>:
+- Multi-angle analysis of the same problem
+- Multi-language translation
+- Multi-model comparison verification</p>
+<h3 id="merge-operator-mergefan-in">Merge Operator <code>&amp;&gt;&gt;</code> (Merge/Fan-in)<a class="headerlink" href="#merge-operator-mergefan-in" title="Permanent link">&para;</a></h3>
+<p><strong>Merge</strong> outputs from multiple Agents and send to downstream Agent.</p>
+<div class="highlight"><pre><span></span><code>// Merge operator - Combine outputs from multiple Agents
+flow main {
+    // Wait for Researcher and Analyst to complete
+    // Merge both outputs and send to Reviewer
+    final_report = [Researcher, Analyst] &amp;&gt;&gt; Reviewer;
+
+    print(final_report);
+}
+</code></pre></div>
+<p><strong>Flow Diagram</strong>:
+<div class="highlight"><pre><span></span><code>    Researcher ────┐
+                   │
+                   ▼
+               Reviewer ──► Final Output
+                   ▲
+                   │
+    Analyst ───────┘
+</code></pre></div></p>
+<p><strong>Use Cases</strong>:
+- Multi-source information aggregation
+- Expert consultation
+- Cross-validation</p>
+<h3 id="conditional-branch-operator">Conditional Branch Operator <code>??</code><a class="headerlink" href="#conditional-branch-operator" title="Permanent link">&para;</a></h3>
+<p><strong>Automatically select</strong> execution path based on input characteristics.</p>
+<div class="highlight"><pre><span></span><code>// Conditional branch operator
+flow main {
+    user_query = &quot;URGENT: System outage detected&quot;;
+
+    // Automatically select processing Agent based on input content
+    handled = user_query ?? UrgentHandler : NormalHandler;
+
+    print(handled);
+}
+</code></pre></div>
+<p><strong>Flow Diagram</strong>:
+<div class="highlight"><pre><span></span><code>         Input
+          │
+          ▼
+    ┌─────────────┐
+    │  Condition  │
+    │  Judgment   │
+    └─────────────┘
+          │
+    ┌─────┴─────┐
+    │           │
+    ▼           ▼
+UrgentHandler  NormalHandler
+    │           │
+    └─────┬─────┘
+          │
+          ▼
+        Output
+</code></pre></div></p>
+<p><strong>Use Cases</strong>:
+- Urgency classification
+- Simple/complex task routing
+- Different request type handling</p>
+<h3 id="fire-and-forget-operator">Fire-and-Forget Operator <code>||</code><a class="headerlink" href="#fire-and-forget-operator" title="Permanent link">&para;</a></h3>
+<p><strong>Parallel execute</strong> multiple Agents, <strong>without waiting for results</strong>. Suitable for notifications, logging and other "fire-and-forget" scenarios.</p>
+<div class="highlight"><pre><span></span><code>// Fire-and-Forget operator
+flow main {
+    notification = &quot;System maintenance scheduled at 2AM&quot;;
+
+    // Parallel send notifications, not waiting for response
+    notification || [EmailBot, SlackBot, SMSBot];
+
+    // Main flow continues, not blocked
+    print(&quot;Notifications sent, continuing with other tasks...&quot;);
+}
+</code></pre></div>
+<p><strong>Flow Diagram</strong>:
+<div class="highlight"><pre><span></span><code>         Input
+           │
+           ▼
+    ┌──────┴──────┐
+    │             │
+    ▼             ▼
+ EmailBot     SlackBot
+    │             │
+    ▼             ▼
+ (Background)  (Background)
+</code></pre></div></p>
+<p><strong>Use Cases</strong>:
+- Batch notification sending
+- Log recording
+- Non-critical task triggering</p>
+<h3 id="consensus-operator">Consensus Operator <code>&amp;&amp;</code><a class="headerlink" href="#consensus-operator" title="Permanent link">&para;</a></h3>
+<p><strong>Parallel execute</strong> multiple Agents, <strong>wait for all results</strong> and perform voting/consensus decision.</p>
+<div class="highlight"><pre><span></span><code>// Consensus operator - Multi-expert voting decision
+flow main {
+    question = &quot;Should we approve this loan application?&quot;;
+
+    // Three experts parallel evaluate, wait for all results
+    decision = question &amp;&amp; [RiskAnalyst, CreditChecker, ComplianceOfficer];
+
+    // decision contains all experts&#39; opinions, can vote or comprehensive analysis
+    print(decision);
+}
+</code></pre></div>
+<p><strong>Flow Diagram</strong>:
+<div class="highlight"><pre><span></span><code>              Input
+                │
+        ┌───────┼───────┐
+        │       │       │
+        ▼       ▼       ▼
+    ExpertA  ExpertB  ExpertC
+        │       │       │
+        └───────┼───────┘
+                │
+                ▼
+          Consensus Decision
+</code></pre></div></p>
+<p><strong>Use Cases</strong>:
+- Multi-expert review
+- Voting decision systems
+- Cross-validation</p>
+<h3 id="dag-operator-complete-comparison-table">DAG Operator Complete Comparison Table<a class="headerlink" href="#dag-operator-complete-comparison-table" title="Permanent link">&para;</a></h3>
+<p>| Operator | Name | Behavior | Use Case |
+| |-------|------|------|---------|
+| <code>&gt;&gt;</code> | Pipeline | Sequential passing | Unidirectional pipeline |
+| <code>|&gt;&gt;</code> | Fan-out | Parallel send to multiple Agents | Parallel processing |
+| <code>&amp;&gt;&gt;</code> | Merge/Fan-in | Wait for multiple results then merge | Result integration |
+| <code>??</code> | Conditional Branch | Select path based on condition | Intelligent routing |
+| <code>||</code> | Fire-forget | Parallel execute without waiting | Async notification |
+| <code>&amp;&amp;</code> | Consensus | Parallel execute wait for all results | Voting decision |</p>
+<h3 id="combining-dag-operators">Combining DAG Operators<a class="headerlink" href="#combining-dag-operators" title="Permanent link">&para;</a></h3>
+<p>Build complex processing flows:</p>
+<div class="highlight"><pre><span></span><code>// From Nexa code example 15_dag_topology.nx
+flow main {
+    topic = &quot;Quantum Computing business impact&quot;;
+
+    // 1. Fork: topic is fed to Tech and Biz researchers for parallel analysis
+    // 2. Merge: After both produce output, aggregate and send to Summarizer to write final report
+    final_report = topic |&gt;&gt; [Researcher_Tech, Researcher_Biz] &amp;&gt;&gt; Summarizer;
+
+    // Branch routing: If report is abnormal, use backup bot; otherwise execute logging and dispatch
+    final_report ?? RecoveryBot : Logger;
+}
+</code></pre></div>
+<p><strong>Complete Flow Diagram</strong>:
+<div class="highlight"><pre><span></span><code>                    topic
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+          ▼                       ▼
+   Researcher_Tech         Researcher_Biz
+          │                       │
+          └───────────┬───────────┘
+                      │
+                      ▼
+                  Summarizer
+                      │
+                      ▼
+              final_report
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+          ▼                       ▼
+    RecoveryBot               Logger
+    (Exception)            (Normal)
+</code></pre></div></p>
+<h3 id="dag-operator-complete-example">DAG Operator Complete Example<a class="headerlink" href="#dag-operator-complete-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// DAG topology example - Research report generation system
+agent Researcher_Tech {
+    role: &quot;Technical Researcher&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;,
+    prompt: &quot;Analyze quantum computing&#39;s technical level impact&quot;
+}
+
+agent Researcher_Biz {
+    role: &quot;Business Researcher&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;,
+    prompt: &quot;Analyze quantum computing&#39;s business level impact&quot;
+}
+
+agent Summarizer {
+    role: &quot;Report Writer&quot;,
+    model: &quot;deepseek/deepseek-chat&quot;,
+    prompt: &quot;Integrate research results and write comprehensive report&quot;
+}
+
+agent UrgentHandler {
+    role: &quot;Urgent Handler&quot;,
+    prompt: &quot;Quickly handle urgent issues&quot;
+}
+
+agent NormalHandler {
+    role: &quot;Standard Handler&quot;,
+    prompt: &quot;Process according to standard procedures&quot;
+}
+
+flow main {
+    // Example 1: Simple pipeline
+    simple_result = &quot;What is AI?&quot; &gt;&gt; Researcher_Tech &gt;&gt; Summarizer;
+
+    // Example 2: Fork - Parallel processing
+    parallel_results = &quot;Quantum Computing&quot; |&gt;&gt; [Researcher_Tech, Researcher_Biz];
+
+    // Example 3: Merge - Integrate results
+    merged_report = [Researcher_Tech, Researcher_Biz] &amp;&gt;&gt; Summarizer;
+
+    // Example 4: Conditional branch
+    urgent_query = &quot;URGENT: System crash!&quot;;
+    handled = urgent_query ?? UrgentHandler : NormalHandler;
+
+    // Example 5: Complex combination
+    complex_flow = &quot;AI trends 2024&quot; 
+        |&gt;&gt; [Researcher_Tech, Researcher_Biz] 
+        &amp;&gt;&gt; Summarizer;
+}
+</code></pre></div>
+<hr />
+<h2 id="semantic-review-and-reflection-loop-loop-until">🔁 Semantic Review and Reflection Loop: <code>loop ... until</code><a class="headerlink" href="#semantic-review-and-reflection-loop-loop-until" title="Permanent link">&para;</a></h2>
+<p>In many automated programming and long-text collaboration applications, the industry has concluded that a "reflective critic" mechanism must be adopted: i.e., <code>Model A produces draft -&gt; Model B acts as reviewer to correct errors -&gt; Model A receives error feedback and rewrites</code>.</p>
+<p>How do traditional languages handle this logic? Developers need to hand-write an extremely fragile <code>while True</code>, then use a few awkward regex lines <code>if "SUCCESS" in text: break</code> praying the large model can precisely output the break word.</p>
+<p>Nexa's philosophy is: <strong>Since even computation is done by large models, why can't judgment logic be natively returned to the semantic field?</strong> This gave birth to a <strong>language-level loop engine</strong> for semantic termination conditions.</p>
+<h3 id="basic-syntax_1">Basic Syntax<a class="headerlink" href="#basic-syntax_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>loop {
+    // Loop body
+} until (&quot;natural language termination condition&quot;)
+</code></pre></div>
+<h3 id="complete-example_1">Complete Example<a class="headerlink" href="#complete-example_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flow main {
+    // First step: initial production
+    poem = Writer.run(&quot;Write a beautiful poem about AGI.&quot;);
+
+    loop {
+        // Use pipeline thinking to get critique feedback
+        feedback = Critic.run(poem);
+
+        // Use feedback as context guidance, rewrite in-place (Mutate)
+        poem = Editor.run(poem, feedback);
+
+    // Unique in the entire field: natural language judgment break condition
+    } until (&quot;The poem effectively rhymes and crucially mentions the technological singularity&quot;)
+}
+</code></pre></div>
+<h3 id="preventing-infinite-loops">Preventing Infinite Loops<a class="headerlink" href="#preventing-infinite-loops" title="Permanent link">&para;</a></h3>
+<p>Use loop counter protection:</p>
+<div class="highlight"><pre><span></span><code>flow critic_pipeline(task: string) {
+    loop {
+        draft = Writer.run(task);
+        feedback = Reviewer.run(draft);
+
+    // Combine natural language semantic reasoning and programming strong logic interception (dual insurance mechanism)
+    } until (&quot;Code has exactly 0 bugs inside feedback&quot; or runtime.meta.loop_count &gt;= 4)
+
+    // If hit the iteration limit, can throw manual interception exception
+    if (runtime.meta.loop_count &gt;= 4) {
+        raise SuspendExecution(&quot;Reviewer and Writer entered deadlock. Need Human Check.&quot;);
+    }
+}
+</code></pre></div>
+<h3 id="loop-control-variables">Loop Control Variables<a class="headerlink" href="#loop-control-variables" title="Permanent link">&para;</a></h3>
+<p>Nexa provides the following built-in variables in loops:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>runtime.meta.loop_count</code></td>
+<td>Current loop count</td>
+</tr>
+<tr>
+<td><code>runtime.meta.last_result</code></td>
+<td>Result from last loop iteration</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="semantic-conditional-judgment-semantic_if">🔧 Semantic Conditional Judgment: <code>semantic_if</code><a class="headerlink" href="#semantic-conditional-judgment-semantic_if" title="Permanent link">&para;</a></h2>
+<p>Besides <code>loop until</code>, Nexa also provides <code>semantic_if</code> for semantic-level conditional judgment.</p>
+<h3 id="basic-syntax_2">Basic Syntax<a class="headerlink" href="#basic-syntax_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>semantic_if &quot;natural language condition&quot; against input_variable {
+    // Execute when condition is true
+} else {
+    // Execute when condition is false
+}
+</code></pre></div>
+<h3 id="fast-match-mode">Fast Match Mode<a class="headerlink" href="#fast-match-mode" title="Permanent link">&para;</a></h3>
+<p>Use <code>fast_match</code> for regex pre-filtering to avoid unnecessary LLM calls:</p>
+<div class="highlight"><pre><span></span><code>semantic_if &quot;contains specific date and location&quot; fast_match r&quot;\d{4}-\d{2}-\d{2}&quot; against user_input {
+    schedule_tool.run(user_input);
+} else {
+    print(&quot;Need further clarification&quot;);
+}
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">How fast_match Works</p>
+<ol>
+<li>First check with regex quickly</li>
+<li>If regex matches, enter branch directly (saves tokens)</li>
+<li>If regex doesn't match, still call LLM for semantic judgment</li>
+</ol>
+</div>
+<h3 id="complete-example_2">Complete Example<a class="headerlink" href="#complete-example_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flow main {
+    user_input = &#39;{&quot;name&quot;: &quot;Zhang San&quot;, &quot;age&quot;: 25}&#39;;
+
+    // Semantic conditional judgment - Determine if it&#39;s JSON
+    semantic_if &quot;Input content is valid JSON format&quot; fast_match r&quot;^\s*[\[{]&quot; against user_input {
+        result = JSONProcessor.run(user_input);
+        print(&quot;Processed as JSON: &quot; + result);
+    } else {
+        result = TextProcessor.run(user_input);
+        print(&quot;Processed as text: &quot; + result);
+    }
+}
+</code></pre></div>
+<hr />
+<h2 id="exception-handling-trycatch">🧩 Exception Handling: <code>try/catch</code><a class="headerlink" href="#exception-handling-trycatch" title="Permanent link">&para;</a></h2>
+<p>Nexa v0.9.5 introduced native exception handling mechanism.</p>
+<h3 id="basic-syntax_3">Basic Syntax<a class="headerlink" href="#basic-syntax_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>try {
+    // Code that might error
+} catch (error) {
+    // Error handling
+}
+</code></pre></div>
+<h3 id="complete-example_3">Complete Example<a class="headerlink" href="#complete-example_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flow main {
+    try {
+        result = RiskyAgent.run(&quot;dangerous operation&quot;);
+        print(result);
+    } catch (error) {
+        print(&quot;Error occurred: &quot; + error);
+        // Use fallback solution
+        result = FallbackAgent.run(&quot;safe operation&quot;);
+    }
+}
+</code></pre></div>
+<hr />
+<h2 id="function-pipe-operator-v13x">🔗 Function Pipe Operator <code>|&gt;</code> (v1.3.x)<a class="headerlink" href="#function-pipe-operator-v13x" title="Permanent link">&para;</a></h2>
+<p>Unlike the Agent pipeline <code>&gt;&gt;</code>, <code>|&gt;</code> is a <strong>function-level</strong> pipe operator: it passes the left-hand value as the first argument to the right-hand function. This lets you chain standard library tools and custom functions like Unix pipes.</p>
+<h3 id="basic-syntax_4">Basic Syntax<a class="headerlink" href="#basic-syntax_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// x |&gt; f  equivalent to  f(x)
+// x |&gt; f |&gt; g  equivalent to  g(f(x))
+</code></pre></div>
+<h3 id="difference-from-agent-pipeline">Difference from Agent Pipeline <code>&gt;&gt;</code><a class="headerlink" href="#difference-from-agent-pipeline" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Level</th>
+<th>Semantics</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Agent level</td>
+<td><code>B.run(A.run(input))</code></td>
+<td><code>input &gt;&gt; Translator &gt;&gt; Reviewer</code></td>
+</tr>
+<tr>
+<td><code>|&gt;</code></td>
+<td>Function level</td>
+<td><code>f(x)</code></td>
+<td><code>data |&gt; json_parse |&gt; json_get</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="complete-example_4">Complete Example<a class="headerlink" href="#complete-example_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flow main {
+    raw_text = &#39;{&quot;name&quot;: &quot;Nexa&quot;, &quot;version&quot;: &quot;1.3&quot;}&#39;;
+
+    // Function pipe: parse JSON → extract field → format
+    result = raw_text
+        |&gt; std.json.json_parse
+        |&gt; std.json.json_get(&quot;name&quot;);
+
+    print(result);  // Output: Nexa
+
+    // Combined with string interpolation
+    greeting = &quot;Hello, #{result}!&quot;;
+    print(greeting);  // Output: Hello, Nexa!
+}
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">When to Use <code>|&gt;</code> vs <code>&gt;&gt;</code></p>
+<ul>
+<li>Use <code>|&gt;</code> for <strong>data transformation</strong> (JSON parsing, text processing, math calculations)</li>
+<li>Use <code>&gt;&gt;</code> for <strong>Agent chaining</strong> (translate → proofread → format)</li>
+<li>They can be combined: <code>input |&gt; preprocess |&gt; format &gt;&gt; Agent1 &gt;&gt; Agent2</code></li>
+</ul>
+</div>
+<hr />
+<h2 id="null-coalescing-operator-v13x">❓ Null Coalescing Operator <code>??</code> (v1.3.x)<a class="headerlink" href="#null-coalescing-operator-v13x" title="Permanent link">&para;</a></h2>
+<p><code>??</code> is used for conditional branching in DAG operators, but in v1.3.x it also serves as a <strong>null coalescing</strong> operator: when the left side is <code>None</code>, <code>Option::None</code>, or an empty dict, it returns the right side's default value.</p>
+<h3 id="basic-syntax_5">Basic Syntax<a class="headerlink" href="#basic-syntax_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// value ?? fallback
+// If value is None/Option::None/empty dict, return fallback
+// Otherwise return value itself
+</code></pre></div>
+<h3 id="complete-example_5">Complete Example<a class="headerlink" href="#complete-example_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flow main {
+    // Key may not exist in KV store
+    user_name = kv.get(&quot;user_name&quot;) ?? &quot;Guest&quot;;
+
+    // Agent may return Option::None
+    result = Analyzer.run(input) ?? &quot;No analysis available&quot;;
+
+    // Database query may return empty
+    record = db.query_one(&quot;SELECT * FROM users WHERE id = 1&quot;) ?? {&quot;name&quot;: &quot;Unknown&quot;};
+
+    print(user_name);   // Guest (if key doesn&#39;t exist)
+    print(result);      // No analysis available (if Agent returns None)
+}
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Note the Dual Semantics of <code>??</code></p>
+<ul>
+<li>In DAG context: <code>input ?? AgentA : AgentB</code> means conditional branching</li>
+<li>In expression context: <code>value ?? fallback</code> means null coalescing</li>
+<li>The compiler automatically distinguishes between the two usages based on context</li>
+</ul>
+</div>
+<hr />
+<h2 id="deferred-execution-defer-v13x">⏳ Deferred Execution <code>defer</code> (v1.3.x)<a class="headerlink" href="#deferred-execution-defer-v13x" title="Permanent link">&para;</a></h2>
+<p>The <code>defer</code> statement postpones expression evaluation until the current scope exits, following <strong>LIFO (Last-In-First-Out)</strong> order. Commonly used for resource cleanup, logging, and transaction rollback.</p>
+<h3 id="basic-syntax_6">Basic Syntax<a class="headerlink" href="#basic-syntax_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>defer expression;
+// expression will execute when the current scope exits (LIFO order)
+</code></pre></div>
+<h3 id="complete-example_6">Complete Example<a class="headerlink" href="#complete-example_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flow main {
+    db_handle = std.db.sqlite.connect(&quot;data.db&quot;);
+    defer std.db.sqlite.close(db_handle);  // Auto-close connection on exit
+
+    kv_handle = std.kv.open(&quot;:memory:&quot;);
+    defer std.kv.flush(kv_handle);  // Auto-flush KV on exit
+
+    // Normal business logic
+    std.db.sqlite.execute(db_handle, &quot;INSERT INTO users VALUES (1, &#39;Alice&#39;)&quot;);
+    result = std.db.sqlite.query(db_handle, &quot;SELECT * FROM users&quot;);
+
+    // Whether normal exit or exception, defer executes in LIFO order:
+    // 1. First flush KV
+    // 2. Then close DB
+}
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">defer Execution Order</p>
+<p>Multiple <code>defer</code> statements execute in <strong>LIFO</strong> order (similar to Go/Rust):
+<div class="highlight"><pre><span></span><code>defer print(&quot;first&quot;);   // Executes last
+defer print(&quot;second&quot;);  // Executes second
+defer print(&quot;third&quot;);   // Executes first
+// Output order: third → second → first
+</code></pre></div></p>
+</div>
+<hr />
+<h2 id="pattern-matching-v13x">🎯 Pattern Matching (v1.3.x)<a class="headerlink" href="#pattern-matching-v13x" title="Permanent link">&para;</a></h2>
+<p>Nexa v1.3.x introduces a powerful pattern matching system supporting 7 pattern types, allowing you to elegantly destructure and process complex data structures.</p>
+<h3 id="basic-syntax_7">Basic Syntax<a class="headerlink" href="#basic-syntax_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>match value {
+    Pattern1 =&gt; expression1,
+    Pattern2 =&gt; expression2,
+    _ =&gt; default_expression
+}
+</code></pre></div>
+<h3 id="supported-pattern-types">Supported Pattern Types<a class="headerlink" href="#supported-pattern-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pattern Type</th>
+<th>Syntax</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wildcard Pattern</td>
+<td><code>_</code></td>
+<td><code>_ =&gt; "default"</code></td>
+</tr>
+<tr>
+<td>Variable Binding Pattern</td>
+<td><code>name</code></td>
+<td><code>x =&gt; x + 1</code></td>
+</tr>
+<tr>
+<td>Literal Pattern</td>
+<td><code>value</code></td>
+<td><code>0 =&gt; "zero"</code></td>
+</tr>
+<tr>
+<td>Constructor Pattern</td>
+<td><code>Type::Variant(args)</code></td>
+<td><code>Option::Some(v) =&gt; v</code></td>
+</tr>
+<tr>
+<td>Tuple Pattern</td>
+<td><code>(a, b, ...)</code></td>
+<td><code>(x, y) =&gt; x + y</code></td>
+</tr>
+<tr>
+<td>Field Pattern</td>
+<td><code>{field: pattern}</code></td>
+<td><code>{name: n} =&gt; n</code></td>
+</tr>
+<tr>
+<td>Or Pattern</td>
+<td><code>P1 | P2</code></td>
+<td><code>1 | 2 =&gt; "small"</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="complete-example_7">Complete Example<a class="headerlink" href="#complete-example_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flow main {
+    // Match Option type
+    result = Analyzer.run(input);
+
+    match result {
+        Option::Some(data) =&gt; print(&quot;Got data: #{data}&quot;),
+        Option::None =&gt; print(&quot;No data available&quot;),
+        _ =&gt; print(&quot;Unexpected result&quot;)
+    }
+
+    // Match Result type
+    response = http_get(&quot;https://api.example.com/data&quot;);
+
+    match response {
+        Result::Ok(body) =&gt; process(body),
+        Result::Err(error) =&gt; print(&quot;Error: #{error}&quot;),
+        _ =&gt; print(&quot;Unknown response&quot;)
+    }
+
+    // Destructure tuple
+    coords = (10, 20);
+    match coords {
+        (0, 0) =&gt; print(&quot;Origin&quot;),
+        (x, 0) =&gt; print(&quot;On x-axis at #{x}&quot;),
+        (0, y) =&gt; print(&quot;On y-axis at #{y}&quot;),
+        (x, y) =&gt; print(&quot;At (#{x}, #{y})&quot;)
+    }
+
+    // Destructure struct
+    match user_record {
+        {name: n, age: a} =&gt; print(&quot;#{n} is #{a} years old&quot;),
+        {name: n} =&gt; print(&quot;#{n}, age unknown&quot;)
+    }
+}
+</code></pre></div>
+<h3 id="let-destructuring">Let Destructuring<a class="headerlink" href="#let-destructuring" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Direct destructuring in let statement
+let (x, y) = coords;
+let {name: user_name, age: user_age} = user_record;
+let Option::Some(value) = result;  // Throws PatternMatchError if None
+</code></pre></div>
+<h3 id="for-destructuring">For Destructuring<a class="headerlink" href="#for-destructuring" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Destructuring in for loop
+for each (key, value) in kv.list(kv_handle) {
+    print(&quot;#{key}: #{value}&quot;);
+}
+</code></pre></div>
+<hr />
+<h2 id="algebraic-data-types-struct-enum-trait-v13x">🏗️ Algebraic Data Types: Struct, Enum, Trait (v1.3.x)<a class="headerlink" href="#algebraic-data-types-struct-enum-trait-v13x" title="Permanent link">&para;</a></h2>
+<p>Nexa v1.3.x introduces a complete ADT (Algebraic Data Type) system including structs, enums, and traits, providing a type-safe foundation for Agent data modeling.</p>
+<h3 id="struct-declaration">Struct Declaration<a class="headerlink" href="#struct-declaration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>struct Point {
+    x: Int,
+    y: Int
+}
+
+struct User {
+    name: String,
+    age: Int,
+    email: Option[String]
+}
+</code></pre></div>
+<h3 id="creating-struct-instances">Creating Struct Instances<a class="headerlink" href="#creating-struct-instances" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Using Field Init expression
+p = Point { x: 10, y: 20 };
+u = User { name: &quot;Alice&quot;, age: 30, email: Option::Some(&quot;alice@example.com&quot;) };
+</code></pre></div>
+<h3 id="enum-declaration">Enum Declaration<a class="headerlink" href="#enum-declaration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+enum Option[T] {
+    Some(T),
+    None
+}
+
+enum Result[T, E] {
+    Ok(T),
+    Err(E)
+}
+</code></pre></div>
+<h3 id="creating-enum-variants">Creating Enum Variants<a class="headerlink" href="#creating-enum-variants" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Variant Call expression
+c = Color::Red;
+some_val = Option::Some(42);
+none_val = Option::None;
+ok_result = Result::Ok(&quot;success&quot;);
+err_result = Result::Err(&quot;file not found&quot;);
+</code></pre></div>
+<h3 id="trait-declaration-and-impl">Trait Declaration and Impl<a class="headerlink" href="#trait-declaration-and-impl" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Define Trait
+trait Printable {
+    fn format() -&gt; String
+}
+
+trait Serializable {
+    fn to_json() -&gt; String
+    fn from_json(data: String) -&gt; Self
+}
+
+// Implement Trait for a type
+impl Printable for Point {
+    fn format() -&gt; String {
+        &quot;Point(#{self.x}, #{self.y})&quot;
+    }
+}
+
+impl Printable for User {
+    fn format() -&gt; String {
+        &quot;#{self.name} (age: #{self.age})&quot;
+    }
+}
+</code></pre></div>
+<h3 id="adt-combined-with-pattern-matching">ADT Combined with Pattern Matching<a class="headerlink" href="#adt-combined-with-pattern-matching" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// Struct + pattern matching
+match shape {
+    Point { x: 0, y: 0 } =&gt; &quot;Origin&quot;,
+    Point { x, y } =&gt; &quot;At (#{x}, #{y})&quot;
+}
+
+// Enum + pattern matching
+match result {
+    Result::Ok(data) =&gt; process(data),
+    Result::Err(msg) =&gt; handle_error(msg)
+}
+
+// Trait method call
+formatted = p.format();  // Call Printable trait&#39;s format method
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">ADT Runtime Implementation</p>
+<p>Nexa's ADTs use the <strong>handle-as-dict</strong> pattern at runtime: all struct instances and enum variants are dictionaries under the hood, with <code>_nexa_type</code>, <code>_nexa_variant</code>, and other prefixed keys. This allows ADTs to seamlessly interact with Agent JSON output.</p>
+</div>
+<hr />
+<h2 id="chapter-summary">📊 Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>In this chapter, we learned Nexa's advanced orchestration features:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Keyword</th>
+<th>Version</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent Pipeline</td>
+<td><code>&gt;&gt;</code></td>
+<td>v0.5+</td>
+<td>Agent chaining</td>
+</tr>
+<tr>
+<td>Function Pipe</td>
+<td><code>|&gt;</code></td>
+<td>v1.3.x</td>
+<td>Function chaining</td>
+</tr>
+<tr>
+<td>Intent Routing</td>
+<td><code>match intent</code></td>
+<td>v0.5+</td>
+<td>Request dispatching</td>
+</tr>
+<tr>
+<td>Fork Operation</td>
+<td><code>|&gt;&gt;</code></td>
+<td>v0.9.7+</td>
+<td>Parallel processing</td>
+</tr>
+<tr>
+<td>Merge Operation</td>
+<td><code>&amp;&gt;&gt;</code></td>
+<td>v0.9.7+</td>
+<td>Result integration</td>
+</tr>
+<tr>
+<td>DAG Conditional Branch</td>
+<td><code>??</code></td>
+<td>v0.9.7+</td>
+<td>Path selection</td>
+</tr>
+<tr>
+<td>Null Coalescing</td>
+<td><code>??</code></td>
+<td>v1.3.x</td>
+<td>None default value</td>
+</tr>
+<tr>
+<td>Semantic Loop</td>
+<td><code>loop until</code></td>
+<td>v0.5+</td>
+<td>Iterative optimization</td>
+</tr>
+<tr>
+<td>Semantic Condition</td>
+<td><code>semantic_if</code></td>
+<td>v0.5+</td>
+<td>Intelligent judgment</td>
+</tr>
+<tr>
+<td>Exception Handling</td>
+<td><code>try/catch</code></td>
+<td>v0.9.5+</td>
+<td>Error handling</td>
+</tr>
+<tr>
+<td>Deferred Execution</td>
+<td><code>defer</code></td>
+<td>v1.3.x</td>
+<td>Resource cleanup</td>
+</tr>
+<tr>
+<td>Pattern Matching</td>
+<td><code>match</code></td>
+<td>v1.3.x</td>
+<td>Data destructuring</td>
+</tr>
+<tr>
+<td>Algebraic Data Types</td>
+<td><code>struct/enum/trait</code></td>
+<td>v1.3.x</td>
+<td>Type-safe modeling</td>
+</tr>
+</tbody>
+</table>
+<p>These features enable Nexa to elegantly handle the most complex agent orchestration scenarios, from simple pipelines to complex DAG topologies, from deterministic branching to semantic-level conditional judgment, to type-safe data modeling.</p>
+<hr />
+<h2 id="related-resources">🔗 Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../examples/">Complete Example Collection</a> - View more DAG operator examples</li>
+<li><a href="../part3_extensions/">Syntax Extensions</a> - Learn Protocol and contract advanced usage</li>
+<li><a href="../reference/">Language Reference Manual</a> - View complete syntax specification</li>
+<li><a href="../part6_best_practices/">Best Practices</a> - Enterprise development experience</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="../../search/search_index.json"
+  data-current-page="part2_advanced.en.md"
+  data-current-title="Advanced Features"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="../../img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="../../javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../part1_basic/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Basic Syntax">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Basic Syntax
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../part3_extensions/" class="md-footer__link md-footer__link--next" aria-label="Next: Grammar Extensions">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Grammar Extensions
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>

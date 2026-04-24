@@ -1,0 +1,2421 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/en/preface_background/">
+      
+      
+        <link rel="prev" href="../preface/">
+      
+      
+        <link rel="next" href="../preface_scenarios/">
+      
+      
+        
+          <link rel="alternate" href="../../preface_background/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Background & Evolution - Nexa Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#background-from-language-models-to-agent-native-computing-paradigm" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Nexa Documentation" class="md-header__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Background & Evolution
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../preface_background/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part1_basic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Grammar Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  In-depth Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Community & Future
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference Manual
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Nexa Documentation" class="md-nav__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preface & Philosophy
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preface & Philosophy
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reshaping Agent Paradigm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Background & Evolution
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Background & Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-evolution-of-large-language-models-and-artificial-intelligence-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Evolution of Large Language Models and Artificial Intelligence Agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Evolution of Large Language Models and Artificial Intelligence Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theoretical-foundations-and-early-natural-language-processing-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theoretical Foundations and Early Natural Language Processing Exploration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-rise-of-large-language-models-and-instruction-following" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Rise of Large Language Models and Instruction Following
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-beginning-of-the-agentic-era-tool-calling-memory-and-autonomous-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Beginning of the Agentic Era: Tool Calling, Memory, and Autonomous Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-engineering-peak-of-modern-agent-architecture-openclaw-and-the-skill-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Engineering Peak of Modern Agent Architecture: OpenClaw and the Skill Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comprehensive-survey-and-deep-limitation-analysis-of-current-agent-orchestration-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprehensive Survey and Deep Limitation Analysis of Current Agent Orchestration Paradigms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comprehensive Survey and Deep Limitation Analysis of Current Agent Orchestration Paradigms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-dilemma-of-low-code-agent-orchestration-paradigm-dify-coze-and-n8n-as-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dilemma of Low-Code Agent Orchestration Paradigm: Dify, Coze, and n8n as Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architectural-debt-of-general-purpose-programming-language-frameworks-langgraph-and-autogen-as-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural Debt of General-Purpose Programming Language Frameworks: LangGraph and AutoGen as Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nexa-reshaping-the-underlying-native-agent-oriented-programming-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nexa: Reshaping the Underlying Native Agent-Oriented Programming Language
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nexa: Reshaping the Underlying Native Agent-Oriented Programming Language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#native-equality-and-the-establishment-of-first-class-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Equality and the Establishment of First-Class Primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revolutionary-context-aware-reasoning-primitive-reason" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Revolutionary Context-Aware Reasoning Primitive: reason()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-state-control-and-memory-as-program-msr-underlying-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit State Control and Memory-as-Program (MSR) Underlying Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#efficient-multi-agent-communication-and-poet-self-evolution-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficient Multi-Agent Communication and POET Self-Evolution Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-making-agent-a-first-class-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Making Agent a First-Class Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-embracing-strong-contracts-and-static-checking-protocol-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Embracing Strong Contracts and Static Checking (Protocol &amp; Types)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-replacing-procedural-rigid-polling-with-declarative-graph-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Replacing Procedural Rigid Polling with Declarative Graph Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios & Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Grammar Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part1_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Syntax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part2_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem & Stdlib
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    In-depth Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    In-depth Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compiler Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community & Future
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community & Future
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Manual
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference Manual
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stdlib API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-evolution-of-large-language-models-and-artificial-intelligence-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Evolution of Large Language Models and Artificial Intelligence Agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Evolution of Large Language Models and Artificial Intelligence Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theoretical-foundations-and-early-natural-language-processing-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theoretical Foundations and Early Natural Language Processing Exploration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-rise-of-large-language-models-and-instruction-following" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Rise of Large Language Models and Instruction Following
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-beginning-of-the-agentic-era-tool-calling-memory-and-autonomous-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Beginning of the Agentic Era: Tool Calling, Memory, and Autonomous Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-engineering-peak-of-modern-agent-architecture-openclaw-and-the-skill-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Engineering Peak of Modern Agent Architecture: OpenClaw and the Skill Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comprehensive-survey-and-deep-limitation-analysis-of-current-agent-orchestration-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comprehensive Survey and Deep Limitation Analysis of Current Agent Orchestration Paradigms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comprehensive Survey and Deep Limitation Analysis of Current Agent Orchestration Paradigms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-dilemma-of-low-code-agent-orchestration-paradigm-dify-coze-and-n8n-as-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dilemma of Low-Code Agent Orchestration Paradigm: Dify, Coze, and n8n as Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architectural-debt-of-general-purpose-programming-language-frameworks-langgraph-and-autogen-as-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural Debt of General-Purpose Programming Language Frameworks: LangGraph and AutoGen as Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nexa-reshaping-the-underlying-native-agent-oriented-programming-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nexa: Reshaping the Underlying Native Agent-Oriented Programming Language
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nexa: Reshaping the Underlying Native Agent-Oriented Programming Language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#native-equality-and-the-establishment-of-first-class-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Equality and the Establishment of First-Class Primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revolutionary-context-aware-reasoning-primitive-reason" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Revolutionary Context-Aware Reasoning Primitive: reason()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-state-control-and-memory-as-program-msr-underlying-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit State Control and Memory-as-Program (MSR) Underlying Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#efficient-multi-agent-communication-and-poet-self-evolution-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficient Multi-Agent Communication and POET Self-Evolution Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-making-agent-a-first-class-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Making Agent a First-Class Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-embracing-strong-contracts-and-static-checking-protocol-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Embracing Strong Contracts and Static Checking (Protocol &amp; Types)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-replacing-procedural-rigid-polling-with-declarative-graph-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Replacing Procedural Rigid Polling with Declarative Graph Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="background-from-language-models-to-agent-native-computing-paradigm">Background: From Language Models to Agent-Native Computing Paradigm<a class="headerlink" href="#background-from-language-models-to-agent-native-computing-paradigm" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Throughout the history of computer science, the evolution of programming languages has maintained a high degree of resonance with the changes in underlying computing paradigms. From the direct mapping of hardware instructions in assembly language, to the abstraction of memory management in C, to the encapsulation of complex data structures and business logic in object-oriented programming languages, each leap in abstraction level has been designed to solve the bottlenecks encountered by previous generations of systems during scale expansion. Currently, computer science is undergoing a profound transformation driven by large language models, and software engineering is experiencing a transition from "Software 1.0" (deterministic logic written by humans) to "Software 3.0" (intelligent systems driven by natural language with autonomous model reasoning). In this new paradigm, systems are no longer merely static collections of code, but rather "agent" entities exhibiting characteristics of autonomous perception, logical reasoning, and tool invocation.</p>
+<p>Building and orchestrating these highly autonomous artificial intelligence agents has become a core topic in both academia and industry. However, as multi-agent systems are widely deployed in complex enterprise environments, existing application construction methods have exposed serious architectural flaws. Whether based on graphical low-code orchestration platforms or agent frameworks built on traditional deterministic programming languages, both attempt to use tools from the old era to harness the non-deterministic probabilistic engines of the new era, resulting in severe impedance mismatch. This report aims to comprehensively review the evolution of artificial intelligence agents from early large language models to the present, deeply analyze the underlying pain points of current mainstream agent orchestration methods in state management, multi-agent communication, and engineering implementation, and systematically elaborate how a brand new native agent-oriented programming language—Nexa—will completely break through the limitations of existing paradigms by reconstructing underlying computing primitives and state abstraction mechanisms.</p>
+<h2 id="the-evolution-of-large-language-models-and-artificial-intelligence-agents">The Evolution of Large Language Models and Artificial Intelligence Agents<a class="headerlink" href="#the-evolution-of-large-language-models-and-artificial-intelligence-agents" title="Permanent link">&para;</a></h2>
+<p>The development of artificial intelligence agents is not an isolated event that happened overnight, but rather a long evolutionary process from static text generators to dynamic autonomous executors, accompanied by innovations in underlying neural network architectures, exponential growth in model parameter scales, and continuous breakthroughs in fine-tuning technologies.</p>
+<h3 id="theoretical-foundations-and-early-natural-language-processing-exploration">Theoretical Foundations and Early Natural Language Processing Exploration<a class="headerlink" href="#theoretical-foundations-and-early-natural-language-processing-exploration" title="Permanent link">&para;</a></h3>
+<p>The philosophical and theoretical foundations of artificial intelligence agents can be traced back to logic and problem-solving research in the mid-twentieth century. Early automata theory established mathematical models for symbolic operations in computation, while agent architectures based on the Belief-Desire-Intention (BDI) model provided the initial theoretical framework for agent-oriented programming. During this period, researchers attempted to build intelligent agents through pre-defined strict logical rules and formal knowledge representations. Although this symbol-based reasoning approach achieved some success in specific constrained environments, early systems could never break through the bottleneck of domain generalization due to the high complexity and ambiguity of the real world. The behavior of systems was entirely limited by the logic trees manually written by developers; once faced with scenarios outside the rule base, agents would become paralyzed.</p>
+<h3 id="the-rise-of-large-language-models-and-instruction-following">The Rise of Large Language Models and Instruction Following<a class="headerlink" href="#the-rise-of-large-language-models-and-instruction-following" title="Permanent link">&para;</a></h3>
+<p>In 2020, the release of the GPT-3 model with 175 billion parameters marked the official beginning of the modern large language model era. This model demonstrated for the first time to the world that a giant Transformer neural network pre-trained on massive unsupervised data could complete translation, question answering, and even basic code writing through in-context learning without fine-tuning for specific downstream tasks. However, models at this stage were essentially stateless autoregressive text completion engines that could only passively predict the next token based on input probability distributions, unable to actively perceive the environment or execute complex multi-step tasks.</p>
+<p>A fundamental turning point in the computing paradigm occurred at the end of 2022, when through the introduction of Reinforcement Learning from Human Feedback (RLHF) technology, models evolved from mere text predictors into dialogue systems capable of deeply understanding and following human intentions. This technological leap not only solved the safety and alignment issues of model outputs but also catalyzed advanced prompt engineering techniques such as Chain of Thought (CoT). Researchers found that guiding models to decompose complex problems into multiple intermediate reasoning steps could significantly reduce hallucinations and greatly improve the accuracy of logical reasoning. Chain of Thought technology is essentially a prototype of human-driven agent loops, proving that language models possess the capability for implicit planning and reasoning within their context windows, thus laying the cognitive foundation for subsequent fully AI-driven autonomous agent architectures.</p>
+<h3 id="the-beginning-of-the-agentic-era-tool-calling-memory-and-autonomous-planning">The Beginning of the Agentic Era: Tool Calling, Memory, and Autonomous Planning<a class="headerlink" href="#the-beginning-of-the-agentic-era-tool-calling-memory-and-autonomous-planning" title="Permanent link">&para;</a></h3>
+<p>Entering 2023, the theoretical framework of artificial intelligence agents began to truly move toward engineering implementation. The research community and industry gradually realized that no matter how large the parameter scale of a language model, the knowledge encoded in its internal weights is always static and limited, unable to cope with real-world tasks that require extremely high real-time performance and interactivity. To break this bottleneck, systems began to be endowed with "hands and eyes" to interact with the external world. Research projects such as WebGPT and Toolformer demonstrated that language models could autonomously decide when and how to call external application programming interfaces. Subsequently, major model providers formally introduced structured function calling capabilities, enabling models to output parameters in parseable data formats for deterministic interaction with external software systems.</p>
+<p>During this period, the core capabilities of agent systems were formally deconstructed into four modules: perception, memory, planning, and action. In terms of memory mechanisms, systems no longer relied solely on the context window of a single session, but introduced hybrid storage architectures combining short-term working memory with long-term retrieval-augmented generation. Agents could vectorize and persistently store historical interaction experiences and perform semantic retrieval when needed, thus achieving cross-session knowledge accumulation. In terms of planning capabilities, agents evolved from simple single-step responses to loop systems capable of task decomposition, self-reflection, and error correction. Through reflection mechanisms, agents could autonomously evaluate the results of tool calls and dynamically adjust subsequent strategies when encountering failures. This architecture, which embeds language models into closed-loop systems containing perception, reasoning, action, and feedback, formally announced the arrival of the agentic era.</p>
+<h3 id="the-engineering-peak-of-modern-agent-architecture-openclaw-and-the-skill-ecosystem">The Engineering Peak of Modern Agent Architecture: OpenClaw and the Skill Ecosystem<a class="headerlink" href="#the-engineering-peak-of-modern-agent-architecture-openclaw-and-the-skill-ecosystem" title="Permanent link">&para;</a></h3>
+<p>By 2025-2026, artificial intelligence agents moved from cloud laboratories to the local computing environments of end users. Open-source agent architectures represented by OpenClaw became a landmark milestone of this stage, gaining extremely high developer attention and open-source community contributions in a short period. OpenClaw's core innovation was transforming artificial intelligence agents from passive chatbots into local system-level orchestration engines with extremely high autonomy.</p>
+<p>OpenClaw's underlying architecture demonstrates the most advanced single-agent design patterns of the current era. The system consists of a resident local gateway that acts as a control plane, responsible for standardizing inputs from different communication channels and managing underlying session routing. At the agent loop layer, the system dynamically merges conversation history, long-term memory, and system instructions through a context assembly mechanism, then passes the assembled context to the model inference engine. To give agents real action capabilities, OpenClaw introduced a highly modular skill mechanism. These skills are stored in specific file formats, containing metadata and instructions for tool use, and agents can dynamically load and execute these skills at runtime based on task requirements.</p>
+<p>Although this architecture gives agents great autonomy, it also raises unprecedented engineering and security challenges. With the prosperity of the skill ecosystem, security threats such as malicious instruction injection, tool poisoning, and hidden payloads have become increasingly prominent. Attackers can even disguise skills to instruct agents to execute malicious scripts or download backdoor programs on host machines. Additionally, to solve log chaos and state pollution caused by concurrent execution, OpenClaw forcibly adopted a lane queue system at the underlying architecture level, using serial mode by default to execute agent workflows, highlighting the difficulty of managing non-deterministic AI tasks under existing operating system architectures.</p>
+<p>To clearly present the context of this technological evolution, the following table systematically organizes the core characteristics of each stage:</p>
+<table>
+<thead>
+<tr>
+<th>Evolution Stage</th>
+<th>Time Node</th>
+<th>Core Technical Milestone</th>
+<th>System Architecture Characteristics</th>
+<th>Typical Representatives or Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Theoretical Foundation Period</td>
+<td>Before 2020</td>
+<td>Symbolic Logic and Agent-Oriented Programming Theory</td>
+<td>Based on rigorous logic rule bases and explicit state representations, systems lack generalization capability.</td>
+<td>Early expert systems, BDI agent architecture</td>
+</tr>
+<tr>
+<td>Large-Scale Generation Period</td>
+<td>2020-2022</td>
+<td>GPT-3 Release and RLHF</td>
+<td>Stateless autoregressive text generation, relying on instruction following and zero-shot learning.</td>
+<td>Basic LLM, early ChatGPT</td>
+</tr>
+<tr>
+<td>Capability Expansion Period</td>
+<td>2023</td>
+<td>Chain of Thought Reasoning and External Tool Calling</td>
+<td>Introduction of structured function calling, models begin deterministic interaction with the external world through APIs.</td>
+<td>WebGPT, Toolformer</td>
+</tr>
+<tr>
+<td>Agent Loop Period</td>
+<td>2023-2024</td>
+<td>Planning Frameworks and Long-Short Term Memory Mechanisms</td>
+<td>Models are embedded in execution loops containing perception, action, and reflection, possessing task decomposition capability.</td>
+<td>Agentic RAG, BabyAGI</td>
+</tr>
+<tr>
+<td>Ecosystem and System Period</td>
+<td>2025-2026</td>
+<td>Localized Deployment and Standardized Skill Extensions</td>
+<td>Agents run as system-level processes, extending capabilities through modular skills, facing complex concurrency and security challenges.</td>
+<td>OpenClaw, Model Context Protocol (MCP)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="comprehensive-survey-and-deep-limitation-analysis-of-current-agent-orchestration-paradigms">Comprehensive Survey and Deep Limitation Analysis of Current Agent Orchestration Paradigms<a class="headerlink" href="#comprehensive-survey-and-deep-limitation-analysis-of-current-agent-orchestration-paradigms" title="Permanent link">&para;</a></h2>
+<p>As the capabilities of single artificial intelligence agents mature, enterprise attention inevitably turns to multi-agent systems. In multi-agent systems, multiple agents with specific domain knowledge need to collaborate, share context, and coordinate the execution of complex long-cycle business flows. To lower the barrier to building multi-agent systems, the industry has evolved two distinctly different orchestration paradigms: low-code visual orchestration platforms for business personnel, and general-purpose programming language frameworks for professional developers. However, a deep analysis of the actual performance of these two paradigms in enterprise production environments reveals that both have insurmountable underlying architectural limitations.</p>
+<h3 id="the-dilemma-of-low-code-agent-orchestration-paradigm-dify-coze-and-n8n-as-examples">The Dilemma of Low-Code Agent Orchestration Paradigm: Dify, Coze, and n8n as Examples<a class="headerlink" href="#the-dilemma-of-low-code-agent-orchestration-paradigm-dify-coze-and-n8n-as-examples" title="Permanent link">&para;</a></h3>
+<p>To democratize AI application development, low-code or no-code platforms such as Dify, Coze, and n8n have achieved significant commercial success in the past few years. These platforms abstract complex large language model calls, prompt engineering, retrieval-augmented generation, and tool integration into intuitive graphical nodes. Users only need to drag and connect these nodes on a visual canvas to quickly build prototype systems.</p>
+<p>However, when these platforms are applied to enterprise production environments with strict fault tolerance requirements, complex state transitions, and high customization needs, their inherent architectural shortcomings are exposed. Low-code orchestration platforms perform excellently when handling simple linear automation tasks, but when facing real non-linear intelligent business logic, they often encounter the following fatal bottlenecks:</p>
+<p>First, as business logic complexity increases, the visual canvas rapidly degenerates into unmaintainable "visual spaghetti." Real agent workflows are often filled with exception handling, conditional branching, state rollback, and dynamic retry mechanisms. For example, when an agent fails to call an external billing interface, the system needs to decide whether to wait and retry, call a backup interface, or trigger manual approval interception based on different error codes. On low-code platforms, implementing this kind of multi-level nested dynamic control flow requires connecting a large number of conditional judgment nodes, which not only makes the workflow visually extremely chaotic but also makes subsequent modifications and version control of the logic exceptionally difficult. Furthermore, platforms usually have strict hard limits on execution node timeout periods (for example, limited to within ten minutes), which directly kills long-cycle agent tasks that require hours or even days of deep reasoning and information gathering.</p>
+<p>Second, the black-boxed execution engine leads to system-level debugging disasters. Low-code platforms deeply encapsulate underlying API interactions, context truncation strategies, and prompt assembly logic. For developers, the entire agent execution process is completely an invisible black box. Although some platforms provide isolated testing functionality for single nodes, they generally lack standard line-by-line breakpoint debugging, memory variable inspection, and execution call stack tracing capabilities found in modern integrated development environments. When a complex multi-agent workflow composed of dozens of nodes crashes at some intermediate stage, it is very difficult for developers to inspect the precise state tensor or dynamically generated prompt context at that moment, making fault attribution exceptionally difficult. As relevant empirical research points out, on low-code platforms, cascading failures caused by natural language interaction ambiguity often propagate implicitly between heterogeneous nodes, making system reliability verification an almost impossible task.</p>
+<p>Third, closed ecosystems and customization extension barriers. Enterprise AI agents often need to be deeply integrated into legacy systems within the organization, which requires orchestration platforms to have extremely high protocol integration flexibility. Although low-code platforms provide rich pre-built connectors, when facing non-standard security authentication protocols or highly customized data processing needs, developers are often at their wits' end. Although platforms allow embedding small amounts of Python or JavaScript code snippets in specific nodes, this not only fails to change the fact that core scheduling logic is constrained by the platform engine, but also drags the platform into a difficult-to-maintain "high-code" quagmire. More critically, agent applications built based on platform-specific formats cannot seamlessly connect to enterprise-standard CI/CD pipelines, nor can they leverage professional distributed tracing infrastructure for performance profiling.</p>
+<p>The following table details the core features of current mainstream low-code orchestration platforms and their limitations in complex agent scenarios:</p>
+<table>
+<thead>
+<tr>
+<th>Platform Name</th>
+<th>Core Architecture and Positioning</th>
+<th>Main Advantages</th>
+<th>Core Limitations in Complex Agent Scenarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dify</td>
+<td>LLMOps and Backend-as-a-Service integrated AI application development platform</td>
+<td>Excellent visual prompt IDE, built-in comprehensive RAG engine and dataset management, supports multiple application types</td>
+<td>Lacks advanced background batch processing and long-cycle scheduled task support; workflow nesting and loop control capabilities are weak; difficult to perform deep code-level custom debugging</td>
+</tr>
+<tr>
+<td>Coze</td>
+<td>Multi-channel deployment oriented AI chatbot and agent building platform</td>
+<td>Dual execution engines (exploration and planning modes), extremely rich built-in plugin marketplace, one-click publishing across social platforms</td>
+<td>Strict execution timeout limits (overall workflow limited to 10 minutes), killing long-range complex tasks; lacks open-source local private deployment options, data privacy restricted</td>
+</tr>
+<tr>
+<td>n8n</td>
+<td>General enterprise-level business process automation and data orchestration system</td>
+<td>Extremely strong general system integration capability, supports complex scheduled triggers and data flow, allows deep embedding of custom code in nodes</td>
+<td>Not natively designed for AI agents, lacks built-in context management, intent recognition, and complex RAG support; appears too cumbersome when building agent logic centered on natural language reasoning</td>
+</tr>
+</tbody>
+</table>
+<h3 id="architectural-debt-of-general-purpose-programming-language-frameworks-langgraph-and-autogen-as-examples">Architectural Debt of General-Purpose Programming Language Frameworks: LangGraph and AutoGen as Examples<a class="headerlink" href="#architectural-debt-of-general-purpose-programming-language-frameworks-langgraph-and-autogen-as-examples" title="Permanent link">&para;</a></h3>
+<p>Facing the limitations of low-code platforms, professional software engineers are more inclined to use general-purpose programming languages like Python with specialized agent frameworks to build systems. In this field, frameworks such as LangGraph, AutoGen, and CrewAI dominate. LangGraph achieves fine-grained state control by introducing directed acyclic graph variant mechanisms; AutoGen focuses on building flexible multi-agent dialogue and collaboration patterns; CrewAI emphasizes role assignment and pipeline processing based on human organizational structures. However, "forcing" the construction of probabilistic agent systems based on probability distributions within the ecosystem of general-purpose deterministic languages similarly inevitably brings huge architectural debt and engineering pain points.</p>
+<p><strong>The first major pain point is the complexity of state management and the context collapse effect.</strong></p>
+<p>In traditional microservice architectures, state is typically stored as fixed structured fields in relational databases. However, in AI agent systems, state contains intricate conversation histories, logic chains of intermediate reasoning steps, and large amounts of unstructured tool execution results. Taking LangGraph as an example, developers need to pre-define extremely strict state schemas and control the merging logic of state after each node execution through complex reducer functions. As the complexity of multi-agent networks increases, this rigid state definition leads to rapid code bloat. Even more critically, Python frameworks themselves do not "understand" the context window limitations of underlying language models, and developers must manually write tedious middleware to crop, truncate, or summarize historical records. If state management strategies are slightly careless, fully passing verbose execution history not only causes API call costs to increase exponentially but also triggers a serious "context collapse" phenomenon—models lose focus in massive inputs, ignoring key instructions or constraints located in the middle of prompts. For long-cycle tasks requiring human intervention, frameworks have to introduce heavy external checkpoint systems (such as PostgreSQL storage) to forcibly serialize the memory state of the entire computation graph, greatly destroying code cohesion and execution efficiency.</p>
+<p><strong>The second major pain point is the severe redundancy of multi-agent communication and the handshake paradox.</strong></p>
+<p>When building multi-agent collaboration systems, how frameworks manage information transfer between agents is crucial. In dialogue-pattern or sequential-flow-based frameworks like AutoGen and CrewAI, inter-agent process communication is mainly achieved by completely stuffing the previous agent's unstructured natural language output into the next agent's system prompt. When executing complex tasks involving multi-step tool handoffs, this communication mechanism triggers catastrophic performance degradation. Due to the lack of a unified and efficient underlying state-shared memory model, each participating agent needs to re-consume large amounts of computing power to parse and understand the lengthy intentions and execution context of preceding agents each time it's their turn to execute. Authoritative benchmarks show that in highly complex collaboration scenarios, this inefficient coordination mechanism based on chat records not only leads to tremendous waste of computing resources but also triggers the "handoff paradox"—as communication chains lengthen, the accuracy of model instruction following shows a cliff-like decline, or even complete collapse.</p>
+<p><strong>The third major pain point is the profound conflict between non-deterministic execution and traditional language control flow.</strong></p>
+<p>The Python language is designed for highly deterministic logic control flow, and its exception handling mechanisms (such as <code>try...except</code> blocks) rely on clear type systems and predefined error stacks. However, language model agent outputs are essentially probabilistic, and their execution process is filled with unpredictable hallucinations and logical drift. When an agent framework attempts to capture and correct cognitive errors of large language models using deterministic syntax rules, code becomes exceptionally fragile and difficult to maintain. In multi-agent concurrent execution scenarios, due to the lack of language-level agent computing primitives, developers often face difficult-to-debug deadlocks, memory state desynchronization, and ad-hoc coordination mechanism failures. Forcibly fitting probabilistic reasoning logic into traditional software engineering paradigms not only increases system coupling but also means that every framework upgrade or minor prompt adjustment can trigger cascading failures of the entire business flow.</p>
+<p>The following table details the differences in underlying design philosophy and technical challenges among current mainstream Python agent frameworks:</p>
+<table>
+<thead>
+<tr>
+<th>Framework Name</th>
+<th>Core Design Paradigm</th>
+<th>Core Advantages</th>
+<th>Outstanding Technical Pain Points and Architectural Debt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LangGraph</td>
+<td>State graph and loop-based directed orchestration</td>
+<td>Extremely fine-grained control over complex workflows and state transitions, native support for cyclic reflection and persistent checkpoints, suitable for rigorous enterprise processes</td>
+<td>Extremely steep learning curve; requires developers to pre-define strict explicit state schemas; appears extremely cumbersome and code-verbose when handling high-concurrency dialogues and dynamic team collaboration</td>
+</tr>
+<tr>
+<td>AutoGen</td>
+<td>Agent-to-agent dialogue-based autonomous collaboration pattern</td>
+<td>Highly flexible multi-agent chat pattern, excellent built-in human-in-the-loop support, very suitable for code generation and open-ended research exploration tasks</td>
+<td>Prone to token consumption explosion and communication redundancy in long-chain tasks (handoff paradox); control flow lacks determinism, difficult to guarantee execution order; extremely difficult fault tracing in production environments</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>Human organizational structure mapping by role sequential assignment</td>
+<td>Architecture concepts are intuitive and easy to understand, extremely fast prototyping, abstracts complex underlying communication details, suitable for linear business flow automation</td>
+<td>Severely lacks support for complex loops and conditional branching; multi-agent interaction relies entirely on sequential passing of task outputs, resulting in limited flexibility; deep customization and state debugging are exceptionally difficult</td>
+</tr>
+</tbody>
+</table>
+<h2 id="nexa-reshaping-the-underlying-native-agent-oriented-programming-language">Nexa: Reshaping the Underlying Native Agent-Oriented Programming Language<a class="headerlink" href="#nexa-reshaping-the-underlying-native-agent-oriented-programming-language" title="Permanent link">&para;</a></h2>
+<p>Through a deep analysis of the current agent orchestration ecosystem, we can draw a clear conclusion: whether it's the black-box encapsulation of low-code platforms or the over-engineering of Python frameworks, the fundamental reason is that existing technology stacks merely treat large language models as an external "remote service interface" of the system, rather than a core component of the computing infrastructure. Under this paradigm, handling complex memory truncation, probabilistic error retries, and multi-agent communication is barely maintained by complex middleware at the application layer.</p>
+<p>To completely eliminate this profound impedance mismatch, computer science needs a natively designed agent-oriented programming language. Nexa was born for this purpose. Nexa is not yet another tool library built on top of Python, but a system-level language that deeply practices the "Software 3.0" philosophy. In Nexa's design philosophy, intelligent agents, long-short term memory, and probabilistic reasoning are no longer attachment components attached to code, but are elevated to first-class primitives of equal importance to integers and strings in traditional programming languages. Nexa completely solves the structural crisis of existing paradigms in state management and multi-agent communication by reconstructing underlying computing primitives and the runtime environment.</p>
+<h3 id="native-equality-and-the-establishment-of-first-class-primitives">Native Equality and the Establishment of First-Class Primitives<a class="headerlink" href="#native-equality-and-the-establishment-of-first-class-primitives" title="Permanent link">&para;</a></h3>
+<p>In traditional frameworks, to have agents execute specific tasks, developers need to write large and hardcoded tool functions (such as <code>generate_financial_report()</code>), and agents are merely responsible for calling this packaged black box. Nexa completely overturns this pattern; it strictly follows the "principle of equality" at the language level: any operation that a human can execute through the system interface, an agent should be able to achieve by combining the most basic atomic-level primitives.</p>
+<p>In Nexa's syntax, file system read/write, Bash terminal operations, and network requests all exist as highly optimized system-level primitives. Developers no longer rigidly prescribe agent workflows through code, but instead define functionality as a "goal-oriented prompt plus a set of atomic tools." The agent itself runs in a controlled execution loop, autonomously selecting and combining these underlying primitives to achieve goals. This design gives Nexa extremely strong emergent capabilities, enabling agents to solve complex problems through innovative paths that developers never anticipated. To improve system execution efficiency and security, Nexa allows developers to solidify frequently used operation paths into specific domain tools when necessary, but this is only for optimizing performance or adding hard safety guardrails; agents still retain the right to fall back to using basic primitives to handle edge cases.</p>
+<h3 id="revolutionary-context-aware-reasoning-primitive-reason">Revolutionary Context-Aware Reasoning Primitive: <code>reason()</code><a class="headerlink" href="#revolutionary-context-aware-reasoning-primitive-reason" title="Permanent link">&para;</a></h3>
+<p>One of the most revolutionary designs in the Nexa language is abstracting tedious model interface calls into native <code>reason()</code> primitives and endowing them with powerful type inference capabilities. In Python, handling structured parsing of model outputs requires relying on external libraries for complex schema definitions and validation. In Nexa, the compiler can automatically adjust the backend's instruction injection and output forced parsing strategies based on the assignment context of variables.</p>
+<p>For example, when a developer needs to assess the risk of an investment portfolio, the following code can be written in Nexa:</p>
+<div class="highlight"><pre><span></span><code>// Nexa&#39;s powerful context-aware reasoning: the compiler automatically constrains the model&#39;s output form based on the type declaration on the left
+float risk_score = reason(&quot;Evaluate the risk index of given data&quot;, context=portfolio_data);
+dict risk_details = reason(&quot;Evaluate the risk index of given data&quot;, context=portfolio_data);
+string risk_report = reason(&quot;Evaluate the risk index of given data&quot;, context=portfolio_data);
+</code></pre></div>
+<p>This intelligent primitive not only greatly simplifies the development process, but more importantly, while ensuring the execution safety of strongly typed languages, it perfectly embraces the flexible computing characteristics of language models, enabling the system to maintain high availability even when processing fuzzy inputs.</p>
+<h3 id="explicit-state-control-and-memory-as-program-msr-underlying-mechanism">Explicit State Control and Memory-as-Program (MSR) Underlying Mechanism<a class="headerlink" href="#explicit-state-control-and-memory-as-program-msr-underlying-mechanism" title="Permanent link">&para;</a></h3>
+<p>Addressing the catastrophic state management and context collapse issues in multi-agent systems, Nexa has deeply reconstructed at the runtime level. Nexa does not rely on bloated external databases to forcibly persist state, but introduces an innovative "Memory Segment Rewrite (MSR)" mechanism. From Nexa's perspective, an agent's memory is no longer a rigid log record, but an extension of the agent's own executable program.</p>
+<p>When an agent continues running and the context window approaches saturation, Nexa's underlying environment engine is automatically triggered, semantically compressing and structurally rewriting redundant memory while ensuring the integrity of the core reasoning logic chain. Additionally, Nexa completely replaces fragile prompt scheduling through language-level control flow. Developers can use standard syntax structures to write introspective repair loops, making every state transition completely transparent and easy to debug, completely ending the black-box nightmare of low-code platforms.</p>
+<h3 id="efficient-multi-agent-communication-and-poet-self-evolution-pipeline">Efficient Multi-Agent Communication and POET Self-Evolution Pipeline<a class="headerlink" href="#efficient-multi-agent-communication-and-poet-self-evolution-pipeline" title="Permanent link">&para;</a></h3>
+<p>At the multi-agent collaboration level, Nexa abandons the inefficient pure-text system prompt concatenation method found in frameworks like AutoGen. Nexa builds native inter-process communication (IPC) mechanisms specifically designed for intelligent agents at the underlying operating system level. Agents can pass precise state snapshots and execution environments through dedicated structured tensor channels, completely eliminating the computational waste and accuracy degradation caused by the "handoff paradox."</p>
+<p>Furthermore, Nexa has built-in combinatorial pipeline operators that support adaptive evolution. Through simple syntax like <code>portfolio | risk_assessment | recommendation_engine</code>, developers can quickly set up multi-agent pipelines. Even more critically, the Nexa runtime integrates POET mechanisms, meaning that function logic within agents is not static, but can autonomously fine-tune behavioral strategies and collaboration methods in production environments by continuously analyzing real runtime feedback, achieving self-iteration and evolution of code-level capabilities.</p>
+<h3 id="1-making-agent-a-first-class-concept">1. Making Agent a First-Class Concept<a class="headerlink" href="#1-making-agent-a-first-class-concept" title="Permanent link">&para;</a></h3>
+<p>In traditional languages, "numbers," "strings," and "functions" are first-class citizens; in object-oriented languages, "Class" and "Object" are first-class citizens. In Nexa, the Agent that can "think and verify" itself is a first-class citizen. Like functional programming, you can combine, pass, and even higher-order call them arbitrarily.</p>
+<p>You no longer need to instantiate those huge cross-library modules; you only need to use the minimalist <code>agent</code> keyword to create an entity cognitive unit.</p>
+<div class="highlight"><pre><span></span><code>// All prompts, role definitions, model engines, and even fallback logic are completed in the same native semantic block
+agent PythonExpert {
+    role: &quot;Senior Backend Developer&quot;
+    prompt: &quot;You write memory-efficient, mathematically sound Python code.&quot;
+}
+</code></pre></div>
+<p><strong>Significance</strong>: This encapsulation perfectly unifies and isolates "persona" and "computing power allocation." Developers only need to read this block to immediately grasp the scope of responsibility of the Agent.</p>
+<h3 id="2-embracing-strong-contracts-and-static-checking-protocol-types">2. Embracing Strong Contracts and Static Checking (Protocol &amp; Types)<a class="headerlink" href="#2-embracing-strong-contracts-and-static-checking-protocol-types" title="Permanent link">&para;</a></h3>
+<p>Python's "loose" structure as a dynamically typed language, combined with the "uncertainty" of large language model outputs themselves, creates a disastrous combination when they meet. Nexa thoroughly打通s strong typed protocols (Protocol) at the language底层. This design keeps large model hallucinations out:</p>
+<ul>
+<li>When you declare that an Agent <code>implements</code> a certain Protocol, the underlying runtime engine will immediately intercept the Raw Token returned by the model.</li>
+<li><strong>Auto-Correction Evaluator</strong>: Even if the model outputs characters that don't meet the format requirements, Nexa no longer needs you to write ugly <code>try-except</code> or error reports. It has woven an implicit interception net at compile time. Format errors will trigger an internal micro-loop, feeding the error with red lines back to the model, forcing it to correct until it absolutely matches the Protocol. This is also the underlying deep intervention that only a "self-developed language" can achieve.</li>
+</ul>
+<h3 id="3-replacing-procedural-rigid-polling-with-declarative-graph-structures">3. Replacing Procedural Rigid Polling with Declarative Graph Structures<a class="headerlink" href="#3-replacing-procedural-rigid-polling-with-declarative-graph-structures" title="Permanent link">&para;</a></h3>
+<p>We observed that developers were extremely tormented when using traditional flow control to execute Agent Orchestration, so we decided to sink complex collaboration directly into syntactic operators:</p>
+<ul>
+<li><strong>Pipeline Data Bus (<code>&gt;&gt;</code>)</strong>: Passes information with a Unix-like perfect flow sense, implicitly preserving context coherence.</li>
+<li><strong>Intent Branch Dispatch (<code>match ... intent()</code>)</strong>: Language-level lightweight model discrimination hooks.</li>
+<li><strong>Concurrent State Aggregation (<code>join</code>)</strong>: Language-level multi-core Map-Reduce parallel operations.</li>
+</ul>
+<p>These declarative operations written directly on paper allow the Nexa compiler to intelligently construct huge directed acyclic graphs (DAG) before runtime, automatically handling those parallel task pools and blocking wait (Promise Resuming) problems that give you headaches in Python.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="../../search/search_index.json"
+  data-current-page="preface_background.en.md"
+  data-current-title="Background &amp; Evolution"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="../../img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="../../javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../preface/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Reshaping Agent Paradigm">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Reshaping Agent Paradigm
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../preface_scenarios/" class="md-footer__link md-footer__link--next" aria-label="Next: Scenarios &amp; Analysis">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Scenarios & Analysis
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3200 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/cli_reference/">
+      
+      
+        <link rel="prev" href="../reference/">
+      
+      
+        <link rel="next" href="../stdlib_reference/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="zh">
+        
+          <link rel="alternate" href="../en/cli_reference/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CLI 命令参考 - Nexa 官方文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nexa-cli" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="Nexa 官方文档" class="md-header__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa 官方文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CLI 命令参考
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../en/cli_reference/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  主页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part1_basic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  语法指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  深入设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  社区与未来
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考资源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考手册
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nexa 官方文档" class="md-nav__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa 官方文档
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前言与理念
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    前言与理念
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    重构智能体开发范式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调研背景与技术演进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    典型场景与对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献与参与
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法指南
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    语法指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part1_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础语法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part2_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法扩展
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生态与标准库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    深入设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    深入设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译器设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    企业级架构特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构演进与未来(Rust/WASM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最佳实践
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与未来
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    社区与未来
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    未来展望
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与生态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    完整示例集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题与排查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考手册
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考手册
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI 命令参考
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI 命令参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        命令总览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安装验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 核心命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 核心命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-nexa-build-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 nexa build - 编译程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-nexa-run-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 nexa run - 运行程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-nexa-test-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 nexa test - 运行测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-agent-native-tooling-v130" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Agent-Native Tooling 命令 (v1.3.0)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Agent-Native Tooling 命令 (v1.3.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-nexa-inspect-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 nexa inspect - 结构分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-nexa-validate-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 nexa validate - 语义验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-nexa-lint-lint-v131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 nexa lint - 类型系统 Lint (v1.3.1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-idd-v110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. IDD 意图驱动开发命令 (v1.1.0)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. IDD 意图驱动开发命令 (v1.1.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-nexa-intent-check-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 nexa intent check - 意图检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-nexa-intent-coverage-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 nexa intent coverage - 意图覆盖率
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-http-server-v134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HTTP Server 命令 (v1.3.4)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HTTP Server 命令 (v1.3.4)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-nexa-serve-http-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 nexa serve - 启动 HTTP Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-nexa-routes-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 nexa routes - 列出路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-v133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 后台任务管理命令 (v1.3.3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 后台任务管理命令 (v1.3.3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-nexa-jobs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 nexa jobs - 任务管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-nexa-workers-worker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 nexa workers - Worker 管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 缓存管理命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 缓存管理命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-nexa-cache-clear-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 nexa cache clear - 清理缓存
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 全局选项
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 环境变量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 退出码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 相关资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标准库 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📖 概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        命令总览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        安装验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 核心命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 核心命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-nexa-build-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 nexa build - 编译程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-nexa-run-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 nexa run - 运行程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-nexa-test-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 nexa test - 运行测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-agent-native-tooling-v130" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Agent-Native Tooling 命令 (v1.3.0)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Agent-Native Tooling 命令 (v1.3.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-nexa-inspect-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 nexa inspect - 结构分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-nexa-validate-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 nexa validate - 语义验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-nexa-lint-lint-v131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 nexa lint - 类型系统 Lint (v1.3.1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-idd-v110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. IDD 意图驱动开发命令 (v1.1.0)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. IDD 意图驱动开发命令 (v1.1.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-nexa-intent-check-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 nexa intent check - 意图检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-nexa-intent-coverage-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 nexa intent coverage - 意图覆盖率
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-http-server-v134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. HTTP Server 命令 (v1.3.4)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. HTTP Server 命令 (v1.3.4)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-nexa-serve-http-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 nexa serve - 启动 HTTP Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-nexa-routes-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 nexa routes - 列出路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-v133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 后台任务管理命令 (v1.3.3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 后台任务管理命令 (v1.3.3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-nexa-jobs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 nexa jobs - 任务管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-nexa-workers-worker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 nexa workers - Worker 管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 缓存管理命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 缓存管理命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-nexa-cache-clear-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 nexa cache clear - 清理缓存
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 全局选项
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 环境变量
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 退出码
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 相关资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="nexa-cli">Nexa CLI 命令参考<a class="headerlink" href="#nexa-cli" title="Permanent link">&para;</a></h1>
+<p>本文档详细描述 Nexa 命令行工具的所有命令、参数和使用示例。所有命令均与源码 <code>src/cli.py</code> 严格匹配。</p>
+<hr />
+<h2 id="_1">📖 概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Nexa CLI 是 Nexa 语言的命令行接口，提供编译、运行、测试、检查、Lint、意图验证、HTTP 服务、后台任务管理等功能。</p>
+<h3 id="_2">命令总览<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nexa build</code></td>
+<td>编译 .nx 文件为 .py</td>
+<td>v0.9.7+</td>
+</tr>
+<tr>
+<td><code>nexa run</code></td>
+<td>编译并执行 .nx 文件</td>
+<td>v0.9.7+</td>
+</tr>
+<tr>
+<td><code>nexa test</code></td>
+<td>编译并运行测试</td>
+<td>v0.9.7+</td>
+</tr>
+<tr>
+<td><code>nexa inspect</code></td>
+<td>结构分析 (Agent-Native Tooling)</td>
+<td>v1.3.0</td>
+</tr>
+<tr>
+<td><code>nexa validate</code></td>
+<td>语义验证</td>
+<td>v1.3.0</td>
+</tr>
+<tr>
+<td><code>nexa lint</code></td>
+<td>类型系统 Lint (渐进式类型系统)</td>
+<td>v1.3.1</td>
+</tr>
+<tr>
+<td><code>nexa intent check</code></td>
+<td>IDD 意图检查</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><code>nexa intent coverage</code></td>
+<td>IDD 意图覆盖率</td>
+<td>v1.1.0</td>
+</tr>
+<tr>
+<td><code>nexa serve</code></td>
+<td>启动 HTTP Server</td>
+<td>v1.3.4</td>
+</tr>
+<tr>
+<td><code>nexa routes</code></td>
+<td>列出 HTTP 路由</td>
+<td>v1.3.4</td>
+</tr>
+<tr>
+<td><code>nexa jobs</code></td>
+<td>后台任务管理</td>
+<td>v1.3.3</td>
+</tr>
+<tr>
+<td><code>nexa workers</code></td>
+<td>Worker 管理</td>
+<td>v1.3.3</td>
+</tr>
+<tr>
+<td><code>nexa cache clear</code></td>
+<td>清理缓存</td>
+<td>v0.9.7+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">安装验证<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检查安装版本</span>
+nexa<span class="w"> </span>--version
+
+<span class="c1"># 查看帮助信息</span>
+nexa<span class="w"> </span>--help
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">版本显示</p>
+<p><code>--version</code> 参数显示当前安装的 Nexa 版本号。当前特性集覆盖 v1.1–v1.3.x。</p>
+</div>
+<hr />
+<h2 id="1">1. 核心命令<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11-nexa-build-">1.1 <code>nexa build</code> - 编译程序<a class="headerlink" href="#11-nexa-build-" title="Permanent link">&para;</a></h3>
+<p>将 Nexa 代码编译为 Python 代码，不执行。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>build<span class="w"> </span>&lt;FILE&gt;
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要编译的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 编译为 Python</span>
+nexa<span class="w"> </span>build<span class="w"> </span>main.nx
+
+<span class="c1"># 编译指定文件</span>
+nexa<span class="w"> </span>build<span class="w"> </span>examples/01_hello_world.nx
+</code></pre></div>
+<p><strong>输出说明</strong>：</p>
+<div class="highlight"><pre><span></span><code>🔨 Compiling main.nx ...
+✨ Success! Built target: main.py
+</code></pre></div>
+<p>编译产物为同目录下的 <code>.py</code> 文件（如 <code>main.nx</code> → <code>main.py</code>）。</p>
+<div class="admonition note">
+<p class="admonition-title">include 支持</p>
+<p><code>build</code> 命令支持 <code>include</code> 语句，可将其他 .nx 文件的内容合并到当前文件的 AST 顶部。</p>
+</div>
+<hr />
+<h3 id="12-nexa-run-">1.2 <code>nexa run</code> - 运行程序<a class="headerlink" href="#12-nexa-run-" title="Permanent link">&para;</a></h3>
+<p>编译并执行 Nexa 程序。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>run<span class="w"> </span>&lt;FILE&gt;
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要运行的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 基本运行</span>
+nexa<span class="w"> </span>run<span class="w"> </span>main.nx
+
+<span class="c1"># 运行示例文件</span>
+nexa<span class="w"> </span>run<span class="w"> </span>examples/01_hello_world.nx
+</code></pre></div>
+<p><strong>输出说明</strong>：</p>
+<div class="highlight"><pre><span></span><code>🔨 Compiling main.nx ...
+✨ Success! Built target: main.py
+🚀 Running main.py ...
+==================================================
+[INFO] Agent &#39;Analyst&#39; started
+[RESULT] 执行结果...
+==================================================
+✅ Execution Finished (Exit code: 0)
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">中断执行</p>
+<p>运行中按 <code>Ctrl+C</code> 可中断执行，输出 <code>⚠️ Execution interrupted by user.</code> 并以退出码 130 结束。</p>
+</div>
+<hr />
+<h3 id="13-nexa-test-">1.3 <code>nexa test</code> - 运行测试<a class="headerlink" href="#13-nexa-test-" title="Permanent link">&para;</a></h3>
+<p>编译 .nx 文件并执行其中所有 <code>test_</code> 前缀的测试函数。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span><span class="nb">test</span><span class="w"> </span>&lt;FILE&gt;
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要测试的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 运行测试</span>
+nexa<span class="w"> </span><span class="nb">test</span><span class="w"> </span>main.nx
+</code></pre></div>
+<p><strong>输出说明</strong>：</p>
+<div class="highlight"><pre><span></span><code>🔨 Compiling main.nx ...
+✨ Success! Built target: main.py
+🧪 Testing main.nx ...
+==================================================
+[PASS] test_basic_pipeline
+[PASS] test_intent_routing
+[FAIL] test_edge_case
+      AssertionError: 输出不符合预期
+==================================================
+💥 1 failed, 2 passed.
+</code></pre></div>
+<hr />
+<h2 id="2-agent-native-tooling-v130">2. Agent-Native Tooling 命令 (v1.3.0)<a class="headerlink" href="#2-agent-native-tooling-v130" title="Permanent link">&para;</a></h2>
+<h3 id="21-nexa-inspect-">2.1 <code>nexa inspect</code> - 结构分析<a class="headerlink" href="#21-nexa-inspect-" title="Permanent link">&para;</a></h3>
+<p>对 .nx 文件进行结构分析，输出 Agent、Tool、Flow 等元素的结构描述。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>inspect<span class="w"> </span>&lt;FILE&gt;<span class="w"> </span><span class="o">[</span>--format<span class="w"> </span>json<span class="p">|</span>text<span class="o">]</span>
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要分析的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+<tr>
+<td><code>--format</code></td>
+<td>输出格式：<code>json</code> 或 <code>text</code></td>
+<td><code>json</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># JSON 格式输出</span>
+nexa<span class="w"> </span>inspect<span class="w"> </span>main.nx<span class="w"> </span>--format<span class="w"> </span>json
+
+<span class="c1"># 文本格式输出</span>
+nexa<span class="w"> </span>inspect<span class="w"> </span>main.nx<span class="w"> </span>--format<span class="w"> </span>text
+</code></pre></div>
+<hr />
+<h3 id="22-nexa-validate-">2.2 <code>nexa validate</code> - 语义验证<a class="headerlink" href="#22-nexa-validate-" title="Permanent link">&para;</a></h3>
+<p>对 .nx 文件进行语义验证，检查语法和语义错误。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>validate<span class="w"> </span>&lt;FILE&gt;<span class="w"> </span><span class="o">[</span>--json<span class="o">]</span><span class="w"> </span><span class="o">[</span>--quiet<span class="o">]</span>
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要验证的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>JSON 格式输出</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>--quiet</code></td>
+<td>静默模式，只输出错误</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 基本验证</span>
+nexa<span class="w"> </span>validate<span class="w"> </span>main.nx
+
+<span class="c1"># JSON 格式输出</span>
+nexa<span class="w"> </span>validate<span class="w"> </span>main.nx<span class="w"> </span>--json
+
+<span class="c1"># 静默模式</span>
+nexa<span class="w"> </span>validate<span class="w"> </span>main.nx<span class="w"> </span>--quiet
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">退出码</p>
+<p>验证失败时退出码为 1，可用于 CI/CD 流程。</p>
+</div>
+<hr />
+<h3 id="23-nexa-lint-lint-v131">2.3 <code>nexa lint</code> - 类型系统 Lint (v1.3.1)<a class="headerlink" href="#23-nexa-lint-lint-v131" title="Permanent link">&para;</a></h3>
+<p>对 .nx 文件运行渐进式类型系统的 Lint 检查。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>lint<span class="w"> </span>&lt;FILE&gt;<span class="w"> </span><span class="o">[</span>--strict<span class="o">]</span><span class="w"> </span><span class="o">[</span>--warn-untyped<span class="o">]</span>
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要 lint 的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+<tr>
+<td><code>--strict</code></td>
+<td>严格模式：缺失类型标注 = lint 错误</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>--warn-untyped</code></td>
+<td>警告模式：缺失类型标注发出警告</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 默认 lint（只检查有类型标注的代码）</span>
+nexa<span class="w"> </span>lint<span class="w"> </span>app.nx
+
+<span class="c1"># 严格模式</span>
+nexa<span class="w"> </span>lint<span class="w"> </span>app.nx<span class="w"> </span>--strict
+
+<span class="c1"># 警告未标注代码</span>
+nexa<span class="w"> </span>lint<span class="w"> </span>app.nx<span class="w"> </span>--warn-untyped
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Lint 模式说明</p>
+<ul>
+<li><strong>默认模式</strong>：只检查有类型标注的代码</li>
+<li><strong><code>--warn-untyped</code></strong>：对缺失类型标注发出警告</li>
+<li><strong><code>--strict</code></strong>：缺失类型标注视为 lint 错误（非零退出码）</li>
+</ul>
+<p>Lint 模式也可通过 <code>NEXA_LINT_MODE</code> 环境变量或 <code>nexa.toml</code> 配置文件设置。</p>
+</div>
+<hr />
+<h2 id="3-idd-v110">3. IDD 意图驱动开发命令 (v1.1.0)<a class="headerlink" href="#3-idd-v110" title="Permanent link">&para;</a></h2>
+<h3 id="31-nexa-intent-check-">3.1 <code>nexa intent check</code> - 意图检查<a class="headerlink" href="#31-nexa-intent-check-" title="Permanent link">&para;</a></h3>
+<p>验证代码是否符合 <code>.nxintent</code> 文件中定义的意图规范。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>intent<span class="w"> </span>check<span class="w"> </span>&lt;FILE&gt;<span class="w"> </span><span class="o">[</span>--intent<span class="w"> </span>&lt;INTENT_FILE&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>--verbose<span class="o">]</span>
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要检查的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+<tr>
+<td><code>--intent</code></td>
+<td>指定 .nxintent 文件路径</td>
+<td>自动查找</td>
+</tr>
+<tr>
+<td><code>--verbose</code></td>
+<td>显示详细输出</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 基本意图检查</span>
+nexa<span class="w"> </span>intent<span class="w"> </span>check<span class="w"> </span>main.nx
+
+<span class="c1"># 指定意图文件</span>
+nexa<span class="w"> </span>intent<span class="w"> </span>check<span class="w"> </span>main.nx<span class="w"> </span>--intent<span class="w"> </span>intents/main.nxintent
+
+<span class="c1"># 详细输出</span>
+nexa<span class="w"> </span>intent<span class="w"> </span>check<span class="w"> </span>main.nx<span class="w"> </span>--verbose
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">退出码</p>
+<p>所有意图检查未通过时退出码为 1。</p>
+</div>
+<hr />
+<h3 id="32-nexa-intent-coverage-">3.2 <code>nexa intent coverage</code> - 意图覆盖率<a class="headerlink" href="#32-nexa-intent-coverage-" title="Permanent link">&para;</a></h3>
+<p>显示代码的意图覆盖率报告。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>intent<span class="w"> </span>coverage<span class="w"> </span>&lt;FILE&gt;<span class="w"> </span><span class="o">[</span>--intent<span class="w"> </span>&lt;INTENT_FILE&gt;<span class="o">]</span>
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>要检查的 .nx 源文件路径</td>
+<td>必需</td>
+</tr>
+<tr>
+<td><code>--intent</code></td>
+<td>指定 .nxintent 文件路径</td>
+<td>自动查找</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 查看覆盖率</span>
+nexa<span class="w"> </span>intent<span class="w"> </span>coverage<span class="w"> </span>main.nx
+
+<span class="c1"># 指定意图文件</span>
+nexa<span class="w"> </span>intent<span class="w"> </span>coverage<span class="w"> </span>main.nx<span class="w"> </span>--intent<span class="w"> </span>intents/main.nxintent
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">提升覆盖率</p>
+<p>覆盖率低于 100% 时，系统会提示添加 <code>@implements</code> 注解来提升覆盖率。</p>
+</div>
+<hr />
+<h2 id="4-http-server-v134">4. HTTP Server 命令 (v1.3.4)<a class="headerlink" href="#4-http-server-v134" title="Permanent link">&para;</a></h2>
+<h3 id="41-nexa-serve-http-server">4.1 <code>nexa serve</code> - 启动 HTTP Server<a class="headerlink" href="#41-nexa-serve-http-server" title="Permanent link">&para;</a></h3>
+<p>编译 .nx 文件并启动内置 HTTP 服务器。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>serve<span class="w"> </span>&lt;FILE&gt;<span class="w"> </span><span class="o">[</span>--port<span class="w"> </span>&lt;PORT&gt;<span class="o">]</span>
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>包含 server 声明的 .nx 文件路径</td>
+<td>必需</td>
+</tr>
+<tr>
+<td><code>--port</code></td>
+<td>指定服务端口</td>
+<td>文件中声明值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 启动 HTTP Server</span>
+nexa<span class="w"> </span>serve<span class="w"> </span>web_app.nx
+
+<span class="c1"># 指定端口</span>
+nexa<span class="w"> </span>serve<span class="w"> </span>web_app.nx<span class="w"> </span>--port<span class="w"> </span><span class="m">3000</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">server DSL</p>
+<p>.nx 文件中使用 <code>server</code> DSL 定义 HTTP 服务器：
+<div class="highlight"><pre><span></span><code>server 8080 {
+    static &quot;/assets&quot; from &quot;./public&quot;
+    cors { origins: [&quot;*&quot;], methods: [&quot;GET&quot;, &quot;POST&quot;] }
+    route GET &quot;/chat&quot; =&gt; ChatBot
+    route POST &quot;/analyze&quot; =&gt; DataExtractor |&gt;&gt; Analyzer
+}
+</code></pre></div></p>
+</div>
+<hr />
+<h3 id="42-nexa-routes-">4.2 <code>nexa routes</code> - 列出路由<a class="headerlink" href="#42-nexa-routes-" title="Permanent link">&para;</a></h3>
+<p>解析 .nx 文件并列出所有 HTTP 路由。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>routes<span class="w"> </span>&lt;FILE&gt;<span class="w"> </span><span class="o">[</span>--json<span class="o">]</span>
+</code></pre></div>
+<p><strong>参数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE</code></td>
+<td>包含 server 声明的 .nx 文件路径</td>
+<td>必需</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>JSON 格式输出</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 列出路由</span>
+nexa<span class="w"> </span>routes<span class="w"> </span>web_app.nx
+
+<span class="c1"># JSON 格式输出</span>
+nexa<span class="w"> </span>routes<span class="w"> </span>web_app.nx<span class="w"> </span>--json
+</code></pre></div>
+<hr />
+<h2 id="5-v133">5. 后台任务管理命令 (v1.3.3)<a class="headerlink" href="#5-v133" title="Permanent link">&para;</a></h2>
+<h3 id="51-nexa-jobs-">5.1 <code>nexa jobs</code> - 任务管理<a class="headerlink" href="#51-nexa-jobs-" title="Permanent link">&para;</a></h3>
+<p>管理后台 Job 系统中的任务。</p>
+<p><strong>子命令</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>子命令</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list</code></td>
+<td><code>[--status &lt;STATUS&gt;]</code></td>
+<td>列出所有任务，可按状态过滤</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>&lt;JOB_ID&gt;</code></td>
+<td>查看指定任务状态</td>
+</tr>
+<tr>
+<td><code>cancel</code></td>
+<td><code>&lt;JOB_ID&gt;</code></td>
+<td>取消指定任务</td>
+</tr>
+<tr>
+<td><code>retry</code></td>
+<td><code>&lt;JOB_ID&gt;</code></td>
+<td>重试死信任务</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>-</td>
+<td>清理已完成/过期/取消的任务</td>
+</tr>
+</tbody>
+</table>
+<p><strong>状态过滤选项</strong>（<code>--status</code>）：</p>
+<p><code>pending</code>, <code>running</code>, <code>completed</code>, <code>failed</code>, <code>dead</code>, <code>cancelled</code>, <code>expired</code></p>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 列出所有任务</span>
+nexa<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>list
+
+<span class="c1"># 只列出失败任务</span>
+nexa<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>list<span class="w"> </span>--status<span class="w"> </span>failed
+
+<span class="c1"># 查看任务状态</span>
+nexa<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>status<span class="w"> </span>job_123
+
+<span class="c1"># 取消任务</span>
+nexa<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>cancel<span class="w"> </span>job_123
+
+<span class="c1"># 重试死信任务</span>
+nexa<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>retry<span class="w"> </span>job_456
+
+<span class="c1"># 清理已完成任务</span>
+nexa<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>clear
+</code></pre></div>
+<hr />
+<h3 id="52-nexa-workers-worker">5.2 <code>nexa workers</code> - Worker 管理<a class="headerlink" href="#52-nexa-workers-worker" title="Permanent link">&para;</a></h3>
+<p>管理后台 Job Worker。</p>
+<p><strong>子命令</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>子命令</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>start</code></td>
+<td><code>&lt;FILE&gt;</code></td>
+<td>启动 Worker（需先编译含 job 定义的 .nx 文件）</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>-</td>
+<td>查看 Worker 和队列状态</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 启动 Worker</span>
+nexa<span class="w"> </span>workers<span class="w"> </span>start<span class="w"> </span>jobs_app.nx
+
+<span class="c1"># 查看 Worker 状态</span>
+nexa<span class="w"> </span>workers<span class="w"> </span>status
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">job DSL</p>
+<p>.nx 文件中使用 <code>job</code> DSL 定义后台任务：
+<div class="highlight"><pre><span></span><code>job SendEmail on &quot;emails&quot; (retry: 2, timeout: 120) {
+    perform(user_id) { ... }
+    on_failure(error, attempt) { ... }
+}
+</code></pre></div></p>
+</div>
+<hr />
+<h2 id="6">6. 缓存管理命令<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61-nexa-cache-clear-">6.1 <code>nexa cache clear</code> - 清理缓存<a class="headerlink" href="#61-nexa-cache-clear-" title="Permanent link">&para;</a></h3>
+<p>清理 <code>.nexa_cache/</code> 缓存目录。</p>
+<p><strong>语法</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>cache<span class="w"> </span>clear
+</code></pre></div>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre><span></span><code>nexa<span class="w"> </span>cache<span class="w"> </span>clear
+<span class="c1"># 输出: ✅ Cache cleared successfully.</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">缓存说明</p>
+<p>如果缓存目录不存在，输出 <code>ℹ️ No cache directory found.</code></p>
+</div>
+<hr />
+<h2 id="7">7. 全局选项<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--version</code> / <code>-v</code></td>
+<td>显示版本号并退出</td>
+</tr>
+<tr>
+<td><code>--help</code></td>
+<td>显示帮助信息</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 环境变量<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>Nexa CLI 支持以下环境变量：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NEXA_TYPE_MODE</code></td>
+<td>运行时类型检查模式 (<code>strict</code>, <code>warn</code>, <code>forgiving</code>)</td>
+<td><code>warn</code></td>
+</tr>
+<tr>
+<td><code>NEXA_LINT_MODE</code></td>
+<td>Lint 类型检查模式 (<code>default</code>, <code>warn</code>, <code>strict</code>)</td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>NEXA_PORT</code></td>
+<td>HTTP Server 端口覆盖</td>
+<td>文件声明值</td>
+</tr>
+<tr>
+<td><code>PYTHONPATH</code></td>
+<td>Python 模块搜索路径</td>
+<td>自动设置</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">类型模式优先级</p>
+<p><code>NEXA_TYPE_MODE</code> 的优先级：CLI flag &gt; 环境变量 &gt; <code>nexa.toml</code> 配置 &gt; 默认值 (<code>warn</code>)</p>
+</div>
+<hr />
+<h2 id="9">9. 退出码<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>退出码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>成功</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>一般错误 / 验证失败 / 意图检查失败</td>
+</tr>
+<tr>
+<td><code>130</code></td>
+<td>用户中断 (Ctrl+C)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">🔗 相关资源<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../reference/">语言参考手册</a></li>
+<li><a href="../stdlib_reference/">标准库 API</a></li>
+<li><a href="../troubleshooting/">常见问题与排查</a></li>
+<li><a href="../quickstart/">快速入门</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="../search/search_index.json"
+  data-current-page="cli_reference.md"
+  data-current-title="CLI 命令参考"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="../img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="../javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../reference/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 语言参考">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                语言参考
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../stdlib_reference/" class="md-footer__link md-footer__link--next" aria-label="下一页: 标准库 API">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                标准库 API
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>

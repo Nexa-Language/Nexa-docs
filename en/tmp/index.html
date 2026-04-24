@@ -1,0 +1,2214 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/en/tmp/">
+      
+      
+      
+      
+        
+          <link rel="alternate" href="../../tmp/" hreflang="zh">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>人工智能代理与原生面向代理编程：从语言模型演进到Nexa语言的架构重构 - Nexa Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nexa" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Nexa Documentation" class="md-header__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              人工智能代理与原生面向代理编程：从语言模型演进到Nexa语言的架构重构
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../tmp/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part1_basic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Grammar Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  In-depth Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Community & Future
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference Manual
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Nexa Documentation" class="md-nav__button md-logo" aria-label="Nexa Documentation" data-md-component="logo">
+      
+  <img src="../../img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Preface & Philosophy
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Preface & Philosophy
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reshaping Agent Paradigm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Background & Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios & Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Grammar Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part1_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Syntax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part2_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grammar Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem & Stdlib
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    In-depth Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    In-depth Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compiler Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community & Future
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community & Future
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example Collection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Manual
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference Manual
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stdlib API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        引言
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        大型语言模型与人工智能代理的演进纪传
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="大型语言模型与人工智能代理的演进纪传">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        理论奠基与早期自然语言处理的探索
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        大型语言模型的崛起与指令遵循
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        代理化周期的开启：工具调用、记忆与自主规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openclaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        现代代理架构的工程化巅峰：OpenClaw与技能生态
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        当前代理编排范式的全景调查与深度局限性分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="当前代理编排范式的全景调查与深度局限性分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#difycozen8n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        弱代码代理编排范式的困境：以Dify、Coze与n8n为例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#langgraphautogen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        通用编程语言框架的架构债务：以LangGraph与AutoGen为例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nexa_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nexa：重塑底层的原生面向代理编程语言
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nexa：重塑底层的原生面向代理编程语言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原生平权与一等公民原语的确立
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reason" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        颠覆性的上下文感知推理原语：reason()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#msr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        显式状态控制与记忆即程序（MSR）底层机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        高效的多代理通信与POET自我进化管线
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型应用场景与多维度对比分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="典型应用场景与多维度对比分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景一：多代理协作的代码生成与全链路软件工程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agentic-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景二：动态长周期的深度金融研报撰写与Agentic RAG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ithitl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        场景三：高风险企业级IT运维与原生人在回路（HITL）审批
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结语
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="nexa">人工智能代理与原生面向代理编程：从语言模型演进到Nexa语言的架构重构<a class="headerlink" href="#nexa" title="Permanent link">&para;</a></h1>
+<h2 id="_1">引言<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>在计算科学的历史长河中，编程语言的演进始终与底层计算范式的变迁保持着高度的同频共振。从汇编语言对硬件指令的直接映射，到C语言对内存管理的抽象，再到面向对象编程语言对复杂数据结构与业务逻辑的封装，每一次抽象层级的跃升都是为了解决上一代系统在规模扩展时所遭遇的瓶颈。当前，计算科学正处于一场由大型语言模型驱动的深刻变革之中，软件工程正在经历从“软件1.0”（由人类编写的确定性逻辑）向“软件3.0”（由自然语言驱动、模型自主推演的智能系统）的跨越 。在这种全新范式下，系统不再仅仅是静态的代码集合，而是展现出自主感知、逻辑推理与工具调用特征的“代理”实体。
+构建和编排这些具备高度自主性的人工智能代理，已经成为当前学术界与工业界的核心议题。然而，随着多代理系统在复杂企业级环境中的广泛部署，现有的应用构建方式暴露出严重的架构缺陷。无论是基于图形界面的弱代码编排平台，还是基于传统确定性编程语言的代理框架，都试图用旧时代的工具来驾驭新时代的非确定性概率引擎，从而导致了严重的阻抗失配。本报告旨在全面梳理从早期大型语言模型至今的人工智能代理演进历程，深入剖析当前主流代理编排方式在状态管理、多代理通信与工程化落地方面的底层痛点，并系统性地阐述一门全新的原生面向代理编程语言——Nexa，将如何通过重构底层计算原语与状态抽象机制，彻底突破现有范式的局限性。</p>
+<h2 id="_2">大型语言模型与人工智能代理的演进纪传<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>人工智能代理的发展并非一蹴而就的孤立事件，而是伴随着底层神经网络架构的创新、模型参数规模的指数级增长以及微调技术的不断突破，经历了一个从静态文本生成器到动态自主执行者的漫长演进过程。</p>
+<h3 id="_3">理论奠基与早期自然语言处理的探索<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>人工智能代理的哲学与理论根基可以追溯到二十世纪中叶的逻辑与问题求解研究 。早期的自动机理论为计算的符号操作确立了数学模型，而基于信念-愿望-意图模型的代理架构则为面向代理编程提供了最初的理论框架 。在这一时期，研究人员试图通过预先定义的严格逻辑规则和正式的知识表示来构建智能体。虽然这种基于符号推理的方法在特定约束环境下取得了一定成功，但由于现实世界的高度复杂性与模糊性，早期系统始终无法突破领域泛化的瓶颈。系统的行为完全受限于开发者人工编写的逻辑树，一旦面临规则库之外的场景，代理便会陷入瘫痪。</p>
+<h3 id="_4">大型语言模型的崛起与指令遵循<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>2020年，具有一千七百五十亿参数的GPT-3模型的发布，标志着现代大型语言模型时代的正式开启 。该模型首次向世界展示了，在海量无监督数据上预训练的巨型Transformer神经网络，能够在无需针对特定下游任务进行微调的情况下，仅通过上下文提示学习就能完成翻译、问答甚至基础的代码编写工作 。然而，这一阶段的模型本质上仍然是无状态的自回归文本补全引擎，它们只能被动地根据输入概率分布预测下一个词元，无法主动感知环境，也不具备执行复杂多步任务的能力。
+计算范式的根本性转折发生在2022年底，通过引入人类反馈强化学习技术，模型从单纯的文本预测器进化为能够深刻理解并遵循人类意图的对话系统 。这一技术跃迁不仅解决了模型输出的安全性与对齐问题，更催生了思维链等高级提示工程技术 。研究人员发现，引导模型将复杂问题拆解为多个中间推理步骤，可以显著降低幻觉现象并大幅提升逻辑推理的准确性 。思维链技术本质上是人类驱动的代理循环的雏形，它证明了语言模型具备在其上下文窗口内进行内隐式规划与推演的能力，从而为后续完全由人工智能驱动的自主代理架构奠定了认知基础。</p>
+<h3 id="_5">代理化周期的开启：工具调用、记忆与自主规划<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>进入2023年，人工智能代理的理论框架开始真正走向工程化落地。研究界和工业界逐渐意识到，无论语言模型的参数规模多大，其内部权重所编码的知识总是静态且受限的，无法应对实时性与交互性要求极高的真实世界任务。为了打破这一瓶颈，系统开始被赋予与外部世界交互的“手和眼”。WebGPT和Toolformer等研究项目证明了语言模型可以自主决定何时以及如何调用外部应用程序接口 。随后，各大模型提供商正式引入了结构化的函数调用功能，使得模型能够以可解析的数据格式输出参数，从而与外部软件系统进行确定性的交互 。
+在这一时期，代理系统的核心能力被正式解构为感知、记忆、规划与行动四大模块 。在记忆机制方面，系统不再仅仅依赖于单次会话的上下文窗口，而是引入了结合短期工作记忆与长期检索增强生成的混合存储架构 。代理能够将历史交互经验向量化并持久化存储，在需要时进行语义检索，从而实现跨会话的知识累积 。在规划能力方面，代理从简单的单步响应进化为具备任务分解、自我反思与错误纠正能力的循环系统。通过反思机制，代理能够自主评估工具调用的结果，并在遭遇失败时动态调整后续策略 。这种将语言模型嵌入到包含感知、推理、行动与反馈的闭环系统中的架构，正式宣告了代理化时代的到来。</p>
+<h3 id="openclaw">现代代理架构的工程化巅峰：OpenClaw与技能生态<a class="headerlink" href="#openclaw" title="Permanent link">&para;</a></h3>
+<p>到了2025至2026年，人工智能代理从云端的实验室走向了终端用户的本地计算环境。以OpenClaw为代表的开源代理架构成为了这一阶段的标志性里程碑，其在短时间内获得了极高的开发者关注与开源社区贡献 。OpenClaw的核心创新在于将人工智能代理从一个被动的聊天机器人转化为一个具备极高自主性的本地系统级编排引擎 。
+OpenClaw的底层架构展示了当前最先进的单体代理设计模式。系统由一个常驻的本地网关组成，该网关充当控制平面，负责将不同通信渠道的输入进行标准化处理，并管理底层的会话路由 。在代理循环层，系统通过上下文组装机制动态合并对话历史、长期记忆与系统指令，随后将组装好的上下文传递给模型推理引擎 。为了赋予代理真实的行动能力，OpenClaw引入了高度模块化的技能机制。这些技能以特定的文件格式存储，包含了工具使用的元数据和指令，代理可以在运行时根据任务需求动态加载并执行这些技能 。
+这种架构虽然赋予了代理极大的自主性，但也引发了前所未有的工程与安全挑战。随着技能生态的繁荣，恶意指令注入、工具投毒与隐藏载荷等安全威胁日益凸显，攻击者甚至可以通过伪装的技能指导代理在宿主机器上执行恶意脚本或下载后门程序 。此外，为了解决并发执行导致的日志混乱与状态污染，OpenClaw在架构底层强制采用了车道队列系统，默认使用串行模式执行代理工作流，这凸显了在现有操作系统架构下管理非确定性人工智能任务的艰巨性 。
+为了清晰呈现这一技术演进的脉络，下表对各阶段的核心特征进行了系统性梳理：</p>
+<table>
+<thead>
+<tr>
+<th>演进阶段</th>
+<th>时间节点</th>
+<th>核心技术里程碑</th>
+<th>系统架构特征</th>
+<th>典型代表或功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>理论奠基期</td>
+<td>2020年以前</td>
+<td>符号逻辑与面向代理编程理论</td>
+<td>基于严密的逻辑规则库与显式状态表征，系统缺乏泛化能力。</td>
+<td>早期专家系统、BDI代理架构</td>
+</tr>
+<tr>
+<td>大规模生成期</td>
+<td>2020-2022年</td>
+<td>GPT-3发布与人类反馈强化学习</td>
+<td>无状态的自回归文本生成，依赖指令遵循与零样本学习。</td>
+<td>基础LLM、早期ChatGPT</td>
+</tr>
+<tr>
+<td>能力扩展期</td>
+<td>2023年</td>
+<td>思维链推理与外部工具调用</td>
+<td>引入结构化函数调用，模型开始通过API与外部世界进行确定性交互。</td>
+<td>WebGPT、Toolformer</td>
+</tr>
+<tr>
+<td>代理闭环期</td>
+<td>2023-2024年</td>
+<td>规划框架与长短期记忆机制</td>
+<td>模型被嵌入到包含感知、行动、反思的执行循环中，具备任务分解能力。</td>
+<td>Agentic RAG、BabyAGI</td>
+</tr>
+<tr>
+<td>生态与系统期</td>
+<td>2025-2026年</td>
+<td>本地化部署与标准化技能扩展</td>
+<td>代理作为系统级进程运行，通过模块化技能扩展能力，面临复杂的并发与安全挑战。</td>
+<td>OpenClaw、模型上下文协议 (MCP)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">当前代理编排范式的全景调查与深度局限性分析<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>随着单体人工智能代理能力的日趋成熟，企业的关注点不可避免地转向了多代理系统。在多代理系统中，多个具备特定领域知识的代理需要相互协作、共享上下文并协调执行复杂的长周期业务流。为了降低多代理系统的构建门槛，工业界演化出了两种截然不同的编排范式：面向业务人员的弱代码可视化编排平台，以及面向专业开发者的通用编程语言框架。然而，深入剖析这两种范式在企业级生产环境中的实际表现，可以发现它们都存在着难以逾越的底层架构局限。</p>
+<h3 id="difycozen8n">弱代码代理编排范式的困境：以Dify、Coze与n8n为例<a class="headerlink" href="#difycozen8n" title="Permanent link">&para;</a></h3>
+<p>为了实现人工智能应用开发的民主化，Dify、Coze和n8n等低代码或无代码平台在过去几年中取得了显著的商业成功。这类平台将复杂的大型语言模型调用、提示词工程、检索增强生成以及工具集成抽象为直观的图形化节点，用户只需通过在可视化画布上拖拽并连接这些节点，即可快速构建原型系统 。
+然而，当这些平台被应用于具有严格容错要求、复杂状态流转和高定制化需求的企业级生产环境时，其架构上的先天不足便暴露无遗。弱代码编排平台在处理简单的线性自动化任务时表现优异，但在面对真实的非线性智能业务逻辑时，往往会遭遇以下致命瓶颈：
+第一，随着业务逻辑复杂度的增加，可视化画布会迅速退化为不可维护的“视觉意大利面” 。真实的代理工作流往往充满了异常处理、条件分支、状态回退和动态重试机制。例如，当一个代理在调用外部计费接口失败时，系统需要根据不同的错误码决定是等待重试、调用备用接口还是触发人工审批拦截。在低代码平台上，实现这种多层嵌套的动态控制流需要连结大量的条件判断节点，不仅导致工作流在视觉上极度混乱，更使得逻辑的后续修改与版本控制变得异常艰难。此外，平台通常对执行节点的超时时间（例如限制在十分钟以内）有严格的硬性规定，这直接扼杀了需要数小时甚至数天进行深度推演和信息搜集的长周期代理任务 。
+第二，黑盒化的执行引擎导致了系统级的调试灾难。低代码平台将底层的API交互、上下文截断策略和提示词组装逻辑深度封装，对开发者而言，整个代理的执行过程完全是一个不可见的黑盒 。虽然部分平台提供了单节点的隔离测试功能，但它们普遍缺乏现代集成开发环境中标准的逐行断点调试、内存变量探查和执行调用栈追踪能力 。当一个由数十个节点组成的复杂多代理工作流在中间某个环节崩溃时，开发者很难探查到当时的精确状态张量或动态生成的提示词上下文，导致故障归因异常困难。正如相关实证研究所指出的，在低代码平台上，由自然语言交互模糊性引发的级联失败往往会在异构节点间隐式传播，使得系统的可靠性验证成为一项几乎不可能完成的任务 。
+第三，封闭的生态系统与定制化扩展壁垒。企业级人工智能代理往往需要深度集成到组织内部的遗留系统中，这要求编排平台具备极高的协议对接灵活性。低代码平台虽然提供了丰富的预置连接器，但在面对非标准的安全认证协议或高度定制的数据处理需求时，开发者往往无计可施 。虽然平台允许在特定节点中嵌入少量的Python或JavaScript代码片段，但这不仅无法改变系统核心调度逻辑受制于平台引擎的事实，反而将平台拖入了难以维护的“高代码”泥潭 。更为关键的是，这种基于平台专有格式构建的代理应用，无法无缝接入企业标准的持续集成与持续部署流水线，也无法利用专业的分布式追踪基础设施进行性能剖析 。
+下表详细对比了当前主流弱代码编排平台的核心特性及其在复杂代理场景下的局限性：</p>
+<table>
+<thead>
+<tr>
+<th>平台名称</th>
+<th>核心架构与定位</th>
+<th>主要优势特征</th>
+<th>复杂代理场景下的核心局限性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dify</td>
+<td>LLMOps与后端即服务融合的AI应用开发平台</td>
+<td>优秀的可视化提示词IDE，内置完善的RAG引擎与数据集管理，支持多种应用类型构建。</td>
+<td>缺乏高级的后台批处理与长周期定时任务支持；工作流嵌套与循环控制能力较弱；难以进行深度的代码级定制调试 。</td>
+</tr>
+<tr>
+<td>Coze</td>
+<td>面向多渠道部署的AI聊天机器人与代理构建平台</td>
+<td>双执行引擎（探索与规划模式），极其丰富的内置插件市场，跨社交平台的一键发布能力。</td>
+<td>严格的执行超时限制（整体工作流限制10分钟），扼杀了长程复杂任务；缺乏开源的本地私有化部署选项，数据隐私受限 。</td>
+</tr>
+<tr>
+<td>n8n</td>
+<td>通用型企业级业务流程自动化与数据编排系统</td>
+<td>极强的通用系统集成能力，支持复杂的定时触发与数据流转，允许在节点中深度嵌入自定义代码。</td>
+<td>并非为AI代理原生设计，缺乏内置的上下文管理、意图识别与复杂RAG支持；在构建以自然语言推理为核心的代理逻辑时显得过于笨重 。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="langgraphautogen">通用编程语言框架的架构债务：以LangGraph与AutoGen为例<a class="headerlink" href="#langgraphautogen" title="Permanent link">&para;</a></h3>
+<p>面对弱代码平台的局限，专业的软件工程师更加倾向于使用Python等通用编程语言，并借助专用的代理框架来构建系统。在这一领域，LangGraph、AutoGen和CrewAI等框架占据了主导地位 。LangGraph通过引入有向无环图的变体机制来实现细粒度的状态控制；AutoGen专注于构建灵活的多代理对话与协作模式；而CrewAI则强调基于人类组织架构的角色分配与流水线处理 。然而，在通用确定性语言的生态中“强行”构建基于概率分布的代理系统，同样不可避免地带来了巨大的架构债务与工程痛点。
+<strong>第一大痛点在于状态管理的复杂性与上下文坍塌效应。</strong>
+在传统的微服务架构中，状态通常是存储在关系型数据库中的固定结构化字段。然而，在人工智能代理系统中，状态包含了错综复杂的对话历史、中间推理步骤的逻辑链以及大量非结构化的工具执行结果。以LangGraph为例，开发者需要预先定义极其严格的状态模式，并通过复杂的归约函数（Reducer）来控制每一次节点执行后状态的合并逻辑 。随着多代理网络的复杂度增加，这种僵化的状态定义会导致代码量急剧膨胀。更为致命的是，Python框架本身并不“理解”底层语言模型的上下文窗口限制，开发者必须手动编写繁琐的中间件来裁剪、截断或对历史记录进行摘要处理。如果状态管理策略稍有不慎，全量传递冗长的执行历史不仅会导致API调用成本呈级数暴增，更会引发严重的“上下文坍塌”现象——模型在庞杂的输入中迷失焦点，忽略了位于提示词中间的关键指令或约束条件 。对于需要人类干预的长周期任务，框架不得不引入沉重的外部检查点系统（如PostgreSQL存储）来强行序列化整个计算图的内存状态，极大地破坏了代码的内聚性与执行效率 。
+<strong>第二大痛点是多代理通信的严重冗余与握手悖论。</strong>
+在构建多代理协作系统时，框架如何管理代理之间的信息传递至关重要。在AutoGen和CrewAI这类基于对话模式或顺序流转的框架中，代理间的进程间通信主要是通过将上一个代理的非结构化自然语言输出，完整地硬塞入下一个代理的系统提示词中来实现的 。在执行包含多步工具交接的复杂任务时，这种通信机制会引发灾难性的性能退化。由于缺乏统一且高效的底层状态共享内存模型，参与协作的每一个代理都需要在每次轮及自身执行时，重新消耗大量的算力去解析和理解前序代理的长篇意图与执行上下文。权威的基准测试表明，在高度复杂的协作场景下，这种基于聊天记录的低效协调机制不仅导致计算资源的极大浪费，更会引发“交接悖论”——随着通信链路的加长，模型指令遵循的准确率会呈现断崖式下跌，甚至完全崩溃 。
+<strong>第三大痛点在于非确定性执行与传统语言控制流的深刻冲突。</strong>
+Python语言是为高度确定性的逻辑控制流而设计的，其异常处理机制（如<code>try...except</code>块）依赖于明确的类型系统与预定义的错误栈。然而，语言模型代理的输出本质上是概率性的，其执行过程充满了不可预测的幻觉与逻辑漂移。当一个代理框架试图用确定性的语法规则去捕获并纠正大型语言模型的认知错误时，代码会变得异常脆弱且难以维护。在多代理并发执行的场景下，由于缺乏语言级别的代理计算原语，开发者往往面临难以调试的死锁、内存状态不同步以及特设的协调机制失效等问题 。将概率性推理逻辑生硬地套入传统的软件工程范式中，不仅增加了系统的耦合度，也使得框架的每一次升级或提示词的微小调整，都可能引发整个业务流的级联崩溃 。
+下表详细对比了当前主流Python代理框架在底层设计哲学与技术挑战上的差异：</p>
+<table>
+<thead>
+<tr>
+<th>框架名称</th>
+<th>核心设计范式</th>
+<th>核心优势</th>
+<th>突出的技术痛点与架构债务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LangGraph</td>
+<td>基于状态图与循环的有向编排</td>
+<td>对复杂工作流和状态流转具有极高的细粒度控制力，原生支持循环反思与持久化检查点，适合企业级严谨流程 。</td>
+<td>学习曲线极为陡峭；要求开发者预先定义严苛的显式状态模式；在处理高并发对话和动态团队协作时显得极其笨重且代码冗长 。</td>
+</tr>
+<tr>
+<td>AutoGen</td>
+<td>代理间基于对话的自主协作模式</td>
+<td>高度灵活的多智能体聊天模式，内置出色的人在回路支持，非常适合代码生成与开放式研究探索任务 。</td>
+<td>在长链路任务中容易遭遇令牌消耗爆炸与通信冗余（交接悖论）；控制流缺乏确定性，难以保证执行顺序；在生产环境中极难进行故障追踪 。</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>映射人类组织结构的按角色顺序分配</td>
+<td>架构概念直观易懂，原型开发速度极快，抽象了复杂的底层通信细节，适合线性业务流自动化 。</td>
+<td>严重缺乏对复杂循环与条件分支的支持；多智能体交互完全依赖于任务输出的顺序传递，导致灵活性受限；深度定制与状态调试异常困难 。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="nexa_1">Nexa：重塑底层的原生面向代理编程语言<a class="headerlink" href="#nexa_1" title="Permanent link">&para;</a></h2>
+<p>通过对当前代理编排生态的深度剖析，我们可以得出一个明确的结论：无论是低代码平台的黑盒化封装，还是Python框架的过度工程化，其根本原因在于现有的技术栈都仅仅将大型语言模型视为系统外部的一个“远程服务接口”，而不是计算基础设施的核心组成部分。在这种范式下，处理复杂的记忆截断、概率性错误重试以及多代理通信，全凭应用层的繁杂中间件来勉强维系。
+为了彻底消除这种深刻的阻抗失配，计算科学需要一门从零设计的原生面向代理（Agent-Native）编程语言。Nexa正是为此而生。Nexa并非又一个架设在Python之上的工具库，而是一门深刻践行“软件3.0”理念的系统级语言。在Nexa的设计哲学中，智能代理、长短期记忆与概率推理不再是依附于代码之上的外挂组件，而是被提升为与传统编程语言中的整数和字符串同等重要的一等公民（First-Class Primitives）。Nexa通过重构底层的计算原语与运行时环境，彻底解决了现有范式在状态管理与多体通信上的结构性危机。</p>
+<h3 id="_7">原生平权与一等公民原语的确立<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>在传统框架中，为了让代理执行特定任务，开发者需要编写庞大且硬编码的工具函数（例如<code>generate_financial_report()</code>），代理仅仅负责调用这个打包好的黑盒。Nexa彻底推翻了这一模式，它在语言层面严格遵循“平权原则”：任何人类可以通过系统界面执行的操作，代理都应该能够通过组合最基础的原子级原语来实现 。
+在Nexa的语法中，文件系统的读写、Bash终端操作、网络请求等都以高度优化的系统级原语存在。开发者不再通过代码去硬性规定代理的工作流，而是将功能定义为一个“目标导向的提示词（Prompt）加上一组原子工具”。代理本身运行在一个受控的执行循环中，通过自主选择和组合这些底层原语来达成目标 。这种设计赋予了Nexa极强的涌现能力，使得代理能够以开发者未曾预料到的创新路径解决复杂问题。为了提升系统的执行效率与安全性，Nexa允许开发者在必要时将高频使用的操作路径固化为具体的领域工具，但这仅仅是为了优化性能或添加硬性的安全护栏，代理依然保留着退回使用基础原语应对边缘情况的权利 。</p>
+<h3 id="reason">颠覆性的上下文感知推理原语：<code>reason()</code><a class="headerlink" href="#reason" title="Permanent link">&para;</a></h3>
+<p>Nexa语言中最为革命性的设计之一，是将繁琐的模型接口调用抽象为原生的<code>reason()</code>原语，并赋予其强大的类型推导能力。在Python中，处理模型输出的结构化解析需要依赖外部库进行复杂的Schema定义与校验。而在Nexa中，编译器能够根据变量的赋值上下文，自动调整后台对模型的指令注入与输出强制解析策略 。
+例如，当开发者需要评估一份投资组合的风险时，在Nexa中可以写出如下代码：</p>
+<p><div class="highlight"><pre><span></span><code>// Nexa强大的上下文感知推理：编译器根据左侧的类型声明自动约束模型的输出形态
+float risk_score = reason(&quot;评估给定数据的风险指数&quot;, context=portfolio_data);
+dict risk_details = reason(&quot;评估给定数据的风险指数&quot;, context=portfolio_data);
+string risk_report = reason(&quot;评估给定数据的风险指数&quot;, context=portfolio_data);
+</code></pre></div>
+这种智能的原语不仅极大简化了开发流程，更重要的是，它在保证了强类型语言的执行安全性的同时，完美拥抱了语言模型的柔性计算特征，使得系统在处理模糊输入时依然能保持高可用性。</p>
+<h3 id="msr">显式状态控制与记忆即程序（MSR）底层机制<a class="headerlink" href="#msr" title="Permanent link">&para;</a></h3>
+<p>针对多代理系统中灾难性的状态管理与上下文坍塌问题，Nexa在运行时级别进行了深刻的重构。Nexa并不依赖臃肿的外部数据库来强行持久化状态，而是引入了创新的“记忆段重写（Memory Segment Rewrite, MSR）”机制。在Nexa的视角下，代理的记忆不再是死板的日志记录，而是代理自身可执行程序的延伸 。
+当代理持续运行且上下文窗口接近饱和时，Nexa底层的环境引擎会自动触发，在确保核心推理逻辑链完整的前提下，对冗余记忆进行语义压缩和结构化重写。此外，Nexa通过语言级别的控制流彻底取代了脆弱的提示词调度。开发者可以使用标准的语法结构来编写具备自省能力的修复循环，使每一次状态转换都完全透明且易于调试，彻底终结了低代码平台的黑盒梦魇 。</p>
+<h3 id="poet">高效的多代理通信与POET自我进化管线<a class="headerlink" href="#poet" title="Permanent link">&para;</a></h3>
+<p>在多代理协作层面，Nexa摒弃了AutoGen等框架中低效的纯文本系统提示词拼接方式。Nexa在底层操作系统级别构建了专为智能代理设计的原生进程间通信（IPC）机制 。代理之间可以通过专门的结构化张量通道传递精确的状态快照和执行环境，从而完全消除了“交接悖论”导致的算力浪费和精度滑坡。
+此外，Nexa还内置了支持自适应进化的组合管道操作符。通过简单的语法<code>portfolio | risk_assessment | recommendation_engine</code>，开发者可以迅速搭建起多代理流水线。更为关键的是，Nexa运行时集成了POET机制，这意味着代理内部的函数逻辑并非一成不变，而是能够在生产环境中通过持续分析真实的运行反馈，自主微调行为策略与协作方式，实现代码级能力的自我迭代与进化 。</p>
+<h2 id="_8">典型应用场景与多维度对比分析<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>为了具象化地展现Agent-Native编程语言带来的范式降维打击，我们将构建三个高复杂度的典型代理编排场景，并系统性地对比现有主流方案与Nexa语言在面对这些挑战时的不同表现。</p>
+<h3 id="_9">场景一：多代理协作的代码生成与全链路软件工程<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><strong>场景设定：</strong>
+系统需要接收一条高度抽象的业务需求（例如：“设计并实现一个支持分布式限流的API网关核心逻辑”），随后自主完成架构设计、代码编写、单元测试执行、代码审查以及多轮错误修复闭环，最终输出可部署的代码制品。</p>
+<div class="highlight"><pre><span></span><code>// Nexa 场景一逻辑演绎：原生沙盒与自修复循环
+agent Coder (sandbox=&quot;container://golang-env&quot;);
+agent Tester (sandbox=&quot;container://golang-env&quot;);
+
+String requirement = &quot;实现分布式限流API网关&quot;;
+CodeArtifact current_code = Coder.reason(&quot;编写网关核心架构&quot;, context=requirement);
+
+// 利用Nexa原生的状态追踪循环，避免了历史信息的灾难性堆积
+while(true) {
+    TestResult result = Tester.execute(&quot;go test./...&quot;, target=current_code);
+    if (result.passed) break;
+    // 自动提取精准错误上下文，拒绝冗余通信
+    current_code = Coder.reason(&quot;基于测试失败信息修复代码逻辑&quot;, context=[current_code, result.error_stack]);
+}
+</code></pre></div>
+<h3 id="agentic-rag">场景二：动态长周期的深度金融研报撰写与Agentic RAG<a class="headerlink" href="#agentic-rag" title="Permanent link">&para;</a></h3>
+<p><strong>场景设定：</strong>
+构建一个金融情报系统，根据动态指令自主浏览数十个投资机构网站，抓取非结构化的海量财报PDF文件，综合提取核心财务指标，并推理撰写出一份深度分析报告。</p>
+<div class="highlight"><pre><span></span><code>// Nexa 场景二逻辑演绎：隐式记忆库与大规模信息处理
+agent FinancialAnalyst;
+
+// 原生处理动态数据流，无需手动干预Chunking与Embedding过程
+DataStream reports = Crawler.fetch(&quot;2025 AI Infrastructure Financials&quot;, max_depth=3);
+FinancialAnalyst.absorb(reports); 
+
+// 语言底层处理记忆段重写与混合检索，实现极简的高级推理
+List&lt;CompanyMetrics&gt; metrics = reason(&quot;提取各公司的核心资产负债表数据&quot;, context=FinancialAnalyst.memory);
+</code></pre></div>
+<h3 id="ithitl">场景三：高风险企业级IT运维与原生人在回路（HITL）审批<a class="headerlink" href="#ithitl" title="Permanent link">&para;</a></h3>
+<p><strong>场景设定：</strong>
+当企业生产环境的核心服务出现异常宕机时，运维代理需要自动执行日志拉取以诊断根本原因。但由于涉及高风险操作，在执行诸如重启集群或修改网络配置的实际修复动作前，系统必须挂起当前环境，等待人类高级工程师的审核与授权。</p>
+<p><div class="highlight"><pre><span></span><code>// Nexa 场景三逻辑演绎：安全沙箱隔离与原生状态挂起
+// 严格限制代理系统级权限，保障物理安全
+agent OpsAgent (permissions = [&quot;read_system_logs&quot;, &quot;restart_docker&quot;]);
+
+String crash_log = OpsAgent.execute(&quot;tail -n 200 /var/log/syslog&quot;);
+ActionPlan recovery_plan = reason(&quot;分析宕机原因并生成安全的重启策略&quot;, context=crash_log);
+
+if (recovery_plan.risk_level == &quot;HIGH&quot;) {
+    // Nexa原生的挂起原语：系统安全冻结状态并桥接通信渠道，等待异步人类响应
+    Approval status = wait_for_human(prompt=recovery_plan.summary, channel=&quot;Slack&quot;);
+    if (!status.granted) abort(&quot;人类已拒绝修复计划&quot;);
+}
+
+OpsAgent.execute(recovery_plan.commands);
+</code></pre></div>
+为了进一步总结这一比较分析，下表直观地展示了三种范式在核心系统能力上的差异：</p>
+<table>
+<thead>
+<tr>
+<th>评估维度</th>
+<th>弱代码平台 (如 Dify/Coze)</th>
+<th>Python通用框架 (如 LangGraph)</th>
+<th>Nexa 原生面向代理语言</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态流转与复杂循环</td>
+<td>极差 (画布混乱，受限死循环)</td>
+<td>一般 (需编写大量冗余样板代码定义Schema)</td>
+<td>极佳 (语言级原生控制流，代码极简)</td>
+</tr>
+<tr>
+<td>多代理通信开销</td>
+<td>极高 (纯文本串联导致成本暴增)</td>
+<td>高 (受限于模型特性，易引发交接悖论)</td>
+<td>极低 (A2A原生通信通道，张量级状态传递)</td>
+</tr>
+<tr>
+<td>执行透明度与调试</td>
+<td>黑盒 (难以追踪中间提示词状态)</td>
+<td>一般 (依赖外部昂贵的追踪服务)</td>
+<td>极佳 (命令式语法带来的显式透明与内置日志)</td>
+</tr>
+<tr>
+<td>持久化与人类审批 (HITL)</td>
+<td>极弱 (受限平台超时与简单触发)</td>
+<td>困难 (需深度配置外部持久化数据库组件)</td>
+<td>内置 (一等公民原语支持协程级无感挂起与恢复)</td>
+</tr>
+<tr>
+<td>扩展性与动态能力发现</td>
+<td>低 (高度受限的供应商生态锁定)</td>
+<td>中 (需手动处理大规模外部集成复杂性)</td>
+<td>高 (遵循平权原则的原生原子工具与系统沙盒支持)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">结语<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>在人工智能代理从辅助性的工具逐渐向能够独立承担复杂业务流程的自主实体演进的过程中，软件工程的底层范式面临着前所未有的挑战与重构需求。本报告的深度调研表明，尽管以Dify、Coze为代表的低代码编排平台极大地降低了原型开发的门槛，但它们在应对长周期、非线性和高度复杂的企业级逻辑时显得捉襟见肘，难以摆脱“黑盒”与定制化瓶颈。另一方面，以LangGraph和AutoGen为代表的Python框架，虽然提供了更强大的编排能力，却因为试图将基于概率分布的神经计算引擎强行塞入确定性语言的语法结构中，导致了状态管理的极端复杂、多代理通信成本的剧增以及系统架构的脆弱性。
+Nexa作为一门具有划时代意义的Agent-Native编程语言，正是为了彻底解决这种系统级的阻抗失配而诞生的。Nexa不仅仅提供了一套崭新的语法糖，它通过在语言内核中将代理、长短期记忆和概率推理确立为一等公民计算原语，重塑了软件工程的底层基石。其首创的上下文感知推理调用、记忆段重写机制以及原生的高效进程间通信通道，使得开发者能够彻底摆脱繁琐的状态拼接与中间件搭建，转而将核心精力聚焦于业务边界的划分与系统意图的精确表达。通过前文的代码生成、深度金融研究以及高风险IT运维场景的横向对比，Nexa展示了其在压缩样板代码、提升系统可调试性与强化执行安全方面无可比拟的架构优势。随着人工智能行业迈入全面代理化的新纪元，以Nexa为代表的面向代理编程范式，必将引领下一代计算基础设施的发展方向，成为构建可信、高效、具有自我进化能力智能系统的全新标准。</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="../../search/search_index.json"
+  data-current-page="tmp.md"
+  data-current-title="人工智能代理与原生面向代理编程：从语言模型演进到Nexa语言的架构重构"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="../../img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="../../javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>

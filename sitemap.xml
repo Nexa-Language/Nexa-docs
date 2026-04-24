@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://docs.nexa-lang.com/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/cli_reference/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/cli_reference/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/cli_reference/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/contribution/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/contribution/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/contribution/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/error_index/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/error_index/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/error_index/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/examples/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/examples/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/examples/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part1_basic/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part1_basic/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part1_basic/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part2_advanced/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part2_advanced/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part2_advanced/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part3_extensions/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part3_extensions/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part3_extensions/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part4_ecosystem_and_stdlib/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part4_ecosystem_and_stdlib/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part4_ecosystem_and_stdlib/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part4_future/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part4_future/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part4_future/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part5_architecture_evolution/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part5_architecture_evolution/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part5_architecture_evolution/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part5_compiler/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part5_compiler/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part5_compiler/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part5_enterprise/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part5_enterprise/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part5_enterprise/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part6_best_practices/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part6_best_practices/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part6_best_practices/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/part7_community/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part7_community/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part7_community/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/preface/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/preface/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/preface/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/preface_background/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/preface_background/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/preface_background/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/preface_scenarios/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/preface_scenarios/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/preface_scenarios/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/quickstart/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/reference/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/reference/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/reference/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/stdlib_reference/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/stdlib_reference/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/stdlib_reference/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/tmp/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/tmp/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/tmp/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/troubleshooting/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/troubleshooting/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/troubleshooting/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/cli_reference/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/cli_reference/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/cli_reference/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/contribution/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/contribution/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/contribution/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/error_index/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/error_index/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/error_index/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/examples/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/examples/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/examples/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part1_basic/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part1_basic/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part1_basic/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part2_advanced/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part2_advanced/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part2_advanced/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part3_extensions/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part3_extensions/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part3_extensions/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part4_ecosystem_and_stdlib/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part4_ecosystem_and_stdlib/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part4_ecosystem_and_stdlib/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part4_future/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part4_future/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part4_future/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part5_architecture_evolution/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part5_architecture_evolution/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part5_architecture_evolution/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part5_compiler/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part5_compiler/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part5_compiler/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part5_enterprise/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part5_enterprise/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part5_enterprise/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part6_best_practices/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part6_best_practices/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part6_best_practices/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/part7_community/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/part7_community/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/part7_community/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/preface/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/preface/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/preface/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/preface_background/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/preface_background/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/preface_background/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/preface_scenarios/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/preface_scenarios/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/preface_scenarios/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/quickstart/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/quickstart/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/reference/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/reference/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/reference/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/stdlib_reference/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/stdlib_reference/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/stdlib_reference/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/tmp/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/tmp/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/tmp/"/>
+    </url>
+    <url>
+        <loc>https://docs.nexa-lang.com/en/troubleshooting/</loc>
+        <lastmod>2026-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://docs.nexa-lang.com/en/troubleshooting/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://docs.nexa-lang.com/troubleshooting/"/>
+    </url>
+</urlset>

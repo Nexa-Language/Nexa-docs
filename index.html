@@ -1,0 +1,2751 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="智能体原生 (Agent-Native) 编程语言">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nexa-lang.com/">
+      
+      
+      
+        <link rel="next" href="quickstart/">
+      
+      
+        
+          <link rel="alternate" href="/" hreflang="zh">
+        
+          <link rel="alternate" href="/en/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="img/nexa-logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>首页 - Nexa 官方文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="stylesheets/agent.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#v11v13x-16" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="." title="Nexa 官方文档" class="md-header__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nexa 官方文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              首页
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="purple"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/en/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="." class="md-tabs__link">
+          
+  
+  
+    
+  
+  主页
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="part1_basic/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  语法指南
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="part5_compiler/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  深入设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="part4_future/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  社区与未来
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考资源
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  参考手册
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Nexa 官方文档" class="md-nav__button md-logo" aria-label="Nexa 官方文档" data-md-component="logo">
+      
+  <img src="img/nexa-logo-noframe.png" alt="logo">
+
+    </a>
+    Nexa 官方文档
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nexa-Language/Nexa" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nexa-Language/Nexa
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="." class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    主页
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    主页
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    快速入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前言与理念
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    前言与理念
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    重构智能体开发范式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="preface_background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    调研背景与技术演进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="preface_scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    典型场景与对比分析
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    贡献与参与
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法指南
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    语法指南
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part1_basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础语法
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part2_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高级特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part3_extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语法扩展
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part4_ecosystem_and_stdlib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生态与标准库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    深入设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    深入设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part5_compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编译器设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part5_enterprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    企业级架构特性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part5_architecture_evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构演进与未来(Rust/WASM)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part6_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最佳实践
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与未来
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    社区与未来
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part4_future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    未来展望
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part7_community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    社区与生态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考资源
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考资源
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    完整示例集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常见问题与排查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    参考手册
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    参考手册
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    语言参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI 命令参考
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="stdlib_reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标准库 API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="error_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    错误索引
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v11v13x-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🆕 v1.1–v1.3.x 重大更新：16 项核心特性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🆕 v1.1–v1.3.x 重大更新：16 项核心特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#p0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 P0：核心差异化特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 P1：基础能力特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟢 P2：高级特性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔵 P3：语言表达力
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v10-alpha-avm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🆕 v1.0-alpha 革命性更新：AVM 时代来临
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🆕 v1.0-alpha 革命性更新：AVM 时代来临">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rust-avm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🦀 Rust AVM 底座
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wasm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔒 WASM 安全沙盒
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 智能调度器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 向量虚存分页
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v101-v104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 v1.0.1 - v1.0.4 持续进化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 v1.0.1 - v1.0.4 持续进化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v101-beta-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔀 v1.0.1-beta: 传统控制流 &amp; Python 逃生舱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v102-beta-semantic-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 v1.0.2-beta: Semantic Types 语义类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v103-beta-cow-memory-work-stealing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐄 v1.0.3-beta: COW Memory &amp; Work-Stealing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v104-beta-python-sdk-cow-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐍 v1.0.4-beta: Python SDK COW Agent 状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 更多核心特性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 更多核心特性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#protocol-implements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        强类型协议约束 (protocol &amp; implements)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requires-ensures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        契约式编程 (requires &amp; ensures)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        渐进式类型系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otherwise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        错误传播 (? &amp; otherwise)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        模式匹配与 ADT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        管道操作符 (|&gt; &amp; &gt;&gt;)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null-defer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Null 合并 (??) 与 Defer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        字符串插值 (#{expr})
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        内置 HTTP Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loop-until" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        语义级控制流 (loop until)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-assert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原生测试框架 (test &amp; assert)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 设计哲学：写流程，而非胶水
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 设计哲学：写流程，而非胶水">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        与传统框架对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 学习路径
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📚 学习路径">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        新手入门
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        进阶学习
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        深入底层
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考手册
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题排查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nexa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌟 开始你的 Nexa 之旅
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<div class="portal-hero" style="margin-top: 2rem;">
+  <p class="portal-kicker">Agent-Native · Concurrent DAG · LLM</p>
+  <h1>开启智能体原生 (Agent-Native) 编程新纪元</h1>
+  <p class="portal-lead">
+    在这里，我们将彻底告别冗长的胶水代码、复杂的 Prompt 拼接与脆弱的 JSON 解析。Nexa 将意图路由、多智能体协作、管道流传输提权为核心语法，让你能用最优雅的姿态构建最硬核的 LLM 并发图。
+  </p>
+  <div class="portal-actions">
+    <a class="md-button md-button--primary" href="quickstart/">🚀 快速入门</a>
+    <a class="md-button" href="part1_basic/">📖 基础语法</a>
+    <a class="md-button" href="examples/">💡 完整示例</a>
+  </div>
+</div>
+
+<hr />
+<h2 id="v11v13x-16">🆕 v1.1–v1.3.x 重大更新：16 项核心特性<a class="headerlink" href="#v11v13x-16" title="Permanent link">&para;</a></h2>
+<p>自 v1.0-alpha 发布以来，Nexa 经历了 4 个优先级层级（P0–P3）的密集迭代，新增 <strong>16 项核心特性</strong>，总计 <strong>~1500+ 测试</strong>覆盖。以下按优先级分层概览：</p>
+<h3 id="p0">🔴 P0：核心差异化特性<a class="headerlink" href="#p0" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>意图驱动开发 (IDD)</strong></td>
+<td>v1.1.0</td>
+<td><code>intent</code> 声明 + <code>nexa intent-check/coverage</code> 验证，104 测试</td>
+</tr>
+<tr>
+<td><strong>契约式编程 (DbC)</strong></td>
+<td>v1.2.0</td>
+<td><code>requires/ensures/invariant</code> 前置/后置/不变式条件，47 测试</td>
+</tr>
+<tr>
+<td><strong>Agent-Native 工具链</strong></td>
+<td>v1.3.0</td>
+<td><code>nexa inspect/validate/lint</code> 语义级代码分析，41 测试</td>
+</tr>
+</tbody>
+</table>
+<h3 id="p1">🟡 P1：基础能力特性<a class="headerlink" href="#p1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>渐进式类型系统</strong></td>
+<td>v1.3.1</td>
+<td><code>Int/String/Option[T]/Result[T,E]</code> + <code>NEXA_TYPE_MODE</code> 三级模式，79 测试</td>
+</tr>
+<tr>
+<td><strong>错误传播 (<code>?</code> / <code>otherwise</code>)</strong></td>
+<td>v1.3.2</td>
+<td>Rust 风格 <code>?</code> 传播 + <code>otherwise</code> 回退，82 测试</td>
+</tr>
+<tr>
+<td><strong>后台 Job 系统</strong></td>
+<td>v1.3.3</td>
+<td><code>job</code> DSL + 优先级队列 + cron + retry，73 测试</td>
+</tr>
+<tr>
+<td><strong>内置 HTTP Server</strong></td>
+<td>v1.3.4</td>
+<td><code>server</code> DSL + CORS/CSP + 路由 + 热重载，94 测试</td>
+</tr>
+<tr>
+<td><strong>Database 集成</strong></td>
+<td>v1.3.5</td>
+<td>SQLite/PostgreSQL + Agent 记忆查询，79+5 测试</td>
+</tr>
+</tbody>
+</table>
+<h3 id="p2">🟢 P2：高级特性<a class="headerlink" href="#p2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Auth &amp; OAuth</strong></td>
+<td>v1.3.6</td>
+<td>API Key + JWT + OAuth 2.0 PKCE，79+5 测试</td>
+</tr>
+<tr>
+<td><strong>结构化并发</strong></td>
+<td>v1.3.6</td>
+<td><code>spawn/parallel/race/channel</code> + 18 API，172 测试</td>
+</tr>
+<tr>
+<td><strong>KV Store</strong></td>
+<td>v1.3.6</td>
+<td>SQLite 后端 + TTL + Agent KV，81 测试</td>
+</tr>
+<tr>
+<td><strong>Template 系统</strong></td>
+<td>v1.3.6</td>
+<td><code>template"""..."""</code> + 30+ 过滤器 + Agent 模板，209 测试</td>
+</tr>
+</tbody>
+</table>
+<h3 id="p3">🔵 P3：语言表达力<a class="headerlink" href="#p3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>管道操作符 <code>|&gt;</code></strong></td>
+<td>v1.3.x</td>
+<td><code>x |&gt; f</code> 左到右数据流，84 测试</td>
+</tr>
+<tr>
+<td><strong>Defer 语句</strong></td>
+<td>v1.3.x</td>
+<td>LIFO 清理，类似 Go defer，84 测试</td>
+</tr>
+<tr>
+<td><strong>Null 合并 <code>??</code></strong></td>
+<td>v1.3.x</td>
+<td><code>expr ?? fallback</code> 安全回退，84 测试</td>
+</tr>
+<tr>
+<td><strong>字符串插值 <code>#{}</code></strong></td>
+<td>v1.3.x</td>
+<td><code>"Hello #{name}"</code> Ruby 风格插值，100 测试</td>
+</tr>
+<tr>
+<td><strong>模式匹配 + 解构</strong></td>
+<td>v1.3.x</td>
+<td>7 种模式类型 + <code>match/let/for</code> 解构，91 测试</td>
+</tr>
+<tr>
+<td><strong>ADT (struct/enum/trait/impl)</strong></td>
+<td>v1.3.x</td>
+<td>代数数据类型系统，100 测试</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="v10-alpha-avm">🆕 v1.0-alpha 革命性更新：AVM 时代来临<a class="headerlink" href="#v10-alpha-avm" title="Permanent link">&para;</a></h2>
+<p>Nexa v1.0-alpha 引入了革命性的 <strong>Agent Virtual Machine (AVM)</strong> —— 一个用 Rust 编写的高性能、安全隔离的智能体执行引擎：</p>
+<h3 id="rust-avm">🦀 Rust AVM 底座<a class="headerlink" href="#rust-avm" title="Permanent link">&para;</a></h3>
+<p>从 Python 脚本解释转译模式跨越至基于 Rust 编写的独立编译型 Agent Virtual Machine：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>高性能字节码解释器</strong></td>
+<td>原生执行编译后的 Nexa 字节码</td>
+</tr>
+<tr>
+<td><strong>完整编译器前端</strong></td>
+<td>Lexer → Parser → AST → Bytecode</td>
+</tr>
+<tr>
+<td><strong>110+ 测试覆盖</strong></td>
+<td>全链路测试保证稳定性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wasm">🔒 WASM 安全沙盒<a class="headerlink" href="#wasm" title="Permanent link">&para;</a></h3>
+<p>在 AVM 中引入 WebAssembly，对外部 <code>tool</code> 执行提供强隔离：</p>
+<ul>
+<li><strong>wasmtime 集成</strong> - 高性能 WASM 运行时</li>
+<li><strong>权限分级</strong> - None/Standard/Elevated/Full 四级权限模型</li>
+<li><strong>资源限制</strong> - 内存、CPU、执行时间限制</li>
+<li><strong>审计日志</strong> - 完整的操作审计追踪</li>
+</ul>
+<h3 id="_1">⚡ 智能调度器<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>在 AVM 层基于系统负载动态分配并发资源：</p>
+<ul>
+<li><strong>优先级队列</strong> - 基于 Agent 优先级的任务调度</li>
+<li><strong>负载均衡</strong> - RoundRobin/LeastLoaded/Adaptive 策略</li>
+<li><strong>DAG 拓扑排序</strong> - 自动依赖解析与并行度分析</li>
+</ul>
+<h3 id="_2">📄 向量虚存分页<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>AVM 接管内存，自动执行对话历史的向量化置换：</p>
+<ul>
+<li><strong>LRU/LFU/Hybrid 淘汰策略</strong> - 智能页面置换</li>
+<li><strong>嵌入向量相似度搜索</strong> - 语义相关性加载</li>
+<li><strong>透明页面加载</strong> - 无感知的内存管理</li>
+</ul>
+<h3 id="_3">性能对比<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Python 转译器</th>
+<th>Rust AVM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编译时间</td>
+<td>~100ms</td>
+<td>~5ms</td>
+</tr>
+<tr>
+<td>启动时间</td>
+<td>~500ms</td>
+<td>~10ms</td>
+</tr>
+<tr>
+<td>内存占用</td>
+<td>~100MB</td>
+<td>~10MB</td>
+</tr>
+<tr>
+<td>并发 Agents</td>
+<td>~100</td>
+<td>~10000</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="v101-v104">🚀 v1.0.1 - v1.0.4 持续进化<a class="headerlink" href="#v101-v104" title="Permanent link">&para;</a></h2>
+<p>自 v1.0-alpha 发布以来，Nexa 持续快速迭代，带来了更多强大的语言特性：</p>
+<h3 id="v101-beta-python">🔀 v1.0.1-beta: 传统控制流 &amp; Python 逃生舱<a class="headerlink" href="#v101-beta-python" title="Permanent link">&para;</a></h3>
+<p>为 Agent 开发提供更灵活的编程能力：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>if/else if/else</code></td>
+<td>传统条件分支语句</td>
+</tr>
+<tr>
+<td><code>for each</code></td>
+<td>集合迭代循环</td>
+</tr>
+<tr>
+<td><code>while</code></td>
+<td>条件循环语句</td>
+</tr>
+<tr>
+<td><code>break/continue</code></td>
+<td>循环控制语句</td>
+</tr>
+<tr>
+<td><code>python! """..."""</code></td>
+<td>Python 代码嵌入逃生舱</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>// 传统控制流示例
+tasks = [&quot;task1&quot;, &quot;task2&quot;, &quot;task3&quot;];
+for each task in tasks {
+    if task == &quot;critical&quot; {
+        HighPriorityAgent.run(task);
+    } else {
+        NormalAgent.run(task);
+    }
+}
+
+// Python 逃生舱示例
+stats = python! &quot;&quot;&quot;
+    import statistics
+    data = json.loads(raw_data)
+    return statistics.mean(data)
+&quot;&quot;&quot;
+</code></pre></div>
+<h3 id="v102-beta-semantic-types">🎯 v1.0.2-beta: Semantic Types 语义类型<a class="headerlink" href="#v102-beta-semantic-types" title="Permanent link">&para;</a></h3>
+<p>革命性的类型系统，让类型携带语义约束：</p>
+<div class="highlight"><pre><span></span><code>// 类型不再只是格式约束，还包含语义含义
+type Email = string @ &quot;valid email address format&quot;
+type PositiveInt = int @ &quot;must be greater than 0&quot;
+
+protocol UserProfile {
+    name: UserName,
+    email: Email  // 自动验证邮箱格式
+}
+</code></pre></div>
+<h3 id="v103-beta-cow-memory-work-stealing">🐄 v1.0.3-beta: COW Memory &amp; Work-Stealing<a class="headerlink" href="#v103-beta-cow-memory-work-stealing" title="Permanent link">&para;</a></h3>
+<p>为高级推理模式提供底层支持：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>COW Memory</strong></td>
+<td>O(1) 状态分支，支持 Tree-of-Thoughts</td>
+</tr>
+<tr>
+<td><strong>Work-Stealing Scheduler</strong></td>
+<td>基于 Actor 模型的高效并发调度</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>// Tree-of-Thoughts 探索
+agent Thinker {
+    memory: &quot;cow&quot;  // 启用 COW 内存
+}
+
+// 多路径推理
+branch1 = Thinker.run(problem) |&gt;&gt; &quot;技术视角&quot;;
+branch2 = Thinker.run(problem) |&gt;&gt; &quot;商业视角&quot;;
+best = branch1 &amp;&amp; branch2;  // 共识合并
+</code></pre></div>
+<h3 id="v104-beta-python-sdk-cow-agent">🐍 v1.0.4-beta: Python SDK COW Agent 状态<a class="headerlink" href="#v104-beta-python-sdk-cow-agent" title="Permanent link">&para;</a></h3>
+<p>Python SDK 支持 COW Agent 状态管理，实现跨语言的状态分支：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Python SDK 中使用 COW Agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nexa</span><span class="w"> </span><span class="kn">import</span> <span class="n">CowAgent</span>
+
+<span class="n">agent</span> <span class="o">=</span> <span class="n">CowAgent</span><span class="p">(</span><span class="s2">&quot;analyzer&quot;</span><span class="p">)</span>
+<span class="n">branch1</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">branch</span><span class="p">()</span>  <span class="c1"># O(1) 创建分支</span>
+<span class="n">branch2</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">branch</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="_4">🎯 更多核心特性<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>除了代码简洁性，Nexa 还提供以下强大的语言级特性：</p>
+<h3 id="protocol-implements">强类型协议约束 (<code>protocol</code> &amp; <code>implements</code>)<a class="headerlink" href="#protocol-implements" title="Permanent link">&para;</a></h3>
+<p>告别不可控的模型字符串输出！原生支持契约式编程：</p>
+<div class="highlight"><pre><span></span><code>protocol ReviewResult {
+    score: &quot;int&quot;,
+    summary: &quot;string&quot;
+}
+
+agent Reviewer implements ReviewResult { 
+    prompt: &quot;Review the code...&quot;
+}
+</code></pre></div>
+<h3 id="requires-ensures">契约式编程 (<code>requires</code> &amp; <code>ensures</code>)<a class="headerlink" href="#requires-ensures" title="Permanent link">&para;</a></h3>
+<p>v1.2.0 引入 Design by Contract，在函数签名中声明前置/后置条件：</p>
+<div class="highlight"><pre><span></span><code>flow transfer(amount: int) -&gt; Result
+    requires: amount &gt; 0
+    requires: &quot;sender has sufficient balance&quot;
+    ensures: result.success == true
+{
+    // 执行转账逻辑
+}
+</code></pre></div>
+<h3 id="_5">渐进式类型系统<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>v1.3.1 引入可选类型标注，支持 <code>strict/warn/forgiving</code> 三级模式：</p>
+<div class="highlight"><pre><span></span><code>flow calculate(x: int, y: int) -&gt; int {
+    return x + y
+}
+
+// Option 和 Result 类型
+let opt: Option[int] = Some(42)
+let res: Result[string, Error] = Ok(&quot;success&quot;)
+</code></pre></div>
+<h3 id="otherwise">错误传播 (<code>?</code> &amp; <code>otherwise</code>)<a class="headerlink" href="#otherwise" title="Permanent link">&para;</a></h3>
+<p>v1.3.2 引入 Rust 风格的错误传播操作符：</p>
+<div class="highlight"><pre><span></span><code>let value = parse(input) ?           // 传播错误
+let result = risky_op() otherwise &quot;fallback&quot;  // 提供回退值
+</code></pre></div>
+<h3 id="adt">模式匹配与 ADT<a class="headerlink" href="#adt" title="Permanent link">&para;</a></h3>
+<p>v1.3.x 引入 7 种模式类型和代数数据类型系统：</p>
+<div class="highlight"><pre><span></span><code>// ADT 定义
+struct Point { x: Int, y: Int }
+enum Option { Some(value), None }
+enum Result { Ok(value), Err(error) }
+
+// 模式匹配
+match result {
+    Option::Some(answer) =&gt; answer
+    Option::None =&gt; &quot;no response&quot;
+}
+
+// 解构
+let (key, value) = entry
+</code></pre></div>
+<h3 id="_6">管道操作符 (<code>|&gt;</code> &amp; <code>&gt;&gt;</code>)<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>两种管道操作符，分别用于函数链式调用和 Agent 流水线：</p>
+<div class="highlight"><pre><span></span><code>// |&gt; 函数管道：左到右数据流
+result |&gt; format_output |&gt; print
+
+// &gt;&gt; Agent 管道：多智能体流水线
+&quot;topic&quot; &gt;&gt; Writer &gt;&gt; Reviewer &gt;&gt; Editor
+</code></pre></div>
+<h3 id="null-defer">Null 合并 (<code>??</code>) 与 Defer<a class="headerlink" href="#null-defer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>// ?? 安全回退
+config.timeout ?? 30
+
+// defer LIFO 清理
+defer cleanup(db)
+defer log(&quot;operation complete&quot;)
+</code></pre></div>
+<h3 id="expr">字符串插值 (<code>#{expr}</code>)<a class="headerlink" href="#expr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>&quot;Hello #{name}, you are #{age} years old!&quot;
+&quot;Status: #{result ?? &#39;pending&#39;}&quot;
+</code></pre></div>
+<h3 id="http-server">内置 HTTP Server<a class="headerlink" href="#http-server" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>server 8080 {
+    static &quot;/assets&quot; from &quot;./public&quot;
+    cors { origins: [&quot;*&quot;], methods: [&quot;GET&quot;, &quot;POST&quot;] }
+    route GET &quot;/chat&quot; =&gt; ChatBot
+    route POST &quot;/analyze&quot; =&gt; DataExtractor |&gt;&gt; Analyzer
+}
+</code></pre></div>
+<h3 id="loop-until">语义级控制流 (<code>loop until</code>)<a class="headerlink" href="#loop-until" title="Permanent link">&para;</a></h3>
+<p>用自然语言控制循环终止：</p>
+<div class="highlight"><pre><span></span><code>loop {
+    draft = Writer.run(feedback);
+    feedback = Critic.run(draft);
+} until (&quot;文章质量优秀&quot;)
+</code></pre></div>
+<h3 id="test-assert">原生测试框架 (<code>test</code> &amp; <code>assert</code>)<a class="headerlink" href="#test-assert" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>test &quot;翻译功能测试&quot; {
+    result = Translator.run(&quot;Hello, World!&quot;);
+    assert &quot;包含中文翻译&quot; against result;
+}
+</code></pre></div>
+<hr />
+<h2 id="_7">🎯 设计哲学：写流程，而非胶水<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>阅读本文档的开发者，想必已经受够了在传统语言中通过繁杂的 HTTP 请求和嵌套 <code>if-else</code> 来处理模型幻觉的折磨。</p>
+<p>Nexa 把"语言模型预测"视为一个<strong>原生计算节拍</strong>，将"不确定性"隔离在语法边界内。</p>
+<h3 id="_8">与传统框架对比<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>传统 Python/LangChain</th>
+<th>Nexa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent 定义</td>
+<td>实例化类 + 配置字典</td>
+<td>原生 <code>agent</code> 关键字</td>
+</tr>
+<tr>
+<td>流程编排</td>
+<td>手动调用 + 状态管理</td>
+<td><code>flow</code> + 管道操作符 <code>&gt;&gt;</code> / <code>|&gt;</code></td>
+</tr>
+<tr>
+<td>意图路由</td>
+<td>if-else + 正则</td>
+<td><code>match intent</code> 语义匹配</td>
+</tr>
+<tr>
+<td>输出约束</td>
+<td>手写 JSON Schema</td>
+<td><code>protocol</code> 声明式约束</td>
+</tr>
+<tr>
+<td>并发控制</td>
+<td>asyncio + 锁</td>
+<td>DAG 操作符 + 结构化并发</td>
+</tr>
+<tr>
+<td>错误重试</td>
+<td>try-except + 循环</td>
+<td>内置自动重试 + <code>?</code> / <code>otherwise</code></td>
+</tr>
+<tr>
+<td>类型安全</td>
+<td>无 / Pydantic 后验</td>
+<td>渐进式类型系统 + 契约式编程</td>
+</tr>
+<tr>
+<td>数据建模</td>
+<td>dict / dataclass</td>
+<td><code>struct</code> / <code>enum</code> / <code>trait</code> ADT</td>
+</tr>
+<tr>
+<td>HTTP 服务</td>
+<td>Flask/FastAPI 外挂</td>
+<td>内置 <code>server</code> DSL</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>手动 ORM 集成</td>
+<td>内置 <code>db</code> DSL + Agent 记忆</td>
+</tr>
+<tr>
+<td>认证</td>
+<td>手写 JWT/OAuth</td>
+<td>内置 <code>auth</code> DSL + API Key</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>Redis 手动管理</td>
+<td>内置 KV Store + 语义缓存</td>
+</tr>
+<tr>
+<td>后台任务</td>
+<td>Celery/队列外挂</td>
+<td>内置 <code>job</code> DSL + 优先级队列</td>
+</tr>
+<tr>
+<td>模板渲染</td>
+<td>Jinja2 外挂</td>
+<td>内置 <code>template"""..."""</code> DSL</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_9">📚 学习路径<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="_10">新手入门<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong><a href="quickstart/">快速入门</a></strong> - 30 分钟掌握 Nexa 基础</li>
+<li><strong><a href="part1_basic/">基础语法</a></strong> - 深入了解 Agent 的所有属性</li>
+<li><strong><a href="examples/">完整示例</a></strong> - 查看各种场景的实战代码</li>
+</ol>
+<h3 id="_11">进阶学习<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong><a href="part2_advanced/">高级特性</a></strong> - DAG 操作符、管道 <code>|&gt;</code>、模式匹配、ADT</li>
+<li><strong><a href="part3_extensions/">语法扩展</a></strong> - 契约式编程、类型系统、错误传播</li>
+<li><strong><a href="part6_best_practices/">最佳实践</a></strong> - 企业级开发经验</li>
+</ol>
+<h3 id="_12">深入底层<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong><a href="part5_compiler/">编译器设计</a></strong> - AST 到字节码的全链路</li>
+<li><strong><a href="part5_enterprise/">企业级架构</a></strong> - HTTP Server、Database、Auth、KV、并发</li>
+<li><strong><a href="part5_architecture_evolution/">架构演进</a></strong> - Rust/WASM 技术蓝图</li>
+</ol>
+<h3 id="_13">参考手册<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="reference/">语言参考</a></strong> - 完整语法规范</li>
+<li><strong><a href="cli_reference/">CLI 命令参考</a></strong> - 所有命令行工具</li>
+<li><strong><a href="stdlib_reference/">标准库 API</a></strong> - 所有 std 命名空间</li>
+<li><strong><a href="error_index/">错误索引</a></strong> - 所有错误代码与解决方案</li>
+</ul>
+<h3 id="_14">问题排查<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="troubleshooting/">常见问题与排查</a></strong> - 解决开发中的各种问题</li>
+</ul>
+<hr />
+<h2 id="nexa">🌟 开始你的 Nexa 之旅<a class="headerlink" href="#nexa" title="Permanent link">&para;</a></h2>
+<div class="portal-actions" style="margin-top: 1rem;">
+    <a class="md-button md-button--primary" href="quickstart.md">🚀 快速入门</a>
+    <a class="md-button" href="https://github.com/ouyangyipeng/Nexa">📦 GitHub</a>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<section class="md-comments" aria-label="评论区">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="ouyangyipeng/Nexa-docs"
+    data-repo-id="R_kgDORpFikw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDORpFik84C4knT"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <script>
+    var giscus = document.querySelector("script[src*=\"giscus\"]")
+    function resolveGiscusTheme() {
+      var palette = typeof __md_get === "function" ? __md_get("__palette") : null
+      if (palette && typeof palette.color === "object") {
+        return palette.color.scheme === "slate" ? "transparent_dark" : "light"
+      }
+      return "light"
+    }
+    if (giscus) {
+      giscus.setAttribute("data-theme", resolveGiscusTheme())
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      var ref = document.querySelector("[data-md-component=\"palette\"]")
+      if (!ref) { return }
+      ref.addEventListener("change", function () {
+        var frame = document.querySelector(".giscus-frame")
+        if (!frame || !frame.contentWindow) { return }
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: resolveGiscusTheme() } } },
+          "https://giscus.app"
+        )
+      })
+    })
+  </script>
+</section>
+
+                
+  <div
+  class="yat-agent"
+  data-yat-agent
+  data-search-index-url="search/search_index.json"
+  data-current-page="index.md"
+  data-current-title="首页"
+>
+  <div class="yat-agent__nudge" data-agent-nudge>
+    <span>快来问问agent吧！</span>
+    <button class="yat-agent__nudge-close" type="button" data-agent-dismiss-nudge aria-label="关闭提示">×</button>
+  </div>
+  <button class="yat-agent__fab" type="button" aria-expanded="false" aria-controls="yat-agent-panel" aria-label="打开文档助手">
+    <img class="yat-agent__fab-logo" src="img/nexa-logo-noframe.png" alt="">
+  </button>
+
+  <section class="yat-agent__panel" id="yat-agent-panel" aria-label="文档助手">
+    <header class="yat-agent__header">
+      <div>
+        <p class="yat-agent__eyebrow">Nexa Agent</p>
+        <h2>Nexa 文档助手</h2>
+      </div>
+      <button class="yat-agent__icon-button" type="button" data-agent-close aria-label="关闭对话窗">关闭</button>
+    </header>
+
+    <div class="yat-agent__messages" data-agent-messages aria-live="polite">
+      <article class="yat-agent__message yat-agent__message--assistant yat-agent__message--intro">
+        <p>我是Nexa文档AI助手，可以问我有关文档的一切！</p>
+      </article>
+    </div>
+
+    <form class="yat-agent__composer" data-agent-form>
+      <textarea
+        class="yat-agent__input"
+        name="prompt"
+        rows="1"
+        placeholder="Nexa的>>操作符可以怎么用？"
+        required
+      ></textarea>
+      <div class="yat-agent__composer-actions">
+        <span class="yat-agent__meta" data-agent-status data-ready="true">
+          <span class="yat-agent__meta-dot" aria-hidden="true"></span>
+          <span>由AI Hub提供支持</span>
+        </span>
+        <button class="md-button md-button--primary yat-agent__send" type="submit">发送</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="javascripts/doc-agent.js"></script>
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+        
+          
+          <a href="quickstart/" class="md-footer__link md-footer__link--next" aria-label="下一页: 快速入门">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                快速入门
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="javascripts/katex.js"></script>
+      
+        <script src="javascripts/navigation-accordion.js"></script>
+      
+        <script src="javascripts/image-lightbox.js"></script>
+      
+    
+  </body>
+</html>
