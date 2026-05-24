@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nexa — The first Harness Native Agent Language. Agent safety enforced by the compiler.">
+  <meta name="theme-color" content="#0a0a1a">
+  <title>Nexa — Harness Native Agent Language</title>
+  <link rel="icon" type="image/svg+xml" href="img/nexa-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #06060f;
+      --bg-primary: #0a0a1a;
+      --glass-bg: rgba(255,255,255,0.025);
+      --glass-border: rgba(255,255,255,0.08);
+      --accent: #6c5ce7;
+      --accent-glow: rgba(108, 92, 231, 0.4);
+      --cyan: #00d4ff;
+      --gradient: linear-gradient(135deg, #6c5ce7 0%, #00d4ff 100%);
+      --gradient-warm: linear-gradient(135deg, #6c5ce7 0%, #a855f7 50%, #00d4ff 100%);
+      --text: #ffffff;
+      --text-secondary: #a0a0b8;
+      --text-tertiary: #6b6b80;
+      --text-accent: #a78bfa;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+    /* ── Nav ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-inner {
+      max-width: 1200px; width: 100%; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+      color: var(--text); font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 700; font-size: 1.05rem;
+    }
+    .nav-logo img { height: 26px; width: auto; }
+    .nav-doc-link {
+      display: flex; align-items: center; gap: 18px;
+    }
+    .nav-doc-link a {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 0.88rem; font-weight: 500;
+      padding: 8px 16px; border-radius: 8px;
+      transition: color .2s, background .2s;
+    }
+    .nav-doc-link a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-doc-link a.go-docs {
+      background: var(--gradient); color: #fff;
+      padding: 7px 20px; border-radius: 10px; font-weight: 600;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+    .nav-doc-link a.go-docs:hover { box-shadow: 0 6px 24px var(--accent-glow); }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 16px; border-radius: 100px;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.12em;
+      color: var(--text-accent); margin-bottom: 28px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .hero h1 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+      font-weight: 700; color: var(--text);
+      line-height: 1.1; letter-spacing: -0.035em;
+      max-width: 800px; margin-bottom: 20px;
+    }
+    .hero h1 .gradient-text {
+      background: var(--gradient-warm);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: 1.1rem; color: var(--text-secondary);
+      max-width: 540px; margin-bottom: 48px; line-height: 1.7;
+    }
+
+    /* ── BIG CTA Button ── */
+    .hero-cta {
+      margin-bottom: 48px;
+    }
+    .hero-cta a {
+      display: inline-block;
+      padding: 22px 56px;
+      border-radius: 16px;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.2rem; font-weight: 700;
+      background: var(--gradient);
+      color: #fff; text-decoration: none;
+      box-shadow: 0 8px 40px var(--accent-glow);
+      transition: transform .3s, box-shadow .3s;
+      position: relative;
+    }
+    .hero-cta a:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 56px rgba(108, 92, 231, 0.55);
+    }
+    .hero-cta a .arrow {
+      display: inline-block; margin-left: 10px;
+      transition: transform .3s;
+    }
+    .hero-cta a:hover .arrow { transform: translateX(4px); }
+
+    /* ── Secondary Links ── */
+    .hero-links {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 40px;
+    }
+    .hero-links a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px; border-radius: 10px;
+      font-size: 0.88rem; font-weight: 600; text-decoration: none;
+      background: var(--glass-bg); color: var(--text);
+      border: 1px solid var(--glass-border);
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .hero-links a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(108,92,231,0.3);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ── Stats ── */
+    .hero-stats {
+      display: flex; gap: 36px; justify-content: center; flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; min-width: 90px; }
+    .hero-stat .num {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.9rem; font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-stat .label {
+      font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px;
+    }
+
+    /* ── Sections ── */
+    .section {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto; padding: 100px 24px;
+    }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.15em; color: var(--accent);
+      margin-bottom: 16px; text-align: center;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; color: var(--text);
+      line-height: 1.25; letter-spacing: -0.02em;
+      margin-bottom: 18px; text-align: center;
+    }
+    .section-desc {
+      font-size: 1.02rem; color: var(--text-secondary);
+      max-width: 620px; margin: 0 auto 52px; text-align: center; line-height: 1.7;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      padding: 34px 28px; border-radius: 16px;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      transition: transform .3s,border-color .3s,box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .card::before { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:var(--gradient); opacity:0; transition:opacity .3s; }
+    .card:hover { transform:translateY(-4px); border-color:rgba(108,92,231,.3); box-shadow:0 16px 48px rgba(108,92,231,.08); }
+    .card:hover::before { opacity:1; }
+    .card h3 { font-family:'Space Grotesk',system-ui,sans-serif; font-size:1.05rem; font-weight:600; color:var(--text); margin:0 0 10px; }
+    .card p { font-size:.85rem; color:var(--text-secondary); line-height:1.6; margin:0; }
+    .card code { font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--text-accent); background:rgba(108,92,231,.1); padding:1px 6px; border-radius:4px; }
+
+    /* ── Bottom CTA ── */
+    .bottom-cta {
+      position: relative; z-index: 1;
+      text-align: center; padding: 80px 24px;
+    }
+    .bottom-cta a {
+      display: inline-block;
+      padding: 20px 52px; border-radius: 14px;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.15rem; font-weight: 700;
+      background: var(--gradient); color: #fff; text-decoration: none;
+      box-shadow: 0 6px 32px var(--accent-glow);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .bottom-cta a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 48px rgba(108,92,231,.5);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 40px 24px;
+      border-top: 1px solid var(--glass-border);
+      font-size: 0.82rem; color: var(--text-tertiary);
+    }
+    .footer a { color: var(--text-secondary); text-decoration: none; }
+    .footer a:hover { color: var(--text); }
+
+    @media (max-width:768px) {
+      .hero h1 { font-size: 2rem; }
+      .hero-cta a { padding: 18px 44px; font-size: 1.05rem; }
+      .hero-stats { gap: 20px; }
+      .hero-stat .num { font-size: 1.5rem; }
+      .section { padding: 60px 16px; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="img/nexa-logo.svg" alt="Nexa"> Nexa
+      </a>
+      <div class="nav-doc-link">
+        <a href="https://www.nexa-lang.com" target="_blank" rel="noopener">主站</a>
+        <a href="https://github.com/Nexa-Language/Nexa" target="_blank" rel="noopener">GitHub</a>
+        <a href="quickstart/" class="go-docs">📖 文档</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge"><span class="dot"></span> v2.1 Released — Harness Native</div>
+    <h1>The First<br><span class="gradient-text">Harness Native</span><br>Agent Language</h1>
+    <p class="hero-subtitle">Nexa 是首个 Harness Native Agent Language——Agent 安全由编译器强制执行，而非运行时框架。写流程，而非胶水代码。</p>
+
+    <div class="hero-cta">
+      <a href="quickstart/">⚡ 快速入门 <span class="arrow">→</span></a>
+    </div>
+
+    <div class="hero-links">
+      <a href="https://www.nexa-lang.com" target="_blank" rel="noopener">🌐 nexa-lang.com</a>
+      <a href="https://doi.org/10.5281/zenodo.19994263" target="_blank" rel="noopener">📄 论文</a>
+      <a href="https://github.com/Nexa-Language/Nexa" target="_blank" rel="noopener">⭐ GitHub</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">23+</div><div class="label">核心特性</div></div>
+      <div class="hero-stat"><div class="num">1,935</div><div class="label">测试通过</div></div>
+      <div class="hero-stat"><div class="num">12+4</div><div class="label">v2.0 + v2.1 示例</div></div>
+      <div class="hero-stat"><div class="num">20×</div><div class="label">AVM 加速</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Why Nexa</div>
+    <h2 class="section-title">为 Agent 设计的语言，而非为语言适配的 Agent</h2>
+    <p class="section-desc">其他所有"Agent 框架"都是挂载在通用语言上的库。Nexa 从底层构建，以 Harness Native 方法论为核心。</p>
+    <div class="card-grid">
+      <div class="card"><h3>🛡️ Harness Native 语法</h3><p>Agent、工具、协议、流程是一等公民。Harness 六元组 (E,T,C,S,L,V) 在语言级别强制执行。</p></div>
+      <div class="card"><h3>🔒 编译器强制安全</h3><p>26 条 Harness Validator 规则在编译期检查代码。缺失退出条件、未类型化工具——运行前捕获。</p></div>
+      <div class="card"><h3>🔀 DAG 编排</h3><p>原生 fork、merge、pipeline 和条件分支操作符。复杂 Agent 工作流组合为 DAG，零样板代码。</p></div>
+      <div class="card"><h3>📐 渐进式类型系统</h3><p>从 forgiving 到 strict。结构类型、语义类型、Option/Result 类型，编译期协议验证。</p></div>
+      <div class="card"><h3>🧪 1,935+ 测试</h3><p>跨 23+ 特性实战检验。v1.x：契约式编程、模式匹配、ADT。v2.0：Harness Native Runtime。</p></div>
+      <div class="card"><h3>🚀 AVM 运行时</h3><p>Rust 驱动的 Agent Virtual Machine，WASM 沙盒、COW 内存——比 Python 快 20×。</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Harness H=(E,T,C,S,L,V)</div>
+    <h2 class="section-title">六个维度。一门语言。编译器验证。</h2>
+    <p class="section-desc">Harness 六元组不是框架——它是语法，由编译器强制执行。</p>
+    <div class="card-grid">
+      <div class="card"><h3>E — 执行</h3><p><code>autoloop max_steps: 10, exit_when: "resolved"</code><br>编译器强制退出条件的自主 ReAct 循环。</p></div>
+      <div class="card"><h3>T — 工具</h3><p><code>@tool("desc") fn my_tool(x: string): string</code><br>零成本工具绑定，编译器自动生成 schema。</p></div>
+      <div class="card"><h3>C — 上下文</h3><p><code>with_context max_tokens: 50000, strategy: sliding_window</code><br>重要性加权上下文分页。</p></div>
+      <div class="card"><h3>S — 状态</h3><p><code>snap = snapshot(); ... restore(snap);</code><br>COW 快照，Tree-of-Thoughts 探索。</p></div>
+      <div class="card"><h3>L — 生命周期</h3><p><code>before_step { ... }; reflect "出错原因？";</code><br>编译器强制钩子 + AI 原生反思。</p></div>
+      <div class="card"><h3>V — 验证</h3><p><code>verify result satisfies ExpectedOutput;</code><br>编译期 + 运行时输出验证，多模型路由。</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Community</div>
+    <h2 class="section-title">加入我们，共建 Agent 基础设施</h2>
+    <p class="section-desc">开源是 Nexa 保持常绿的核心血液。无论你是前沿架构师还是全栈工程师——欢迎在 GitHub 碰撞思想。</p>
+    <div class="card-grid">
+      <div class="card"><h3>📦 语法与 Parser</h3><p>帮我们提纯编译器边缘情况，或补充 VS Code / JetBrains 的 LSP 插件。</p></div>
+      <div class="card"><h3>🛠️ 标准库扩展</h3><p>用 Python 写实用工具，按规范合并进 runtime/stdlib.py。</p></div>
+      <div class="card"><h3>📊 基准评测</h3><p>在云环境中运行并发压力测试，用数据验证每次重构方向。</p></div>
+      <div class="card"><h3>🔭 可观测性</h3><p>接入 LangSmith、Datadog，构建实时流式拓扑监控面板。</p></div>
+    </div>
+  </section>
+
+  <div class="bottom-cta">
+    <a href="quickstart/">⚡ 开始探索 Nexa →</a>
+  </div>
+
+  <footer class="footer">
+    <img src="img/nexa-logo.svg" alt="Nexa" style="height:22px;vertical-align:middle;margin-right:8px;">
+    <span style="font-family:'Space Grotesk',system-ui,sans-serif;color:var(--text);font-weight:600;">Nexa Language</span>
+    &nbsp;·&nbsp; © 2026 ·&nbsp; <a href="https://github.com/Nexa-Language/Nexa">GitHub</a> ·&nbsp; <a href="https://www.nexa-lang.com">nexa-lang.com</a>
+  </footer>
+
+  <script>
+    (function(){
+      const cv=document.getElementById('particles-canvas');
+      if(!cv)return;
+      const c=cv.getContext('2d');
+      let w,h,mx=0,my=0,mi=0,ps=[],lp=[],f=0,mp='idle',mst=0;
+      const LO=0.68,MI=9000,MD=1800,HD=2200,DD=1600;
+
+      function rs(){ w=cv.width=innerWidth; h=cv.height=innerHeight; glp(); ps.forEach(p=>p.ast()); }
+
+      function sr(x1,y1,x2,y2,n,o){ for(let i=0;i<n;i++){ let t=i/n; o.push({x:(x1+(x2-x1)*t+(Math.random()-.5)*4)/400,y:(y1+(y2-y1)*t+(Math.random()-.5)*4)/400}); } }
+      function sb(x1,y1,x2,y2,x3,y3,x4,y4,n,o){ for(let i=0;i<n;i++){ let t=i/(n-1),d=1-t,x=d*d*d*x1+3*d*d*t*x2+3*d*t*t*x3+t*t*t*x4+(Math.random()-.5)*3,y=d*d*d*y1+3*d*d*t*y2+3*d*t*t*y3+t*t*t*y4+(Math.random()-.5)*3; o.push({x:x/400,y:y/400}); } }
+
+      function glp(){
+        lp=[];
+        sr(121,95,121,305,45,lp); sr(148,95,148,305,45,lp);
+        for(let i=0;i<40;i++)lp.push({x:(121+Math.random()*27)/400,y:(95+Math.random()*210)/400});
+        sr(252,95,252,305,45,lp); sr(302,95,302,305,45,lp);
+        for(let i=0;i<40;i++)lp.push({x:(252+Math.random()*50)/400,y:(95+Math.random()*210)/400});
+        sb(148,130,230,120,170,280,252,270,50,lp);
+        for(let i=0;i<60;i++){ let t=Math.random(),d=1-t,cx=d*d*d*148+3*d*d*t*230+3*d*t*t*170+t*t*t*252,cy=d*d*d*130+3*d*d*t*120+3*d*t*t*280+t*t*t*270; lp.push({x:(cx+(Math.random()-.5)*50)/400,y:(cy+(Math.random()-.5)*50)/400}); }
+      }
+
+      class P{
+        constructor(){ this.rst(); this.y=Math.random()*h; }
+        rst(){ this.x=Math.random()*w; this.y=-20; this.z=Math.random()*.7+.3; this.s=this.z*2.2+.6; this.sp=this.z*.35+.12; this.o=this.z*.45+.2; this.ts=Math.random()*.018+.004; this.to=Math.random()*Math.PI*2; this.sx=0;this.sy=0;this.li=-1;this.ox=0;this.oy=0;this.tx=0;this.ty=0; }
+        ast(){ this.sx=Math.random()*w; this.sy=Math.random()*h; }
+        alt(){ if(!lp.length)return; this.li=Math.floor(Math.random()*lp.length); let p=lp[this.li],s=Math.min(w,h)*LO,ox=(w-s)/2,oy=(h-s)/2; this.tx=ox+p.x*s; this.ty=oy+p.y*s; this.ox=this.x; this.oy=this.y; }
+        up(){ this.y+=this.sp; this.x+=((mx-w/2)/(w/2))*mi*this.sp*.25; if(this.y>h+15){this.y=-15;this.x=Math.random()*w;} if(this.x<-15)this.x=w+15;else if(this.x>w+15)this.x=-15; }
+        dr(c){ let tw=Math.sin(f*this.ts+this.to)*.3+.7,a=this.o*tw; c.beginPath();c.arc(this.x,this.y,this.s,0,Math.PI*2); c.fillStyle=`hsla(${260+this.z*30},70%,70%,${a})`;c.fill(); if(this.s>1.8){c.beginPath();c.arc(this.x,this.y,this.s*3.5,0,Math.PI*2);c.fillStyle=`rgba(108,92,231,${a*.12})`;c.fill();} }
+      }
+
+      function sm(){ mp='c'; mst=performance.now(); ps.forEach(p=>{p.ox=p.x;p.oy=p.y;p.alt();}); }
+      function um(now){ let e=now-mst; if(mp==='c'){ let t=Math.min(e/MD,1),es=t>=1?1:1-Math.pow(2,-10*t); ps.forEach(p=>{p.x=p.ox+(p.tx-p.ox)*es;p.y=p.oy+(p.ty-p.oy)*es;}); if(t>=1){mp='h';mst=now;} }else if(mp==='h'){ if(e>=HD){mp='d';mst=now;ps.forEach(p=>p.ast());} }else if(mp==='d'){ let t=Math.min(e/DD,1),es=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2; ps.forEach(p=>{p.x=p.tx+(p.sx-p.tx)*es;p.y=p.ty+(p.sy-p.ty)*es;}); if(t>=1)mp='i'; } }
+
+      function init(){ rs(); let n=Math.min(Math.floor((w*h)/6000),200); ps=Array.from({length:n},()=>new P()); ps.forEach(p=>p.ast()); setInterval(()=>{if(mp==='i')sm();},MI); setTimeout(()=>{if(mp==='i')sm();},3000); }
+
+      function anim(ts){ f++; c.clearRect(0,0,w,h); let g=c.createRadialGradient(w/2,h/2,0,w/2,h/2,Math.max(w,h)*.7); g.addColorStop(0,'rgba(6,6,15,0)'); g.addColorStop(1,'rgba(6,6,15,.55)'); c.fillStyle='#06060f';c.fillRect(0,0,w,h); c.fillStyle=g;c.fillRect(0,0,w,h); if(mp==='i')ps.forEach(p=>p.up());else um(ts); ps.forEach(p=>p.dr(c)); if(mi>.01){let m=c.createRadialGradient(mx,my,0,mx,my,80);m.addColorStop(0,'rgba(108,92,231,.04)');m.addColorStop(1,'rgba(108,92,231,0)');c.fillStyle=m;c.fillRect(0,0,w,h);} requestAnimationFrame(anim); }
+
+      addEventListener('resize',rs);
+      addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;mi=Math.min(mi+.02,1);});
+      setInterval(()=>{mi=Math.max(mi-.005,0);},50);
+      init(); requestAnimationFrame(anim);
+    })();
+  </script>
+</body>
+</html>
