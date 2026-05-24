@@ -952,8 +952,16 @@ formatted = p.format();  // 调用 Printable trait 的 format 方法
 | 延迟执行 | `defer` | v1.3.x | 资源清理 |
 | 模式匹配 | `match` | v1.3.x | 数据解构 |
 | 代数数据类型 | `struct/enum/trait` | v1.3.x | 类型安全建模 |
+| **自主循环** | `autoloop` | v2.0 | ReAct 自主执行 |
+| **容错自纠** | `try_agent/catch_correction` | v2.0 | 错误反射纠错 |
+| **上下文管理** | `with_context` | v2.0 | Token 预算控制 |
+| **状态快照** | `snapshot/fork/merge` | v2.0 | COW 分支探索 |
+| **输出验证** | `verify ... satisfies` | v2.0 | 四层输出验证 |
+| **生命周期** | `before/after_step/reflect` | v2.0 | 步骤级钩子注入 |
+| **Actor 并发** | `spawn/pass/await` | v2.0 | 多智能体消息传递 |
+| **并行分发** | `|>> spawn` | v2.1 | DAG 并行分发 |
 
-这些特性让 Nexa 能够优雅地处理最复杂的智能体编排场景，从简单的流水线到复杂的 DAG 拓扑，从确定性的分支到语义级别的条件判断，再到类型安全的数据建模。
+这些特性让 Nexa 能够优雅地处理最复杂的智能体编排场景——从简单的流水线到复杂的 DAG 拓扑，从类型安全的数据建模到**语言原生的安全运行时**。
 
 ---
 
@@ -963,3 +971,4 @@ formatted = p.format();  // 调用 Printable trait 的 format 方法
 - [语法扩展](part3_extensions.md) - 学习 Protocol 与契约高级用法
 - [语言参考手册](reference.md) - 查看完整语法规范
 - [最佳实践](part6_best_practices.md) - 企业级开发经验
+- [Harness Agent 设计文档](https://github.com/ouyangyipeng/Nexa/blob/main/docs/others/Harness_Agent.md) - Harness 六元组详解

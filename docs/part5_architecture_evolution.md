@@ -468,4 +468,29 @@ impl ContextPager {
 
 ---
 
+## 6. 当前进展 (截至 v2.1.0)
+
+### ✅ 已完成
+
+| 阶段 | 状态 | 说明 |
+|------|------|------|
+| Rust AVM 底座 | ✅ 已完成 | v1.0-alpha: cargo check 0 errors 0 warnings |
+| WASM 安全沙盒 | ✅ 已完成 | v1.0-alpha: wasmtime v21 + 四级权限 |
+| 智能调度器 | ✅ 基础实现 | v1.0-alpha: DAG 拓扑排序 |
+| 向量虚存分页 | ✅ 基础实现 | v1.0-alpha: LRU/LFU/Hybrid |
+| Harness Native Runtime | ✅ 已完成 | v2.0: 六元组 296 测试 |
+| ActorSystem | ✅ 已完成 | v2.0: 18 测试 |
+| HarnessValidator | ✅ 已完成 | v2.0: --harness=warn/strict/off |
+| Agent 性能属性 | ✅ 已完成 | v2.1: stream/output_format/schema 等 |
+
+### 🔮 未来路线图
+
+| 阶段 | 状态 |
+|------|------|
+| 可视化 DAG 编辑器 | 🔮 架构规划已完成 |
+| 包管理器 (nxm) | 🔮 规划中 |
+| AVM 生产就绪 | 🔮 规划中 |
+
+---
+
 *此文档将随项目进展持续更新*

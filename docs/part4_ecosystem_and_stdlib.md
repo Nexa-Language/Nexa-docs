@@ -803,8 +803,16 @@ agent.run("使用 API key: sk-xxx");  // 危险！
 | `std.trait` | v1.3.x | 特质 | 多态行为 |
 | `secret()` | v0.5+ | 密钥管理 | API 认证、数据库连接 |
 | `img()` | v0.8+ | 多模态 | 图像分析、视觉任务 |
+| **Harness Kernel** | v2.0 | 六元组运行时内核 | autoloop/with_context 执行 |
+| **ExecutionEngine** | v2.0 | ReAct 循环引擎 | E维度 |
+| **ContextManager** | v2.0 | 三层上下文压缩 | C维度 |
+| **StateStore** | v2.0 | COW 状态存储 | S维度 |
+| **LifecycleHookManager** | v2.0 | 生命周期钩子 | L维度 |
+| **EvaluationInterface** | v2.0 | 四层验证接口 | V维度 |
+| **ActorSystem** | v2.0 | 多智能体并发 | spawn/pass/await |
+| **WASM Sandbox** | v2.0 | 工具安全沙盒 | wasmtime + 四级权限 |
 
-Nexa 对于物理世界模块的封装，永远是以降低开发者的心智门槛、坚守系统沙盒安全性为最高原则。从 v0.5 的基础 10 个命名空间到 v1.3.x 的 25 个命名空间，这些功能为你搭建自动化王国奠定了最扎实的水电煤基建。
+Nexa 从 v0.5 的基础 10 个命名空间到 v1.3.x 的 25 个命名空间，再到 v2.0 的 Harness Native 运行时组件，为你搭建自动化王国奠定了最扎实的基础。
 
 ---
 

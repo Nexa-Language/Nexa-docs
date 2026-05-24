@@ -35,7 +35,7 @@ agent FriendlyBot {
 | `prompt` | string | **是** | - | v0.5+ | Agent 的核心任务指令 |
 | `model` | string | 否 | 默认模型 | v0.5+ | 指定使用的 LLM 模型 |
 | `memory` | string | 否 | - | v0.5+ | 记忆模式：`persistent`（持久化）等 |
-| `stream` | boolean | 否 | false | v0.5+ | 是否启用流式输出 |
+| `stream` | boolean | 否 | false | v2.1+ | 是否启用流式输出 |
 | `cache` | boolean | 否 | false | v0.5+ | 是否启用智能缓存 |
 | `experience` | string | 否 | - | v0.5+ | 长期记忆文件路径 |
 | `fallback` | string/list | 否 | - | v0.5+ | 备用模型配置 |
@@ -45,6 +45,10 @@ agent FriendlyBot {
 | `retry` | int | 否 | 3 | v0.5+ | 失败重试次数 |
 | `requires` | clause | 否 | - | v1.2+ | 前置条件契约条款 |
 | `ensures` | clause | 否 | - | v1.2+ | 后置条件契约条款 |
+| `output_format` | string | 否 | - | v2.1+ | 输出格式约束，支持 `"json"` |
+| `output_schema` | dict | 否 | - | v2.1+ | JSON Schema → 编译器自动生成 Pydantic |
+| `max_tool_calls` | int | 否 | - | v2.1+ | 最大工具调用轮数 |
+| `tool_call_strategy` | string | 否 | `"auto"` | v2.1+ | `"auto"`/`"required"`/`"none"` |
 
 ### 属性详细说明
 
@@ -226,6 +230,59 @@ agent HighAvailabilityBot {
     model: ["openai/gpt-4", fallback: "anthropic/claude-3-sonnet", fallback: "deepseek/deepseek-chat"],
     prompt: "..."
 }
+```
+
+#### `output_format` / `output_schema` — 结构化输出 (v2.1+)
+
+```nexa
+agent Planner {
+    output_format: "json",
+    output_schema: {
+        steps: [{title: "string", description: "string"}],
+        estimated_time: "string"
+    }
+}
+```
+
+#### `max_tool_calls` / `tool_call_strategy` — 工具调用控制 (v2.1+)
+
+```nexa
+agent Coder {
+    max_tool_calls: 10,
+    tool_call_strategy: "auto"
+}
+```
+
+| 策略值 | 含义 |
+|--------|------|
+| `"auto"` | 模型自行判断（默认） |
+| `"required"` | 强制调用至少一个工具 |
+| `"none"` | 禁用所有工具调用 |
+
+---
+
+## 🔄 v2.0 基础执行原语
+
+### `autoloop` (E维度)
+```nexa
+autoloop max_steps: 10, exit_when: "任务完成", timeout: 300 {
+    result = Agent.run(input)
+}
+```
+
+### `try_agent` / `catch_correction` (E+L维度)
+```nexa
+try_agent {
+    result = Agent.run(input)
+} catch_correction(e: ToolError) {
+    reflect "工具执行失败，请调整参数重试"
+}
+```
+
+### `@tool` 注解 (T维度)
+```nexa
+@tool("搜索网页内容")
+fn web_search(query: string): string { ... }
 ```
 
 ---

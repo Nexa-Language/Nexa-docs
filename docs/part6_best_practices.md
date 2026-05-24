@@ -479,12 +479,15 @@ flow main {
 |-----|-------|------|
 | 单一职责 | 每个Agent只做一件事 | 降低幻觉、节省Token |
 | 分级调度 | 简单任务用小模型 | 降低成本、提升速度 |
-| 死锁防护 | 设置最大循环次数 | 防止无限循环 |
-| 错误处理 | try/catch + Fallback | 提高稳定性 |
-| 安全控制 | 最小权限 + 人工审批 | 保障安全 |
-| 性能优化 | 缓存 + 批量处理 | 提升效率 |
+| 死锁防护 | `autoloop max_steps` 硬限制 | 防止无限循环 |
+| 错误自纠 | `try_agent/catch_correction` + `reflect` | Agent 自主修复 |
+| 上下文管理 | `with_context` + importance_weighted | Token 成本可控 |
+| 状态回溯 | `snapshot/fork/merge` COW 快照 | Tree-of-Thoughts |
+| 输出验证 | `verify ... satisfies` 四层检查 | 输出可靠性 |
+| 安全控制 | 最小权限 + `verify` 语义检查 | 保障安全 |
+| 性能优化 | 缓存 + `|>> spawn` 并行 | 提升效率 |
 | Prompt工程 | 结构化、具体化 | 提高质量 |
-| 测试调试 | 测试框架 + 日志 | 便于维护 |
+| 测试调试 | 测试框架 + `nexa harness-check` | 便于维护 |
 
 ---
 

@@ -618,14 +618,13 @@ nexa run script.nx --profile
 
 ## 📝 本章小结
 
-在本章中，我们深入了解了：
-
-1. **编译管道**：从词法分析到代码生成的完整流程
-2. **AVM 架构**：Rust 编写的高性能执行引擎
-3. **WASM 沙盒**：四级权限模型和资源限制
+1. **编译管道**：从词法分析到代码生成（含 v2.0 HarnessValidator）
+2. **AVM 架构**：Rust 高性能执行引擎（cargo check clean）
+3. **WASM 沙盒**：四级权限模型（wasmtime v21）
 4. **智能调度器**：优先级队列和负载均衡
-5. **向量虚存**：LRU/LFU 淘汰策略
-6. **Runtime 组件**：memory、orchestrator、evaluator、rbac
+5. **向量虚存**：LRU/LFU/Hybrid 淘汰策略
+6. **HarnessValidator**：v2.0 编译期六维约束验证（`--harness=strict/warn/off`）
+7. **Runtime 组件**：execution_engine、context_manager、state_store 等
 
 ---
 

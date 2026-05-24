@@ -2,11 +2,29 @@
 comments: true
 ---
 
-# 5. 未来展望：进军完全认知架构与资源控制 (Cognitive Architecture)
+# 5. 未来展望与已实现里程碑
 
-智能体架构的发展日新月异，今天我们探讨的 Pipeline 管道、Intent 路由和 Join 汇聚，实际上仅仅是 Nexa 宏大图景的冰山一角。在我们从“自动化工具”走向“全自治企业级数字雇员”的征途中，不可避免地要解决关于成本、安全、人机协同等深水区难题。
+## ✅ 已实现里程碑
 
-在 Nexa 项目核心维护团队（Genesis Team）的案头与架构蓝图中，有一批即将融合入语言底层的革命性原语。本章将为您揭晓 Nexa 在下一个大版本中将带来的前瞻性特性。
+| 蓝图 | 状态 | 版本 |
+|------|------|------|
+| Rust AVM 底座 | ✅ | v1.0-alpha (0 errors, 0 warnings) |
+| WASM 安全沙盒 | ✅ | v1.0-alpha (wasmtime v21) |
+| 智能调度器 | ✅ | v1.0-alpha |
+| 向量虚存分页 | ✅ | v1.0-alpha |
+| HITL: wait_for_human() | ✅ | v0.9.7 |
+| reason() 原语 | ✅ | v0.9.7 |
+| RBAC 权限控制 | ✅ | v0.9.6-rc |
+| 传统控制流 | ✅ | v1.0.1-beta |
+| IDD 意图驱动开发 | ✅ | v1.1.0 (104 tests) |
+| Design by Contract | ✅ | v1.2.0 (47 tests) |
+| 16 项 v1.3.x 特性 | ✅ | v1.3.0-v1.3.7 |
+| Harness Native Runtime | ✅ | v2.0 (296 tests) |
+| Agent 级属性原语 | ✅ | v2.1 |
+
+## 🔮 未来展望
+
+在 Nexa 核心团队（Genesis Team）的架构蓝图中，下一阶段的重点方向：
 
 ---
 

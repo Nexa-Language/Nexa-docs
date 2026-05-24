@@ -197,7 +197,39 @@ branch2 = agent.branch()
 
 ---
 
-## 🎯 More Core Features
+## 🔥 v2.1: Production Hardening — Agent-Level Property Primitives
+
+Nexa v2.1 adds **Agent-level language primitives**:
+
+```nexa
+agent Coder {
+    stream: true, max_tool_calls: 10,
+    tool_call_strategy: "auto"
+}
+agent Planner {
+    output_format: "json",
+    output_schema: { steps: [{title: "string"}], estimated_time: "string" }
+}
+```
+
+## 🔥 v2.0: Harness Native Runtime — Six-Tuple H=(E,T,C,S,L,V)
+
+| Dimension | Syntax | Runtime | Tests |
+|-----------|--------|---------|-------|
+| **E** | `autoloop` / `try_agent` | ExecutionEngine | 52 |
+| **T** | `@tool` annotation | ToolRegistry | 53 |
+| **C** | `with_context` | ContextManager | 52 |
+| **S** | `snapshot` / `fork` / `merge` | StateStore | 45 |
+| **L** | `before_step` / `reflect` | LifecycleHookManager | 53 |
+| **V** | `verify ... satisfies` | EvaluationInterface | 59 |
+| **Actor** | `spawn` / `pass` / `await` | ActorSystem | 18 |
+| **WASM** | sandbox | WASM Sandbox | 15 |
+
+Fully backward compatible. See [examples/v2.0/](https://github.com/ouyangyipeng/Nexa/tree/main/examples/v2.0).
+
+---
+
+## 🎯 More Core Features (v1.x)
 
 Beyond code simplicity, Nexa provides these powerful language-level features:
 

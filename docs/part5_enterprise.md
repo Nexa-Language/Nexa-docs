@@ -711,8 +711,14 @@ flow api_send_email(request) {
 | Memory Engine | v0.9+ | 长短期记忆+知识图谱 | Agent 记忆持久化 |
 | L1/L2 Cache | v0.9+ | 语义计算缓存 | 成本优化 |
 | RBAC Sandbox | v0.9+ | 角色访问控制 | 安全防护 |
+| **HarnessValidator** | v2.0 | 编译期六维验证 | `--harness=strict/warn/off` |
+| **ExecutionEngine** | v2.0 | ReAct 自主循环 | autoloop E维度 |
+| **ContextManager** | v2.0 | 三层上下文压缩 | with_context C维度 |
+| **StateStore** | v2.0 | COW 快照/分叉/合并 | snapshot/fork/merge |
+| **EvaluationInterface** | v2.0 | 四层输出验证 | verify ... satisfies |
+| **LifecycleHookManager** | v2.0 | 步骤级钩子注入 | before/after_step/reflect |
 
-这些企业级特性让 Nexa 从一个 Agent 编排语言进化为完整的 Agent 应用平台，能够支撑从原型到大规模生产的全生命周期。
+这些企业级特性让 Nexa 进化为完整的 **Harness Native Agent 应用平台**，将安全验证下沉为语言级原语。
 
 ---
 

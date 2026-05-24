@@ -56,17 +56,22 @@ Nexa 保留以下关键字，不能用作标识符：
 |------|--------|
 | 声明 | `agent`, `tool`, `protocol`, `flow`, `test`, `type`, `struct`, `enum`, `trait`, `impl`, `fn`, `job`, `server`, `db`, `auth`, `kv` |
 | 控制流 | `match`, `intent`, `loop`, `until`, `if`, `else`, `for`, `while`, `break`, `continue` |
+| Harness 执行 | `autoloop`, `try_agent`, `catch_correction`, `with_context`, `snapshot`, `restore`, `fork`, `merge` |
+| Harness 验证 | `verify`, `satisfies`, `reflect`, `before_step`, `after_step` |
+| Actor 模型 | `spawn`, `pass`, `await` |
 | 语义控制 | `semantic_if`, `fast_match`, `against` |
 | 异常处理 | `try`, `catch` |
 | 错误传播 | `?`, `otherwise` |
 | 类型约束 | `implements`, `uses` |
 | 契约式编程 | `requires`, `ensures`, `invariant` |
-| 并发 | `spawn`, `parallel`, `race`, `channel`, `after`, `schedule`, `select` |
+| 并发 | `parallel`, `race`, `channel`, `after`, `schedule`, `select` |
 | 延迟执行 | `defer` |
 | 管道 | `|>` |
+| DAG 分叉 | `|>>`, `&>>`, `||`, `&&` |
 | 空值合并 | `??` |
 | 字符串插值 | `#{expr}` |
 | 模板 | `template` |
+| Agent 属性 | `output_format`, `output_schema`, `max_tool_calls`, `tool_call_strategy` |
 | 其他 | `print`, `assert`, `fallback`, `join`, `role`, `model`, `prompt`, `memory`, `stream`, `cache`, `experience`, `include` |
 
 ### 1.3 字面量 (Literals)
@@ -996,6 +1001,41 @@ try {
 ### 7.4 BOILERPLATE 代码生成模式
 
 每个特性在 `CodeGenerator` 的 BOILERPLATE 区段添加导入和辅助函数。
+
+## 8. Harness 六元组语法规范 (v2.0)
+
+### 8.1 `autoloop` (E维度)
+```
+autoloop_stmt ::= "autoloop" "max_steps" ":" NUMBER ("," "exit_when" ":" STRING_LITERAL)? ("," "timeout" ":" NUMBER)? "{" flow_stmt* "}"
+```
+
+### 8.2 `try_agent` / `catch_correction`
+```
+try_agent_stmt ::= "try_agent" "{" flow_stmt* "}" "catch_correction" "(" IDENTIFIER ":" IDENTIFIER ")" "{" flow_stmt* "}"
+```
+
+### 8.3 `with_context` (C维度)
+```
+with_context_stmt ::= "with_context" "max_tokens" ":" NUMBER ("," "strategy" ":" IDENTIFIER)? "{" flow_stmt* "}"
+```
+
+### 8.4 `verify ... satisfies` (V维度)
+```
+verify_stmt ::= "verify" IDENTIFIER "satisfies" (IDENTIFIER | STRING_LITERAL)
+```
+
+### 8.5 Agent 属性 (v2.1)
+```
+agent_output_format ::= "output_format" ":" STRING_LITERAL
+agent_output_schema ::= "output_schema" ":" json_object
+agent_max_tool_calls ::= "max_tool_calls" ":" NUMBER
+agent_tool_call_strategy ::= "tool_call_strategy" ":" STRING_LITERAL
+```
+
+### 8.6 `@tool` 注解 (T维度)
+```
+tool_annotation ::= "@tool" "(" STRING_LITERAL ")" "fn" IDENTIFIER "(" fn_params ")" ":" IDENTIFIER "{" flow_stmt* "}"
+```
 
 ---
 

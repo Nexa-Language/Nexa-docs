@@ -880,8 +880,11 @@ flow main {
 | Design by Contract | v1.2.0+ | requires/ensures/invariant | 输入输出契约验证 |
 | Gradual Type System | v1.3.1+ | strict/warn/forgiving | 渐进式类型安全 |
 | Error Propagation | v1.3.2+ | `?` 与 `otherwise` | 优雅错误处理 |
+| **`@tool` 注解** | v2.0 | 声明式工具绑定 | 编译器自动生成 ToolSchema |
+| **`try_agent/catch_correction`** | v2.0 | 容错自纠执行 | 工具错误触发反思注入 |
+| **`output_format/schema`** | v2.1 | Agent 结构化输出 | 编译器自动生成 Pydantic 模型 |
 
-通过将 `protocol` 的刚性契约与动态 `fallback` 流转网络相结合，再配合 v1.2.0 的契约式编程、v1.3.1 的渐进式类型系统和 v1.3.2 的错误传播机制，Nexa 在赋予高度"思考灵活性"的同时，从未抛弃几十年来传统软件工程所积累的"鲁棒性与边界确定性"基因。这也是 Agent 开发向正规化轨道迈出的决定性一步。
+通过将 `protocol` 的刚性契约与 `fallback` 流转网络相结合，再配合 v1.2.0 的契约式编程、v1.3.1 的渐进式类型系统、v1.3.2 的错误传播、v2.0 的 Harness 六元组运行时验证和 v2.1 的 Agent 级结构化输出，Nexa 在赋予高度"思考灵活性"的同时，从未抛弃传统软件工程的"鲁棒性与边界确定性"基因。
 
 ---
 

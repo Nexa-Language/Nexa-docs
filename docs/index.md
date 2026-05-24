@@ -197,7 +197,44 @@ branch2 = agent.branch()
 
 ---
 
-## 🎯 更多核心特性
+## 🔥 v2.1: Production Hardening — Agent 级属性原语
+
+Nexa v2.1 为 Nexa Code 新增了 **Agent 级语言原语**：
+
+```nexa
+agent Coder {
+    stream: true,                    // 流式输出
+    max_tool_calls: 10,             // 单次请求最多 10 轮工具调用
+    tool_call_strategy: "auto"      // auto | required | none
+}
+
+agent Planner {
+    output_format: "json",          // 强制 JSON 模式
+    output_schema: {                // 编译器自动生成 Pydantic 模型
+        steps: [{title: "string", description: "string"}],
+        estimated_time: "string"
+    }
+}
+```
+
+## 🔥 v2.0: Harness Native Runtime — 六元组 H=(E,T,C,S,L,V)
+
+| 维度 | 语法原语 | 运行时组件 | 测试数 |
+|------|---------|-----------|--------|
+| **E** | `autoloop` / `try_agent` | ExecutionEngine | 52 |
+| **T** | `@tool` 注解 | ToolRegistry | 53 |
+| **C** | `with_context` | ContextManager | 52 |
+| **S** | `snapshot` / `fork` / `merge` | StateStore | 45 |
+| **L** | `before_step` / `reflect` | LifecycleHookManager | 53 |
+| **V** | `verify ... satisfies` | EvaluationInterface | 59 |
+| **Actor** | `spawn` / `pass` / `await` | ActorSystem | 18 |
+| **WASM** | sandbox | WASM Sandbox | 15 |
+
+完整示例参见 [examples/v2.0/](https://github.com/ouyangyipeng/Nexa/tree/main/examples/v2.0) 和 [examples/v2.1/](https://github.com/ouyangyipeng/Nexa/tree/main/examples/v2.1)。向后兼容：v1.x 代码无需修改。
+
+---
+
+## 🎯 更多核心特性 (v1.x)
 
 除了代码简洁性，Nexa 还提供以下强大的语言级特性：
 
