@@ -59,6 +59,12 @@ plugins:
             语法指南: 语法指南
             基础语法: 基础语法
             高级特性: 高级特性
+            Harness 六元组: Harness 六元组
+            Actor Model: Actor Model
+            模式匹配: 模式匹配
+            ADT: ADT
+            错误传播: 错误传播
+            配置管理与标准库: 配置管理与标准库
             语法扩展: 语法扩展
             生态与标准库: 生态与标准库
             深入设计: 深入设计
@@ -92,6 +98,12 @@ plugins:
             语法指南: Grammar Guide
             基础语法: Basic Syntax
             高级特性: Advanced Features
+            Harness 六元组: Harness Hexad
+            Actor Model: Actor Model
+            模式匹配: Pattern Matching
+            ADT: ADT
+            错误传播: Error Handling
+            配置管理与标准库: Config & Standard Library
             语法扩展: Grammar Extensions
             生态与标准库: Ecosystem & Stdlib
             深入设计: In-depth Design
@@ -148,6 +160,12 @@ nav:
     - 快速入门: quickstart.md
     - 基础语法: part1_basic.md
     - 高级特性: part2_advanced.md
+    - Harness 六元组: part2_harness.md
+    - Actor Model: part2_actor.md
+    - 模式匹配: part2_pattern_matching.md
+    - ADT: part2_adt.md
+    - 错误传播: part2_error_handling.md
+    - 配置管理与标准库: part2_config_stdlib.md
     - 语法扩展: part3_extensions.md
     - 生态与标准库: part4_ecosystem_and_stdlib.md
   - 深入设计:

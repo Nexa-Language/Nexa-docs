@@ -52,7 +52,7 @@ EOF
 # 检查安装是否成功
 nexa --version
 
-# 应输出类似：Nexa v1.3.x
+# 应输出类似：Nexa v2.1.0
 ```
 
 ### 5. 常用 CLI 命令速查
