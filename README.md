@@ -13,7 +13,7 @@
 
 ## ⚡ 关于本文档仓库
 
-本仓库包含 **[Nexa](https://github.com/your-org/nexa)** 智能体原生 (Agent-Native) 编程语言的详尽官方中文文档。
+本仓库包含 **[Nexa](https://github.com/Nexa-Language/Nexa)** 智能体原生 (Agent-Native) 编程语言的详尽官方中文文档。
 
 当代 AI 应用开发充斥着大量的 Prompt 拼接与臃肿的解析套件。Nexa 将意图路由、多智能体并发组装、管道流传输等核心语法提升为一等公民。在这个文档项目中，我们从原理到实践深度拆解了 Nexa 背后强大的机制。
 
