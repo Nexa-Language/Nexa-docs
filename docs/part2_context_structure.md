@@ -4,7 +4,7 @@
 
 ## 设计动机
 
-面试官观点：**Agent = (Model, Tools, Context) 三元组完全定义**。
+设计动机：把 Context 提升为 Agent 声明的结构属性，与 model、tools 同级。Agent 的行为应由其声明结构完全定义，而非在使用点临时决定。
 
 在 v2.1 及之前，Nexa 的 `agent` 声明只定义了 `model` 和 `uses`（tools），但 **context 缺失** —— 运行时 `self.messages = []` 硬编码为空，导致 pipeline `A >> B` 只能传字符串，agent 间的上下文无法结构化传递。
 
