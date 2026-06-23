@@ -726,10 +726,10 @@ Control type annotation coverage checking via `NEXA_LINT_MODE` or `nexa lint --w
 
 ```bash
 # Check type annotation coverage
-nexa lint main.nexa --warn-untyped
+nexa lint main.nx --warn-untyped
 
 # Strict lint mode
-nexa lint main.nexa --strict
+nexa lint main.nx --strict
 ```
 
 ### Type Expressions

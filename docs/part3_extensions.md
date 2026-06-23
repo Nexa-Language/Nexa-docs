@@ -726,10 +726,10 @@ export NEXA_TYPE_MODE=forgiving  # 宽容模式
 
 ```bash
 # 检查类型标注覆盖率
-nexa lint main.nexa --warn-untyped
+nexa lint main.nx --warn-untyped
 
 # 严格 lint 模式
-nexa lint main.nexa --strict
+nexa lint main.nx --strict
 ```
 
 ### 类型表达式

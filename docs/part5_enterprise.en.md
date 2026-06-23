@@ -35,20 +35,20 @@ server MyApp {
 
 ```bash
 # Start HTTP Server
-nexa serve main.nexa
+nexa serve main.nx
 
 # Specify port
-nexa serve main.nexa --port 8080
+nexa serve main.nx --port 8080
 ```
 
 ### Viewing Routes
 
 ```bash
 # List all routes
-nexa routes main.nexa
+nexa routes main.nx
 
 # JSON format output
-nexa routes main.nexa --json
+nexa routes main.nx --json
 ```
 
 ### Contract and HTTP Status Code Mapping
@@ -603,32 +603,32 @@ job SendEmail {
 
 ```bash
 # View all jobs
-nexa jobs main.nexa --all
+nexa jobs main.nx --all
 
 # View jobs with specific status
-nexa jobs main.nexa --status failed
+nexa jobs main.nx --status failed
 
 # View dead letter queue
-nexa jobs main.nexa --dead-letter
+nexa jobs main.nx --dead-letter
 
 # Clear completed jobs
-nexa jobs main.nexa --clear-completed
+nexa jobs main.nx --clear-completed
 
 # Retry dead letter job
-nexa jobs main.nexa --retry <job_id>
+nexa jobs main.nx --retry <job_id>
 ```
 
 ### Worker Management CLI
 
 ```bash
 # View worker status
-nexa workers main.nexa
+nexa workers main.nx
 
 # Add extra workers
-nexa workers main.nexa --add 2
+nexa workers main.nx --add 2
 
 # Stop worker
-nexa workers main.nexa --stop <worker_id>
+nexa workers main.nx --stop <worker_id>
 ```
 
 ### Complete Example: Async Email System

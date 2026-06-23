@@ -35,20 +35,20 @@ server MyApp {
 
 ```bash
 # 启动 HTTP Server
-nexa serve main.nexa
+nexa serve main.nx
 
 # 指定端口
-nexa serve main.nexa --port 8080
+nexa serve main.nx --port 8080
 ```
 
 ### 查看路由
 
 ```bash
 # 列出所有路由
-nexa routes main.nexa
+nexa routes main.nx
 
 # JSON 格式输出
-nexa routes main.nexa --json
+nexa routes main.nx --json
 ```
 
 ### 契约与 HTTP 状态码映射
@@ -603,32 +603,32 @@ job SendEmail {
 
 ```bash
 # 查看所有任务
-nexa jobs main.nexa --all
+nexa jobs main.nx --all
 
 # 查看特定状态的任务
-nexa jobs main.nexa --status failed
+nexa jobs main.nx --status failed
 
 # 查看死信队列
-nexa jobs main.nexa --dead-letter
+nexa jobs main.nx --dead-letter
 
 # 清理已完成任务
-nexa jobs main.nexa --clear-completed
+nexa jobs main.nx --clear-completed
 
 # 重试死信任务
-nexa jobs main.nexa --retry <job_id>
+nexa jobs main.nx --retry <job_id>
 ```
 
 ### Worker 管理 CLI
 
 ```bash
 # 查看 Worker 状态
-nexa workers main.nexa
+nexa workers main.nx
 
 # 启动额外 Worker
-nexa workers main.nexa --add 2
+nexa workers main.nx --add 2
 
 # 停止 Worker
-nexa workers main.nexa --stop <worker_id>
+nexa workers main.nx --stop <worker_id>
 ```
 
 ### 完整示例：异步邮件系统

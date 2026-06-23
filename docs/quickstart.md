@@ -59,22 +59,22 @@ nexa --version
 
 ```bash
 # 编译与运行
-nexa build main.nexa          # 编译程序
-nexa run main.nexa            # 运行程序
-nexa test main.nexa           # 运行测试
+nexa build main.nx          # 编译程序
+nexa run main.nx            # 运行程序
+nexa test main.nx           # 运行测试
 
 # 分析与检查
-nexa inspect main.nexa        # 结构分析
-nexa validate main.nexa       # 语义验证
-nexa lint main.nexa           # 类型系统 Lint (v1.3.1+)
-nexa intent check main.nexa   # 意图检查 (v1.1+)
-nexa intent coverage main.nexa # 意图覆盖率 (v1.1+)
+nexa inspect main.nx        # 结构分析
+nexa validate main.nx       # 语义验证
+nexa lint main.nx           # 类型系统 Lint (v1.3.1+)
+nexa intent check main.nx   # 意图检查 (v1.1+)
+nexa intent coverage main.nx # 意图覆盖率 (v1.1+)
 
 # 服务与任务
-nexa serve main.nexa          # 启动 HTTP Server (v1.3.4+)
-nexa routes main.nexa         # 列出路由 (v1.3.4+)
-nexa jobs main.nexa --all     # 任务管理 (v1.3.3+)
-nexa workers main.nexa        # Worker 管理 (v1.3.3+)
+nexa serve main.nx          # 启动 HTTP Server (v1.3.4+)
+nexa routes main.nx         # 列出路由 (v1.3.4+)
+nexa jobs main.nx --all     # 任务管理 (v1.3.3+)
+nexa workers main.nx        # Worker 管理 (v1.3.3+)
 nexa cache clear              # 清理缓存
 ```
 

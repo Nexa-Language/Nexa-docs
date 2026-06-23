@@ -25,7 +25,7 @@ Compile-time errors are detected during the code compilation phase, indicating s
 **Error Message**:
 ```
 Error E001: Undeclared identifier 'X'
-  --> main.nexa:15:5
+  --> main.nx:15:5
    |
 15 |     result = UnknownAgent.run(input);
    |              ^^^^^^^^^^^^^ 'UnknownAgent' not found
@@ -58,7 +58,7 @@ result = WeatherBot.run(input);
 **Error Message**:
 ```
 Error E002: Type mismatch
-  --> main.nexa:23:20
+  --> main.nx:23:20
    |
 23 | protocol Report { score: "number" }
    |                    ^^^^^ expected 'number', found 'string'
@@ -89,7 +89,7 @@ protocol Report {
 **Error Message**:
 ```
 Error E003: Missing required property 'role'
-  --> main.nexa:10:1
+  --> main.nx:10:1
    |
 10 | agent MyAgent {
    | ^^^^^^^^^^^^^ 'role' property is required
@@ -122,7 +122,7 @@ agent MyAgent {
 **Error Message**:
 ```
 Error E004: Syntax error
-  --> main.nexa:5:1
+  --> main.nx:5:1
    |
 5 | agent { }
    | ^^^^^^^^ Expected IDENTIFIER after 'agent'
@@ -142,7 +142,7 @@ Error E004: Syntax error
 **Error Message**:
 ```
 Error E005: Duplicate declaration 'MyAgent'
-  --> main.nexa:20:1
+  --> main.nx:20:1
    |
 20 | agent MyAgent { ... }
    | ^^^^^^^^^^^^^ 'MyAgent' already declared
@@ -250,7 +250,7 @@ match user_input {
 **Error Message**:
 ```
 ContractViolation(requires:deterministic, message="amount must be positive")
-  --> transfer.nexa:5
+  --> transfer.nx:5
 ```
 
 **Cause**:
@@ -285,7 +285,7 @@ flow review(code: string) -> Report
 **Error Message**:
 ```
 ContractViolation(ensures:semantic, message="result must include actionable feedback")
-  --> review.nexa:8
+  --> review.nx:8
 ```
 
 **Cause**:
@@ -317,7 +317,7 @@ ContractViolation(invariant:deterministic, message="state must be idle or runnin
 **Error Message**:
 ```
 TypeViolation: Expected Int, got String
-  --> main.nexa:10
+  --> main.nx:10
    |
 10 | let x: Int = "hello"
    |               ^^^^^^^ Type mismatch
@@ -344,7 +344,7 @@ let y: String = "hello"   // ✅ Correct
 **Error Message**:
 ```
 TypeWarning: Expected Int, got String (mode: warn)
-  --> main.nexa:10
+  --> main.nx:10
 ```
 
 **Cause**:

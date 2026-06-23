@@ -59,22 +59,22 @@ nexa --version
 
 ```bash
 # Build and run
-nexa build main.nexa          # Compile program
-nexa run main.nexa            # Run program
-nexa test main.nexa           # Run tests
+nexa build main.nx          # Compile program
+nexa run main.nx            # Run program
+nexa test main.nx           # Run tests
 
 # Analysis and checking
-nexa inspect main.nexa        # Structural analysis
-nexa validate main.nexa       # Semantic validation
-nexa lint main.nexa           # Type system lint (v1.3.1+)
-nexa intent check main.nexa   # Intent check (v1.1+)
-nexa intent coverage main.nexa # Intent coverage (v1.1+)
+nexa inspect main.nx        # Structural analysis
+nexa validate main.nx       # Semantic validation
+nexa lint main.nx           # Type system lint (v1.3.1+)
+nexa intent check main.nx   # Intent check (v1.1+)
+nexa intent coverage main.nx # Intent coverage (v1.1+)
 
 # Service and jobs
-nexa serve main.nexa          # Start HTTP Server (v1.3.4+)
-nexa routes main.nexa         # List routes (v1.3.4+)
-nexa jobs main.nexa --all     # Job management (v1.3.3+)
-nexa workers main.nexa        # Worker management (v1.3.3+)
+nexa serve main.nx          # Start HTTP Server (v1.3.4+)
+nexa routes main.nx         # List routes (v1.3.4+)
+nexa jobs main.nx --all     # Job management (v1.3.3+)
+nexa workers main.nx        # Worker management (v1.3.3+)
 nexa cache clear              # Clear cache
 ```
 

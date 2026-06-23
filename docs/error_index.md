@@ -25,7 +25,7 @@ comments: true
 **错误信息**：
 ```
 Error E001: Undeclared identifier 'X'
-  --> main.nexa:15:5
+  --> main.nx:15:5
    |
 15 |     result = UnknownAgent.run(input);
    |              ^^^^^^^^^^^^^ 'UnknownAgent' not found
@@ -58,7 +58,7 @@ result = WeatherBot.run(input);
 **错误信息**：
 ```
 Error E002: Type mismatch
-  --> main.nexa:23:20
+  --> main.nx:23:20
    |
 23 | protocol Report { score: "number" }
    |                    ^^^^^ expected 'number', found 'string'
@@ -89,7 +89,7 @@ protocol Report {
 **错误信息**：
 ```
 Error E003: Missing required property 'role'
-  --> main.nexa:10:1
+  --> main.nx:10:1
    |
 10 | agent MyAgent {
    | ^^^^^^^^^^^^^ 'role' property is required
@@ -122,7 +122,7 @@ agent MyAgent {
 **错误信息**：
 ```
 Error E004: Syntax error
-  --> main.nexa:5:1
+  --> main.nx:5:1
    |
 5 | agent { }
    | ^^^^^^^^ Expected IDENTIFIER after 'agent'
@@ -142,7 +142,7 @@ Error E004: Syntax error
 **错误信息**：
 ```
 Error E005: Duplicate declaration 'MyAgent'
-  --> main.nexa:20:1
+  --> main.nx:20:1
    |
 20 | agent MyAgent { ... }
    | ^^^^^^^^^^^^^ 'MyAgent' already declared
@@ -250,7 +250,7 @@ match user_input {
 **错误信息**：
 ```
 ContractViolation(requires:deterministic, message="amount must be positive")
-  --> transfer.nexa:5
+  --> transfer.nx:5
 ```
 
 **原因**：
@@ -285,7 +285,7 @@ flow review(code: string) -> Report
 **错误信息**：
 ```
 ContractViolation(ensures:semantic, message="result must include actionable feedback")
-  --> review.nexa:8
+  --> review.nx:8
 ```
 
 **原因**：
@@ -317,7 +317,7 @@ ContractViolation(invariant:deterministic, message="state must be idle or runnin
 **错误信息**：
 ```
 TypeViolation: Expected Int, got String
-  --> main.nexa:10
+  --> main.nx:10
    |
 10 | let x: Int = "hello"
    |               ^^^^^^^ Type mismatch
@@ -344,7 +344,7 @@ let y: String = "hello"   // ✅ 正确
 **错误信息**：
 ```
 TypeWarning: Expected Int, got String (mode: warn)
-  --> main.nexa:10
+  --> main.nx:10
 ```
 
 **原因**：
