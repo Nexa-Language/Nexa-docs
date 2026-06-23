@@ -167,6 +167,7 @@ nav:
     - 错误传播: part2_error_handling.md
     - 配置管理与标准库: part2_config_stdlib.md
     - Context-as-Structure (v2.2.1): part2_context_structure.md
+    - Terminal UI (v2.3.1): part2_terminal_ui.md
     - 语法扩展: part3_extensions.md
     - 生态与标准库: part4_ecosystem_and_stdlib.md
   - 深入设计:
