@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-
-{% block content %}
-  {{ super() }}
-  {% include "partials/agent.html" %}
+{% block announce %}
+  {% if config.theme.language == "en" %}
+    <span class="nx-release">2.4.0</span> A shared runtime for agents, tools and durable execution.
+  {% else %}
+    <span class="nx-release">2.4.0</span> Agent、工具与持久执行，共用一个运行时。
+  {% endif %}
 {% endblock %}

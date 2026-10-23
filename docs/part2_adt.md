@@ -1,308 +1,41 @@
 ---
-comments: true
+title: "代数数据类型"
+capabilities: [types]
 ---
 
-# ADT：代数数据类型 (Algebraic Data Types)
+# 代数数据类型
 
-Nexa v1.3.7 引入了完整的 ADT 系统，包括 `struct`、`enum`、`trait` 和 `impl`，让你能够定义类型安全的数据结构和行为接口。
+`struct` 描述命名字段，`enum` 描述变体，`trait` 描述行为接口，`impl` 为类型实现接口。当前 Python 路径维护类型与实现的运行时注册表。
 
----
-
-## 📋 ADT 组件总览
-
-| 组件 | 语法 | 说明 |
-|------|------|------|
-| **struct** | `struct Name { fields }` | 定义记录类型 |
-| **enum** | `enum Name { variants }` | 定义枚举类型 |
-| **trait** | `trait Name { methods }` | 定义行为接口 |
-| **impl** | `impl Trait for Type { methods }` | 实现 trait |
-
----
-
-## 🏗 `struct` — 记录类型
-
-### 基本语法
+## 完整声明模块
 
 ```nexa
-struct Point {
-    x: Int,
-    y: Int
-}
-
-struct User {
-    name: String,
-    age: Int,
-    email: String
-}
+struct Point { x: int, y: int }
+enum Direction { North, South }
 ```
 
-### 创建实例
+这个模块独立编译。字段结构和变体语义由 `src/runtime/adt.py` 与 `tests/test_adt.py` 核验。协议化 Agent 输出优先使用 [Protocol](part3_extensions.md) 表达 schema；自定义数据结构与模型输出契约分别验证。
 
-```nexa
-flow main {
-    p = Point(x: 10, y: 20);
-    print("x=" + p.x + ", y=" + p.y);
-    
-    user = User(name: "Alice", age: 30, email: "alice@example.com");
-    print(user.name);
-}
-```
+## 使用与迁移
 
-### 字段访问与修改
+运行时提供结构实例、字段读取/更新、变体构造和 trait 方法查找。设计数据类型时保留显式字段，围绕业务操作建立接口。
 
-```nexa
-flow main {
-    p = Point(x: 10, y: 20);
-    
-    // 访问字段
-    print(p.x);
-    
-    // 修改字段（如果 struct 是可变的）
-    p.x = 15;
-}
-```
+旧综合示例 `examples/v1.2/test_adt.nx` 的第 60 行构造语法在当前 parser 中失败，已列为 historical draft。采用完整示例前先通过 `nexa validate` 和实际执行验收。
+
+
+## 声明语法与运行边界
+
+| 声明 | 写法 |
+| --- | --- |
+| struct | `struct Point { x: int, y: int }` |
+| enum | `enum Choice { Some(value), Empty }` |
+| trait | `trait Printable { fn format() : String }` |
+| impl | `impl Printable for Point { fn format() { "Point" } }` |
+
+上述形式由 parser 与类型注册表支持。当前完整程序中的 `Point(x: 2, y: 3)` 会在运行时报告 `name 'Point' is not defined`；`Choice::Some(42)` 报告变体字段数量不符。这两个集成路径已记录为开发基线限制。
+
+需要当前可用的结构化模型输出时，使用 [Protocol](part3_extensions.md)。本地复杂数据可由受信任的 Python 工具管理，并以明确的 JSON Schema 暴露给 Agent。待构造与生成物的端到端用例通过后，再把 ADT 构造列入可执行教程。
 
 ---
 
-## 🏷 `enum` — 枚举类型
-
-### 基本语法
-
-```nexa
-enum Color {
-    Red,
-    Green,
-    Blue
-}
-
-enum Option {
-    Some(value),
-    None
-}
-
-enum Result {
-    Ok(value),
-    Err(error)
-}
-```
-
-### 创建变体
-
-```nexa
-flow main {
-    color = Color::Red;
-    
-    opt = Option::Some(42);
-    empty = Option::None;
-    
-    success = Result::Ok("data");
-    failure = Result::Err("error message");
-}
-```
-
-### 模式匹配
-
-```nexa
-flow main {
-    opt = Option::Some(42);
-    
-    result = match opt {
-        Option::Some(x) => "值：" + x,
-        Option::None => "无值"
-    };
-    
-    print(result);
-}
-```
-
----
-
-## 🎯 `trait` — 行为接口
-
-### 基本语法
-
-```nexa
-trait Printable {
-    fn format(): String
-}
-
-trait Comparable {
-    fn compare(other: Self): Int
-}
-
-trait Container {
-    fn size(): Int,
-    fn isEmpty(): Bool
-}
-```
-
-### 方法签名
-
-- 方法可以有参数和返回类型
-- 方法体在 `impl` 中实现
-
----
-
-## 🔧 `impl` — 实现 trait
-
-### 基本语法
-
-```nexa
-struct Point {
-    x: Int,
-    y: Int
-}
-
-trait Printable {
-    fn format(): String
-}
-
-impl Printable for Point {
-    fn format(): String {
-        return "(" + self.x + ", " + self.y + ")";
-    }
-}
-```
-
-### 调用 trait 方法
-
-```nexa
-flow main {
-    p = Point(x: 10, y: 20);
-    
-    // 调用 trait 方法
-    formatted = p.format();
-    print(formatted);  // 输出: (10, 20)
-}
-```
-
----
-
-## 🎨 完整示例：Option 类型
-
-```nexa
-// 定义 Option 枚举
-enum Option {
-    Some(value),
-    None
-}
-
-// 定义 Printable trait
-trait Printable {
-    fn format(): String
-}
-
-// 为 Option 实现 Printable
-impl Printable for Option {
-    fn format(): String {
-        return match self {
-            Option::Some(v) => "Some(" + v + ")",
-            Option::None => "None"
-        };
-    }
-}
-
-// 定义可空除法函数
-flow safe_divide(a: Int, b: Int): Option {
-    if b == 0 {
-        return Option::None;
-    } else {
-        return Option::Some(a / b);
-    }
-}
-
-flow main {
-    result1 = safe_divide(10, 2);
-    result2 = safe_divide(10, 0);
-    
-    print(result1.format());  // Some(5)
-    print(result2.format());  // None
-    
-    // 模式匹配处理
-    match result1 {
-        Option::Some(v) => print("结果：" + v),
-        Option::None => print("除零错误")
-    }
-}
-```
-
----
-
-## 🔄 Result 类型
-
-```nexa
-enum Result {
-    Ok(value),
-    Err(error)
-}
-
-flow parse_int(text: String): Result {
-    python! """
-    try:
-        return {"_nexa_option_variant": "Ok", "value": int(text)}
-    except ValueError as e:
-        return {"_nexa_option_variant": "Err", "error": str(e)}
-    """
-}
-
-flow main {
-    result = parse_int("42");
-    
-    match result {
-        Result::Ok(v) => print("解析成功：" + v),
-        Result::Err(e) => print("解析失败：" + e)
-    }
-}
-```
-
----
-
-## 📊 最佳实践
-
-### 1. 使用 Option 表示可空值
-
-```nexa
-// 推荐：使用 Option
-flow find_user(id: Int): Option {
-    // ...
-}
-
-// 避免：使用 null
-flow find_user(id: Int): User {
-    // 可能返回 null ❌
-}
-```
-
-### 2. 使用 Result 表示可能失败的操作
-
-```nexa
-// 推荐：使用 Result
-flow read_file(path: String): Result {
-    // Ok(content) 或 Err(error)
-}
-
-// 避免：抛出异常
-flow read_file(path: String): String {
-    // 可能抛出异常 ❌
-}
-```
-
-### 3. Trait 命名规范
-
-```nexa
-// 推荐：使用形容词或能力描述
-trait Printable { }
-trait Comparable { }
-trait Serializable { }
-
-// 避免：使用名词
-trait Printer { }  // ❌
-```
-
----
-
-## 📚 相关文档
-
-- [模式匹配](part2_pattern_matching.md) — 7 种模式类型
-- [错误传播](part2_error_handling.md) — `?` 操作符和 `otherwise`
-- [语言参考](reference.md) — 完整语法规范
+[来源与验证](capability_inventory.md) · `types`

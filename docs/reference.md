@@ -1,1047 +1,176 @@
 ---
-comments: true
+title: "语言与 API 参考"
+capabilities: [language, compilation, execution]
 ---
 
-# Nexa 语言参考手册
+# 语言与 API 参考
 
-本手册详细描述 Nexa 语言的语法规范、语义规则和类型系统。所有语法规则与源码 `src/nexa_parser.py` 严格匹配。
+按对象查找语法、参数、返回值和错误约束。从基础类型与运算符开始，再查 Agent 配置和 Python 接口。
 
----
+| 对象 | 定义 | 入口 |
+| --- | --- | --- |
+| `.nx`、flow | 程序与确定性控制流 | [语言基础](part1_basic.md) |
+| Agent、`uses`、`@tool` | 模型指令与暴露工具 | [工具与 Protocol](part3_extensions.md) |
+| Protocol、ADT | 输出 schema 与本地数据类型 | [Protocol](part3_extensions.md)、[ADT](part2_adt.md) |
+| `>>`、fork/merge | 顺序与并行拓扑 | [编排](part2_advanced.md) |
+| `context` | 上下文来源、去向、schema | [结构化上下文](part2_context_structure.md) |
+| Harness | 循环、快照、hook、验证 | [执行原语](part2_harness.md) |
+| Actor | 顺序邮箱与 flow 生命周期 | [Actor](runtime_actors.md) |
+| `compile_file` / `compile_source` | 统一编译 | [编译器](part5_compiler.md) |
+| `execute` / `aexecute` | 独立运行、预算、取消 | [执行](runtime_execution.md) |
+| `continue_run` | 已结束任务的下一轮 | [连续对话](runtime_conversations.md) |
+| `SQLiteCheckpointStore` | 持久化、审批、未知结果 | [checkpoint](runtime_checkpoints.md) |
+| `RunState` | 运行状态、用量、事件与结果 | [执行状态](runtime_execution.md) |
+| CLI | 编译、检查、运行与服务命令 | [CLI 参考](cli_reference.md) |
 
-## 📖 关于本手册
+Nexa 程序可直接调用生成的 Agent 对象；Python 应用通过下方列出的运行接口集成。
 
-本参考手册按照以下原则组织：
 
-- **精确性**：每个语法构造都有明确的语义定义
-- **完整性**：覆盖语言的所有特性，包括 v1.1–v1.3.x 新增特性
-- **实用性**：提供足够的示例帮助理解
+## 文件、注释与值
 
-!!! tip "阅读建议"
-    如果你是 Nexa 新手，建议先阅读 [快速入门](quickstart.md) 和 [基础语法](part1_basic.md)，再回来查阅本手册。
+| 写法 | 说明 |
+| --- | --- |
+| `.nx` / `.nxlib` | 程序与可 include 的源模块 |
+| `.nxs` | 本地模型配置，按目录合并，同名配置由最近目录覆盖 |
+| `// text` / `/* text */` | 行注释与块注释 |
+| `42` / `2.5` / `true` / `false` | 整数、浮点数与布尔值 |
+| `"text"` / 三引号字符串 | 单行与多行文本 |
+| `value = expression;` | 赋值；普通赋值结尾分号可选 |
+| `object.field` / `object["key"]` | 属性或键访问，具体值类型决定有效操作 |
 
----
+Python 路径采用 Python 整数语义。Rust 支持范围见[后端说明](runtime_rust.md)。复杂计算优先拆成中间赋值，避免对未验证的操作符组合做优先级假设。
 
-## 1. 词法结构 (Lexical Structure)
+## 运算符
 
-### 1.1 标识符 (Identifiers)
+| 运算符 | 作用 | 使用条件 |
+| --- | --- | --- |
+| `+ - * / %` | 算术 | 操作数需要适用类型；`/` 为真除法 |
+| `== != > >= < <=` | 比较 | 可放在确定性条件中 |
+| `and` / `or` | 条件组合 | `if (...)` / `while (...)` |
+| `>>` | Agent 顺序管道 | 向下一 Agent 传递输出或声明的 context |
+| `|>` | 普通函数管道 | `x |> f` 调用 `f(x)` |
+| `??` | 空值回退 | `None`、Option 空值或空字典触发回退 |
+| `fallback` | 失败后的备选表达式 | 对具体失败路径做执行验收 |
+| `?` / `otherwise` | `NexaResult` 解包、传播或回退 | 使用返回 `NexaResult` 的入口 |
+| `|>>` / `&>>` | DAG 分叉与合流 | 以完整程序和独立会话验证拓扑 |
+| `||` / `&&` | 旧 DAG 兼容语法 | 与后台执行/共识的具体行为一起验收，避免只按符号推断 |
 
-Nexa 标识符遵循以下规则：
-
-```
-identifier ::= [a-zA-Z_][a-zA-Z0-9_]*
-```
-
-**有效标识符示例**：
-
-```nexa
-MyAgent           // 大驼峰命名（推荐用于 Agent）
-my_tool          // 蛇形命名（推荐用于 tool）
-_process_data    // 下划线开头
-Parser2          // 包含数字（不能开头）
-```
-
-**无效标识符示例**：
-
-```nexa
-2ndAgent         // 数字开头
-my-agent         // 包含连字符
-agent.name       // 包含点号
-```
-
-### 1.2 关键字 (Keywords)
-
-Nexa 保留以下关键字，不能用作标识符：
-
-| 类别 | 关键字 |
-|------|--------|
-| 声明 | `agent`, `tool`, `protocol`, `flow`, `test`, `type`, `struct`, `enum`, `trait`, `impl`, `fn`, `job`, `server`, `db`, `auth`, `kv` |
-| 控制流 | `match`, `intent`, `loop`, `until`, `if`, `else`, `for`, `while`, `break`, `continue` |
-| Harness 执行 | `autoloop`, `try_agent`, `catch_correction`, `with_context`, `snapshot`, `restore`, `fork`, `merge` |
-| Harness 验证 | `verify`, `satisfies`, `reflect`, `before_step`, `after_step` |
-| Actor 模型 | `spawn`, `pass`, `await` |
-| 语义控制 | `semantic_if`, `fast_match`, `against` |
-| 异常处理 | `try`, `catch` |
-| 错误传播 | `?`, `otherwise` |
-| 类型约束 | `implements`, `uses` |
-| 契约式编程 | `requires`, `ensures`, `invariant` |
-| 并发 | `parallel`, `race`, `channel`, `after`, `schedule`, `select` |
-| 延迟执行 | `defer` |
-| 管道 | `|>` |
-| DAG 分叉 | `|>>`, `&>>`, `||`, `&&` |
-| 空值合并 | `??` |
-| 字符串插值 | `#{expr}` |
-| 模板 | `template` |
-| Agent 属性 | `output_format`, `output_schema`, `max_tool_calls`, `tool_call_strategy` |
-| 其他 | `print`, `assert`, `fallback`, `join`, `role`, `model`, `prompt`, `memory`, `stream`, `cache`, `experience`, `include` |
-
-### 1.3 字面量 (Literals)
-
-#### 字符串字面量
+### 函数管道
 
 ```nexa
-"Hello, World!"           // 普通字符串
-"Line 1\nLine 2"         // 包含转义字符
-"Quote: \"nested\""      // 包含引号
-"""Multi-line string"""   // 多行字符串
+flow double(value: int) -> int { result = value * 2; }
+flow main { result = 6 |> double; }
 ```
 
-#### 字符串插值字面量 (v1.3.x)
+返回 `12`。`|>` 在函数参数前插入左侧值；Agent 串联通常使用 `>>`。
+
+### 空值回退
 
 ```nexa
-"Hello #{name}, you are #{age} years old!"   // Ruby 风格插值
-"Status: #{result ?? 'pending'}"             // 插值 + 空值合并
-"Agent #{agent.name} responding"             // 插值 + 点访问
-```
-
-**插值表达式支持**：
-
-| 表达式类型 | 示例 | Python 转译 |
-|-----------|------|-------------|
-| 简单标识符 | `#{name}` | `name` |
-| 点访问 | `#{user.name}` | `user["name"]` |
-| 括号访问 | `#{arr[0]}` | `arr[0]` |
-| 组合 | `#{data.items[0].name}` | `data["items"][0]["name"]` |
-
-**转义**：`\#{` → 字面量 `#{`
-
-#### 模板字符串字面量 (v1.3.6)
-
-```nexa
-template"""Hello {{name | upper}}!"""
-template"""{{#for item in items}}{{@index}}:{{item}}{{/for}}"""
-template"""{{#if is_admin}}Admin{{#elif is_mod}}Mod{{#else}}User{{/if}}"""
-template"""{{> card user_data}}"""
-```
-
-#### 正则表达式字面量
-
-```nexa
-r"\d{4}-\d{2}-\d{2}"     // 日期格式
-r"^[a-zA-Z_]\w*$"        // 标识符模式
-r"https?://[^\s]+"      // URL 模式
-```
-
-#### 数字字面量
-
-```nexa
-42              // 整数
-3.14            // 浮点数
-2048            // 用于 max_tokens 等参数
-```
-
-### 1.4 注释 (Comments)
-
-```nexa
-// 单行注释
-
-/*
- * 多行注释
- * 可以跨越多行
- */
-
-/// 文档注释（用于 Agent、Tool 说明）
-```
-
----
-
-## 2. 声明 (Declarations)
-
-### 2.1 Agent 声明
-
-```nexa
-agent_decl ::= agent_decorator* "agent" IDENTIFIER 
-               ["->" return_type]
-               ["uses" use_identifier_list]
-               ["implements" IDENTIFIER]
-               requires_clause*
-               ensures_clause*
-               "{" agent_property* "}"
-```
-
-**示例**：
-
-```nexa
-// 基本定义
-agent Greeter {
-    role: "友好的问候助手",
-    model: "deepseek/deepseek-chat",
-    prompt: "你是一个热情友好的助手。"
-}
-
-// 带修饰器
-@limit(max_tokens=600)
-@timeout(seconds=30)
-agent Coder {
-    prompt: "Write a short Python implementation.",
-    model: "minimax/minimax-m2.5"
-}
-
-// 契约条款
-agent Reviewer implements ReviewResult
-    requires: "input contains code"
-    ensures: "result includes score"
-{
-    prompt: "Review the provided code.",
-    model: "deepseek/deepseek-chat"
-}
-
-// 带返回类型
-agent Analyzer -> ReportResult uses std.http {
-    role: "数据分析师",
-    prompt: "分析数据并生成报告"
-}
-```
-
-**Agent 属性**：
-
-| 属性 | 类型 | 必填 | 说明 |
-|-----|------|-----|------|
-| `role` | string | 否 | Agent 角色描述 |
-| `prompt` | string | **是** | Agent 核心任务指令 |
-| `model` | string | 否 | LLM 模型（格式：`提供商/模型名`） |
-| `memory` | string | 否 | 记忆模式 |
-| `stream` | boolean | 否 | 流式输出 |
-| `cache` | boolean | 否 | 智能缓存 |
-| `experience` | string | 否 | 长期记忆文件 |
-| `fallback` | string/list | 否 | 备用模型 |
-| `uses` | identifier_list | 否 | 标准库权限 |
-| `implements` | identifier | 否 | 协议约束 |
-
-**Agent 修饰器**：
-
-| 修饰器 | 参数 | 说明 |
-|--------|------|------|
-| `@limit` | `max_tokens=INT` | 最大输出 token 数 |
-| `@timeout` | `seconds=INT` | 执行超时 |
-| `@retry` | `count=INT` | 失败重试次数 |
-| `@temperature` | `value=FLOAT` | 模型温度 |
-
----
-
-### 2.2 Tool 声明
-
-```nexa
-tool_decl ::= "tool" IDENTIFIER "{" tool_body "}"
-tool_body ::= tool_body_standard | tool_body_mcp | tool_body_python
-```
-
-**示例**：
-
-```nexa
-// 标准工具
-tool web_search {
-    description: "搜索网页内容",
-    parameters: {
-        "query": "搜索关键词",
-        "limit": "结果数量限制"
-    }
-}
-
-// MCP 工具
-tool search_mcp {
-    mcp: "web-search-mcp-server"
-}
-
-// Python 工具
-tool calculator {
-    python: "import math; return math.sqrt(input)"
-}
-```
-
----
-
-### 2.3 Protocol 声明
-
-```nexa
-protocol_decl ::= "protocol" IDENTIFIER "{" protocol_body* "}"
-protocol_body ::= IDENTIFIER ":" STRING_LITERAL ","?
-                | IDENTIFIER ":" type_expr ","?
-```
-
-**示例**：
-
-```nexa
-// 字符串类型标注（旧格式）
-protocol ReviewResult {
-    score: "int",
-    summary: "string",
-    bug_list: "list[string]",
-    is_critical: "boolean"
-}
-
-// 类型表达式标注（v1.3.1+）
-protocol UserProfile {
-    name: String,
-    age: Int,
-    email: Option[String]
-}
-```
-
----
-
-### 2.4 Flow 声明
-
-```nexa
-flow_decl ::= "flow" IDENTIFIER ["(" param_list ")"] ["->" type_expr]
-              requires_clause* ensures_clause* block
-```
-
-**示例**：
-
-```nexa
-// 基本定义
 flow main {
-    result = Greeter.run("你好！");
-    print(result);
-}
-
-// 带参数和返回类型
-flow analyze(data: String) -> ReportResult
-    requires: data != None
-    ensures: "result contains analysis"
-{
-    return Analyzer.run(data);
+    python! """value = None"""
+    result = value ?? "fallback";
 }
 ```
 
----
+返回 `fallback`。真实空值和字符串 `"None"` 有不同含义。
 
-### 2.5 Test 声明
-
-```nexa
-test_decl ::= "test" STRING_LITERAL block
-```
-
-**示例**：
+### 字符串插值
 
 ```nexa
-test "翻译功能测试" {
-    result = Translator.run("Hello, World!");
-    assert "包含中文翻译" against result;
+flow main {
+    name = "Nexa";
+    result = "Hello #{name}";
 }
 ```
 
----
+返回 `Hello Nexa`。插值支持变量、属性和下标访问；任意 Python 表达式不属于插值接口。动态模板使用 `std.template`。
 
-### 2.6 Type 声明 (语义类型)
+## 类型与输出 schema
 
-```nexa
-type_decl ::= "type" IDENTIFIER "=" semantic_type
-semantic_type ::= base_type "@" STRING_LITERAL    // 约束类型
-               | base_type                          // 简单类型
-```
+| 类型写法 | 用途 |
+| --- | --- |
+| `int` / `float` / `str` / `string` / `bool` | 基础注解 |
+| `list[T]` / `dict[K, V]` | 泛型集合注解 |
+| `T?` / `Option[T]` | 可空值声明 |
+| `Result[T, E]` | 成功值或错误值声明 |
+| `T \| U` | 联合类型 |
+| `type Name = str @ "constraint"` | 语义类型声明；语义判定需要对应评估能力 |
+| `protocol Name { field: type }` | Agent 输出契约 |
+| `struct` / `enum` / `trait` / `impl` | 本地 ADT 声明；参见[支持边界](part2_adt.md) |
 
-**示例**：
-
-```nexa
-type Email = str @ "valid email address format"
-type PositiveInt = int @ "must be greater than 0"
-type Score = float @ "between 0.0 and 100.0"
-```
-
----
-
-### 2.7 Struct 声明 (v1.3.x)
+完整类型声明模块：
 
 ```nexa
-struct_decl ::= "struct" IDENTIFIER "{" struct_field* "}"
-struct_field ::= IDENTIFIER ":" type_expr ","?
-```
-
-**示例**：
-
-```nexa
-struct Point { x: Int, y: Int }
-struct AgentResult { answer: String, confidence: Float, tokens: Int }
-struct UserProfile { name: String, email: String, age: Int }
-```
-
-**运行时表示**（handle-as-dict）：
-
-```json
-{"_nexa_struct": "Point", "_nexa_struct_id": 1, "x": 1, "y": 2}
-```
-
----
-
-### 2.8 Enum 声明 (v1.3.x)
-
-```nexa
-enum_decl ::= "enum" IDENTIFIER "{" enum_variant* "}"
-enum_variant ::= IDENTIFIER "(" IDENTIFIER ")"    // 带值变体
-              | IDENTIFIER                          // 单元变体
-```
-
-**示例**：
-
-```nexa
-enum Option { Some(value), None }
-enum Result { Ok(value), Err(error) }
-enum AgentState { Idle, Running, Error(message) }
-```
-
-**运行时表示**（handle-as-dict）：
-
-```json
-// 带值变体
-{"_nexa_variant": "Some", "_nexa_enum": "Option", "_nexa_variant_id": 1, "value": 42}
-// 单元变体
-{"_nexa_variant": "None", "_nexa_enum": "Option"}
-```
-
----
-
-### 2.9 Trait 声明 (v1.3.x)
-
-```nexa
-trait_decl ::= "trait" IDENTIFIER "{" trait_method* "}"
-trait_method ::= "fn" IDENTIFIER "(" param_list ")" ["->" type_expr]
-```
-
-**示例**：
-
-```nexa
-trait Printable { fn format() -> String }
-trait Comparable { fn compare(other: Self) -> Int }
-trait Serializable { fn serialize() -> String }
-```
-
----
-
-### 2.10 Impl 声明 (v1.3.x)
-
-```nexa
-impl_decl ::= "impl" IDENTIFIER "for" IDENTIFIER "{" impl_method* "}"
-impl_method ::= "fn" IDENTIFIER "(" param_list ")" ["->" type_expr] block
-```
-
-**示例**：
-
-```nexa
-impl Printable for Point {
-    fn format() -> String {
-        return "Point(x=#{self.x}, y=#{self.y})"
-    }
+protocol Report {
+    title: str,
+    score: float,
+    tags: list[str],
+    note: str?
+}
+agent Reviewer implements Report {
+    prompt: "Return a report matching the declared fields."
 }
 ```
 
----
+Protocol 输出在完成路径验证，缺失字段或类型错误会失败。静态 lint、渐进式类型模式与模型输出的 JSON/schema 校验分开处理。
 
-### 2.11 Job 声明 (v1.3.3)
+## Agent 参数
+
+以下默认值来自 `NexaAgent` 构造函数；`RunConfig` 的单轮累计限制见[执行预算](runtime_execution.md)。
+
+| 属性 | 默认值 | 行为 |
+| --- | --- | --- |
+| `prompt` | 空字符串 | 系统指令 |
+| `role` | 空字符串 | 追加到系统指令的角色信息 |
+| `model` | 有效配置的 strong 模型 | 可带 provider 前缀 |
+| `provider_api` | Chat；anthropic 前缀选择 Anthropic | `chat` / `responses` / `anthropic` |
+| `max_tokens` | `None` | 单次 provider 输出 token 上限 |
+| `stream` | `false` | 流式输出，仍需要完成事件与校验 |
+| `cache` | `false` | 启用符合条件的精确缓存 |
+| `max_history_turns` | `None` | 会话历史回合限制 |
+| `timeout` | 30 秒 | 未显式配置 RunConfig 时的总时限 |
+| `retry` | 3 | 生成执行配置时换算为最多 2 次重试 |
+| `max_tool_calls` | 10 | 未显式配置 RunConfig 时的工具调用上限 |
+| `tool_call_strategy` | `auto` | `auto` / `required` / `none`，传入 provider 工具选择 |
+| `output_format` | 空字符串 | `json` 请求 JSON 输出 |
+| `output_schema` | `None` | 结构化输出约束，与 Protocol 路径共用校验 |
+| `memory_scope` | `local` | 旧 `persistent` 模式保存本地消息；可恢复任务使用 checkpoint |
+| `experience` | `None` | 将存在的文件内容追加到系统指令 |
+| `context` | 未设置 | ContextSpec 的来源、去向、schema 与继承字段 |
+
+`.nx` 的 `max_tokens` 和 `max_history_turns` 属性接受整数。`@limit(max_tokens=...)`、`@timeout(seconds=...)`、`@retry(max_attempts=...)` 优先于同名属性。`@temperature` 当前尚未影响 provider 请求。完整配置声明：
 
 ```nexa
-job_decl ::= "job" IDENTIFIER "on" STRING_LITERAL 
-             ["(" job_options ")"] "{" job_body "}"
-```
-
-**示例**：
-
-```nexa
-job SendEmail on "emails" (retry: 2, timeout: 120) {
-    perform(user_id) {
-        // 发送邮件逻辑
-    }
-    on_failure(error, attempt) {
-        // 失败处理逻辑
-    }
+agent Analyst {
+    prompt: "Use evidence and state assumptions."
+    role: "Analyst"
+    provider_api: "chat"
+    timeout: 120
+    retry: 2
+    max_tool_calls: 4
+    max_tokens: 2000
+    max_history_turns: 6
+    stream: true
+    cache: false
+    tool_call_strategy: "auto"
 }
 ```
 
-**Job 选项**：
+## Python 调用签名与结果
 
-| 选项 | 类型 | 说明 |
-|------|------|------|
-| `retry` | int | 重试次数 |
-| `timeout` | int | 超时秒数 |
+| 接口 | 返回与主要约束 |
+| --- | --- |
+| `compile_file(path, *, harness_mode="warn")` | `Compilation`：`python_code`、`ast`、`sources`、`diagnostics` |
+| `compile_source(source, *, source_path=None, harness_mode="warn")` | 同上；传 source_path 保留相对 include 基准 |
+| `NexaAgent.run(*args)` | 直接值；保留实例会话；失败抛异常 |
+| `NexaAgent.run_result(*args)` | `NexaResult` 成功或错误包装 |
+| `NexaAgent.execute(*args, config=None, state=None, cancel=None, save=None, on_event=None, on_text=None, provider=None)` | 独立或恢复的 `RunState`；resume 禁止新 args |
+| `NexaAgent.aexecute(*args, **kwargs)` | 异步适配；任务取消设置协作取消信号 |
+| `NexaAgent.continue_run(previous, *args, config=None, cancel=None, save=None, on_event=None, on_text=None, provider=None)` | 从已结算历史建立新运行；未知结果阻止继续 |
 
----
-
-### 2.12 Server 声明 (v1.3.4)
-
-```nexa
-server_decl ::= "server" INT "{" server_body "}"
-```
-
-**示例**：
-
-```nexa
-server 8080 {
-    static "/assets" from "./public"
-    cors { origins: ["*"], methods: ["GET", "POST"] }
-    middleware [auth_middleware]
-    require_auth "/admin"
-    
-    route GET "/chat" => ChatBot
-    route POST "/analyze" => DataExtractor |>> Analyzer
-    semantic route "/help" => HelpBot
-    
-    group "/admin" {
-        middleware [require_admin]
-        route GET "/" => AdminBot
-    }
-}
-```
-
-**Server 指令**：
-
-| 指令 | 说明 |
-|------|------|
-| `static` | 静态文件服务 |
-| `cors` | CORS 配置 |
-| `middleware` | 中间件列表 |
-| `require_auth` | 认证要求路径 |
-| `route` | 标准路由 |
-| `semantic route` | 语义路由 |
-| `group` | 路径分组 |
-
-**HTTP 方法**：`GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `HEAD`, `OPTIONS`
-
-**路由处理器**：
-
-```nexa
-// 单个处理器
-route GET "/chat" => ChatBot
-
-// DAG 链式处理器
-route POST "/analyze" => DataExtractor |>> Analyzer |>> Reporter
-```
+`on_event` 接收事件字典，`on_text` 接收流式文本片段，`save` 接收可持久化 `RunState`。回调属于应用执行路径，应保持有界并显式处理自身失败。
 
 ---
 
-### 2.13 DB 声明 (v1.3.5)
-
-```nexa
-db_decl ::= "db" IDENTIFIER "=" "connect" "(" STRING_LITERAL ")"
-```
-
-**示例**：
-
-```nexa
-db app_db = connect("sqlite://data.db")
-db prod_db = connect("postgresql://user:pass@localhost/mydb")
-```
-
----
-
-### 2.14 Auth 声明 (v1.3.6)
-
-```nexa
-auth_decl ::= "auth" IDENTIFIER "=" "enable_auth" "(" STRING_LITERAL ")"
-```
-
-**示例**：
-
-```nexa
-auth myAuth = enable_auth('{"providers": ["google", "github"]}')
-```
-
----
-
-### 2.15 KV 声明 (v1.3.6)
-
-```nexa
-kv_decl ::= "kv" IDENTIFIER "=" "open" "(" STRING_LITERAL ")"
-```
-
-**示例**：
-
-```nexa
-kv myCache = open("sqlite://cache.db")
-```
-
----
-
-## 3. 表达式 (Expressions)
-
-### 3.1 管道操作符 `|>` (v1.3.x)
-
-左到右数据流管道，LHS 作为 RHS 函数的第一个参数。
-
-```nexa
-x |> f          // 等价于 f(x)
-x |> f(a, b)    // 等价于 f(x, a, b)
-data |> std.text.upper
-prompt |> agent.run |> extract_answer
-```
-
-!!! note "与 `>>` 的区别"
-    `|>` 是函数管道（左值作为第一个参数传入），`>>` 是 Agent 流水线（左值作为输入传给下一个 Agent）。
-
----
-
-### 3.2 Agent 管道操作符 `>>`
-
-Agent 间流水线数据传递。
-
-```nexa
-A >> B              // B.run(A.run(input))
-A >> B >> C         // C.run(B.run(A.run(input)))
-input >> A >> B     // 从输入开始
-```
-
----
-
-### 3.3 DAG 操作符 `|>>` 和 `&>>`
-
-```nexa
-// |>> 分叉（fan-out）：输入同时发送给多个 Agent
-input |>> [AgentA, AgentB, AgentC]
-
-// &>> 合流（merge）：收集多个结果后传给下一个 Agent
-[results] &>> Summarizer
-
-// 组合使用
-"topic" |>> [Writer, Reviewer, Editor] &>> Publisher
-```
-
----
-
-### 3.4 Null 合并操作符 `??` (v1.3.x)
-
-```nexa
-expr ?? fallback    // 如果 expr 为 None/Option::None/空字典，返回 fallback
-result ?? "fallback"
-config.timeout ?? 30
-agent.run(prompt) ?? "I couldn't process that"
-```
-
-**语义**：
-
-| 左值 | 结果 |
-|------|------|
-| `None` | 右值 |
-| `Option::None` dict | 右值 |
-| 空字典 `{}` | 右值 |
-| 其他任何值 | 左值 |
-
----
-
-### 3.5 错误传播操作符 `?` (v1.3.2)
-
-Rust 风格错误传播，遇到错误时向上传播。
-
-```nexa
-let value = parse(input) ?           // 如果 parse 返回错误，传播错误
-let result = risky_operation() ?     // 同上
-```
-
----
-
-### 3.6 Otherwise 操作符 (v1.3.2)
-
-提供错误回退值。
-
-```nexa
-let result = risky_op() otherwise "fallback"   // 如果出错，返回 "fallback"
-```
-
----
-
-### 3.7 Match 表达式 (v1.3.x)
-
-```nexa
-match_expr ::= "match" expression "{" match_arm* "}"
-match_arm ::= pattern "=>" expression
-```
-
-**7 种模式类型**：
-
-| 模式 | 语法 | 说明 |
-|------|------|------|
-| Wildcard | `_` | 匹配任何值，不绑定 |
-| Variable | `name` | 匹配任何值，绑定变量 |
-| Literal | `42`, `"hello"`, `true` | 匹配精确值 |
-| Tuple | `(a, b)` | 匹配元组/数组 |
-| Array | `[a, b, ..rest]` | 匹配数组 + rest 收集 |
-| Map | `{ name, age: a, ..other }` | 匹配字典 + rest 收集 |
-| Variant | `Option::Some(v)` | 匹配枚举变体 |
-
-**示例**：
-
-```nexa
-// 基本匹配
-match result {
-    Option::Some(answer) => answer
-    Option::None => "no response"
-}
-
-// 字面量匹配
-match status {
-    200 => "success"
-    404 => "not found"
-    _ => "unknown"
-}
-
-// 解构匹配
-match entry {
-    (key, value) => "#{key}: #{value}"
-}
-
-// 数组解构
-match items {
-    [first, second, ..rest] => "first=#{first}, rest=#{rest.length}"
-}
-
-// Map 解构
-match user {
-    { name, age: a, ..other } => "#{name} is #{a} years old"
-}
-```
-
----
-
-### 3.8 Let 解构 (v1.3.x)
-
-```nexa
-let_pattern_stmt ::= "let" pattern "=" expression
-```
-
-**示例**：
-
-```nexa
-let (key, value) = entry
-let [first, ..rest] = items
-let { name, age: a } = user_data
-```
-
----
-
-### 3.9 For 解构 (v1.3.x)
-
-```nexa
-for_pattern_stmt ::= "for" pattern "in" expression block
-```
-
-**示例**：
-
-```nexa
-for (name, score) in rankings {
-    print("#{name}: #{score}")
-}
-```
-
----
-
-### 3.10 Variant Call 表达式 (v1.3.x)
-
-```nexa
-variant_call_expr ::= IDENTIFIER "::" IDENTIFIER ["(" expression ")"]
-```
-
-**示例**：
-
-```nexa
-let opt = Option::Some(42)
-let res = Result::Ok("success")
-let state = AgentState::Running
-let err = AgentState::Error("connection failed")
-```
-
----
-
-### 3.11 Field Init 表达式 (v1.3.x)
-
-```nexa
-field_init ::= IDENTIFIER ":" expression
-```
-
-**示例**：
-
-```nexa
-let p = Point(x: 1, y: 2)
-let result = AgentResult(answer: "yes", confidence: 0.95, tokens: 150)
-```
-
----
-
-### 3.12 并发表达式 (v1.3.6)
-
-```nexa
-spawn_expr ::= "spawn" "(" expression ")"
-parallel_expr ::= "parallel" "(" expression ")"
-race_expr ::= "race" "(" expression ")"
-channel_expr ::= "channel" "(" ")"
-after_expr ::= "after" "(" expression "," expression ")"
-schedule_expr ::= "schedule" "(" expression "," expression ")"
-select_expr ::= "select" "(" expression ["," expression] ")"
-```
-
-**示例**：
-
-```nexa
-spawn(my_task)
-parallel([task_a, task_b, task_c])
-race([fast_task, slow_task])
-channel()
-after(500ms, cleanup())
-schedule(every 30s, health_check())
-```
-
----
-
-## 4. 语句 (Statements)
-
-### 4.1 Defer 语句 (v1.3.x)
-
-```nexa
-defer_stmt ::= "defer" expression ";"
-```
-
-LIFO 顺序执行，即使发生错误也会执行（类似 Go defer）。
-
-**示例**：
-
-```nexa
-defer cleanup(db)
-defer log("operation complete")
-defer agent_cleanup(agent)
-```
-
----
-
-### 4.2 契约条款 (v1.2.0)
-
-```nexa
-requires_clause ::= "requires" STRING_LITERAL        // 语义前置条件
-                  | "requires" comparison_expr        // 确定性前置条件
-
-ensures_clause ::= "ensures" STRING_LITERAL           // 语义后置条件
-                | "ensures" comparison_expr           // 确定性后置条件
-```
-
-**示例**：
-
-```nexa
-// 确定性契约
-flow transfer(amount: int) -> Result
-    requires: amount > 0
-    ensures: result.success == true
-{
-    // 转账逻辑
-}
-
-// 语义契约（用 LLM 在运行时判断）
-flow review(code: string) -> Report
-    requires: "input contains valid source code"
-    ensures: "result includes actionable feedback"
-{
-    // 审查逻辑
-}
-```
-
----
-
-### 4.3 传统控制流 (v1.0.1+)
-
-```nexa
-// if/else if/else
-if condition {
-    // ...
-} else if other_condition {
-    // ...
-} else {
-    // ...
-}
-
-// for each 循环
-for each item in collection {
-    // ...
-}
-
-// while 循环
-while condition {
-    // ...
-}
-
-// break/continue
-for each item in items {
-    if item == "skip" { continue; }
-    if item == "stop" { break; }
-}
-```
-
----
-
-### 4.4 语义控制流
-
-```nexa
-// loop until — 自然语言控制循环终止
-loop {
-    draft = Writer.run(feedback);
-    feedback = Critic.run(draft);
-} until ("文章质量优秀")
-
-// semantic_if — 语义条件判断
-semantic_if "user is frustrated" {
-    SupportBot.run("提供安慰和帮助");
-}
-
-// fast_match — 快速意图匹配
-result = fast_match user_input {
-    intent("查询天气") => WeatherBot.run(user_input),
-    intent("查询新闻") => NewsBot.run(user_input),
-    _ => ChatBot.run(user_input)
-}
-```
-
----
-
-### 4.5 Python 逃生舱 (v1.0.1+)
-
-```nexa
-stats = python! """
-    import statistics
-    data = json.loads(raw_data)
-    return statistics.mean(data)
-"""
-```
-
----
-
-## 5. 类型系统 (v1.3.1)
-
-### 5.1 类型表达式
-
-```nexa
-type_expr ::= type_union_expr | type_non_union_expr
-
-type_union_expr ::= type_non_union_expr ("|" type_non_union_expr)+
-type_non_union_expr ::= type_compound_expr "?" | type_compound_expr
-
-type_compound_expr ::= "str" | "int" | "float" | "bool" | "unit"
-                    | "Option" "[" type_expr "]"
-                    | "Result" "[" type_expr "," type_expr "]"
-                    | "list" "[" type_expr "]"
-                    | "dict" "[" type_expr "," type_expr "]"
-                    | IDENTIFIER    // 类型别名
-```
-
-**类型示例**：
-
-| 类型 | 说明 | 示例值 |
-|------|------|--------|
-| `Int` | 整数 | `42` |
-| `String` / `str` | 字符串 | `"hello"` |
-| `Float` / `float` | 浮点数 | `3.14` |
-| `Bool` / `bool` | 布尔值 | `true` |
-| `Unit` / `unit` | 单元类型 | `()` |
-| `Option[T]` | 可选类型 | `Some(42)` / `None` |
-| `Result[T, E]` | 结果类型 | `Ok("success")` / `Err("error")` |
-| `list[T]` | 列表 | `[1, 2, 3]` |
-| `dict[K, V]` | 字典 | `{"key": "value"}` |
-| `T | U` | 联合类型 | `Int | String` |
-| `T?` | 可选简写 | 等价于 `Option[T]` |
-
-### 5.2 类型检查模式
-
-| 模式 | 环境变量 | 说明 |
-|------|---------|------|
-| `strict` | `NEXA_TYPE_MODE=strict` | 类型不匹配 = 运行时错误 |
-| `warn` | `NEXA_TYPE_MODE=warn` | 类型不匹配 = 日志警告（默认） |
-| `forgiving` | `NEXA_TYPE_MODE=forgiving` | 类型不匹配 = 静默忽略 |
-
-**优先级**：CLI flag > 环境变量 > `nexa.toml` > 默认值 (`warn`)
-
-### 5.3 Lint 模式
-
-| 模式 | 环境变量 | 说明 |
-|------|---------|------|
-| `default` | `NEXA_LINT_MODE=default` | 只检查有类型标注的代码（默认） |
-| `warn` | `NEXA_LINT_MODE=warn` | 缺失类型标注发出警告 |
-| `strict` | `NEXA_LINT_MODE=strict` | 缺失类型标注 = lint 错误 |
-
----
-
-## 6. 错误处理 (Error Handling)
-
-### 6.1 错误类型
-
-| 错误类型 | 说明 | 触发场景 |
-|---------|------|---------|
-| `ContractViolation` | 契约违反 | `requires`/`ensures`/`invariant` 条件不满足 |
-| `TypeViolation` | 类型违反 | `strict` 模式下类型不匹配 |
-| `TypeWarning` | 类型警告 | `warn` 模式下类型不匹配 |
-| `ValidationError` | 验证错误 | 语义验证失败 |
-| `NexaResult.Err` | 结果错误 | `Result[T, E]` 类型的错误分支 |
-| `NexaOption.None` | 空值 | `Option[T]` 类型的空值 |
-
-### 6.2 错误传播
-
-```nexa
-// ? 操作符：传播错误
-let value = parse(input) ?
-
-// otherwise 操作符：提供回退值
-let result = risky_op() otherwise "fallback"
-
-// try/catch
-try {
-    result = risky_operation();
-} catch (error) {
-    print("Error: #{error}");
-}
-```
-
----
-
-## 7. 运行时架构模式
-
-### 7.1 Handle-as-dict 模式
-
-所有运行时句柄（DB 连接、KV Store、Auth Session、编译模板、struct 实例、enum 变体）都是普通 Python dict，使用 `_nexa_*` 前缀键，保证 JSON 兼容性。
-
-### 7.2 Thread-safe Registry 模式
-
-所有运行时模块使用全局注册表 + `_registry_lock` (threading.Lock) + `_id_counter`。
-
-### 7.3 StdTool Namespace 模式
-
-标准库工具通过 `StdTool` 注册到命名空间：`std.db`, `std.auth`, `std.kv`, `std.concurrent`, `std.template`, `std.match`, `std.struct`, `std.enum`, `std.trait` 等。
-
-### 7.4 BOILERPLATE 代码生成模式
-
-每个特性在 `CodeGenerator` 的 BOILERPLATE 区段添加导入和辅助函数。
-
-## 8. Harness 六元组语法规范 (v2.0)
-
-### 8.1 `autoloop` (E维度)
-```
-autoloop_stmt ::= "autoloop" "max_steps" ":" NUMBER ("," "exit_when" ":" STRING_LITERAL)? ("," "timeout" ":" NUMBER)? "{" flow_stmt* "}"
-```
-
-### 8.2 `try_agent` / `catch_correction`
-```
-try_agent_stmt ::= "try_agent" "{" flow_stmt* "}" "catch_correction" "(" IDENTIFIER ":" IDENTIFIER ")" "{" flow_stmt* "}"
-```
-
-### 8.3 `with_context` (C维度)
-```
-with_context_stmt ::= "with_context" "max_tokens" ":" NUMBER ("," "strategy" ":" IDENTIFIER)? "{" flow_stmt* "}"
-```
-
-### 8.4 `verify ... satisfies` (V维度)
-```
-verify_stmt ::= "verify" IDENTIFIER "satisfies" (IDENTIFIER | STRING_LITERAL)
-```
-
-### 8.5 Agent 属性 (v2.1)
-```
-agent_output_format ::= "output_format" ":" STRING_LITERAL
-agent_output_schema ::= "output_schema" ":" json_object
-agent_max_tool_calls ::= "max_tool_calls" ":" NUMBER
-agent_tool_call_strategy ::= "tool_call_strategy" ":" STRING_LITERAL
-```
-
-### 8.6 `@tool` 注解 (T维度)
-```
-tool_annotation ::= "@tool" "(" STRING_LITERAL ")" "fn" IDENTIFIER "(" fn_params ")" ":" IDENTIFIER "{" flow_stmt* "}"
-```
-
----
-
-## 🔗 相关资源
-
-- [标准库 API](stdlib_reference.md)
-- [CLI 命令参考](cli_reference.md)
-- [错误索引](error_index.md)
-- [快速入门](quickstart.md)
+[来源与验证](capability_inventory.md) · `language` / `compilation` / `execution`

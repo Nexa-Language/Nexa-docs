@@ -1,27 +1,16 @@
 ---
-comments: true
+title: "为什么使用 Nexa"
+capabilities: [language, execution]
 ---
 
-# 1. 前言：重构智能体开发范式
+# 为什么使用 Nexa
 
-## Harness Native：将 Agent 安全从框架下沉为语言原语
+Nexa 是 Agent 原生语言与运行时。人在 `.nx` 中定义目标、工具、上下文和控制流，模型也可以生成同一种程序；运行时负责执行声明并保留可核验的结果。
 
-Nexa v2.0 提出了**Harness Native**设计理念——确立 Harness 六元组**H=(E,T,C,S,L,V)**作为 Agent 编程的六大基础维度，并将其从运行时框架约束**下沉为语言级关键字和编译器验证原语**：
+语法让任务结构可见，运行状态让执行过程可检查。对有副作用的任务，审批、预算和恢复共同决定下一步能做什么。
 
-| 维度 | 核心问题 |
-|------|---------|
-| **E** (Execution) | Agent 如何安全地自主循环而不失控？ |
-| **T** (Tool) | 如何确保 Agent 调用工具的权限、参数正确？ |
-| **C** (Context) | 如何在不丢关键信息的前提下控制 token 预算？ |
-| **S** (State) | 如何高效快照、回溯、分叉 Agent 的思考状态？ |
-| **L** (Lifecycle) | 如何在每个步骤前后注入安全检查、反思钩子？ |
-| **V** (Verify) | 如何确保 Agent 输出满足类型、语义、行为约束？ |
+从[快速入门](quickstart.md)运行第一个程序；已有 Agent 应用可从[迁移指南](migration_24.md)检查执行契约。设计背景见[技术背景](preface_background.md)，选型示例见[典型场景](preface_scenarios.md)。
 
-这不是框架层面的配置，而是**语言原语**——编译器解析、运行时执行、Harness Validator 静态检查。
+---
 
-*本前言部分被划分为两个核心深度长文：*
-
-- 📖 **[调研背景：从语言模型到 Agent 原生计算范式](preface_background.md)**：全面梳理大语言模型与 Agent 的演进，深度剖析 Dify / Coze（弱代码范式）与 Python / LangChain（通用编程语言范式）所面临的底层工程痛点，并阐述 Nexa 如何作为“范式三”重塑原生原语。
-- ⚔️ **[典型场景：Nexa 与现有编排方法的深度对比](preface_scenarios.md)**：通过复杂代码生成、长周期金融研报生成以及需要“人在回路（HITL）”的高风险 IT 运维等三大典型场景，实战化对比 Nexa 与其他框架的降维打击优势。
-
-准备好用极富未来感的语言去支配硅基大脑了吗？请点击阅读文献或进入下一章，一起来定义属于你的第一个真正智能的网络团队。
+[来源与验证](capability_inventory.md) · `language` / `execution`

@@ -1,42 +1,25 @@
 ---
-comments: true
+title: "参与贡献"
+capabilities: [compilation, verification]
 ---
 
-# 贡献 (Contribution)
+# 参与贡献
 
-非常感谢你对 **Nexa** 智能体原生 (Agent-Native) 编程语言的关注。开源和社区共建是 Nexa 持续演进、打破现有 AI "胶水代码" 乱象的核心驱动力！
+文档、运行时与工具链分别维护在 Nexa-Language 组织的仓库中。贡献前先确定改动对象、运行时版本和复现方式。
 
-## ✨ 主要贡献者
+- [Nexa](https://github.com/Nexa-Language/Nexa)：语言、编译器与运行时。
+- [Nexa-docs](https://github.com/Nexa-Language/Nexa-docs)：双语文档与检查脚本。
+- [Nexa-Code](https://github.com/Nexa-Language/Nexa-Code)：终端编程助手。
+- [Nexa-extension](https://github.com/Nexa-Language/Nexa-extension)：VS Code 扩展。
 
-Nexa 的诞生与演进离不开背后充满激情的开发者和架构师们。语言编译器及原生执行引擎的目前核心研发成员：
+## 文档改动
 
-- **欧阳易芃 (Ouyang Yipeng)** —— Nexa 核心架构师、编译器底层研发设计及原生协程执行引擎（Runtime）主创。
+保持中英文主题与能力一致，登记每个 Nexa 代码块的验证方式。更新能力声明时同步 source/test provenance，并运行严格构建、链接和示例检查。具体命令见文档仓库 README。
 
-> *随着框架边界的不断辐射，不论是底层极客还是上层应用黑客，我们极度期待未来能有更多名字出现在这份星光璀璨的贡献者名单上！*
+## 缺陷反馈
 
-## 🤝 如何参与贡献？
-
-无论你是想优化解析器的底层正则推断、提供硬核的并发性能压测报告、接驳一个开创性的通用工具封装，还是仅仅修复官方文档里的一个错别字，你的所有贡献在这个早期阶段都如同千金般珍贵。
-
-### 1. 提交 Issue 探讨与反馈
-如果你发现了引擎死锁的报错 Bug，或是有了某个重构语法的绝妙特性想法（如更优雅的并发管道阻塞设计），请不要犹豫，即刻在项目 GitHub 主页开一个 Issue。
-如果涉及到 `protocol` 或者 `match intent` 的核心关键字修改，我们将发起公开的 GitHub Discussions 讨论与投票。
-
-### 2. Fork & Pull Request 参与核心构建
-如果你已经准备好满手机油地深入引擎机舱：
-1. **Fork** 官方仓库并 Clone 至本地实验区。
-2. 切出一个语义明确的分支（如 `feature/lsp-support`，`bugfix/dag-traverse`）。
-3. 进行代码实作，坚持并跑通（Test Driven Development）单元用例。
-4. 提供扎实详细的 Commit Message 并由个人分支发起一个上游的 Pull Request (PR)。
-我们会进行严谨、纯粹且充满极客乐趣的代码审查探讨！
-
-### 3. 扩充标准库 `stdlib` 与生态封装 `nxm`
-如果你对编译底层的抽象语法树（AST）不感兴趣，也完全可以通过写好外部工具封装来立下赫赫战功！将你日常使用 Python 调试好的优质场景工具（如爬虫聚合、知识库向量连接等）标准化封装，并合并至 Nexa 运行时底层的 `runtime/stdlib.py`，你将直接造福千万量级的使用者。
-
-### 4. 留下你的足迹
-不用去新建网页，这篇文档的每一个页脚都无缝对接了我们在 GitHub 上的 Discussions。如果有任何吐槽或者疑惑，请随时滚至该页底部并发送弹幕般轻便的留言。
+附最小复现、版本、命令、预期与实际结果。移除凭据和任务数据。涉及未知工具副作用时保留本地 checkpoint，提交脱敏摘要。
 
 ---
 
-*Let's reinvent the execution layer natively, together!* 
-*快来加入，一起打造这场属于 Agent-Native 的现代软件工程革命！*
+[来源与验证](capability_inventory.md) · `compilation` / `verification`

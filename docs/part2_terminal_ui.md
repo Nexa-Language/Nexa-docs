@@ -1,52 +1,42 @@
-# Terminal UI (v2.3.1)
+---
+title: "终端 UI"
+capabilities: [terminal, stdlib]
+---
 
-> **v2.3.1 新特性** — 基于 `rich` 的终端 UI 渲染 + CJK 宽字符输入。
+# 终端 UI
 
-## 概述
+`std.ui` 为 Nexa 程序提供 Markdown、代码、面板、状态消息与交互输入。渲染通过 `rich`，交互输入通过 `prompt_toolkit`。
 
-Nexa v2.3.1 引入终端 UI 库，让 Agent 输出不再是纯文本——支持 markdown 渲染、语法高亮代码块、spinner 动画、样式化面板和状态图标。
+## 安装与完整示例
 
-## `std.ui` DSL
+在 Nexa checkout 安装可选依赖：
 
-在 `.nx` 文件中直接调用 UI 函数：
+```sh
+uv sync --locked --extra terminal
+```
+
+下面的完整程序编译后可在终端显示消息，无需模型调用。
 
 ```nexa
 flow main {
-    std.ui.banner("My App", "Subtitle here");
-    std.ui.markdown("# Hello\n\nThis is **bold** and `code`.");
-    std.ui.code("print('hello')", "python");
-    std.ui.thinking("Analyzing", 1.0);
-    std.ui.success("Operation completed!");
-    std.ui.error("Something went wrong");
-    std.ui.agent_reply("AgentName", "Reply rendered as **markdown**");
+    std.ui.banner("Nexa", "Development workspace");
+    std.ui.markdown("# Ready\nInspect the source before execution.");
+    std.ui.success("Program loaded");
 }
 ```
 
-## 可用函数
+| 函数 | 用途 |
+| --- | --- |
+| `banner(title, subtitle)` | 应用标题 |
+| `markdown(text)` / `code(code, language)` | 格式化正文与代码 |
+| `panel(text, title, style)` | 分组面板 |
+| `thinking(message, duration)` | 有时长的等待提示 |
+| `success` / `error` / `warning` / `info` | 状态消息 |
+| `input(prompt)` | 交互输入 |
+| `agent_reply(name, reply)` / `tool_call(name, args)` | Agent 与工具信息 |
 
-| 函数 | 说明 |
-|------|------|
-| `std.ui.banner(title, subtitle)` | 启动 banner（双线边框） |
-| `std.ui.markdown(text)` | Markdown 渲染 |
-| `std.ui.code(code, language)` | 语法高亮代码块 |
-| `std.ui.panel(text, title, style)` | 样式化面板 |
-| `std.ui.thinking(msg, duration)` | 思考 spinner 动画 |
-| `std.ui.success(msg)` | ✅ 成功消息 |
-| `std.ui.error(msg)` | ❌ 错误消息 |
-| `std.ui.warning(msg)` | ⚠️ 警告消息 |
-| `std.ui.info(msg)` | ℹ️ 信息消息 |
-| `std.ui.input(prompt)` | 样式化输入（CJK 兼容） |
-| `std.ui.agent_reply(name, reply)` | Agent 回复面板（markdown） |
-| `std.ui.tool_call(name, args)` | 工具调用通知 |
+这些名称属于 `std.ui` namespace。中文等宽字符输入的实际表现受终端环境影响，发布应用时在目标终端检查输入、退格与取消。Nexa Code 的 Ink 界面属于独立[工具链](toolchain.md)。
 
-## CJK 输入修复
+---
 
-v2.3.1 使用 `prompt_toolkit` 替代 Python 内置 `input()`，正确处理中文/日文/韩文等宽字符的回退（backspace）操作。
-
-## 依赖
-
-```
-pip install rich prompt_toolkit
-```
-
-未安装时自动降级为纯文本输出。
+[来源与验证](capability_inventory.md) · `terminal` / `stdlib`

@@ -1,188 +1,172 @@
-site_name: Nexa 官方文档
-site_description: 智能体原生 (Agent-Native) 编程语言
+site_name: Nexa Docs
+site_description: Agent 原生语言与运行时 · 2.4 开发文档
 site_url: https://docs.nexa-lang.com/
-repo_url: https://github.com/Nexa-Language/Nexa
-repo_name: Nexa-Language/Nexa
+repo_url: https://github.com/Nexa-Language/Nexa-docs
+repo_name: Nexa-Language/Nexa-docs
+edit_uri: edit/main/docs/
+strict: true
 theme:
   name: material
   custom_dir: docs/overrides
   logo: img/nexa-logo-noframe.png
   favicon: img/nexa-logo.png
-  font:
-    text: false
-    code: false
+  font: false
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: deep purple
-      accent: purple
-      toggle:
-        icon: material/weather-night
-        name: 切换到深色模式
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: deep purple
-      accent: purple
-      toggle:
-        icon: material/weather-sunny
-        name: 切换到浅色模式
+  - media: '(prefers-color-scheme: light)'
+    scheme: default
+    toggle:
+      icon: material/weather-night
+      name: Switch to dark mode
+  - media: '(prefers-color-scheme: dark)'
+    scheme: slate
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to light mode
   features:
-    - navigation.top
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.indexes
-    - navigation.footer
-    - navigation.tracking
-    - search.suggest
-    - search.highlight
-    - content.code.copy
-    - content.code.select
-    - toc.follow
-
+  - navigation.top
+  - navigation.indexes
+  - navigation.footer
+  - navigation.tracking
+  - search.suggest
+  - search.highlight
+  - content.code.copy
+  - toc.follow
 plugins:
-  - i18n:
-      languages:
-        - locale: zh
-          name: 简体中文
-          default: true
-          site_name: Nexa 官方文档
-          nav_translations:
-            主页: 主页
-            首页: 首页
-            快速入门: 快速入门
-            前言与理念: 前言与理念
-            重构智能体开发范式: 重构智能体开发范式
-            调研背景与技术演进: 调研背景与技术演进
-            典型场景与对比分析: 典型场景与对比分析
-            贡献与参与: 贡献与参与
-            语法指南: 语法指南
-            基础语法: 基础语法
-            高级特性: 高级特性
-            Harness 六元组: Harness 六元组
-            Actor Model: Actor Model
-            模式匹配: 模式匹配
-            ADT: ADT
-            错误传播: 错误传播
-            配置管理与标准库: 配置管理与标准库
-            语法扩展: 语法扩展
-            生态与标准库: 生态与标准库
-            深入设计: 深入设计
-            编译器设计: 编译器设计
-            企业级架构特性: 企业级架构特性
-            架构演进与未来(Rust/WASM): 架构演进与未来(Rust/WASM)
-            最佳实践: 最佳实践
-            社区与未来: 社区与未来
-            未来展望: 未来展望
-            社区与生态: 社区与生态
-            参考资源: 参考资源
-            完整示例集合: 完整示例集合
-            常见问题与排查: 常见问题与排查
-            参考手册: 参考手册
-            语言参考: 语言参考
-            CLI 命令参考: CLI 命令参考
-            标准库 API: 标准库 API
-            错误索引: 错误索引
-        - locale: en
-          name: English
-          site_name: Nexa Documentation
-          nav_translations:
-            主页: Home
-            首页: Index
-            快速入门: Quickstart
-            前言与理念: Preface & Philosophy
-            重构智能体开发范式: Reshaping Agent Paradigm
-            调研背景与技术演进: Background & Evolution
-            典型场景与对比分析: Scenarios & Analysis
-            贡献与参与: Contribution
-            语法指南: Grammar Guide
-            基础语法: Basic Syntax
-            高级特性: Advanced Features
-            Harness 六元组: Harness Hexad
-            Actor Model: Actor Model
-            模式匹配: Pattern Matching
-            ADT: ADT
-            错误传播: Error Handling
-            配置管理与标准库: Config & Standard Library
-            语法扩展: Grammar Extensions
-            生态与标准库: Ecosystem & Stdlib
-            深入设计: In-depth Design
-            编译器设计: Compiler Design
-            企业级架构特性: Enterprise Features
-            架构演进与未来(Rust/WASM): Architecture Evolution
-            最佳实践: Best Practices
-            社区与未来: Community & Future
-            未来展望: Roadmap
-            社区与生态: Community
-            参考资源: Resources
-            完整示例集合: Example Collection
-            常见问题与排查: Troubleshooting
-            参考手册: Reference Manual
-            语言参考: Language Reference
-            CLI 命令参考: CLI Reference
-            标准库 API: Stdlib API
-            错误索引: Error Index
-  - search
-
+- i18n:
+    docs_structure: suffix
+    fallback_to_default: true
+    languages:
+    - locale: zh
+      name: 简体中文
+      default: true
+      site_name: Nexa 文档
+    - locale: en
+      name: English
+      site_name: Nexa Docs
+      nav_translations:
+        开始使用: Start here
+        语言: Language
+        运行时: Runtime
+        工具链: Toolchain
+        迁移与验证: Migration and validation
+        项目: Project
+        概览: Overview
+        快速入门: Quickstart
+        为什么使用 Nexa: Why Nexa
+        设计背景: Design background
+        典型场景: Scenarios
+        基础语法: Language basics
+        语言与 API 参考: Language and API reference
+        工具与 Protocol: Tools and Protocols
+        管道与并行: Pipelines and parallelism
+        Harness 原语: Harness primitives
+        结构化上下文: Structured context
+        模式匹配: Pattern matching
+        ADT: Algebraic data types
+        错误处理: Error handling
+        模型协议: Provider protocols
+        执行与预算: Execution and budgets
+        审批与恢复: Approval and resume
+        Checkpoint: Checkpoints
+        连续对话: Conversation turns
+        Artifact: Artifacts
+        Actor 生命周期: Actor lifecycle
+        Actor 语法: Actor syntax
+        Rust 与 WASM: Rust and WASM
+        开发工具: Developer tools
+        CLI 参考: CLI reference
+        配置管理: Configuration
+        标准库与 MCP: Standard library and MCP
+        标准库 API: Standard library API
+        终端 UI: Terminal UI
+        统一编译入口: Unified compiler
+        服务与任务: Services and tasks
+        迁移到 2.4: Migrate to 2.4
+        可验证示例: Verified examples
+        实践指南: Practical guidance
+        故障排查: Troubleshooting
+        错误索引: Error index
+        能力与证据: Capabilities and evidence
+        架构演进: Architecture evolution
+        后续方向: Future directions
+        贡献指南: Contributing
+        项目与社区: Projects and community
+        历史笔记: Historical notes
+- search
 markdown_extensions:
-  - admonition
-  - attr_list
-  - tables
-  - toc:
-      permalink: true
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.details
-  - pymdownx.highlight
-  - pymdownx.inlinehilite
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-
+- admonition
+- attr_list
+- md_in_html
+- tables
+- toc:
+    permalink: true
+- pymdownx.details
+- pymdownx.highlight
+- pymdownx.superfences
+- pymdownx.inlinehilite
 extra_css:
-  - stylesheets/fonts.css
-  - stylesheets/extra.css
-  - stylesheets/agent.css
-  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css
-
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js
-  - javascripts/katex.js
-  - javascripts/navigation-accordion.js
-  - javascripts/image-lightbox.js
-
+- stylesheets/fonts.css
+- stylesheets/extra.css
 extra:
   generator: false
+exclude_docs: 'overrides/
 
+  '
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    unrecognized_links: warn
+    anchors: warn
 nav:
-  - 语法指南:
-    - 快速入门: quickstart.md
-    - 基础语法: part1_basic.md
-    - 高级特性: part2_advanced.md
-    - Harness 六元组: part2_harness.md
-    - Actor Model: part2_actor.md
-    - 模式匹配: part2_pattern_matching.md
-    - ADT: part2_adt.md
-    - 错误传播: part2_error_handling.md
-    - 配置管理与标准库: part2_config_stdlib.md
-    - Context-as-Structure (v2.2.1): part2_context_structure.md
-    - Terminal UI (v2.3.1): part2_terminal_ui.md
-    - 语法扩展: part3_extensions.md
-    - 生态与标准库: part4_ecosystem_and_stdlib.md
-  - 深入设计:
-    - 编译器设计: part5_compiler.md
-    - 企业级架构特性: part5_enterprise.md
-    - 架构演进与未来(Rust/WASM): part5_architecture_evolution.md
-    - 最佳实践: part6_best_practices.md
-  - 社区与未来:
-    - 未来展望: part4_future.md
-    - 社区与生态: part7_community.md
-  - 参考资源:
-    - 完整示例集合: examples.md
-    - 常见问题与排查: troubleshooting.md
-  - 参考手册:
-    - 语言参考: reference.md
-    - CLI 命令参考: cli_reference.md
-    - 标准库 API: stdlib_reference.md
-    - 错误索引: error_index.md
+- 开始使用:
+  - 概览: index.md
+  - 快速入门: quickstart.md
+  - 为什么使用 Nexa: preface.md
+  - 设计背景: preface_background.md
+  - 典型场景: preface_scenarios.md
+- 语言:
+  - 基础语法: part1_basic.md
+  - 语言与 API 参考: reference.md
+  - 工具与 Protocol: part3_extensions.md
+  - 管道与并行: part2_advanced.md
+  - Harness 原语: part2_harness.md
+  - 结构化上下文: part2_context_structure.md
+  - 模式匹配: part2_pattern_matching.md
+  - ADT: part2_adt.md
+  - 错误处理: part2_error_handling.md
+- 运行时:
+  - 模型协议: runtime_providers.md
+  - 执行与预算: runtime_execution.md
+  - 审批与恢复: runtime_approval.md
+  - Checkpoint: runtime_checkpoints.md
+  - 连续对话: runtime_conversations.md
+  - Artifact: runtime_artifacts.md
+  - Actor 生命周期: runtime_actors.md
+  - Actor 语法: part2_actor.md
+  - Rust 与 WASM: runtime_rust.md
+- 工具链:
+  - 开发工具: toolchain.md
+  - CLI 参考: cli_reference.md
+  - 配置管理: part2_config_stdlib.md
+  - 标准库与 MCP: part4_ecosystem_and_stdlib.md
+  - 标准库 API: stdlib_reference.md
+  - 终端 UI: part2_terminal_ui.md
+  - 统一编译入口: part5_compiler.md
+  - 服务与任务: part5_enterprise.md
+- 迁移与验证:
+  - 迁移到 2.4: migration_24.md
+  - 可验证示例: examples.md
+  - 实践指南: part6_best_practices.md
+  - 故障排查: troubleshooting.md
+  - 错误索引: error_index.md
+  - 能力与证据: capability_inventory.md
+- 项目:
+  - 架构演进: part5_architecture_evolution.md
+  - 后续方向: part4_future.md
+  - 贡献指南: contribution.md
+  - 项目与社区: part7_community.md
+  - 历史笔记: tmp.md
