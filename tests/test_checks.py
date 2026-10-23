@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -10,8 +11,72 @@ from typing import Any
 
 import pytest
 
-from scripts.check_docs import check_inventory, check_site, extract_examples, run_examples
+from scripts.check_docs import check_inventory, check_provenance, check_site, digest, extract_examples, run_examples
 from scripts.runtime_probe import execute_example
+
+
+@pytest.fixture
+def runtime_checkout(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
+    runtime = tmp_path / "runtime"
+    runtime.mkdir()
+    (runtime / "VERSION").write_text("2.4.0\n")
+    (runtime / "compiler.py").write_text("def compile_source(): pass\n")
+    (runtime / "helper.py").write_text("VALUE = 1\n")
+    subprocess.run(["git", "init", "-q", str(runtime)], check=True)
+    subprocess.run(["git", "-C", str(runtime), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(runtime), "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+                    "commit", "-qm", "Create fixture"], check=True)
+    head, tree = subprocess.check_output(["git", "-C", str(runtime), "rev-parse", "HEAD", "HEAD^{tree}"], text=True).splitlines()
+    inventory = {"runtime": {"version": "2.4.0", "git_head": head, "source_tree": tree, "dirty": False},
+                 "capabilities": [{"id": "compiler", "provenance": [{"path": "compiler.py", "symbol": "compile_source",
+                                   "sha256": digest((runtime / "compiler.py").read_text())}]}]}
+    return runtime, inventory
+
+
+def test_runtime_checkout_matches_clean_pinned_baseline(runtime_checkout: tuple[Path, dict[str, Any]]) -> None:
+    assert check_provenance(*runtime_checkout) == []
+
+
+@pytest.mark.parametrize("change", ["tracked", "staged", "untracked"])
+def test_runtime_checkout_rejects_changes_outside_provenance(runtime_checkout: tuple[Path, dict[str, Any]], change: str) -> None:
+    runtime, inventory = runtime_checkout
+    (runtime / ("extra.py" if change == "untracked" else "helper.py")).write_text("VALUE = 2\n")
+    if change == "staged":
+        subprocess.run(["git", "-C", str(runtime), "add", "helper.py"], check=True)
+    assert any("worktree is dirty" in error for error in check_provenance(runtime, inventory))
+
+
+def test_runtime_checkout_rejects_another_commit_with_the_same_version(runtime_checkout: tuple[Path, dict[str, Any]]) -> None:
+    runtime, inventory = runtime_checkout
+    (runtime / "helper.py").write_text("VALUE = 2\n")
+    subprocess.run(["git", "-C", str(runtime), "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+                    "commit", "-qam", "Change unlisted runtime behavior"], check=True)
+    errors = check_provenance(runtime, inventory)
+    assert any("commit differs" in error for error in errors)
+    assert any("source tree differs" in error for error in errors)
+
+
+def test_recorded_verification_commit_requires_the_exact_source_tree(runtime_checkout: tuple[Path, dict[str, Any]]) -> None:
+    runtime, inventory = runtime_checkout
+    subprocess.run(["git", "-C", str(runtime), "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+                    "commit", "--allow-empty", "-qm", "Equivalent reviewed checkout"], check=True)
+    assert any("commit differs" in error for error in check_provenance(runtime, inventory))
+    inventory["runtime"]["verification_checkout_head"] = subprocess.check_output(["git", "-C", str(runtime), "rev-parse", "HEAD"], text=True).strip()
+    assert check_provenance(runtime, inventory) == []
+    inventory["runtime"]["source_tree"] = "0" * 40
+    assert any("source tree differs" in error for error in check_provenance(runtime, inventory))
+
+
+def test_dirty_inventory_cannot_define_a_release_baseline(runtime_checkout: tuple[Path, dict[str, Any]]) -> None:
+    runtime, inventory = runtime_checkout
+    inventory["runtime"]["dirty"] = True
+    assert any("baseline must be clean" in error for error in check_provenance(runtime, inventory))
+
+
+def test_runtime_checkout_requires_git_metadata(tmp_path: Path) -> None:
+    (tmp_path / "VERSION").write_text("2.4.0\n")
+    inventory = {"runtime": {"version": "2.4.0", "git_head": "0" * 40, "source_tree": "0" * 40, "dirty": False}, "capabilities": []}
+    assert any("Git checkout" in error for error in check_provenance(tmp_path, inventory))
 
 
 @pytest.fixture

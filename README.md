@@ -25,7 +25,7 @@ uv run --no-sync mkdocs build --strict
 
 ## 完整验证
 
-先在已经取得的 Nexa 2.4 源码目录运行 `uv sync --locked`，再回到本仓库：
+先在已经取得的 Nexa 2.4 源码目录运行 `uv sync --locked`，再回到本仓库。运行时须为干净 Git checkout，HEAD 匹配 inventory 中的正式 commit 或明确记录的验证 commit，且完整 Git tree 与基线相同；暂存、未暂存及未忽略的新文件都会使检查失败。
 
 ```sh
 uv run --no-sync python -m scripts.verify --runtime /path/to/Nexa
@@ -36,7 +36,7 @@ uv run --no-sync python -m scripts.verify --runtime /path/to/Nexa
 1. 页面登记、Nexa 代码块 hash、可见豁免理由、中英文能力配对、导航及 CSS 资源检查。
 2. 校验器回归测试、ruff、isort、ty。
 3. MkDocs 严格构建及生成 HTML 的内部链接、锚点、图像、脚本与样式检查。
-4. 源码/test fingerprint 核对、全部完整 Nexa 示例编译、登记为 offline 的代表性程序执行、标准库参考与真实 registry 比对。
+4. 运行时 commit、完整源码树、工作树状态与源码/test fingerprint 核对；全部完整 Nexa 示例编译、登记为 offline 的代表性程序执行、标准库参考与真实 registry 比对。
 
 示例子进程使用临时工作目录、临时 HOME/TMPDIR 和最小环境；不继承 provider 凭据或 Python 用户配置。在任何 Nexa import 前，audit hook 禁止网络访问和 `.nxs` 读取。固定回复只替换模型客户端边界，编译器、SDK、flow、工具和输出校验仍执行实际实现。该工具用于审核过的仓库示例，不是运行任意不可信程序的沙箱。
 

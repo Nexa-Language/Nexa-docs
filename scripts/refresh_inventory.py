@@ -46,9 +46,12 @@ def main() -> None:
         if example["page"] in args.page:
             example["sha256"] = digest(actual[(example["page"], example["block"])].source)
             example["review"] = review
+    head, tree = subprocess.check_output(["git", "-C", str(runtime), "rev-parse", "HEAD", "HEAD^{tree}"], text=True).splitlines()
     inventory["runtime"].update(
         version=(runtime / "VERSION").read_text().strip(),
-        git_head=subprocess.check_output(["git", "-C", str(runtime), "rev-parse", "HEAD"], text=True).strip(),
+        git_head=head,
+        source_tree=tree,
+        verification_checkout_head=head,
         dirty=bool(subprocess.check_output(["git", "-C", str(runtime), "status", "--porcelain"], text=True).strip()),
     )
     inventory_path.write_text(json.dumps(inventory, indent=2, ensure_ascii=False) + "\n")
