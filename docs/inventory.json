@@ -1,0 +1,2140 @@
+{
+  "schema_version": 1,
+  "runtime": {
+    "version": "2.4.0",
+    "git_head": "c2162637236e4a73feea410c4183672411666521",
+    "dirty": false,
+    "release_status": "released",
+    "release_tag": "v2.4.0",
+    "release_url": "https://github.com/Nexa-Language/Nexa/releases/tag/v2.4.0",
+    "source_fingerprint_policy": "whole-file SHA-256 plus exact symbols; re-audit changes before refresh",
+    "source_url": "https://github.com/Nexa-Language/Nexa/commit/c2162637236e4a73feea410c4183672411666521",
+    "source_tree": "d70a0d37bcc39c657370da1af37dc693befa9c94",
+    "verification_checkout_head": "1e965aaa9455dad67ef6201c7a7de7aa29f3219e"
+  },
+  "pages": [
+    {
+      "path": "capability_inventory.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "verification"
+      ]
+    },
+    {
+      "path": "capability_inventory.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "verification"
+      ]
+    },
+    {
+      "path": "cli_reference.en.md",
+      "language": "en",
+      "capabilities": [
+        "cli",
+        "compilation",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "cli_reference.md",
+      "language": "zh",
+      "capabilities": [
+        "cli",
+        "compilation",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "contribution.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "verification"
+      ]
+    },
+    {
+      "path": "contribution.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "verification"
+      ]
+    },
+    {
+      "path": "error_index.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "verification"
+      ]
+    },
+    {
+      "path": "error_index.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "verification"
+      ]
+    },
+    {
+      "path": "examples.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "harness",
+        "tools",
+        "actors"
+      ]
+    },
+    {
+      "path": "examples.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "harness",
+        "tools",
+        "actors"
+      ]
+    },
+    {
+      "path": "index.en.md",
+      "language": "en",
+      "capabilities": [
+        "language",
+        "execution",
+        "compilation"
+      ]
+    },
+    {
+      "path": "index.md",
+      "language": "zh",
+      "capabilities": [
+        "language",
+        "execution",
+        "compilation"
+      ]
+    },
+    {
+      "path": "migration_24.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "conversations",
+        "harness",
+        "verification",
+        "rust"
+      ]
+    },
+    {
+      "path": "migration_24.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "conversations",
+        "harness",
+        "verification",
+        "rust"
+      ]
+    },
+    {
+      "path": "part1_basic.en.md",
+      "language": "en",
+      "capabilities": [
+        "language",
+        "compilation"
+      ]
+    },
+    {
+      "path": "part1_basic.md",
+      "language": "zh",
+      "capabilities": [
+        "language",
+        "compilation"
+      ]
+    },
+    {
+      "path": "part2_actor.en.md",
+      "language": "en",
+      "capabilities": [
+        "actors"
+      ]
+    },
+    {
+      "path": "part2_actor.md",
+      "language": "zh",
+      "capabilities": [
+        "actors"
+      ]
+    },
+    {
+      "path": "part2_adt.en.md",
+      "language": "en",
+      "capabilities": [
+        "types"
+      ]
+    },
+    {
+      "path": "part2_adt.md",
+      "language": "zh",
+      "capabilities": [
+        "types"
+      ]
+    },
+    {
+      "path": "part2_advanced.en.md",
+      "language": "en",
+      "capabilities": [
+        "language",
+        "harness",
+        "context"
+      ]
+    },
+    {
+      "path": "part2_advanced.md",
+      "language": "zh",
+      "capabilities": [
+        "language",
+        "harness",
+        "context"
+      ]
+    },
+    {
+      "path": "part2_config_stdlib.en.md",
+      "language": "en",
+      "capabilities": [
+        "configuration",
+        "stdlib"
+      ]
+    },
+    {
+      "path": "part2_config_stdlib.md",
+      "language": "zh",
+      "capabilities": [
+        "configuration",
+        "stdlib"
+      ]
+    },
+    {
+      "path": "part2_context_structure.en.md",
+      "language": "en",
+      "capabilities": [
+        "context",
+        "providers"
+      ]
+    },
+    {
+      "path": "part2_context_structure.md",
+      "language": "zh",
+      "capabilities": [
+        "context",
+        "providers"
+      ]
+    },
+    {
+      "path": "part2_error_handling.en.md",
+      "language": "en",
+      "capabilities": [
+        "language",
+        "execution",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "part2_error_handling.md",
+      "language": "zh",
+      "capabilities": [
+        "language",
+        "execution",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "part2_harness.en.md",
+      "language": "en",
+      "capabilities": [
+        "harness",
+        "verification",
+        "tools"
+      ]
+    },
+    {
+      "path": "part2_harness.md",
+      "language": "zh",
+      "capabilities": [
+        "harness",
+        "verification",
+        "tools"
+      ]
+    },
+    {
+      "path": "part2_pattern_matching.en.md",
+      "language": "en",
+      "capabilities": [
+        "language",
+        "patterns"
+      ]
+    },
+    {
+      "path": "part2_pattern_matching.md",
+      "language": "zh",
+      "capabilities": [
+        "language",
+        "patterns"
+      ]
+    },
+    {
+      "path": "part2_terminal_ui.en.md",
+      "language": "en",
+      "capabilities": [
+        "terminal",
+        "stdlib"
+      ]
+    },
+    {
+      "path": "part2_terminal_ui.md",
+      "language": "zh",
+      "capabilities": [
+        "terminal",
+        "stdlib"
+      ]
+    },
+    {
+      "path": "part3_extensions.en.md",
+      "language": "en",
+      "capabilities": [
+        "tools",
+        "types"
+      ]
+    },
+    {
+      "path": "part3_extensions.md",
+      "language": "zh",
+      "capabilities": [
+        "tools",
+        "types"
+      ]
+    },
+    {
+      "path": "part4_ecosystem_and_stdlib.en.md",
+      "language": "en",
+      "capabilities": [
+        "stdlib",
+        "mcp",
+        "tools"
+      ]
+    },
+    {
+      "path": "part4_ecosystem_and_stdlib.md",
+      "language": "zh",
+      "capabilities": [
+        "stdlib",
+        "mcp",
+        "tools"
+      ]
+    },
+    {
+      "path": "part4_future.en.md",
+      "language": "en",
+      "capabilities": [
+        "rust",
+        "verification"
+      ]
+    },
+    {
+      "path": "part4_future.md",
+      "language": "zh",
+      "capabilities": [
+        "rust",
+        "verification"
+      ]
+    },
+    {
+      "path": "part5_architecture_evolution.en.md",
+      "language": "en",
+      "capabilities": [
+        "rust",
+        "harness",
+        "cache"
+      ]
+    },
+    {
+      "path": "part5_architecture_evolution.md",
+      "language": "zh",
+      "capabilities": [
+        "rust",
+        "harness",
+        "cache"
+      ]
+    },
+    {
+      "path": "part5_compiler.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation"
+      ]
+    },
+    {
+      "path": "part5_compiler.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation"
+      ]
+    },
+    {
+      "path": "part5_enterprise.en.md",
+      "language": "en",
+      "capabilities": [
+        "stdlib",
+        "execution",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "part5_enterprise.md",
+      "language": "zh",
+      "capabilities": [
+        "stdlib",
+        "execution",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "part6_best_practices.en.md",
+      "language": "en",
+      "capabilities": [
+        "tools",
+        "execution",
+        "verification",
+        "cache"
+      ]
+    },
+    {
+      "path": "part6_best_practices.md",
+      "language": "zh",
+      "capabilities": [
+        "tools",
+        "execution",
+        "verification",
+        "cache"
+      ]
+    },
+    {
+      "path": "part7_community.en.md",
+      "language": "en",
+      "capabilities": [
+        "ecosystem"
+      ]
+    },
+    {
+      "path": "part7_community.md",
+      "language": "zh",
+      "capabilities": [
+        "ecosystem"
+      ]
+    },
+    {
+      "path": "preface.en.md",
+      "language": "en",
+      "capabilities": [
+        "language",
+        "execution"
+      ]
+    },
+    {
+      "path": "preface.md",
+      "language": "zh",
+      "capabilities": [
+        "language",
+        "execution"
+      ]
+    },
+    {
+      "path": "preface_background.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "providers"
+      ]
+    },
+    {
+      "path": "preface_background.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "providers"
+      ]
+    },
+    {
+      "path": "preface_scenarios.en.md",
+      "language": "en",
+      "capabilities": [
+        "tools",
+        "actors",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "preface_scenarios.md",
+      "language": "zh",
+      "capabilities": [
+        "tools",
+        "actors",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "quickstart.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "execution"
+      ]
+    },
+    {
+      "path": "quickstart.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "execution"
+      ]
+    },
+    {
+      "path": "reference.en.md",
+      "language": "en",
+      "capabilities": [
+        "language",
+        "compilation",
+        "execution"
+      ]
+    },
+    {
+      "path": "reference.md",
+      "language": "zh",
+      "capabilities": [
+        "language",
+        "compilation",
+        "execution"
+      ]
+    },
+    {
+      "path": "runtime_actors.en.md",
+      "language": "en",
+      "capabilities": [
+        "actors",
+        "execution"
+      ]
+    },
+    {
+      "path": "runtime_actors.md",
+      "language": "zh",
+      "capabilities": [
+        "actors",
+        "execution"
+      ]
+    },
+    {
+      "path": "runtime_approval.en.md",
+      "language": "en",
+      "capabilities": [
+        "tools",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "runtime_approval.md",
+      "language": "zh",
+      "capabilities": [
+        "tools",
+        "checkpoint"
+      ]
+    },
+    {
+      "path": "runtime_artifacts.en.md",
+      "language": "en",
+      "capabilities": [
+        "artifacts"
+      ]
+    },
+    {
+      "path": "runtime_artifacts.md",
+      "language": "zh",
+      "capabilities": [
+        "artifacts"
+      ]
+    },
+    {
+      "path": "runtime_checkpoints.en.md",
+      "language": "en",
+      "capabilities": [
+        "checkpoint",
+        "tools"
+      ]
+    },
+    {
+      "path": "runtime_checkpoints.md",
+      "language": "zh",
+      "capabilities": [
+        "checkpoint",
+        "tools"
+      ]
+    },
+    {
+      "path": "runtime_conversations.en.md",
+      "language": "en",
+      "capabilities": [
+        "conversations",
+        "checkpoint",
+        "providers"
+      ]
+    },
+    {
+      "path": "runtime_conversations.md",
+      "language": "zh",
+      "capabilities": [
+        "conversations",
+        "checkpoint",
+        "providers"
+      ]
+    },
+    {
+      "path": "runtime_execution.en.md",
+      "language": "en",
+      "capabilities": [
+        "execution"
+      ]
+    },
+    {
+      "path": "runtime_execution.md",
+      "language": "zh",
+      "capabilities": [
+        "execution"
+      ]
+    },
+    {
+      "path": "runtime_providers.en.md",
+      "language": "en",
+      "capabilities": [
+        "providers",
+        "cache"
+      ]
+    },
+    {
+      "path": "runtime_providers.md",
+      "language": "zh",
+      "capabilities": [
+        "providers",
+        "cache"
+      ]
+    },
+    {
+      "path": "runtime_rust.en.md",
+      "language": "en",
+      "capabilities": [
+        "rust"
+      ]
+    },
+    {
+      "path": "runtime_rust.md",
+      "language": "zh",
+      "capabilities": [
+        "rust"
+      ]
+    },
+    {
+      "path": "stdlib_reference.en.md",
+      "language": "en",
+      "capabilities": [
+        "stdlib",
+        "tools"
+      ]
+    },
+    {
+      "path": "stdlib_reference.md",
+      "language": "zh",
+      "capabilities": [
+        "stdlib",
+        "tools"
+      ]
+    },
+    {
+      "path": "tmp.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "rust"
+      ]
+    },
+    {
+      "path": "tmp.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "rust"
+      ]
+    },
+    {
+      "path": "toolchain.en.md",
+      "language": "en",
+      "capabilities": [
+        "ecosystem",
+        "cli",
+        "conversations"
+      ]
+    },
+    {
+      "path": "toolchain.md",
+      "language": "zh",
+      "capabilities": [
+        "ecosystem",
+        "cli",
+        "conversations"
+      ]
+    },
+    {
+      "path": "troubleshooting.en.md",
+      "language": "en",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "checkpoint",
+        "providers"
+      ]
+    },
+    {
+      "path": "troubleshooting.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "execution",
+        "checkpoint",
+        "providers"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "compilation",
+      "status": "development",
+      "claim": "Unified include-aware compilation and source diagnostics",
+      "provenance": [
+        {
+          "path": "src/compiler.py",
+          "symbol": "compile_source",
+          "sha256": "6e03925fe6d4ac47a144fece5127febbe32e33a212befcd0a3444de26200eb90"
+        },
+        {
+          "path": "src/runtime/inspector.py",
+          "symbol": "source",
+          "sha256": "1cb4177cf436b68807ba37aa746b6e1cd61943c83fb6758fda6de27ee34794fd"
+        },
+        {
+          "path": "tests/test_compiler_integration.py",
+          "symbol": "test_recursive_includes_execute_in_sdk_and_api",
+          "sha256": "98860c095ef087d56fb701db06d45acbffcb455ad888a4cd5cc57f563df979da"
+        },
+        {
+          "path": "tests/test_examples.py",
+          "symbol": "test_supported_example_compiles",
+          "sha256": "2689822c422e7ab72dd8994554cf33c5efde80eae33191fead867037b3b105ea"
+        },
+        {
+          "path": "examples/manifest.json",
+          "symbol": "compiled",
+          "sha256": "55483cd8030fcf516a7637cabc389dc0be20cfeaf88939a73056b46fe50a6de7"
+        }
+      ]
+    },
+    {
+      "id": "execution",
+      "status": "development",
+      "claim": "RunState statuses, explicit budgets and cooperative cancellation",
+      "provenance": [
+        {
+          "path": "src/runtime/run_state.py",
+          "symbol": "class RunConfig",
+          "sha256": "b3014653b7cd08df141920a2ffbc62820385a3899ef1fd8f8b7c73f07932e8bc"
+        },
+        {
+          "path": "src/runtime/agent_execution.py",
+          "symbol": "execute_agent",
+          "sha256": "d083be60889442db81c80d8d18dcdd8410f0a9d4c7a1c139342a0b1d83e644a9"
+        },
+        {
+          "path": "tests/test_execution_engine.py",
+          "symbol": "",
+          "sha256": "71504c13a439cb73119898a4f12cc2048895be2dbfae377e4af04904d7e6e6bb"
+        },
+        {
+          "path": "tests/test_parallel_runs.py",
+          "symbol": "test_parallel_runs_are_bounded_and_ordered",
+          "sha256": "f10b24635c4bae48f74c31ecd142af5b084386d2db306fa4bd345a99a5fd121f"
+        },
+        {
+          "path": "src/runtime/agent_runner.py",
+          "symbol": "def _validate_reply",
+          "sha256": "eb43d341626a246d498ef1f32c5ad4f5f700beff66d917bc091ee3052d8ffa48"
+        },
+        {
+          "path": "tests/test_release_review.py",
+          "symbol": "test_tool_budget_leaves_a_final_answer_request",
+          "sha256": "47f35fb11798f10eca261a7f526da34983e4da81fd8dc8afd6b089c1f8fda9d1"
+        },
+        {
+          "path": "tests/test_release_review.py",
+          "symbol": "test_output_retry_budget_survives_approval_checkpoint",
+          "sha256": "47f35fb11798f10eca261a7f526da34983e4da81fd8dc8afd6b089c1f8fda9d1"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "providers",
+      "status": "development",
+      "claim": "Chat, Responses and Anthropic preserve native protocol state",
+      "provenance": [
+        {
+          "path": "src/runtime/native_providers.py",
+          "symbol": "class ResponsesProvider",
+          "sha256": "b2ba2ca415d43279ead0a47b5eeb6ff15dad17da257b3483493caecf8cac2ee8"
+        },
+        {
+          "path": "src/runtime/providers.py",
+          "symbol": "class ChatCompletionsProvider",
+          "sha256": "10137e63b361e4e47247bc4697f4312320e2e6dec81c6c8331212d075ca48f86"
+        },
+        {
+          "path": "tests/test_native_providers.py",
+          "symbol": "test_anthropic_preserves_signed_thinking_across_tool_result",
+          "sha256": "5e1815d400172649919395dda8a95b402663097b39fd0caeeae8c12b9502bc42"
+        },
+        {
+          "path": "src/runtime/secrets.py",
+          "symbol": "nexa_secrets = NexaSecrets()",
+          "sha256": "3ca78aa774e773c9f9ff2ed708f8c246c295c78cd35f746449dd07c9e558e7c2"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "cache",
+      "status": "development",
+      "claim": "Exact response cache for fresh tool-free Chat requests with context checks",
+      "provenance": [
+        {
+          "path": "src/runtime/agent_execution.py",
+          "symbol": "use_semantic=False",
+          "sha256": "d083be60889442db81c80d8d18dcdd8410f0a9d4c7a1c139342a0b1d83e644a9"
+        },
+        {
+          "path": "tests/test_review_regressions.py",
+          "symbol": "test_cache_uses_effective_context_and_checks_budget",
+          "sha256": "9c22359e33934ba4001b9b3e20320a01a39a0fd653b858935218fa1d0e2545f3"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "tools",
+      "status": "development",
+      "claim": "Exposed tool schemas, explicit approval, isolation backend and unknown outcomes",
+      "provenance": [
+        {
+          "path": "src/runtime/tool_dispatch.py",
+          "symbol": "class ToolDispatcher",
+          "sha256": "3e3de3d968cbe435bdc325d01c13cd80937d22721edf93719830dcc858b497fb"
+        },
+        {
+          "path": "src/runtime/tool_registry.py",
+          "symbol": "",
+          "sha256": "a18792030bdff905aa90328a06545b85fe09ea4ba6a532222b0937b806ca84e9"
+        },
+        {
+          "path": "tests/test_tool_policy.py",
+          "symbol": "test_sandbox_declaration_requires_an_actual_backend",
+          "sha256": "f51889c312a8405a3cbe4874293be397e56957d99be72de9462a8de48d428a16"
+        },
+        {
+          "path": "tests/test_agent_execution.py",
+          "symbol": "test_compiled_tool_is_executed_by_real_runtime",
+          "sha256": "b46dff30b95841b7255a6ce4d579202517cacb207e2ea1819c875046cf2c7b0c"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "checkpoint",
+      "status": "development",
+      "claim": "SQLite revision checks and reuse of settled results; unknown outcomes stop",
+      "provenance": [
+        {
+          "path": "src/runtime/checkpoints.py",
+          "symbol": "resolve_tool",
+          "sha256": "2b1772d46c98a69db5e66299047aec0fb27dbf2b4e0bc335aa55f91fae51bfc3"
+        },
+        {
+          "path": "tests/test_checkpoints.py",
+          "symbol": "test_real_process_crash_and_resume",
+          "sha256": "882df9fb858a9e2fd7e4981e4aee131df62dcbeb1773a64cc3664eb20c5bef90"
+        },
+        {
+          "path": "tests/test_review_regressions.py",
+          "symbol": "test_transport_failure_keeps_unknown_journal",
+          "sha256": "9c22359e33934ba4001b9b3e20320a01a39a0fd653b858935218fa1d0e2545f3"
+        }
+      ]
+    },
+    {
+      "id": "artifacts",
+      "status": "development",
+      "claim": "Content-addressed large tool outputs with bounded character reads",
+      "provenance": [
+        {
+          "path": "src/runtime/artifacts.py",
+          "symbol": "class ArtifactStore",
+          "sha256": "c8a150db7790a8ff131f67d096b6cf3dcf989ad6bd0ccafd2135eb61ba9ac819"
+        },
+        {
+          "path": "tests/test_checkpoints.py",
+          "symbol": "test_large_tool_output_is_retrievable_without_filling_context",
+          "sha256": "882df9fb858a9e2fd7e4981e4aee131df62dcbeb1773a64cc3664eb20c5bef90"
+        }
+      ]
+    },
+    {
+      "id": "actors",
+      "status": "development",
+      "claim": "Flow-owned Actor sessions with sequential mailboxes and mandatory await",
+      "provenance": [
+        {
+          "path": "src/runtime/flow_actors.py",
+          "symbol": "",
+          "sha256": "86aefadb7f294f0942e5ee90613a2f92ed9c137c874ff3635ee73b1839c2e9b2"
+        },
+        {
+          "path": "src/runtime/flow_runtime.py",
+          "symbol": "spawn_actor",
+          "sha256": "28f634d5752dd298e66ef4d5493fba283cbaf8f4f63d7800443db3fb8c8f11e5"
+        },
+        {
+          "path": "tests/test_harness_execution.py",
+          "symbol": "test_actor_mailbox_runs_in_order_and_isolated",
+          "sha256": "168db8709104006de2fc8bea2e519e6a5a97a99fe8adea77e481252ae9e9ad51"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "rust",
+      "status": "development",
+      "claim": "Explicit Rust language subset and optional Wasmtime execution",
+      "provenance": [
+        {
+          "path": "avm/src/vm/interpreter.rs",
+          "symbol": "set_agent_executor",
+          "sha256": "5ddd81de23001f32e25641c634a390416ef64a14d1a7f531d8cd24172f52ba56"
+        },
+        {
+          "path": "avm/src/wasm/mod.rs",
+          "symbol": "",
+          "sha256": "507b3442010e4f49db1750d554559c5a2de96a8044184c4ee3c39cc3876ec9eb"
+        },
+        {
+          "path": "avm/Cargo.toml",
+          "symbol": "wasmtime",
+          "sha256": "d6e697d161e251c0716fbdf3167e8bdc78d8e5db87dd94a1883579f082ac93a4"
+        },
+        {
+          "path": "tests/fixtures/conformance/programs.json",
+          "symbol": "true_division",
+          "sha256": "5d6c2b2877a3a0e85bbd175b7bbb2620749e231ba69ec4533753ceed4a6b5e33"
+        },
+        {
+          "path": "tests/test_conformance.py",
+          "symbol": "test_python_semantics",
+          "sha256": "7dea8505fda5db925300157d8b01b6220ebd1d72ffc20cf190b2a5bf903650fe"
+        },
+        {
+          "path": "avm/src/bytecode/compiler.rs",
+          "symbol": "fn compile_tool",
+          "sha256": "f901f5571753dc44f6c5c17a33b1b3368823134eb592f67f6e3d0e62cac5e835"
+        },
+        {
+          "path": "avm/tests/conformance.rs",
+          "symbol": "fn tool_declarations_require_the_python_runtime",
+          "sha256": "958fcea3fff318198d932055c41cb15ca297ecdb005c026260bc81ab790f57c3"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "language",
+      "status": "development",
+      "claim": "Current parser grammar and executable basic language examples",
+      "provenance": [
+        {
+          "path": "src/nexa_parser.py",
+          "symbol": "flow_decl",
+          "sha256": "bfa0018b9c7f25ef8f75a025b96d3e8a84dc78a4372e5b068a490d2fc90111e4"
+        },
+        {
+          "path": "src/code_generator.py",
+          "symbol": "",
+          "sha256": "292c41752c18379580a0204d41bf2d12482fccc7fde3f7b09b80a2eae7c17bec"
+        },
+        {
+          "path": "tests/test_batch_a.py",
+          "symbol": "TestPipeOperatorRuntime",
+          "sha256": "71a32c8f6702b59d5db82a903c4c7d8c3a643242b7f393c4e964d4b6c201f0c4"
+        },
+        {
+          "path": "tests/test_string_interpolation.py",
+          "symbol": "",
+          "sha256": "846763a8d476aabcc31802d1ecff190dc7b0e5f7a503ce66602d58c19931baa3"
+        },
+        {
+          "path": "src/ast_transformer.py",
+          "symbol": "def pipeline_expr",
+          "sha256": "fcc26c5a6ede41d091c46acc31a97117b8e37fa363e85398f14142a5df7615b4"
+        },
+        {
+          "path": "tests/test_agent_execution.py",
+          "symbol": "test_compiled_pipeline_executes_every_stage_in_order",
+          "sha256": "b46dff30b95841b7255a6ce4d579202517cacb207e2ea1819c875046cf2c7b0c"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "types",
+      "status": "development",
+      "claim": "Protocol output validation and ADT declaration/registry support; integration gaps stated",
+      "provenance": [
+        {
+          "path": "src/runtime/adt.py",
+          "symbol": "",
+          "sha256": "4aef2dcba4a6e62ec736bea9574d6846499251d72c232d6d1100e6bf13c9c385"
+        },
+        {
+          "path": "src/runtime/type_system.py",
+          "symbol": "",
+          "sha256": "1681a892f135c8aec6040b41f31531bcd1834c589a4edec25578414d58561ecb"
+        },
+        {
+          "path": "tests/test_adt.py",
+          "symbol": "TestGrammarParsing",
+          "sha256": "b33ac02c3b0f1a9a9e633519e78779cd15ca9cf81871b08c0eda80eb38c46cbe"
+        },
+        {
+          "path": "tests/test_agent_execution.py",
+          "symbol": "test_protocol_completion_always_creates_context",
+          "sha256": "b46dff30b95841b7255a6ce4d579202517cacb207e2ea1819c875046cf2c7b0c"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "harness",
+      "status": "development",
+      "claim": "Bounded loops, deep-copy snapshots, lifecycle scopes and verification",
+      "provenance": [
+        {
+          "path": "src/runtime/flow_runtime.py",
+          "symbol": "snapshot_scope",
+          "sha256": "28f634d5752dd298e66ef4d5493fba283cbaf8f4f63d7800443db3fb8c8f11e5"
+        },
+        {
+          "path": "src/harness_validator.py",
+          "symbol": "HarnessValidator",
+          "sha256": "0ccb85b8c0657981f6e8470dea5af19c8277a2abfb116621d95979f36aa986bc"
+        },
+        {
+          "path": "tests/test_harness_execution.py",
+          "symbol": "test_snapshot_restores_agent_and_flow_state",
+          "sha256": "168db8709104006de2fc8bea2e519e6a5a97a99fe8adea77e481252ae9e9ad51"
+        },
+        {
+          "path": "tests/test_release_review.py",
+          "symbol": "test_compiled_error_hook_binds_declared_name",
+          "sha256": "47f35fb11798f10eca261a7f526da34983e4da81fd8dc8afd6b089c1f8fda9d1"
+        },
+        {
+          "path": "tests/test_release_review.py",
+          "symbol": "test_compiled_tool_hooks_filter_the_named_tool",
+          "sha256": "47f35fb11798f10eca261a7f526da34983e4da81fd8dc8afd6b089c1f8fda9d1"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "verification",
+      "status": "development",
+      "claim": "Deterministic verify failure and honest intent evaluation outcomes",
+      "provenance": [
+        {
+          "path": "tests/test_harness_execution.py",
+          "symbol": "test_failed_verify_stops_flow",
+          "sha256": "168db8709104006de2fc8bea2e519e6a5a97a99fe8adea77e481252ae9e9ad51"
+        },
+        {
+          "path": "tests/test_verification_truthfulness.py",
+          "symbol": "test_semantic_judge_failure_is_visible",
+          "sha256": "afca064b8a11dcd95bcf44181251023bf0281c5fd8242d3e6026b86136f0d524"
+        },
+        {
+          "path": "src/ial/execute.py",
+          "symbol": "",
+          "sha256": "e7943738ed5e79c3b517f152a74582556bf0b4142db20d752f31775214793e25"
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "status": "development",
+      "claim": "ContextSpec nominal schemas, deep-copied shared context and complete-turn limits",
+      "provenance": [
+        {
+          "path": "src/runtime/agent_context.py",
+          "symbol": "ContextSpec",
+          "sha256": "b08464c180a1d3f724ddab8489ada97244fa6b0dc45b98c85c236aa7bcc0b591"
+        },
+        {
+          "path": "src/runtime/flow_runtime.py",
+          "symbol": "select_context",
+          "sha256": "28f634d5752dd298e66ef4d5493fba283cbaf8f4f63d7800443db3fb8c8f11e5"
+        },
+        {
+          "path": "tests/test_context_handoff.py",
+          "symbol": "TestNexaAgentContextIntegration",
+          "sha256": "d77dcc7946b1943cbcb3fc1c3f16f2e0aa68ed7adafd16b94fe3f2fb2abe3ee2"
+        },
+        {
+          "path": "tests/test_review_regressions.py",
+          "symbol": "test_native_context_budget_counts_opaque_items",
+          "sha256": "9c22359e33934ba4001b9b3e20320a01a39a0fd653b858935218fa1d0e2545f3"
+        },
+        {
+          "path": "tests/test_release_review.py",
+          "symbol": "test_native_output_correction_preserves_protocol_history",
+          "sha256": "47f35fb11798f10eca261a7f526da34983e4da81fd8dc8afd6b089c1f8fda9d1"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "patterns",
+      "status": "development",
+      "claim": "Data patterns, guards and destructuring; current full-program cases checked",
+      "provenance": [
+        {
+          "path": "src/nexa_parser.py",
+          "symbol": "match_expr",
+          "sha256": "bfa0018b9c7f25ef8f75a025b96d3e8a84dc78a4372e5b068a490d2fc90111e4"
+        },
+        {
+          "path": "tests/test_pattern_matching.py",
+          "symbol": "Test",
+          "sha256": "1bfc9547064bee70aad0dd669f12ae34091e7d1a86696cede1cbd1319df1fbc2"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "configuration",
+      "status": "development",
+      "claim": "Lazy provider setup and nearest-directory .nxs precedence",
+      "provenance": [
+        {
+          "path": "src/runtime/secrets.py",
+          "symbol": "_load_secrets",
+          "sha256": "3ca78aa774e773c9f9ff2ed708f8c246c295c78cd35f746449dd07c9e558e7c2"
+        },
+        {
+          "path": "src/runtime/agent.py",
+          "symbol": "_get_client",
+          "sha256": "50c8248f1ddf83d1e685cd1d3c2e356c09779213e27c4fa293a86b3160507235"
+        },
+        {
+          "path": "tests/test_runtime_model_config.py",
+          "symbol": "test_agent_uses_configured_strong_model_without_eager_client",
+          "sha256": "c6193b1662e7b865aebf6985e0410cffe0a25f0118afea64b5586c22067b201a"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "cli",
+      "status": "development",
+      "claim": "Actual CLI commands, arguments, JSON results and resume exit codes",
+      "provenance": [
+        {
+          "path": "src/cli.py",
+          "symbol": "def main",
+          "sha256": "ffdc994a9a68d8dd4751baf5074655adfe064c1ed71c44c0ca894315105f9411"
+        },
+        {
+          "path": "src/agent_cli.py",
+          "symbol": "print_run",
+          "sha256": "eb4e32c00ac586094c3e0ab4708edc32fd2653d414d1c0ef4ecddde1e9e7dfb1"
+        },
+        {
+          "path": "src/runtime/inspector.py",
+          "symbol": "",
+          "sha256": "1cb4177cf436b68807ba37aa746b6e1cd61943c83fb6758fda6de27ee34794fd"
+        }
+      ]
+    },
+    {
+      "id": "conversations",
+      "status": "development",
+      "claim": "New run from settled history, fresh budgets/approvals and native state preservation",
+      "provenance": [
+        {
+          "path": "src/runtime/conversations.py",
+          "symbol": "continue_agent",
+          "sha256": "117a33a3e06a83dbbc3b7885d583bf774e8e64dbbe1ca78a8fb23dbccf5cf1e0"
+        },
+        {
+          "path": "src/runtime/agent.py",
+          "symbol": "def continue_run",
+          "sha256": "50c8248f1ddf83d1e685cd1d3c2e356c09779213e27c4fa293a86b3160507235"
+        },
+        {
+          "path": "tests/test_conversations.py",
+          "symbol": "test_new_turn_has_fresh_budget_and_checkpoint_but_retains_history",
+          "sha256": "b4147e74a1fca665c09f020ec35253bc47c4a5e1012dfc525d9ac1fbe7e16785"
+        },
+        {
+          "path": "tests/test_native_providers.py",
+          "symbol": "",
+          "sha256": "5e1815d400172649919395dda8a95b402663097b39fd0caeeae8c12b9502bc42"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    },
+    {
+      "id": "stdlib",
+      "status": "development",
+      "claim": "Actual standard-library registry and parameter schemas",
+      "provenance": [
+        {
+          "path": "src/runtime/stdlib.py",
+          "symbol": "STD_NAMESPACE_MAP",
+          "sha256": "7551c42160ec0a665d6b0f0f5c11b2fbc914d378ed3f3de9bc0bd2a98b21a7a4"
+        },
+        {
+          "path": "tests/test_nexa_sdk.py",
+          "symbol": "TestStdlib",
+          "sha256": "0586f52e1ee6cda69ebb2de19a4e38d8cba5aca6e1b1a4479ea0fc833dc741c3"
+        },
+        {
+          "path": "tests/test_database.py",
+          "symbol": "",
+          "sha256": "8b42e9959a7e81bd15ed76aa55081c8d2ca399c74e3b8da4ab7170dc1857f21e"
+        },
+        {
+          "path": "tests/test_auth.py",
+          "symbol": "",
+          "sha256": "973864f2b317e9e083e9f2fc75de3d20c11e89cf49bc561e1ea5acb23d624fb6"
+        },
+        {
+          "path": "tests/test_kv_store.py",
+          "symbol": "",
+          "sha256": "e9209e33b862ca0de1aaa256543fefc04093aaee6f29ff82bc7514002da82373"
+        },
+        {
+          "path": "tests/test_http_server.py",
+          "symbol": "",
+          "sha256": "0db7e23995b6e6d7b77dd1362fea00e2bd70f7a062594e1993f3af4564237e25"
+        },
+        {
+          "path": "tests/test_jobs.py",
+          "symbol": "",
+          "sha256": "b9cb9e4615015cc98217aee13433528c3053c7bd8849adafcb6e65a036868460"
+        },
+        {
+          "path": "tests/test_template.py",
+          "symbol": "",
+          "sha256": "f6744592e2641739b814ee47170e42bf5d9913ccc79a76b40d4fdbd1101c048d"
+        }
+      ]
+    },
+    {
+      "id": "mcp",
+      "status": "development",
+      "claim": "Official SDK sessions, explicit remote approval and connection cleanup",
+      "provenance": [
+        {
+          "path": "src/runtime/mcp_client.py",
+          "symbol": "MCPClient",
+          "sha256": "c7d31706a427cdd7d7eea7b74333afca0ddf55f766b5099eb96bc532936c05e9"
+        },
+        {
+          "path": "tests/test_mcp_execution.py",
+          "symbol": "",
+          "sha256": "507dc727a059100f41487cb952ad69e47dcf3df7131bb40f837786e466986ed0"
+        },
+        {
+          "path": "pyproject.toml",
+          "symbol": "mcp>=2.3",
+          "sha256": "e12e7ba3c9777cbebc2b034f7b8fcf57b8640da1bab656f2718c90ee587b6488"
+        }
+      ]
+    },
+    {
+      "id": "terminal",
+      "status": "development",
+      "claim": "Optional rich/prompt_toolkit rendering through std.ui",
+      "provenance": [
+        {
+          "path": "src/runtime/ui.py",
+          "symbol": "print_markdown",
+          "sha256": "2659a954dbc1dff12b8f2fe05fd3e5c54fec5603251a3ecc740130f5cc8ebbf3"
+        },
+        {
+          "path": "src/runtime/stdlib.py",
+          "symbol": "_std_ui_banner",
+          "sha256": "7551c42160ec0a665d6b0f0f5c11b2fbc914d378ed3f3de9bc0bd2a98b21a7a4"
+        },
+        {
+          "path": "pyproject.toml",
+          "symbol": "terminal =",
+          "sha256": "e12e7ba3c9777cbebc2b034f7b8fcf57b8640da1bab656f2718c90ee587b6488"
+        }
+      ]
+    },
+    {
+      "id": "ecosystem",
+      "status": "development",
+      "claim": "Development toolchain shares local compiler/CLI/conversation contracts; releases tracked separately",
+      "provenance": [
+        {
+          "path": "docs/runtime-v2.4.md",
+          "symbol": "inspect --format json",
+          "sha256": "250c384903f9bc72e7c67e273e098b2077ca7f3c582f5220cf0c27a14721f2be"
+        },
+        {
+          "path": "src/cli.py",
+          "symbol": "def main",
+          "sha256": "ffdc994a9a68d8dd4751baf5074655adfe064c1ed71c44c0ca894315105f9411"
+        },
+        {
+          "path": "README.md",
+          "symbol": "",
+          "sha256": "003c2e4fbd69092ea11b9289fa846d6b8d83266c7836dfbd0bfc948b2b13e752"
+        }
+      ],
+      "review": {
+        "at": "2026-10-23T09:30:26.213113+00:00",
+        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "index-en-1",
+      "page": "index.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "733a6aad2ec34c3c607f38179285831689fe995cb5fb93324ad97ef5972278bc",
+      "validation": "compile"
+    },
+    {
+      "id": "index-zh-1",
+      "page": "index.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "733a6aad2ec34c3c607f38179285831689fe995cb5fb93324ad97ef5972278bc",
+      "validation": "compile"
+    },
+    {
+      "id": "part1_basic-en-1",
+      "page": "part1_basic.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "49a9cb7c9929354ebb2d298c5e5766f645b394f4684bdee4f6e65e894da3994e",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      }
+    },
+    {
+      "id": "part1_basic-en-2",
+      "page": "part1_basic.en.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "5f7e58b396b774533caee907e1c17a2503e9f8a2079a51334069ffc275f97d0a",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "hello"
+        ],
+        "expected": "hello",
+        "model_calls": 1
+      }
+    },
+    {
+      "id": "part1_basic-en-3",
+      "page": "part1_basic.en.md",
+      "block": 3,
+      "status": "complete",
+      "sha256": "903c7665634a82c51ab47731b74faf7f1a2d7631ddd665cb650c7933f463f704",
+      "validation": "offline",
+      "scenario": {
+        "expected": "large"
+      }
+    },
+    {
+      "id": "part1_basic-en-4",
+      "page": "part1_basic.en.md",
+      "block": 4,
+      "status": "complete",
+      "sha256": "817f86490649a6e9c2a16a3dc27eeed27e7b445a45fbdaf2ca8561d87f7b2ce4",
+      "validation": "offline",
+      "scenario": {
+        "expected": 6
+      }
+    },
+    {
+      "id": "part1_basic-en-5",
+      "page": "part1_basic.en.md",
+      "block": 5,
+      "status": "complete",
+      "sha256": "cfeaf7f3db51ae0b8052f3503ebf1b0394ba323959fd62b0d8876fb71d679174",
+      "validation": "offline",
+      "scenario": {
+        "expected": 3
+      }
+    },
+    {
+      "id": "part1_basic-en-6",
+      "page": "part1_basic.en.md",
+      "block": 6,
+      "status": "complete",
+      "sha256": "e79a769770c0b1022a86e0d70237c522c7c2e2cc702a4a91f8225c10e4c86de6",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      }
+    },
+    {
+      "id": "part1_basic-zh-1",
+      "page": "part1_basic.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "49a9cb7c9929354ebb2d298c5e5766f645b394f4684bdee4f6e65e894da3994e",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      }
+    },
+    {
+      "id": "part1_basic-zh-2",
+      "page": "part1_basic.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "5f7e58b396b774533caee907e1c17a2503e9f8a2079a51334069ffc275f97d0a",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "hello"
+        ],
+        "expected": "hello",
+        "model_calls": 1
+      }
+    },
+    {
+      "id": "part1_basic-zh-3",
+      "page": "part1_basic.md",
+      "block": 3,
+      "status": "complete",
+      "sha256": "903c7665634a82c51ab47731b74faf7f1a2d7631ddd665cb650c7933f463f704",
+      "validation": "offline",
+      "scenario": {
+        "expected": "large"
+      }
+    },
+    {
+      "id": "part1_basic-zh-4",
+      "page": "part1_basic.md",
+      "block": 4,
+      "status": "complete",
+      "sha256": "817f86490649a6e9c2a16a3dc27eeed27e7b445a45fbdaf2ca8561d87f7b2ce4",
+      "validation": "offline",
+      "scenario": {
+        "expected": 6
+      }
+    },
+    {
+      "id": "part1_basic-zh-5",
+      "page": "part1_basic.md",
+      "block": 5,
+      "status": "complete",
+      "sha256": "cfeaf7f3db51ae0b8052f3503ebf1b0394ba323959fd62b0d8876fb71d679174",
+      "validation": "offline",
+      "scenario": {
+        "expected": 3
+      }
+    },
+    {
+      "id": "part1_basic-zh-6",
+      "page": "part1_basic.md",
+      "block": 6,
+      "status": "complete",
+      "sha256": "e79a769770c0b1022a86e0d70237c522c7c2e2cc702a4a91f8225c10e4c86de6",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      }
+    },
+    {
+      "id": "part2_adt-en-1",
+      "page": "part2_adt.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "243fe0ae723fe9c686811d2c46d49c81a5e9331544e57041a7813bd3b867136c",
+      "validation": "compile"
+    },
+    {
+      "id": "part2_adt-zh-1",
+      "page": "part2_adt.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "243fe0ae723fe9c686811d2c46d49c81a5e9331544e57041a7813bd3b867136c",
+      "validation": "compile"
+    },
+    {
+      "id": "part2_advanced-en-1",
+      "page": "part2_advanced.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "c214604d0d16baf93c7c9924ca070e39d91be698552e602965b3eec406e46551",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "facts",
+          "summary"
+        ],
+        "expected": "summary",
+        "model_calls": 2
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "part2_advanced-en-2",
+      "page": "part2_advanced.en.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "1265f067622076692e8959f9578387a9c4ece5c7a6806a883f7a112a023c5979",
+      "validation": "compile",
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "part2_advanced-zh-1",
+      "page": "part2_advanced.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "c214604d0d16baf93c7c9924ca070e39d91be698552e602965b3eec406e46551",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "facts",
+          "summary"
+        ],
+        "expected": "summary",
+        "model_calls": 2
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "part2_advanced-zh-2",
+      "page": "part2_advanced.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "1265f067622076692e8959f9578387a9c4ece5c7a6806a883f7a112a023c5979",
+      "validation": "compile",
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "part2_config_stdlib-en-1",
+      "page": "part2_config_stdlib.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "6ab3aaba38344d268db76a18fde3d8e35d9b9bbdc41b7f0a1d79717d44dea24f",
+      "validation": "compile"
+    },
+    {
+      "id": "part2_config_stdlib-zh-1",
+      "page": "part2_config_stdlib.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "6ab3aaba38344d268db76a18fde3d8e35d9b9bbdc41b7f0a1d79717d44dea24f",
+      "validation": "compile"
+    },
+    {
+      "id": "part2_context_structure-en-1",
+      "page": "part2_context_structure.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "71c117ddd4eeb0f52a56dc5df43d404dbf5dae751931fef4d51963a5880676e8",
+      "validation": "compile"
+    },
+    {
+      "id": "part2_context_structure-zh-1",
+      "page": "part2_context_structure.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "71c117ddd4eeb0f52a56dc5df43d404dbf5dae751931fef4d51963a5880676e8",
+      "validation": "compile"
+    },
+    {
+      "id": "part2_error_handling-en-1",
+      "page": "part2_error_handling.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "2b0e1954ff6a0793308f62f87c2fbaf6c054dda7b521160215213baa99fbf75a",
+      "validation": "offline",
+      "scenario": {
+        "expected": "corrected"
+      }
+    },
+    {
+      "id": "part2_error_handling-zh-1",
+      "page": "part2_error_handling.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "2b0e1954ff6a0793308f62f87c2fbaf6c054dda7b521160215213baa99fbf75a",
+      "validation": "offline",
+      "scenario": {
+        "expected": "corrected"
+      }
+    },
+    {
+      "id": "part2_harness-en-1",
+      "page": "part2_harness.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "dea673e1ad739b6c91967b63691c2e3c2a3d99eabf5c153d2f91307329367d07",
+      "validation": "offline",
+      "scenario": {
+        "expected": 3
+      }
+    },
+    {
+      "id": "part2_harness-en-2",
+      "page": "part2_harness.en.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "8034a3c0cc89da635ba7d5e068b5e2b1dff0cd6c9510dbe50a7520b027e92731",
+      "validation": "offline",
+      "scenario": {
+        "error_contains": "string"
+      }
+    },
+    {
+      "id": "part2_harness-zh-1",
+      "page": "part2_harness.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "dea673e1ad739b6c91967b63691c2e3c2a3d99eabf5c153d2f91307329367d07",
+      "validation": "offline",
+      "scenario": {
+        "expected": 3
+      }
+    },
+    {
+      "id": "part2_harness-zh-2",
+      "page": "part2_harness.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "8034a3c0cc89da635ba7d5e068b5e2b1dff0cd6c9510dbe50a7520b027e92731",
+      "validation": "offline",
+      "scenario": {
+        "error_contains": "string"
+      }
+    },
+    {
+      "id": "part2_pattern_matching-en-1",
+      "page": "part2_pattern_matching.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "4f68d6dd94252b00e889987e3b3914af57137aaf5ac9c1e3db96fadcfdf865c8",
+      "validation": "offline",
+      "scenario": {
+        "expected": "one"
+      }
+    },
+    {
+      "id": "part2_pattern_matching-en-2",
+      "page": "part2_pattern_matching.en.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "c82a7aa09255a66466d7c32c1214799a3699b1cea71f8b1d152daec665be3171",
+      "validation": "offline",
+      "scenario": {
+        "expected": 5
+      }
+    },
+    {
+      "id": "part2_pattern_matching-zh-1",
+      "page": "part2_pattern_matching.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "4f68d6dd94252b00e889987e3b3914af57137aaf5ac9c1e3db96fadcfdf865c8",
+      "validation": "offline",
+      "scenario": {
+        "expected": "one"
+      }
+    },
+    {
+      "id": "part2_pattern_matching-zh-2",
+      "page": "part2_pattern_matching.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "c82a7aa09255a66466d7c32c1214799a3699b1cea71f8b1d152daec665be3171",
+      "validation": "offline",
+      "scenario": {
+        "expected": 5
+      }
+    },
+    {
+      "id": "part2_terminal_ui-en-1",
+      "page": "part2_terminal_ui.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "c7af77135048e585f795607d660ddb3beb437c6dcf1c3190c99bce52075ed9e8",
+      "validation": "compile"
+    },
+    {
+      "id": "part2_terminal_ui-zh-1",
+      "page": "part2_terminal_ui.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "c7af77135048e585f795607d660ddb3beb437c6dcf1c3190c99bce52075ed9e8",
+      "validation": "compile"
+    },
+    {
+      "id": "part3_extensions-en-1",
+      "page": "part3_extensions.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "03a049f944b52077450b1adb6da790357d4aa45018f107813928e6a574340036",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          {
+            "calls": [
+              {
+                "id": "docs-add",
+                "type": "function",
+                "function": {
+                  "name": "add",
+                  "arguments": "{\"a\":2,\"b\":3}"
+                }
+              }
+            ]
+          },
+          "5"
+        ],
+        "expected": "5",
+        "model_calls": 2,
+        "tool_results": {
+          "docs-add": "5"
+        }
+      }
+    },
+    {
+      "id": "part3_extensions-en-2",
+      "page": "part3_extensions.en.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "88c3f7507ba68ba16499f2b295b5c11d1f4eefe5f636036377d342e75b93a818",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "{\"value\":42}"
+        ],
+        "expected": {
+          "value": 42
+        },
+        "model_calls": 1
+      }
+    },
+    {
+      "id": "part3_extensions-zh-1",
+      "page": "part3_extensions.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "03a049f944b52077450b1adb6da790357d4aa45018f107813928e6a574340036",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          {
+            "calls": [
+              {
+                "id": "docs-add",
+                "type": "function",
+                "function": {
+                  "name": "add",
+                  "arguments": "{\"a\":2,\"b\":3}"
+                }
+              }
+            ]
+          },
+          "5"
+        ],
+        "expected": "5",
+        "model_calls": 2,
+        "tool_results": {
+          "docs-add": "5"
+        }
+      }
+    },
+    {
+      "id": "part3_extensions-zh-2",
+      "page": "part3_extensions.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "88c3f7507ba68ba16499f2b295b5c11d1f4eefe5f636036377d342e75b93a818",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "{\"value\":42}"
+        ],
+        "expected": {
+          "value": 42
+        },
+        "model_calls": 1
+      }
+    },
+    {
+      "id": "quickstart-en-1",
+      "page": "quickstart.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "49a9cb7c9929354ebb2d298c5e5766f645b394f4684bdee4f6e65e894da3994e",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      }
+    },
+    {
+      "id": "quickstart-en-2",
+      "page": "quickstart.en.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "73fdf064df911f032254f13f302441bdf80737512637ad843c4ec6678902784c",
+      "validation": "compile"
+    },
+    {
+      "id": "quickstart-zh-1",
+      "page": "quickstart.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "49a9cb7c9929354ebb2d298c5e5766f645b394f4684bdee4f6e65e894da3994e",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      }
+    },
+    {
+      "id": "quickstart-zh-2",
+      "page": "quickstart.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "73fdf064df911f032254f13f302441bdf80737512637ad843c4ec6678902784c",
+      "validation": "compile"
+    },
+    {
+      "id": "reference-en-1",
+      "page": "reference.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "1f4325d6248f3820799c8e3c572dd7525307c65b102db78de0fbc5ca4eb41b4f",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-en-2",
+      "page": "reference.en.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "a2ad19079d05a3bd32817a46459cdfc37779947f3b0829ba04e40412519b64d8",
+      "validation": "offline",
+      "scenario": {
+        "expected": "fallback"
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-en-3",
+      "page": "reference.en.md",
+      "block": 3,
+      "status": "complete",
+      "sha256": "d3cf8a52d7d3d943c86a06358ccf3543b095671faf1a2d2b636a9e2e8ab7cdf7",
+      "validation": "offline",
+      "scenario": {
+        "expected": "Hello Nexa"
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-en-4",
+      "page": "reference.en.md",
+      "block": 4,
+      "status": "complete",
+      "sha256": "fbcc07152011b4085e3e26ea9c753a2c1913771e35fa5db1fcd351d1125ccdae",
+      "validation": "compile",
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-en-5",
+      "page": "reference.en.md",
+      "block": 5,
+      "status": "complete",
+      "sha256": "6a91c621d1651eb3c6d6d56946e418373a82ab29c541839fcec659a7a6afe1b4",
+      "validation": "compile",
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-zh-1",
+      "page": "reference.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "1f4325d6248f3820799c8e3c572dd7525307c65b102db78de0fbc5ca4eb41b4f",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-zh-2",
+      "page": "reference.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "a2ad19079d05a3bd32817a46459cdfc37779947f3b0829ba04e40412519b64d8",
+      "validation": "offline",
+      "scenario": {
+        "expected": "fallback"
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-zh-3",
+      "page": "reference.md",
+      "block": 3,
+      "status": "complete",
+      "sha256": "d3cf8a52d7d3d943c86a06358ccf3543b095671faf1a2d2b636a9e2e8ab7cdf7",
+      "validation": "offline",
+      "scenario": {
+        "expected": "Hello Nexa"
+      },
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-zh-4",
+      "page": "reference.md",
+      "block": 4,
+      "status": "complete",
+      "sha256": "fbcc07152011b4085e3e26ea9c753a2c1913771e35fa5db1fcd351d1125ccdae",
+      "validation": "compile",
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "reference-zh-5",
+      "page": "reference.md",
+      "block": 5,
+      "status": "complete",
+      "sha256": "6a91c621d1651eb3c6d6d56946e418373a82ab29c541839fcec659a7a6afe1b4",
+      "validation": "compile",
+      "review": {
+        "at": "2026-10-23T08:46:33.453014+00:00",
+        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
+      }
+    },
+    {
+      "id": "runtime_actors-en-1",
+      "page": "runtime_actors.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "cccfb4141bdc16858a854be4643af73d276efee80d7826c39e2e0f329563d464",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "first",
+          "second"
+        ],
+        "expected": "second",
+        "model_calls": 2,
+        "user_messages": [
+          "Inspect the evidence",
+          "Summarize the evidence"
+        ]
+      }
+    },
+    {
+      "id": "runtime_actors-zh-1",
+      "page": "runtime_actors.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "cccfb4141bdc16858a854be4643af73d276efee80d7826c39e2e0f329563d464",
+      "validation": "offline",
+      "scenario": {
+        "replies": [
+          "first",
+          "second"
+        ],
+        "expected": "second",
+        "model_calls": 2,
+        "user_messages": [
+          "Inspect the evidence",
+          "Summarize the evidence"
+        ]
+      }
+    },
+    {
+      "id": "runtime_approval-en-1",
+      "page": "runtime_approval.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "001568330928391e68fd5d16f101f4a44a71bf7295ab3218f91b936054eaef5a",
+      "validation": "compile"
+    },
+    {
+      "id": "runtime_approval-zh-1",
+      "page": "runtime_approval.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "001568330928391e68fd5d16f101f4a44a71bf7295ab3218f91b936054eaef5a",
+      "validation": "compile"
+    },
+    {
+      "id": "runtime_providers-en-1",
+      "page": "runtime_providers.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "126dadff336c9b3eac75d08734987c1e874aec0017dba47a40818b8676e9921a",
+      "validation": "compile"
+    },
+    {
+      "id": "runtime_providers-zh-1",
+      "page": "runtime_providers.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "126dadff336c9b3eac75d08734987c1e874aec0017dba47a40818b8676e9921a",
+      "validation": "compile"
+    },
+    {
+      "id": "runtime_rust-en-1",
+      "page": "runtime_rust.en.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "09275530303ab041d95a8810a06ce5878a236513132824c104a340c79bb08f59",
+      "validation": "offline",
+      "scenario": {
+        "expected": 2.5
+      }
+    },
+    {
+      "id": "runtime_rust-zh-1",
+      "page": "runtime_rust.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "09275530303ab041d95a8810a06ce5878a236513132824c104a340c79bb08f59",
+      "validation": "offline",
+      "scenario": {
+        "expected": 2.5
+      }
+    }
+  ]
+}

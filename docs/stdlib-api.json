@@ -1,0 +1,3220 @@
+{
+  "std.fs": [
+    {
+      "name": "file_read",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "文件路径"
+          },
+          "encoding": {
+            "type": "string",
+            "description": "编码格式"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "description": "读取文件内容",
+      "return_annotation": "str"
+    },
+    {
+      "name": "file_write",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "文件路径"
+          },
+          "content": {
+            "type": "string",
+            "description": "文件内容"
+          }
+        },
+        "required": [
+          "path",
+          "content"
+        ]
+      },
+      "description": "写入文件",
+      "return_annotation": "str"
+    },
+    {
+      "name": "file_exists",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "文件路径"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "description": "检查文件是否存在",
+      "return_annotation": "str"
+    },
+    {
+      "name": "file_list",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "directory": {
+            "type": "string",
+            "description": "目录路径"
+          },
+          "pattern": {
+            "type": "string",
+            "description": "文件匹配模式"
+          }
+        },
+        "required": [
+          "directory"
+        ]
+      },
+      "description": "列出目录文件",
+      "return_annotation": "str"
+    },
+    {
+      "name": "file_append",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "文件路径"
+          },
+          "content": {
+            "type": "string",
+            "description": "追加内容"
+          }
+        },
+        "required": [
+          "path",
+          "content"
+        ]
+      },
+      "description": "追加文件内容",
+      "return_annotation": "str"
+    },
+    {
+      "name": "file_delete",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "文件路径"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "description": "删除文件",
+      "return_annotation": "str"
+    },
+    {
+      "name": "file_edit",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "old_text": {
+            "type": "string"
+          },
+          "new_text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "old_text",
+          "new_text"
+        ]
+      },
+      "description": "Replace text in a file within configured write roots",
+      "return_annotation": "str"
+    }
+  ],
+  "std.http": [
+    {
+      "name": "http_get",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "请求 URL"
+          },
+          "headers": {
+            "type": "object",
+            "description": "请求头"
+          },
+          "timeout": {
+            "type": "integer",
+            "description": "超时秒数"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "description": "发送 HTTP GET 请求",
+      "return_annotation": "str"
+    },
+    {
+      "name": "http_post",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "请求 URL"
+          },
+          "data": {
+            "type": "string",
+            "description": "请求体"
+          },
+          "headers": {
+            "type": "object",
+            "description": "请求头"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "内容类型"
+          }
+        },
+        "required": [
+          "url",
+          "data"
+        ]
+      },
+      "description": "发送 HTTP POST 请求",
+      "return_annotation": "str"
+    },
+    {
+      "name": "http_put",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "请求 URL"
+          },
+          "data": {
+            "type": "string",
+            "description": "请求体"
+          },
+          "headers": {
+            "type": "object",
+            "description": "请求头"
+          }
+        },
+        "required": [
+          "url",
+          "data"
+        ]
+      },
+      "description": "发送 HTTP PUT 请求",
+      "return_annotation": "str"
+    },
+    {
+      "name": "http_delete",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "请求 URL"
+          },
+          "headers": {
+            "type": "object",
+            "description": "请求头"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "description": "发送 HTTP DELETE 请求",
+      "return_annotation": "str"
+    }
+  ],
+  "std.time": [
+    {
+      "name": "time_now",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "description": "时间格式"
+          }
+        },
+        "required": []
+      },
+      "description": "获取当前时间",
+      "return_annotation": "str"
+    },
+    {
+      "name": "time_diff",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "description": "开始时间 (ISO格式)"
+          },
+          "end": {
+            "type": "string",
+            "description": "结束时间 (ISO格式)"
+          },
+          "unit": {
+            "type": "string",
+            "description": "单位 (seconds/minutes/hours/days)"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ]
+      },
+      "description": "计算时间差",
+      "return_annotation": "str"
+    },
+    {
+      "name": "time_format",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "iso_string": {
+            "type": "string",
+            "description": "ISO 时间字符串"
+          },
+          "format": {
+            "type": "string",
+            "description": "输出格式"
+          }
+        },
+        "required": [
+          "iso_string"
+        ]
+      },
+      "description": "格式化时间",
+      "return_annotation": "str"
+    },
+    {
+      "name": "time_sleep",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "seconds": {
+            "type": "integer",
+            "description": "休眠秒数"
+          }
+        },
+        "required": [
+          "seconds"
+        ]
+      },
+      "description": "休眠指定秒数",
+      "return_annotation": "str"
+    },
+    {
+      "name": "time_timestamp",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "description": "获取当前时间戳",
+      "return_annotation": "str"
+    }
+  ],
+  "std.text": [
+    {
+      "name": "text_split",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "待分割文本"
+          },
+          "delimiter": {
+            "type": "string",
+            "description": "分隔符"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "分割文本",
+      "return_annotation": "str"
+    },
+    {
+      "name": "text_replace",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "原文本"
+          },
+          "old": {
+            "type": "string",
+            "description": "被替换内容"
+          },
+          "new": {
+            "type": "string",
+            "description": "替换内容"
+          }
+        },
+        "required": [
+          "text",
+          "old",
+          "new"
+        ]
+      },
+      "description": "替换文本",
+      "return_annotation": "str"
+    }
+  ],
+  "std.json": [
+    {
+      "name": "json_parse",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "JSON 字符串"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "解析 JSON 字符串",
+      "return_annotation": "str"
+    },
+    {
+      "name": "json_get",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "JSON 字符串"
+          },
+          "path": {
+            "type": "string",
+            "description": "路径 (如 data.items.0)"
+          }
+        },
+        "required": [
+          "text",
+          "path"
+        ]
+      },
+      "description": "获取 JSON 路径值",
+      "return_annotation": "str"
+    },
+    {
+      "name": "json_stringify",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string",
+            "description": "数据对象"
+          },
+          "indent": {
+            "type": "integer",
+            "description": "缩进空格数"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "description": "序列化为 JSON",
+      "return_annotation": "str"
+    }
+  ],
+  "std.hash": [
+    {
+      "name": "hash_md5",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "输入文本"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "计算 MD5 哈希",
+      "return_annotation": "str"
+    },
+    {
+      "name": "hash_sha256",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "输入文本"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "计算 SHA256 哈希",
+      "return_annotation": "str"
+    },
+    {
+      "name": "base64_encode",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "输入文本"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "Base64 编码",
+      "return_annotation": "str"
+    },
+    {
+      "name": "base64_decode",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Base64 文本"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "Base64 解码",
+      "return_annotation": "str"
+    }
+  ],
+  "std.math": [
+    {
+      "name": "math_calc",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "expression": {
+            "type": "string",
+            "description": "数学表达式"
+          }
+        },
+        "required": [
+          "expression"
+        ]
+      },
+      "description": "计算数学表达式",
+      "return_annotation": "str"
+    },
+    {
+      "name": "math_random",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "min_val": {
+            "type": "integer",
+            "description": "最小值"
+          },
+          "max_val": {
+            "type": "integer",
+            "description": "最大值"
+          }
+        },
+        "required": [
+          "min_val",
+          "max_val"
+        ]
+      },
+      "description": "生成随机数",
+      "return_annotation": "str"
+    }
+  ],
+  "std.regex": [
+    {
+      "name": "regex_match",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "正则模式"
+          },
+          "text": {
+            "type": "string",
+            "description": "待匹配文本"
+          },
+          "flags": {
+            "type": "string",
+            "description": "标志 (i=忽略大小写, m=多行)"
+          }
+        },
+        "required": [
+          "pattern",
+          "text"
+        ]
+      },
+      "description": "正则表达式匹配",
+      "return_annotation": "str"
+    },
+    {
+      "name": "regex_replace",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "正则模式"
+          },
+          "replacement": {
+            "type": "string",
+            "description": "替换内容"
+          },
+          "text": {
+            "type": "string",
+            "description": "待处理文本"
+          }
+        },
+        "required": [
+          "pattern",
+          "replacement",
+          "text"
+        ]
+      },
+      "description": "正则表达式替换",
+      "return_annotation": "str"
+    }
+  ],
+  "std.shell": [
+    {
+      "name": "shell_exec",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "要执行的命令"
+          },
+          "timeout": {
+            "type": "integer",
+            "description": "超时秒数"
+          }
+        },
+        "required": [
+          "command"
+        ]
+      },
+      "description": "执行 shell 命令",
+      "return_annotation": "str"
+    },
+    {
+      "name": "shell_which",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "命令名称"
+          }
+        },
+        "required": [
+          "command"
+        ]
+      },
+      "description": "查找命令路径",
+      "return_annotation": "str"
+    }
+  ],
+  "std.code": [
+    {
+      "name": "search_files",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string"
+          },
+          "directory": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pattern"
+        ]
+      },
+      "description": "Search source files for a text pattern",
+      "return_annotation": "str"
+    },
+    {
+      "name": "list_directory",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "directory": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "directory"
+        ]
+      },
+      "description": "List files in a directory",
+      "return_annotation": "str"
+    },
+    {
+      "name": "file_edit",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "old_text": {
+            "type": "string"
+          },
+          "new_text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "old_text",
+          "new_text"
+        ]
+      },
+      "description": "Replace text in a file within configured write roots",
+      "return_annotation": "str"
+    }
+  ],
+  "std.ask_human": [
+    {
+      "name": "ask_human",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "提示信息"
+          },
+          "default": {
+            "type": "string",
+            "description": "默认值"
+          }
+        },
+        "required": [
+          "prompt"
+        ]
+      },
+      "description": "请求用户输入",
+      "return_annotation": "str"
+    }
+  ],
+  "std.db.sqlite": [
+    {
+      "name": "std_db_sqlite_connect",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "数据库路径 (:memory: 或文件路径)"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "description": "连接 SQLite 数据库",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_sqlite_query",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          },
+          "sql": {
+            "type": "string",
+            "description": "SQL 查询语句"
+          },
+          "params_json": {
+            "type": "string",
+            "description": "参数 JSON 数组"
+          }
+        },
+        "required": [
+          "handle_json",
+          "sql"
+        ]
+      },
+      "description": "SQLite 查询所有行",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_sqlite_query_one",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          },
+          "sql": {
+            "type": "string",
+            "description": "SQL 查询语句"
+          },
+          "params_json": {
+            "type": "string",
+            "description": "参数 JSON 数组"
+          }
+        },
+        "required": [
+          "handle_json",
+          "sql"
+        ]
+      },
+      "description": "SQLite 查询单行",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_sqlite_execute",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          },
+          "sql": {
+            "type": "string",
+            "description": "SQL 语句"
+          },
+          "params_json": {
+            "type": "string",
+            "description": "参数 JSON 数组"
+          }
+        },
+        "required": [
+          "handle_json",
+          "sql"
+        ]
+      },
+      "description": "SQLite 执行写操作",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_sqlite_close",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "SQLite 关闭连接",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_sqlite_begin",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "SQLite 开始事务",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_sqlite_commit",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "SQLite 提交事务",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_sqlite_rollback",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "SQLite 回滚事务",
+      "return_annotation": "str"
+    }
+  ],
+  "std.db.postgres": [
+    {
+      "name": "std_db_postgres_connect",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "PostgreSQL 连接串"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "description": "连接 PostgreSQL 数据库",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_postgres_query",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          },
+          "sql": {
+            "type": "string",
+            "description": "SQL 查询语句"
+          },
+          "params_json": {
+            "type": "string",
+            "description": "参数 JSON 数组"
+          }
+        },
+        "required": [
+          "handle_json",
+          "sql"
+        ]
+      },
+      "description": "PostgreSQL 查询所有行",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_postgres_query_one",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          },
+          "sql": {
+            "type": "string",
+            "description": "SQL 查询语句"
+          },
+          "params_json": {
+            "type": "string",
+            "description": "参数 JSON 数组"
+          }
+        },
+        "required": [
+          "handle_json",
+          "sql"
+        ]
+      },
+      "description": "PostgreSQL 查询单行",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_postgres_execute",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          },
+          "sql": {
+            "type": "string",
+            "description": "SQL 语句"
+          },
+          "params_json": {
+            "type": "string",
+            "description": "参数 JSON 数组"
+          }
+        },
+        "required": [
+          "handle_json",
+          "sql"
+        ]
+      },
+      "description": "PostgreSQL 执行写操作",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_postgres_close",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "PostgreSQL 关闭连接",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_postgres_begin",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "PostgreSQL 开始事务",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_postgres_commit",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "PostgreSQL 提交事务",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_postgres_rollback",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "连接句柄 JSON"
+          }
+        },
+        "required": [
+          "handle_json"
+        ]
+      },
+      "description": "PostgreSQL 回滚事务",
+      "return_annotation": "str"
+    }
+  ],
+  "std.db.memory": [
+    {
+      "name": "std_db_memory_query",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "数据库连接句柄 JSON"
+          },
+          "agent_name": {
+            "type": "string",
+            "description": "Agent 名称"
+          },
+          "key": {
+            "type": "string",
+            "description": "记忆键名"
+          }
+        },
+        "required": [
+          "handle_json",
+          "agent_name",
+          "key"
+        ]
+      },
+      "description": "Agent 记忆查询",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_memory_store",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "数据库连接句柄 JSON"
+          },
+          "agent_name": {
+            "type": "string",
+            "description": "Agent 名称"
+          },
+          "key": {
+            "type": "string",
+            "description": "记忆键名"
+          },
+          "value": {
+            "type": "string",
+            "description": "记忆值"
+          }
+        },
+        "required": [
+          "handle_json",
+          "agent_name",
+          "key",
+          "value"
+        ]
+      },
+      "description": "Agent 记忆存储",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_memory_delete",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "数据库连接句柄 JSON"
+          },
+          "agent_name": {
+            "type": "string",
+            "description": "Agent 名称"
+          },
+          "key": {
+            "type": "string",
+            "description": "记忆键名"
+          }
+        },
+        "required": [
+          "handle_json",
+          "agent_name",
+          "key"
+        ]
+      },
+      "description": "Agent 记忆删除",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_db_memory_list",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handle_json": {
+            "type": "string",
+            "description": "数据库连接句柄 JSON"
+          },
+          "agent_name": {
+            "type": "string",
+            "description": "Agent 名称"
+          }
+        },
+        "required": [
+          "handle_json",
+          "agent_name"
+        ]
+      },
+      "description": "Agent 记忆列表",
+      "return_annotation": "str"
+    }
+  ],
+  "std.auth": [
+    {
+      "name": "std_auth_oauth",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Provider 名称 (google/github/custom)"
+          },
+          "client_id": {
+            "type": "string",
+            "description": "OAuth Client ID"
+          },
+          "client_secret": {
+            "type": "string",
+            "description": "OAuth Client Secret"
+          },
+          "opts": {
+            "type": "string",
+            "description": "可选配置 JSON"
+          }
+        },
+        "required": [
+          "name",
+          "client_id",
+          "client_secret"
+        ]
+      },
+      "description": "创建 OAuth Provider 配置",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_enable_auth",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "providers": {
+            "type": "string",
+            "description": "Provider 列表 JSON"
+          },
+          "options": {
+            "type": "string",
+            "description": "可选配置 JSON"
+          }
+        },
+        "required": [
+          "providers"
+        ]
+      },
+      "description": "初始化 Auth 系统",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_get_user",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "获取当前用户信息",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_get_session",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "获取用户会话",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_session_data",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "获取自定义会话数据",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_set_session",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          },
+          "data": {
+            "type": "string",
+            "description": "数据 JSON"
+          }
+        },
+        "required": [
+          "request",
+          "data"
+        ]
+      },
+      "description": "设置自定义会话数据",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_logout_user",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "注销用户",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_require_auth",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "Auth 中间件路径保护",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_jwt_sign",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "claims": {
+            "type": "string",
+            "description": "JWT claims JSON"
+          },
+          "secret": {
+            "type": "string",
+            "description": "签名密钥"
+          },
+          "options": {
+            "type": "string",
+            "description": "可选参数 JSON"
+          }
+        },
+        "required": [
+          "claims",
+          "secret"
+        ]
+      },
+      "description": "JWT 签名 (HS256)",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_jwt_verify",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "JWT token"
+          },
+          "secret": {
+            "type": "string",
+            "description": "签名密钥"
+          }
+        },
+        "required": [
+          "token",
+          "secret"
+        ]
+      },
+      "description": "JWT 验证 (HS256)",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_jwt_decode",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "JWT token"
+          }
+        },
+        "required": [
+          "token"
+        ]
+      },
+      "description": "JWT 解码 (不验签)",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_csrf_token",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "生成 CSRF token",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_csrf_field",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "生成 CSRF HTML hidden input",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_verify_csrf",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          },
+          "token": {
+            "type": "string",
+            "description": "待验证 token"
+          }
+        },
+        "required": [
+          "request",
+          "token"
+        ]
+      },
+      "description": "验证 CSRF token",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_api_key_generate",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "agent_name": {
+            "type": "string",
+            "description": "Agent 名称"
+          },
+          "ttl": {
+            "type": "string",
+            "description": "过期时间(秒), 空为永不过期"
+          }
+        },
+        "required": [
+          "agent_name"
+        ]
+      },
+      "description": "生成 Agent API Key",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_api_key_verify",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "API Key 字符串"
+          }
+        },
+        "required": [
+          "api_key"
+        ]
+      },
+      "description": "验证 Agent API Key",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_auth_auth_context",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "string",
+            "description": "请求对象 JSON"
+          },
+          "agent": {
+            "type": "string",
+            "description": "Agent 对象 JSON"
+          }
+        },
+        "required": [
+          "request"
+        ]
+      },
+      "description": "Agent 认证上下文注入",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.kv": [
+    {
+      "name": "std_kv_open",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "数据库路径, ':memory:' 创建内存存储"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "description": "打开/创建 KV 存储",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_get",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "default": {
+            "type": "string",
+            "description": "默认值"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "获取 KV 值",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_get_int",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "default": {
+            "type": "string",
+            "description": "默认值(0)"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "类型化获取整数",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_get_str",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "default": {
+            "type": "string",
+            "description": "默认值('')"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "类型化获取字符串",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_get_json",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "JSON 解析获取",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_set",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "value": {
+            "type": "string",
+            "description": "值"
+          },
+          "opts": {
+            "type": "string",
+            "description": "可选参数 JSON (含 ttl)"
+          }
+        },
+        "required": [
+          "kv",
+          "key",
+          "value"
+        ]
+      },
+      "description": "设置 KV 值",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_set_nx",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "value": {
+            "type": "string",
+            "description": "值"
+          },
+          "opts": {
+            "type": "string",
+            "description": "可选参数 JSON (含 ttl)"
+          }
+        },
+        "required": [
+          "kv",
+          "key",
+          "value"
+        ]
+      },
+      "description": "仅当不存在时设置 (原子 NX)",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_del",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "删除 KV 键",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_has",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "检查 KV 键是否存在",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_list",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "prefix": {
+            "type": "string",
+            "description": "前缀过滤器"
+          }
+        },
+        "required": [
+          "kv"
+        ]
+      },
+      "description": "列出 KV 键 (前缀过滤)",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_expire",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "ttl_seconds": {
+            "type": "string",
+            "description": "TTL 秒数"
+          }
+        },
+        "required": [
+          "kv",
+          "key",
+          "ttl_seconds"
+        ]
+      },
+      "description": "设置 KV 键过期时间",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_ttl",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "查看 KV 键剩余 TTL",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_flush",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          }
+        },
+        "required": [
+          "kv"
+        ]
+      },
+      "description": "清空所有 KV 键",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_incr",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "amount": {
+            "type": "string",
+            "description": "递增量(默认1)"
+          }
+        },
+        "required": [
+          "kv",
+          "key"
+        ]
+      },
+      "description": "原子递增 KV 键",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_agent_kv_query",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "semantic_query": {
+            "type": "string",
+            "description": "语义查询字符串"
+          }
+        },
+        "required": [
+          "kv",
+          "semantic_query"
+        ]
+      },
+      "description": "语义搜索 KV 数据",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_agent_kv_store",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "key": {
+            "type": "string",
+            "description": "键名"
+          },
+          "value": {
+            "type": "string",
+            "description": "值"
+          },
+          "context": {
+            "type": "string",
+            "description": "上下文信息 JSON"
+          }
+        },
+        "required": [
+          "kv",
+          "key",
+          "value"
+        ]
+      },
+      "description": "带上下文存储 KV 值",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_kv_agent_kv_context",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kv": {
+            "type": "string",
+            "description": "KV Handle JSON"
+          },
+          "agent": {
+            "type": "string",
+            "description": "Agent 对象 JSON"
+          }
+        },
+        "required": [
+          "kv",
+          "agent"
+        ]
+      },
+      "description": "KV 数据注入 Agent 上下文",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.concurrent": [
+    {
+      "name": "std_concurrent_channel",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "description": "创建通道对 [tx, rx]",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_send",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tx": {
+            "type": "string",
+            "description": "TX Handle JSON"
+          },
+          "value": {
+            "type": "string",
+            "description": "发送值"
+          }
+        },
+        "required": [
+          "tx",
+          "value"
+        ]
+      },
+      "description": "通过通道发送值",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_recv",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "rx": {
+            "type": "string",
+            "description": "RX Handle JSON"
+          }
+        },
+        "required": [
+          "rx"
+        ]
+      },
+      "description": "阻塞接收通道消息",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_recv_timeout",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "rx": {
+            "type": "string",
+            "description": "RX Handle JSON"
+          },
+          "ms": {
+            "type": "string",
+            "description": "超时毫秒数"
+          }
+        },
+        "required": [
+          "rx",
+          "ms"
+        ]
+      },
+      "description": "带超时接收通道消息",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_try_recv",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "rx": {
+            "type": "string",
+            "description": "RX Handle JSON"
+          }
+        },
+        "required": [
+          "rx"
+        ]
+      },
+      "description": "非阻塞 peek 接收",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_close",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "rx": {
+            "type": "string",
+            "description": "RX Handle JSON"
+          }
+        },
+        "required": [
+          "rx"
+        ]
+      },
+      "description": "关闭通道",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_select",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "channels": {
+            "type": "string",
+            "description": "RX Handle 列表 JSON"
+          },
+          "timeout_ms": {
+            "type": "string",
+            "description": "超时毫秒数(可选)"
+          }
+        },
+        "required": [
+          "channels"
+        ]
+      },
+      "description": "多路复用多个通道",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_spawn",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handler": {
+            "type": "string",
+            "description": "Handler JSON"
+          }
+        },
+        "required": [
+          "handler"
+        ]
+      },
+      "description": "派生后台任务",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_await_task",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "Task Handle JSON"
+          }
+        },
+        "required": [
+          "task"
+        ]
+      },
+      "description": "等待任务完成",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_try_await",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "Task Handle JSON"
+          }
+        },
+        "required": [
+          "task"
+        ]
+      },
+      "description": "非阻塞 peek 任务状态",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_cancel_task",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "Task Handle JSON"
+          }
+        },
+        "required": [
+          "task"
+        ]
+      },
+      "description": "取消后台任务",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_parallel",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handlers": {
+            "type": "string",
+            "description": "Handler 列表 JSON"
+          }
+        },
+        "required": [
+          "handlers"
+        ]
+      },
+      "description": "并行执行所有 handler",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_race",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "handlers": {
+            "type": "string",
+            "description": "Handler 列表 JSON"
+          }
+        },
+        "required": [
+          "handlers"
+        ]
+      },
+      "description": "第一个成功结果, 取消其余",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_after",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "delay": {
+            "type": "string",
+            "description": "延迟(ms或字符串格式)"
+          },
+          "handler": {
+            "type": "string",
+            "description": "Handler JSON"
+          }
+        },
+        "required": [
+          "delay",
+          "handler"
+        ]
+      },
+      "description": "延迟执行",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_schedule",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "interval": {
+            "type": "string",
+            "description": "间隔(ms或字符串格式)"
+          },
+          "handler": {
+            "type": "string",
+            "description": "Handler JSON"
+          }
+        },
+        "required": [
+          "interval",
+          "handler"
+        ]
+      },
+      "description": "周期执行",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_cancel_schedule",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "schedule": {
+            "type": "string",
+            "description": "Schedule Handle JSON"
+          }
+        },
+        "required": [
+          "schedule"
+        ]
+      },
+      "description": "取消周期调度",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_sleep_ms",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "ms": {
+            "type": "string",
+            "description": "毫秒数"
+          }
+        },
+        "required": [
+          "ms"
+        ]
+      },
+      "description": "取消感知的 sleep",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_concurrent_thread_count",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "description": "CPU 线程数",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.template": [
+    {
+      "name": "std_template_render",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "template_str": {
+            "type": "string",
+            "description": "模板字符串内容"
+          },
+          "data": {
+            "type": "string",
+            "description": "数据上下文 JSON"
+          }
+        },
+        "required": [
+          "template_str"
+        ]
+      },
+      "description": "P2-4: 渲染模板字符串",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_template",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "模板文件路径"
+          },
+          "data": {
+            "type": "string",
+            "description": "数据上下文 JSON"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "description": "P2-4: 加载并渲染外部模板文件",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_compile",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "模板文件路径"
+          }
+        },
+        "required": [
+          "path"
+        ]
+      },
+      "description": "P2-4: 预编译模板文件",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_render_compiled",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "compiled": {
+            "type": "string",
+            "description": "编译模板 handle JSON"
+          },
+          "data": {
+            "type": "string",
+            "description": "数据上下文 JSON"
+          }
+        },
+        "required": [
+          "compiled"
+        ]
+      },
+      "description": "P2-4: 渲染预编译模板",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_apply",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          },
+          "filter_name": {
+            "type": "string",
+            "description": "过滤器名称"
+          },
+          "filter_args": {
+            "type": "string",
+            "description": "过滤器参数 JSON"
+          }
+        },
+        "required": [
+          "value",
+          "filter_name"
+        ]
+      },
+      "description": "P2-4: 应用模板过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_agent_prompt",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "agent": {
+            "type": "string",
+            "description": "Agent 属性 JSON"
+          },
+          "template_str": {
+            "type": "string",
+            "description": "模板字符串"
+          },
+          "context": {
+            "type": "string",
+            "description": "额外上下文 JSON"
+          }
+        },
+        "required": [
+          "agent",
+          "template_str"
+        ]
+      },
+      "description": "P2-4: Agent Prompt 模板渲染",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_agent_slot_fill",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "agent": {
+            "type": "string",
+            "description": "Agent 属性 JSON"
+          },
+          "template_str": {
+            "type": "string",
+            "description": "模板字符串"
+          },
+          "slot_sources": {
+            "type": "string",
+            "description": "Slot 来源 JSON"
+          }
+        },
+        "required": [
+          "agent",
+          "template_str"
+        ]
+      },
+      "description": "P2-4: Agent 多源 Slot 填充",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_agent_register",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "agent": {
+            "type": "string",
+            "description": "Agent 属性 JSON"
+          },
+          "name": {
+            "type": "string",
+            "description": "模板名称"
+          },
+          "template_str": {
+            "type": "string",
+            "description": "模板字符串"
+          }
+        },
+        "required": [
+          "agent",
+          "name",
+          "template_str"
+        ]
+      },
+      "description": "P2-4: 注册 Agent 模板",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_agent_list",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "description": "P2-4: 列出已注册 Agent 模板",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_upper",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: 大写过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_lower",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: 小写过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_capitalize",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: 首字母大写过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_trim",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: 去空白过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_default",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          },
+          "default": {
+            "type": "string",
+            "description": "默认值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: 默认值过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_length",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: 长度过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_json",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: JSON序列化过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_escape",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: HTML转义过滤器",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_template_filter_url_encode",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "输入值"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "description": "P2-4: URL编码过滤器",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.pipe": [
+    {
+      "name": "std_pipe_apply",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Value to pipe (LHS)"
+          },
+          "func": {
+            "type": "string",
+            "description": "Function name (RHS)"
+          },
+          "extra_args": {
+            "type": "string",
+            "description": "Additional arguments JSON array"
+          }
+        },
+        "required": [
+          "value",
+          "func"
+        ]
+      },
+      "description": "P3-2: Pipe operator — apply value as first argument of function (x |> f => f(x))",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.defer": [
+    {
+      "name": "std_defer_schedule",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "expression": {
+            "type": "string",
+            "description": "Expression to defer"
+          }
+        },
+        "required": [
+          "expression"
+        ]
+      },
+      "description": "P3-5: Defer statement — schedule expression for LIFO execution on scope exit",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.null_coalesce": [
+    {
+      "name": "std_null_coalesce_apply",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Value to check (may be null-like)"
+          },
+          "fallback": {
+            "type": "string",
+            "description": "Fallback value if null-like"
+          }
+        },
+        "required": [
+          "value",
+          "fallback"
+        ]
+      },
+      "description": "P3-6: Null coalescing — return fallback if value is None/Option::None/empty dict",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.string": [
+    {
+      "name": "std_string_interpolate",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "template": {
+            "type": "string",
+            "description": "String template with #{expr} patterns"
+          },
+          "context": {
+            "type": "string",
+            "description": "JSON context dictionary for variable lookup"
+          }
+        },
+        "required": [
+          "template"
+        ]
+      },
+      "description": "P3-1: String interpolation — evaluate #{expr} patterns in strings using a context dictionary",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.match": [
+    {
+      "name": "std_match_pattern",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "JSON value to match"
+          },
+          "pattern": {
+            "type": "string",
+            "description": "JSON pattern definition"
+          }
+        },
+        "required": [
+          "value",
+          "pattern"
+        ]
+      },
+      "description": "P3-3: Match a value against a pattern and return variable bindings",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_match_destructure",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "JSON value to destructure"
+          },
+          "pattern": {
+            "type": "string",
+            "description": "JSON pattern definition"
+          }
+        },
+        "required": [
+          "value",
+          "pattern"
+        ]
+      },
+      "description": "P3-3: Destructure a value according to a pattern, returning bindings",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_match_variant",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "enum": {
+            "type": "string",
+            "description": "Enum type name"
+          },
+          "variant": {
+            "type": "string",
+            "description": "Variant name"
+          },
+          "fields": {
+            "type": "string",
+            "description": "JSON array of field values"
+          }
+        },
+        "required": [
+          "enum",
+          "variant"
+        ]
+      },
+      "description": "P3-3: Create an enum variant value for pattern matching",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.ui": [
+    {
+      "name": "std_ui_banner",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "description": "Print a startup banner.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_markdown",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "Render text as markdown.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_code",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ]
+      },
+      "description": "Render code with syntax highlighting.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_panel",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "style": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "description": "Render text in a styled panel.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_thinking",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number"
+          }
+        },
+        "required": []
+      },
+      "description": "Show a thinking spinner animation.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_success",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "msg"
+        ]
+      },
+      "description": "Print a success message.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_error",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "msg"
+        ]
+      },
+      "description": "Print an error message.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_warning",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "msg"
+        ]
+      },
+      "description": "Print a warning message.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_info",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "msg"
+        ]
+      },
+      "description": "Print an info message.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_input",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "description": "Styled input prompt.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_agent_reply",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "agent_name": {
+            "type": "string"
+          },
+          "reply": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "agent_name",
+          "reply"
+        ]
+      },
+      "description": "Render an agent reply with markdown.",
+      "return_annotation": "str"
+    },
+    {
+      "name": "std_ui_tool_call",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tool_name": {
+            "type": "string"
+          },
+          "args": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tool_name"
+        ]
+      },
+      "description": "Render a tool call notification.",
+      "return_annotation": "str"
+    }
+  ],
+  "std.struct": [
+    {
+      "name": "std_adt_register_struct",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Struct name"
+          },
+          "fields": {
+            "type": "string",
+            "description": "JSON array of field definitions"
+          }
+        },
+        "required": [
+          "name",
+          "fields"
+        ]
+      },
+      "description": "P3-4: Register a struct definition with field names and optional types",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_make_struct",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Struct name"
+          },
+          "fields": {
+            "type": "string",
+            "description": "JSON object of field values"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "description": "P3-4: Create a struct instance with field values",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_lookup",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "ADT kind: struct, enum, trait, impl"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name to look up"
+          }
+        },
+        "required": [
+          "kind",
+          "name"
+        ]
+      },
+      "description": "P3-4: Lookup ADT definitions (struct, enum, trait, impl)",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.enum": [
+    {
+      "name": "std_adt_register_enum",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Enum name"
+          },
+          "variants": {
+            "type": "string",
+            "description": "JSON array of variant definitions"
+          }
+        },
+        "required": [
+          "name",
+          "variants"
+        ]
+      },
+      "description": "P3-4: Register an enum definition with variant names and optional field types",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_make_variant",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "enum": {
+            "type": "string",
+            "description": "Enum type name"
+          },
+          "variant": {
+            "type": "string",
+            "description": "Variant name"
+          },
+          "fields": {
+            "type": "string",
+            "description": "JSON array of field values"
+          }
+        },
+        "required": [
+          "enum",
+          "variant"
+        ]
+      },
+      "description": "P3-4: Create an enum variant instance",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_lookup",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "ADT kind: struct, enum, trait, impl"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name to look up"
+          }
+        },
+        "required": [
+          "kind",
+          "name"
+        ]
+      },
+      "description": "P3-4: Lookup ADT definitions (struct, enum, trait, impl)",
+      "return_annotation": "unspecified"
+    }
+  ],
+  "std.trait": [
+    {
+      "name": "std_adt_register_trait",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Trait name"
+          },
+          "methods": {
+            "type": "string",
+            "description": "JSON array of method definitions"
+          }
+        },
+        "required": [
+          "name",
+          "methods"
+        ]
+      },
+      "description": "P3-4: Register a trait definition with method signatures",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_register_impl",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "trait": {
+            "type": "string",
+            "description": "Trait name"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type name to implement trait for"
+          },
+          "methods": {
+            "type": "string",
+            "description": "JSON object of method implementations"
+          }
+        },
+        "required": [
+          "trait",
+          "type"
+        ]
+      },
+      "description": "P3-4: Register a trait implementation for a type",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_lookup",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "ADT kind: struct, enum, trait, impl"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name to look up"
+          }
+        },
+        "required": [
+          "kind",
+          "name"
+        ]
+      },
+      "description": "P3-4: Lookup ADT definitions (struct, enum, trait, impl)",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_summary",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "description": "P3-4: Get summary of all registered ADTs",
+      "return_annotation": "unspecified"
+    },
+    {
+      "name": "std_adt_reset",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "description": "P3-4: Reset all ADT registries (for testing)",
+      "return_annotation": "unspecified"
+    }
+  ]
+}

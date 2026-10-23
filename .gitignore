@@ -9,6 +9,10 @@ site/
 # Temporary planning files
 plans/
 
-# Temporary documentation files
-docs/tmp.md
-docs/tmp.en.md
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.reports/
+.runtime/
+output/playwright/

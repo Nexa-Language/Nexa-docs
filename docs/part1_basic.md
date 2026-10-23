@@ -1,886 +1,115 @@
 ---
-comments: true
+title: "语言基础"
+capabilities: [language, compilation]
 ---
 
-# 2. 基础语法：定义你的首个跨维度团队
+# 语言基础
 
-本章将介绍 Nexa 中最核心、最基础的语法元素。读完本章并掌握这些结构之后，你就可以毫无负担地抛弃绝大多数繁重且不稳定的传统 Python 智能体开发框架，使用声明式、富有表达力的方法来构筑你的第一代智能体团队。
+Nexa 程序把 Agent 声明、工具声明和 flow 控制流放在 `.nx` 文件中。编译器将程序规范化为 AST，再生成 Python；声明模块可独立编译。
 
----
+## 值与控制流
 
-## 🏗️ 核心原语：定义大语言模型代理 (`agent` 关键字)
-
-在 Nexa 语言的哲学中，所有能够"思考"、接收上下文并输出结构化或非结构化文字的主体都被称为 `agent`。由于 Nexa 将 Agent 提权到了"一等公民"的位置，你可以像定义一个结构体 (Struct) 或类 (Class) 那样去书写它。
-
-它是承载系统 Prompt、预设模型路由、身份角色以及工具配置的基本块（Block）。我们先来看一个最基础的定义方式：
+变量用赋值建立，`result` 是 flow 的返回约定。字符串使用双引号；语句可用分号结束。以下完整程序离线执行得到 `12`。
 
 ```nexa
-// 所有的属性全都在大括号内进行声明，不存在外部多余的 Client 实例化
-agent FriendlyBot {
-    role: "Casual conversationalist",
-    model: "minimax/minimax-m2.5",
-    prompt: "You are a very friendly ChatBot for casual conversations."
+flow main {
+    first = 3;
+    print(first * 4);
+    result = first * 4;
 }
 ```
 
----
+基础表达式包括整数、浮点数、字符串、布尔值、列表、映射、算术与比较；`if`、`for`、`while` 组织确定性控制流。依赖模型语义的路由应给出实际模型与验证条件。
 
-## 📋 Agent 属性详解
+## Agent 与调用
 
-### 属性总览表
-
-| 属性 | 类型 | 必填 | 默认值 | 版本 | 说明 |
-|-----|------|-----|-------|------|------|
-| `role` | string | 否 | - | v0.5+ | Agent 的角色描述，作为系统提示词的一部分 |
-| `prompt` | string | **是** | - | v0.5+ | Agent 的核心任务指令 |
-| `model` | string | 否 | 默认模型 | v0.5+ | 指定使用的 LLM 模型 |
-| `memory` | string | 否 | - | v0.5+ | 记忆模式：`persistent`（持久化）等 |
-| `stream` | boolean | 否 | false | v2.1+ | 是否启用流式输出 |
-| `cache` | boolean | 否 | false | v0.5+ | 是否启用智能缓存 |
-| `experience` | string | 否 | - | v0.5+ | 长期记忆文件路径 |
-| `fallback` | string/list | 否 | - | v0.5+ | 备用模型配置 |
-| `tools` | list | 否 | [] | v0.5+ | 可用工具列表 |
-| `max_tokens` | int | 否 | - | v0.5+ | 最大输出 token 数 |
-| `timeout` | int | 否 | 30 | v0.5+ | 执行超时时间（秒） |
-| `retry` | int | 否 | 3 | v0.5+ | 失败重试次数 |
-| `requires` | clause | 否 | - | v1.2+ | 前置条件契约条款 |
-| `ensures` | clause | 否 | - | v1.2+ | 后置条件契约条款 |
-| `output_format` | string | 否 | - | v2.1+ | 输出格式约束，支持 `"json"` |
-| `output_schema` | dict | 否 | - | v2.1+ | JSON Schema → 编译器自动生成 Pydantic |
-| `max_tool_calls` | int | 否 | - | v2.1+ | 最大工具调用轮数 |
-| `tool_call_strategy` | string | 否 | `"auto"` | v2.1+ | `"auto"`/`"required"`/`"none"` |
-
-### 属性详细说明
-
-#### `role`（角色语义场）
-
-定义该代理的系统角色（System Persona）。这不仅仅是一个标签，在底层编译为 Python 运行时时，它会作为系统提示词的极高权重顶层注入点，赋能模型的上下文边界。
+Agent 的 `prompt` 定义任务指令，`model` 与 `provider_api` 选择模型和协议，`uses` 限定可用工具。下面是完整程序，模型调用由 `run` 发起。
 
 ```nexa
-agent FinancialAdvisor {
-    role: "资深金融分析师，专注于科技股投资策略",
-    prompt: "根据用户需求提供专业的投资建议..."
-}
-```
-
-!!! tip "最佳实践"
-    - 角色描述应该**具体而专业**，避免模糊的描述如"你是一个助手"
-    - 可以包含专业领域、经验年限、专长技能等信息
-    - 好的角色描述能显著提升模型输出的专业性和一致性
-
-#### `prompt`（任务执行描述）
-
-这是驱动模型行动的核心指令区，支持多行纯文本字面量表达。在这里，你不需要处理转义甚至复杂的 Token 拼接，一切都自然发生。
-
-```nexa
-// 单行 prompt
-agent Translator {
-    prompt: "将用户输入翻译成中文"
-}
-
-// 多行 prompt（推荐用于复杂任务）
-agent CodeReviewer {
-    prompt: """
-    你是一位代码审查专家。请审查提交的代码，关注以下方面：
-    
-    1. 代码质量和可读性
-    2. 潜在的 bug 和边界情况
-    3. 性能优化建议
-    4. 安全漏洞
-    
-    输出格式：
-    - 问题列表（如有）
-    - 改进建议
-    - 总体评价
-    """
-}
-```
-
-!!! warning "常见错误"
-    不要在 prompt 中写具体的输出示例，这可能导致模型过度拟合。如果需要约束输出格式，请使用 `protocol`。
-
-#### `model`（动态智脑映射）
-
-**（极具破坏性优势的特性）** 原生的模型硬线链接。这使得我们可以在不同的代理之间按需无缝切换背后的引擎。
-
-**正确格式**：`提供商/模型名`
-
-```nexa
-// ✅ 正确格式
-agent Bot {
-    model: "openai/gpt-4"
-}
-
-agent AnotherBot {
-    model: "deepseek/deepseek-chat"
-}
-
-agent ThirdBot {
-    model: "minimax/minimax-m2.5"
-}
-
-// ❌ 错误格式 - 缺少提供商前缀
-agent WrongBot {
-    model: "gpt-4"  // 会报错！
-}
-```
-
-**支持的提供商前缀**：
-
-| 前缀 | 说明 | 示例模型 |
-|-----|------|---------|
-| `openai/` | OpenAI GPT 系列 | `gpt-4`, `gpt-4-turbo`, `gpt-3.5-turbo` |
-| `deepseek/` | DeepSeek 系列 | `deepseek-chat`, `deepseek-coder` |
-| `minimax/` | MiniMax 系列 | `minimax-m2.5` |
-| `anthropic/` | Anthropic Claude 系列 | `claude-3-sonnet`, `claude-3-opus` |
-
-!!! tip "模型选择建议"
-    - **简单任务**（翻译、摘要）：使用轻量模型如 `deepseek-chat`
-    - **复杂推理**（代码生成、分析）：使用强模型如 `gpt-4`
-    - **实时响应**：选择响应速度快的模型
-
-#### `memory`（记忆持久化）
-
-代理的记忆模式，允许 Agent 自动管理多轮对话状态。
-
-```nexa
-agent ChatBot {
-    prompt: "你是一个友好的聊天助手",
-    memory: "persistent"  // 启用持久化记忆
+agent Echo {
+    prompt: "Repeat the supplied text."
 }
 
 flow main {
-    // 第一次调用
-    ChatBot.run("我叫张三");
-    
-    // 第二次调用 - Agent 会记住之前的对话
-    ChatBot.run("我叫什么名字？");  // 会回答"张三"
+    result = Echo.run("hello");
+    verify result satisfies string;
 }
 ```
 
-#### `stream`（流式推写开关）
+先按[模型配置](runtime_providers.md)选择 provider，再用 `uv run nexa run echo.nx` 执行。模型应返回输入文本；`verify` 检查返回值为字符串。
 
-将其设置为 `true` 可以直接启用大模型的 Token 级流式响应。让 Agent 边思考边输出，实现对终端用户无卡顿的实时反馈。
+## 模块
+
+`include "helpers.nxlib";` 先相对当前导入文件解析，再查找包内标准库。相同规范路径只导入一次，循环依赖诊断包含路径链。`.nxs` 保存本地配置；秘密值不应写入示例或版本控制。
+
+继续阅读[工具与 Protocol](part3_extensions.md)、[高级编排](part2_advanced.md)和[编译器](part5_compiler.md)。
+
+
+## 分支
+
+`if` 与 `while` 的确定性条件使用括号。比较支持 `==`、`!=`、`>`、`>=`、`<`、`<=`；条件可用 `and` / `or` 组合。
 
 ```nexa
-agent StreamBot {
-    prompt: "你是一个故事创作助手",
-    stream: true  // 启用流式输出
-}
-```
-
-#### `cache`（智能缓存）
-
-启用后，相同或相似的请求会复用之前的结果，大幅减少 Token 消耗和响应时间。
-
-```nexa
-agent CachedBot {
-    prompt: "回答常见问题",
-    cache: true  // 启用语义缓存
-}
-```
-
-!!! info "缓存机制"
-    - 基于**语义相似度**匹配，不仅是精确匹配
-    - 缓存存储在 `.nexa_cache/` 目录下
-    - 可通过 `nexa cache clear` 清除缓存
-
-#### `experience`（长期记忆）
-
-加载长期记忆文件，让 Agent 具备持久化的知识和经验。
-
-```nexa
-agent SmartBot {
-    prompt: "基于历史经验回答问题",
-    experience: "bot_memory.md"  // 加载记忆文件
-}
-```
-
-记忆文件格式示例（`bot_memory.md`）：
-
-```markdown
-# Bot 记忆库
-
-## 用户偏好
-- 喜欢简洁的回答
-- 偏好技术类话题
-
-## 常见问题解答
-- 什么是 Agent？Agent 是能够感知环境并采取行动的实体。
-
-## 经验教训
-- 不要假设用户的技术背景
-- 复杂概念需要分步解释
-```
-
-#### `fallback`（模型灾备降级）
-
-由于 API RateLimit 或意外宕机导致请求失败时，通过设定 `fallback` 模型作为容灾选项，在运行时无缝切换。
-
-```nexa
-// 单个备用模型
-agent ResilientBot {
-    model: "openai/gpt-4",
-    fallback: "deepseek/deepseek-chat",  // gpt-4 不可用时自动切换
-    prompt: "..."
-}
-
-// 多级备用（v0.9.7+）
-agent HighAvailabilityBot {
-    model: ["openai/gpt-4", fallback: "anthropic/claude-3-sonnet", fallback: "deepseek/deepseek-chat"],
-    prompt: "..."
-}
-```
-
-#### `output_format` / `output_schema` — 结构化输出 (v2.1+)
-
-```nexa
-agent Planner {
-    output_format: "json",
-    output_schema: {
-        steps: [{title: "string", description: "string"}],
-        estimated_time: "string"
+flow main {
+    value = 7;
+    label = "";
+    if (value > 5) {
+        label = "large";
+    } else {
+        label = "small";
     }
+    result = label;
 }
 ```
 
-#### `max_tool_calls` / `tool_call_strategy` — 工具调用控制 (v2.1+)
+本例返回 `large`。在 flow 末尾保留一个顶层赋值，明确返回值；当前生成器对以 `if`、`while` 或 `print` 结束的 flow 返回 `None`。
+
+## 集合与遍历
+
+`for each item in items` 遍历集合；`for each index, item in items` 同时取得索引和值。当前表达式 parser 的数组/字典字面量位置有限，应用可通过受信任的 `python!` 或工具结果建立集合。`std.json.parse` 返回标准库的 JSON 文本结果，若需要本地 Python 集合，应显式反序列化。
 
 ```nexa
-agent Coder {
-    max_tool_calls: 10,
-    tool_call_strategy: "auto"
-}
-```
-
-| 策略值 | 含义 |
-|--------|------|
-| `"auto"` | 模型自行判断（默认） |
-| `"required"` | 强制调用至少一个工具 |
-| `"none"` | 禁用所有工具调用 |
-
----
-
-## 🔄 v2.0 基础执行原语
-
-### `autoloop` (E维度)
-```nexa
-autoloop max_steps: 10, exit_when: "任务完成", timeout: 300 {
-    result = Agent.run(input)
-}
-```
-
-### `try_agent` / `catch_correction` (E+L维度)
-```nexa
-try_agent {
-    result = Agent.run(input)
-} catch_correction(e: ToolError) {
-    reflect "工具执行失败，请调整参数重试"
-}
-```
-
-### `@tool` 注解 (T维度)
-```nexa
-@tool("搜索网页内容")
-fn web_search(query: string): string { ... }
-```
-
----
-
-## 🎯 Agent 修饰器（Decorators）
-
-v1.0 引入了 Agent 修饰器语法，允许在 Agent 定义前添加元数据配置。
-
-### 可用修饰器
-
-| 修饰器 | 参数 | 说明 |
-|-------|------|------|
-| `@limit` | `max_tokens` | 限制最大输出 token 数 |
-| `@timeout` | `seconds` | 设置执行超时时间 |
-| `@retry` | `count` | 设置失败重试次数 |
-| `@temperature` | `value` | 设置模型温度参数 |
-
-### 使用示例
-
-```nexa
-// 限制输出长度
-@limit(max_tokens=500)
-agent ConciseBot {
-    prompt: "用简洁的语言回答问题",
-    model: "deepseek/deepseek-chat"
-}
-
-// 设置超时和重试
-@timeout(seconds=60)
-@retry(count=5)
-agent ResilientBot {
-    prompt: "处理可能耗时的任务",
-    model: "openai/gpt-4"
-}
-
-// 组合多个修饰器
-@limit(max_tokens=1000)
-@timeout(seconds=120)
-@retry(count=3)
-@temperature(value=0.7)
-agent ProductionBot {
-    role: "生产环境智能助手",
-    prompt: "提供高质量的专业回答",
-    model: "anthropic/claude-3-sonnet"
-}
-```
-
-### 修饰器与属性等价关系
-
-修饰器语法与 Agent 属性是等价的：
-
-```nexa
-// 使用修饰器
-@timeout(seconds=60)
-@retry(count=3)
-agent Bot1 {
-    prompt: "..."
-}
-
-// 等价于使用属性
-agent Bot1 {
-    prompt: "...",
-    timeout: 60,
-    retry: 3
-}
-```
-
-!!! tip "选择建议"
-    - **使用修饰器**：当需要突出运行时配置（如超时、重试）时
-    - **使用属性**：当配置较多且需要统一管理时
-    - 两种方式可以混用，修饰器优先级更高
-
----
-
-## � 控制流枢纽：`flow` 和 `.run()`
-
-只定义 Agent 就像是为不同的部门招募到了世界顶级的员工，但不给他们分配办公桌和网络，他们就永远是沉睡的状态。我们需要一个载体来激活与编排他们。这一切都在 `flow` 中发生。
-
-在 Nexa 中，通常系统的入口流都会被命名为 `flow main`，这就类似于 C 语言或 Java 控制台运行时的 `main` 函数，是单文件乃至整个项目开始执行（Execution Entrypoint）的第一帧。
-
-### ⚡ Hello World 完整实战解析
-
-让我们仔细拆解一个最经典的 `01_hello_world.nx` 脚本：
-
-```nexa
-// 1. 定义智能体：我们给了它一个友好的性格，并且不需要指定模型（使用默认降级）
-agent HelloWorldBot {
-    role: "A very helpful and concise assistant.",
-    prompt: "You must always greet the user cheerfully and briefly in less than 20 words."
-}
-
-// 2. 启动流入口
 flow main {
-    // 变量赋值：在 Nexa 中，字符串通常蕴含着自然语义请求，你可以直接通过等号注入
-    greeting_request = "Say hello to Nexa developers all around the world!";
-    
-    // 调用 agent 的 .run() 方法，将指令发送给模型进行推理并返回响应。
-    // 这里底层发生的并发、网络请求、RateLimit 回退均对用户隐匿。
-    response = HelloWorldBot.run(greeting_request);
-    
-    // 打印结果
-    print(response);
-}
-```
-
-### 运行结果
-
-```bash
-$ nexa run hello_world.nx
-
-Hello, Nexa developers! 🌍 Welcome to the future of agent programming!
-```
-
-!!! info "运行时的底层机制"
-    当敲下执行命令时，Nexa 编译器首先会建立静态的图节点，对传入传出的数据类型进行静态核对，确保整个脚本没有孤儿死锁。随后将其无缝转译为高效的异步 Python 运行时（利用 `asyncio`），唤醒 `HelloWorldBot` 实例。这不仅是全网最为极简的 Agent Hello World，更是最安全的一个。
-
-### `flow` 语法详解
-
-```nexa
-// 基本语法
-flow <flow_name> {
-    // 语句...
-}
-
-// 带参数的 flow（v0.9+）
-flow process_user(user_id: string, action: string) {
-    // 使用参数
-    result = Agent.run(user_id + " wants to " + action);
-}
-```
-
-### `.run()` 方法详解
-
-```nexa
-// 基本调用
-result = Agent.run("your input");
-
-// 带多参数调用
-result = Agent.run("primary input", "additional context");
-
-// 链式调用（管道）
-result = input >> Agent1 >> Agent2 >> Agent3;
-```
-
----
-
-## 🔀 传统控制流 (v1.0.1+)
-
-除了 Nexa 特有的语义控制流（`match intent`、`loop until`、`semantic_if`），v1.0.1 引入了与传统编程语言一致的确定性控制流语句，让开发者能够更灵活地处理逻辑分支。
-
-### if/else if/else 语句
-
-传统的确定性条件分支：
-
-```nexa
-// 确定性 if/else if/else 语句
-score = 85;
-
-if score >= 90 {
-    grade = "A";
-    print("优秀！");
-} else if score >= 80 {
-    grade = "B";
-    print("良好！");
-} else if score >= 70 {
-    grade = "C";
-    print("中等");
-} else if score >= 60 {
-    grade = "D";
-    print("及格");
-} else {
-    grade = "F";
-    print("需要改进");
-}
-```
-
-!!! tip "与语义控制流的区别"
-    - **传统 if/else**: 基于确定性的布尔表达式，适合数值比较、状态检查
-    - **semantic_if**: 基于自然语言语义判断，需要 LLM 推理
-    - 选择原则：能用确定性条件就用传统 if，语义判断才用 semantic_if
-
-### for each 循环
-
-遍历数组或集合：
-
-```nexa
-// 遍历数组
-items = ["苹果", "香蕉", "樱桃", "橙子"];
-
-for item in items {
-    print("水果: " + item);
-}
-
-// 带索引的遍历（结合计数器）
-index = 0;
-for item in items {
-    print(f"第 {index + 1} 个: {item}");
-    index = index + 1;
-}
-```
-
-### while 循环
-
-基于条件的循环：
-
-```nexa
-// while 循环示例
-count = 0;
-
-while count < 5 {
-    print(f"计数: {count}");
-    count = count + 1;
-}
-```
-
-### break 和 continue
-
-循环控制语句：
-
-```nexa
-// break - 终止循环
-items = ["a", "b", "stop", "c", "d"];
-
-for item in items {
-    if item == "stop" {
-        print("找到停止点，退出循环");
-        break;
+    python! """items = [1, 2, 3]"""
+    total = 0;
+    for each item in items {
+        total = total + item;
     }
-    print("处理: " + item);
+    result = total;
 }
+```
 
-// continue - 跳过当前迭代
-for item in items {
-    if item == "stop" {
-        continue;  // 跳过这个元素
+本例返回 `6`。`break;` 退出当前循环，`continue;` 进入下一次迭代。
+
+## while 循环
+
+```nexa
+flow main {
+    counter = 0;
+    while (counter < 3) {
+        counter = counter + 1;
     }
-    print("处理: " + item);
+    result = counter;
 }
 ```
 
----
+本例返回 `3`。模型自主循环使用 [autoloop](part2_harness.md) 以显式设置步数和时间。
 
-## 🔢 二元运算符与比较运算符 (v1.0.1+)
+## 带参数的 flow
 
-### 算术运算符
-
-```nexa
-// 算术运算
-a = 10;
-b = 3;
-
-sum = a + b;      // 加法: 13
-diff = a - b;     // 减法: 7
-product = a * b;  // 乘法: 30
-quotient = a / b; // 除法: 3.33...
-remainder = a % b; // 取模: 1
-```
-
-### 比较运算符
+参数写作 `name: type`，返回类型写作 `-> type`。从另一 flow 按名称调用。
 
 ```nexa
-// 比较运算（返回布尔值）
-a = 10;
-b = 5;
-
-equal = a == b;       // 等于: false
-not_equal = a != b;   // 不等于: true
-greater = a > b;      // 大于: true
-less = a < b;         // 小于: false
-greater_eq = a >= b;  // 大于等于: true
-less_eq = a <= b;     // 小于等于: false
-```
-
-### 逻辑运算符
-
-```nexa
-// 逻辑运算
-a = true;
-b = false;
-
-result_and = a and b;  // 逻辑与: false
-result_or = a or b;    // 逻辑或: true
-```
-
----
-
-## 🐍 Python 逃生舱 (v1.0.1+)
-
-当需要使用 Python 特有的库或功能时，可以使用 Python 逃生舱直接嵌入 Python 代码：
-
-### 基本语法
-
-```nexa
-// Python 逃生舱 - 直接嵌入 Python 代码
-python! """
-import numpy as np
-import pandas as pd
-
-# 创建数据
-data = np.array([1, 2, 3, 4, 5])
-mean_value = data.mean()
-std_value = data.std()
-
-print(f"均值: {mean_value}")
-print(f"标准差: {std_value}")
-"""
-```
-
-### 使用场景
-
-1. **科学计算**：使用 NumPy、SciPy 等库
-2. **数据处理**：使用 Pandas 进行数据分析
-3. **可视化**：使用 Matplotlib 绘图
-4. **系统集成**：调用系统 API 或第三方库
-
-### 完整示例
-
-```nexa
-agent DataAnalyzer {
-    role: "数据分析助手",
-    model: "deepseek/deepseek-chat",
-    prompt: "分析数据并给出洞察"
+flow double(value: int) -> int {
+    result = value * 2;
 }
-
 flow main {
-    // 使用 Python 进行数据预处理
-    python! """
-import json
-
-# 模拟数据
-data = [
-    {"name": "Alice", "score": 85},
-    {"name": "Bob", "score": 92},
-    {"name": "Charlie", "score": 78}
-]
-
-# 计算统计信息
-scores = [d["score"] for d in data]
-avg_score = sum(scores) / len(scores)
-max_score = max(scores)
-
-print(f"平均分: {avg_score}")
-print(f"最高分: {max_score}")
-"""
-    
-    // 然后让 Agent 分析结果
-    result = DataAnalyzer.run("分析学生成绩分布");
-    print(result);
+    result = double(6);
 }
 ```
 
-!!! warning "安全提示"
-    - Python 逃生舱中的代码会直接执行，请确保代码安全
-    - 建议仅在受信任的环境中使用
-    - 避免在逃生舱中处理敏感数据
+本例返回 `12`。完整运算符、类型和 Agent 参数表见[语言参考](reference.md)。
 
 ---
 
-## 🔍 内置工具的挂载与环境沙盒穿透 (`uses` 关键字)
-
-如果仅仅是在控制台里产生字符串，大模型也不过是个会"聊天"的花瓶。真正的大模型智能体（Agent）要能与数字世界互动（比如查天气、删文件、写表格）。
-
-在传统的 Python 胶水代码开发中，要想让大模型调用一个函数，你需要使用极其反人类的 JSON Schema 语法去手写 Function Calling 配置。并且，一旦函数签名发生变更，你的 Schema 如果忘了跟着改，整个调用链就会在运行时崩溃。
-
-而在 Nexa 宇宙中，一切只需要一个原生的 `uses` 关键字声明！Nexa 把函数绑定逻辑通过反射机制（Reflection）直接做进了编译器。
-
-### 基本用法
-
-```nexa
-agent Interactor {
-    // 原生语法级载入沙盒环境包
-    uses [std.ask_human, std.os.file_read]
-    
-    prompt: "当遇到不确定的风险操作时，优先调用 ask_human 将情况反馈给人类审查并获取许可。必要时使用 file_read 查阅本地配置。"
-}
-```
-
-!!! success "从根本上消灭 Schema 烦恼"
-    上文中使用的 `std.ask_human` 和 `std.os.file_read` 是 Nexa 内置标准包。当使用 `uses` 装载后，**Nexa 的编译器会在背后自动爬取这些 Python 工具内部的函数签名与 `docstring`，并将它们编译组装为各大模型厂商适配的 Native Function Calling Payload！**这意味着开发者完全不需要手写 JSON，甚至不需要思考不同模型对工具调用的不同要求。它甚至支持通过类型提示来进行参数验证！
-
-### 标准库工具一览
-
-| 命名空间 | 工具 | 说明 |
-|---------|-----|------|
-| `std.fs` | `file_read`, `file_write` | 文件系统操作 |
-| `std.http` | `get`, `post` | HTTP 请求 |
-| `std.time` | `now`, `sleep` | 时间相关操作 |
-| `std.shell` | `execute` | 执行 shell 命令 |
-| `std.ask_human` | `call` | 人机交互询问 |
-| `std.json` | `parse`, `stringify` | JSON 处理 |
-
-### 使用示例
-
-```nexa
-// 文件处理 Agent
-agent FileAssistant uses std.fs {
-    prompt: "帮助用户管理文件，可以读取和写入文件"
-}
-
-// 网络请求 Agent
-agent WebScraper uses std.http {
-    prompt: "从网页获取内容并提取信息"
-}
-
-// 多工具 Agent
-agent MultiToolAgent uses std.fs, std.http, std.time {
-    prompt: "我可以处理文件、访问网络、获取时间"
-}
-```
-
----
-
-## 🎯 Agent 定义常见模式
-
-### 模式 1：简单对话 Agent
-
-```nexa
-agent ChatBot {
-    role: "友好的聊天助手",
-    model: "deepseek/deepseek-chat",
-    prompt: "与用户进行友好的日常对话"
-}
-```
-
-### 模式 2：专业领域 Agent
-
-```nexa
-agent LegalAdvisor {
-    role: "资深法律顾问，专攻合同法",
-    model: "openai/gpt-4",
-    prompt: """
-    为用户提供专业的法律建议，特别是合同相关的问题。
-    注意：提醒用户这只是参考建议，不构成正式的法律意见。
-    """,
-    memory: "persistent"
-}
-```
-
-### 模式 3：工具增强 Agent
-
-```nexa
-agent DataAnalyst uses std.fs, std.http {
-    role: "数据分析师",
-    model: "deepseek/deepseek-chat",
-    prompt: "分析数据并生成报告",
-    cache: true
-}
-```
-
-### 模式 4：高可用 Agent
-
-```nexa
-agent ProductionBot {
-    role: "生产环境助手",
-    model: ["openai/gpt-4", fallback: "deepseek/deepseek-chat"],
-    prompt: "...",
-    cache: true,
-    timeout: 60
-}
-```
-
----
-
-## ⚠️ 常见错误与解决方案
-
-### 错误 1：模型格式错误
-
-```nexa
-// ❌ 错误
-agent Bot {
-    model: "gpt-4"  // 缺少提供商前缀
-}
-
-// ✅ 正确
-agent Bot {
-    model: "openai/gpt-4"
-}
-```
-
-### 错误 2：Agent 定义顺序错误
-
-```nexa
-// ❌ 错误：Agent 定义在 flow 之后
-flow main {
-    result = MyBot.run("hello");
-}
-
-agent MyBot {
-    prompt: "..."
-}
-
-// ✅ 正确：Agent 定义在 flow 之前
-agent MyBot {
-    prompt: "..."
-}
-
-flow main {
-    result = MyBot.run("hello");
-}
-```
-
-### 错误 3：属性名拼写错误
-
-```nexa
-// ❌ 常见拼写错误
-agent Bot {
-    promt: "...",      // 应为 prompt
-    moedl: "gpt-4",    // 应为 model
-    rol: "助手"        // 应为 role
-}
-
-// ✅ 正确拼写
-agent Bot {
-    prompt: "...",
-    model: "openai/gpt-4",
-    role: "助手"
-}
-```
-
-### 错误 4：忘记必要的属性
-
-```nexa
-// ❌ 错误：缺少 prompt
-agent Bot {
-    role: "助手"  // 只有 role 没有 prompt
-}
-
-// ✅ 正确
-agent Bot {
-    role: "助手",
-    prompt: "帮助用户解决问题"  // prompt 是必需的
-}
-```
-
----
-
-## 🆕 v1.3.x 新声明关键字速览
-
-Nexa v1.3.x 引入了多个新的声明关键字，它们扩展了语言的表达力和企业级能力。以下是快速概览，详细用法请参考对应章节。
-
-### 数据建模关键字
-
-| 关键字 | 版本 | 说明 | 示例 |
-|-------|------|------|------|
-| `struct` | v1.3.x | 定义结构体 | `struct Point { x: Int, y: Int }` |
-| `enum` | v1.3.x | 定义枚举 | `enum Option[T] { Some(T), None }` |
-| `trait` | v1.3.x | 定义特质 | `trait Printable { fn format() -> String }` |
-| `impl` | v1.3.x | 实现特质 | `impl Printable for Point { ... }` |
-| `type` | v1.0.2+ | 定义语义类型 | `type Email = string @ "valid email"` |
-
-### 企业级声明关键字
-
-| 关键字 | 版本 | 说明 | 示例 |
-|-------|------|------|------|
-| `job` | v1.3.3 | 定义后台任务 | `job SendEmail { handler: ..., retry: 3 }` |
-| `server` | v1.3.4 | 定义 HTTP 服务 | `server MyApp { route GET "/hello" { ... } }` |
-| `db` | v1.3.5 | 定义数据库 | `db main_db { type: sqlite, path: "data.db" }` |
-| `auth` | v1.3.6 | 定义认证 | `auth my_auth { providers: ["google"] }` |
-| `kv` | v1.3.7 | 定义 KV 存储 | `kv my_cache { path: ":memory:" }` |
-
-### 契约关键字
-
-| 关键字 | 版本 | 说明 | 示例 |
-|-------|------|------|------|
-| `requires` | v1.2.0 | 前置条件 | `requires: amount > 0` |
-| `ensures` | v1.2.0 | 后置条件 | `ensures: result.success == true` |
-| `invariant` | v1.2.0 | 不变式 | `invariant: state in ["idle", "running"]` |
-
-!!! info "深入学习"
-    - 数据建模关键字（struct/enum/trait/impl）的详细用法请参考 [高级特性](part2_advanced.md)
-    - 企业级声明关键字（job/server/db/auth/kv）的详细用法请参考 [企业级架构特性](part5_enterprise.md)
-    - 契约关键字（requires/ensures/invariant）的详细用法请参考 [语法扩展](part3_extensions.md)
-
----
-
-## 📝 本章小结
-
-在这一章里，我们学习了：
-
-1. **Agent 的定义**：使用 `agent` 关键字定义智能体
-2. **核心属性**：`role`, `prompt`, `model`, `memory`, `stream`, `cache`, `requires`, `ensures` 等
-3. **流程控制**：使用 `flow main` 作为程序入口
-4. **工具挂载**：使用 `uses` 关键字加载标准库工具
-5. **常见模式**：简单对话、专业领域、工具增强、高可用等模式
-6. **常见错误**：模型格式、定义顺序、属性拼写等
-7. **v1.3.x 新关键字**：struct/enum/trait/impl/type/job/server/db/auth/kv/requires/ensures/invariant
-
-但这仅仅发挥出大语言模型单打独斗（Single-Agent Task）的实力。真实的业务系统充满复杂冗长的协同交错：如何让十几个分工明确的代理接力完成任务？又该如何在各执一词的代理间达成完美共识？
-
-不要眨眼，这正是下一章 **多 Agent 调度与控制（高级特性）** 将为你呈现的真正编排魔法。
-
----
-
-## 🔗 相关资源
-
-- [快速入门教程](quickstart.md) - 30 分钟掌握 Nexa
-- [高级特性](part2_advanced.md) - 管道/模式匹配/ADT 详解
-- [语法扩展](part3_extensions.md) - 契约/类型/错误传播
-- [企业级架构](part5_enterprise.md) - HTTP Server/数据库/认证
-- [完整示例集合](examples.md) - 更多实战代码
-- [常见问题与排查](troubleshooting.md) - 解决开发问题
+[来源与验证](capability_inventory.md) · `language` / `compilation`
