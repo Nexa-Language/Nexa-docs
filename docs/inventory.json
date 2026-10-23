@@ -7,7 +7,7 @@
     "release_status": "released",
     "release_tag": "v2.4.0",
     "release_url": "https://github.com/Nexa-Language/Nexa/releases/tag/v2.4.0",
-    "source_fingerprint_policy": "whole-file SHA-256 plus exact symbols; re-audit changes before refresh",
+    "source_fingerprint_policy": "clean pinned or recorded verification commit, exact Git tree, whole-file SHA-256 and exact symbols; re-audit changes before refresh",
     "source_url": "https://github.com/Nexa-Language/Nexa/commit/c2162637236e4a73feea410c4183672411666521",
     "source_tree": "d70a0d37bcc39c657370da1af37dc693befa9c94",
     "verification_checkout_head": "1e965aaa9455dad67ef6201c7a7de7aa29f3219e"

@@ -103,8 +103,28 @@ def check_inventory(root: Path, inventory: dict[str, Any]) -> list[str]:
     return errors
 
 
-def check_provenance(runtime: Path, inventory: dict[str, Any]) -> list[str]:
+def check_runtime_checkout(runtime: Path, baseline: dict[str, Any]) -> list[str]:
+    try:
+        head, tree = subprocess.check_output(["git", "-C", str(runtime), "rev-parse", "HEAD", "HEAD^{tree}"],
+                                             text=True, stderr=subprocess.DEVNULL).splitlines()
+        dirty = bool(subprocess.check_output(["git", "-C", str(runtime), "status", "--porcelain", "--untracked-files=all"],
+                                             text=True, stderr=subprocess.DEVNULL).strip())
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        return ["runtime is not a readable Git checkout"]
     errors: list[str] = []
+    if baseline.get("dirty") is not False:
+        errors.append("runtime documentation baseline must be clean; review and refresh after committing")
+    if head not in {baseline["git_head"], baseline.get("verification_checkout_head")}:
+        errors.append("runtime commit differs from the pinned or explicitly recorded verification checkout")
+    if tree != baseline.get("source_tree"):
+        errors.append("runtime source tree differs from the documentation baseline")
+    if dirty:
+        errors.append("runtime worktree is dirty; commit or isolate changes before validating the pinned baseline")
+    return errors
+
+
+def check_provenance(runtime: Path, inventory: dict[str, Any]) -> list[str]:
+    errors = check_runtime_checkout(runtime, inventory["runtime"])
     if (runtime / "VERSION").read_text().strip() != inventory["runtime"]["version"]:
         errors.append("runtime version differs from the documentation baseline")
     for capability in inventory["capabilities"]:
