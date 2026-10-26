@@ -1,13 +1,36 @@
 ---
 title: "CLI 命令参考"
 capabilities: [cli, compilation, checkpoint]
+language_versions: ["3.0", "2.4"]
 ---
 
 # CLI 命令参考
 
-以下命令以本地 2.4 checkout 内的 `uv run nexa` 为入口。CLI 在 `src/cli.py` 定义；执行 Agent 的持久化路径由 `src/agent_cli.py` 实现。
+安装的 Nexa 3.0 CLI 按源码 language 声明分派 `build` 和 `run`。下表先列 Open Programs，再保留 2.4 兼容命令。
 
-## 编译与检查
+## Open Programs 3.0
+
+| 命令 | 行为 |
+| --- | --- |
+| `nexa check FILE --json` | 原生离线合同诊断与义务 |
+| `nexa build FILE --environment ENV --state DB --json` | 真实 OCI 构建并接纳产物 |
+| `nexa build FILE --environment ENV --state DB --locked --json` | 重新核验锁定产物，零模型生成请求 |
+| `nexa run FILE --environment ENV --state DB --program-id ID --goal GOAL --input INPUT.json --json` | 显式选择 runtime goal 和 JSON 输入 |
+| `nexa run FILE --environment ENV --state DB --program-id ID --repository PATH --include FILE --request TEXT --json` | 产生带证据的仓库维护提案 |
+| `nexa author --environment ENV --state DB` | stdio Author JSON-RPC 3.0 |
+| `nexa open revise FILE --environment ENV --state DB --program-id ID --expected-revision REV` | 源码 CAS、构建及激活 |
+| `nexa open status ID --state DB` | active RuntimeHead |
+| `nexa open cancel ACTIVITY_ID --environment ENV --state DB` | 持久取消选中的准确 runtime 活动 |
+| `nexa open resume ID --environment ENV --state DB` | 带未知副作用检查的控制器恢复 |
+| `nexa open schema NAME` | 读取包内 3.0 schema |
+
+Build/run 接受 `--max-model-calls`（4）、`--max-tokens`（20000）、`--timeout`（120 秒）、`--docker-context` 与 `--lock`。Run 还支持 `--capsule`、`--event`、`--expected-revision`、`--locked`。`--include` 可重复。默认 state 为 `.nexa/open-programs.sqlite3`，build 锁文件默认 `FILE.nx.lock`。执行需要 environment。
+
+Evidence/approve/apply/recover 见[准确授权](open_grants.md)，export/import 见[capsule](open_capsules.md)，旧库静态归档见[迁移](migration_30.md)。草稿与 active 身份分别保存；`open status` 返回 active head，完整活动从 SDK 查询。自动化保留源码诊断与域错误码。
+
+## 2.4 兼容命令
+
+### 编译与检查
 
 | 命令 | 行为 |
 | --- | --- |
@@ -26,7 +49,7 @@ capabilities: [cli, compilation, checkpoint]
 
 `test` 执行生成模块中的 `test_` 函数，有失败时返回 `1`；未发现测试函数时输出提示并返回 `0`。`intent` 的 `--intent` 未指定时会自动寻找对应的 `.nxintent` 文件。
 
-## Agent 运行与恢复
+### Agent 运行与恢复
 
 ```sh
 uv run nexa agent analyst.nx Analyst "Analyze evidence" --timeout 120 --max-tool-calls 4
@@ -34,7 +57,7 @@ uv run nexa agent analyst.nx Analyst --resume RUN_ID --approve CALL_ID
 uv run nexa agent analyst.nx Analyst --resume RUN_ID --deny CALL_ID
 ```
 
-`analyst.nx` 采用[快速入门](quickstart.md)中的完整声明。首次模型调用需要 provider 配置。`RUN_ID`、`CALL_ID` 来自该次运行的 JSON 输出。
+`analyst.nx` 采用[快速入门](quickstart_24.md)中的完整声明。首次模型调用需要 provider 配置。`RUN_ID`、`CALL_ID` 来自该次运行的 JSON 输出。
 
 | 参数 | 默认与规则 |
 | --- | --- |
@@ -47,7 +70,7 @@ uv run nexa agent analyst.nx Analyst --resume RUN_ID --deny CALL_ID
 
 JSON 字段包括 `run_id`、`status`、`output`、`error`、模型/工具次数、输入/输出 token 数及 `pending_calls`。返回码：完成 `0`，等待审批 `2`，其他停止状态 `1`。新的对话轮次使用 Python [continue_run](runtime_conversations.md)。
 
-## 服务与后台任务
+### 服务与后台任务
 
 | 命令 | 参数、输出与作用 |
 | --- | --- |

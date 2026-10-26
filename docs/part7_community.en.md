@@ -1,6 +1,7 @@
 ---
 title: "Projects and community"
 capabilities: [ecosystem]
+language_versions: ["3.0", "2.4"]
 ---
 
 # Projects and community

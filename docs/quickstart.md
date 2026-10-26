@@ -1,78 +1,64 @@
 ---
-title: "开始使用 Nexa 2.4"
-capabilities: [compilation, execution]
+title: "开始使用 Nexa 3.0"
+capabilities: [open_language, open_execution]
+language_versions: ["3.0"]
 ---
 
-# 开始使用 Nexa 2.4
+# 开始使用 Nexa 3.0
 
-先运行一个无需模型的程序，再编译 Agent。本文使用已发布的 [Nexa v2.4.0](https://github.com/Nexa-Language/Nexa/releases/tag/v2.4.0)。
+Nexa 3.0 把目标、实现和验收条件写进同一个程序。先离线检查合同，再在 OCI 中构建一个返回 `42` 的产物，最后用锁文件重放。全部步骤使用已发布的 [v3.0.0](https://github.com/Nexa-Language/Nexa/releases/tag/v3.0.0)，源码固定到 [`2743796`](https://github.com/Nexa-Language/Nexa/commit/274379606e53c90d2d25774f6bb8984c777d0759)。
 
-## 1. 安装运行时
+## 1. 安装固定版本
 
-需要 Git、Python 3.10+ 和 uv。在工作目录中取得发行源码，并安装锁定的依赖：
-
-发行 tag `v2.4.0` 对应已验证的 [commit c216263](https://github.com/Nexa-Language/Nexa/commit/c2162637236e4a73feea410c4183672411666521)。
+需要 Python 3.10+、Git 和 uv；3.0 执行支持 Linux/macOS。Linux 使用 Docker Engine；macOS 使用 Docker Desktop 或 Colima。
 
 ```sh
-git clone --branch v2.4.0 --depth 1 https://github.com/Nexa-Language/Nexa.git
+git clone --branch v3.0.0 --depth 1 https://github.com/Nexa-Language/Nexa.git
 cd Nexa
-uv sync --locked
+uv sync --locked --all-extras
 uv run nexa --version
 ```
 
-确认输出为 `Nexa v2.4.0`。后续命令均在这个源码目录执行。
+确认输出 `Nexa v3.0.0`。下列命令在此目录执行。独立 wheel 的安装地址见[发行页](https://github.com/Nexa-Language/Nexa/releases/tag/v3.0.0)；PyPI 上同名 `nexa-lang` 属于其他项目。
 
-## 2. 运行第一个程序
+## 2. 写下完整合同
 
-保存为 `hello.nx`。本例的编译和执行都无需凭据，结果为 `12`。
+保存为 `answer.nx`：
 
 ```nexa
-flow main {
-    first = 3;
-    print(first * 4);
-    result = first * 4;
+language "3.0"
+program Answer {
+    goal answer() -> Int {
+        intent "Return 42"
+        implementation value 42
+    }
 }
 ```
 
 ```sh
-uv run nexa validate hello.nx --json
-uv run nexa run hello.nx
+uv run nexa check answer.nx --json
 ```
 
-`validate` 返回结构化诊断；`run` 编译并执行程序。需要查看生成物时运行 `uv run nexa build hello.nx`，生成 `hello.py`。
+`check` 返回程序 IR、诊断和开放义务；本例没有开放义务。此步无需 Docker、provider 或凭据，不启动候选或模型。`language "3.0"` 显式选择 Open Programs；旧程序继续使用[2.4 兼容入口](quickstart_24.md)。
 
-## 3. 定义第一个 Agent
+## 3. 构建并重放
 
-保存为 `analyst.nx`。这是完整声明模块，编译不访问模型。
-
-```nexa
-agent Analyst {
-    prompt: "Work from evidence. State assumptions explicitly."
-    timeout: 120
-    max_tool_calls: 4
-}
-```
+先启动 Docker，再取得源码示例所固定的镜像：
 
 ```sh
-uv run nexa build analyst.nx
-uv run nexa inspect analyst.nx --format json
+docker pull python@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+uv run nexa build answer.nx --environment examples/open_programs/offline.json --state .nexa/answer.db --json
+uv run nexa build answer.nx --environment examples/open_programs/offline.json --state .nexa/answer.db --locked --json
 ```
 
-执行 Agent 前，完成[首次 provider 配置](part2_config_stdlib.md#first-provider-setup)：创建含 endpoint 和模型 ID 的 `secrets.nxs`，通过环境或隐藏输入提供密钥。协议差异见[模型协议](runtime_providers.md)。下面的命令使用已配置的环境发起模型请求，并将运行状态写入 `.nexa/runs.sqlite3`。
+第一次构建实际在 OCI 中执行常量实现，接受的 `answer` 结果为 `42`，附带通过的 `typecheck` 证据。两次构建都为零模型调用；第二次返回相同产物 digest。锁文件默认是 `answer.nx.lock`，需要连同 `.nexa/answer.db` 保存，数据库持有锁所引用的对象。镜像缺失或 Docker 不可用时，执行返回 `executor_unavailable`。
 
-```sh
-uv run nexa agent analyst.nx Analyst "Explain the supplied evidence" --timeout 120
-```
+## 4. 让实现保持开放
 
-完成时返回 `status: completed`。等待工具审批时返回 `waiting_approval`，按[审批与恢复](runtime_approval.md)处理；其他停止状态按[执行与预算](runtime_execution.md)排查。
+[目标与合同](open_programs.md)展示 `implementation open`：模型可以在预算内提出实现，确定性检查与模型评审分别形成证据。先读[环境配置](open_environments.md)和[预算](open_budgets.md)，再显式运行求解。仓库写入按[准确补丁授权](open_grants.md)执行。
 
-## 4. 选择下一步
-
-- 学习[语言基础](part1_basic.md)和[工具声明](part3_extensions.md)。
-- 用[checkpoint](runtime_checkpoints.md)保存与恢复任务。
-- 通过[工具链](toolchain.md)接入 Nexa Code 或 VS Code。
-- 从旧版本迁移时，先核对[2.4 迁移清单](migration_24.md)。
+下一步：[证据与验收](open_evidence.md) · [修订与恢复](open_revisions.md) · [开发工具](toolchain.md) · [2.4 → 3.0](migration_30.md)
 
 ---
 
-[来源与验证](capability_inventory.md) · `compilation` / `execution`
+[来源与验证](capability_inventory.md) · `open_language` / `open_execution`

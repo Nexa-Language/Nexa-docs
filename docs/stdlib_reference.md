@@ -1,11 +1,15 @@
 ---
 title: "标准库 API"
 capabilities: [stdlib, tools]
+language_versions: ["2.4"]
 ---
+
+!!! note "Nexa 3.0 中的 2.4 兼容路径"
+    这些 API 服务于 2.4 兼容入口。Open Programs 使用显式 capabilities 与[控制器适配器](migration_30.md)。
 
 # 标准库 API
 
-本页从指定 2.4 运行时的实际工具 schema 生成。下列名称为准确的注册表标识符。用 `uses std.fs` 暴露 namespace，或调用受支持的 DSL 包装器，例如 `std.fs.read(path)`。必填与可选参数描述工具 JSON 接口；返回类型采用注册 handler 的注解，`unspecified` 表示该 handler 未声明返回注解。字段说明见完整的 [schema 快照](stdlib-api.json)。
+本页从 Nexa 3.0 保留的 2.4 工具注册表生成。下列名称为准确的注册表标识符。用 `uses std.fs` 暴露 namespace，或调用受支持的 DSL 包装器，例如 `std.fs.read(path)`。必填与可选参数描述工具 JSON 接口；返回类型采用注册 handler 的注解，`unspecified` 表示该 handler 未声明返回注解。字段说明见完整的 [schema 快照](stdlib-api.json)。
 
 ## 执行与错误
 

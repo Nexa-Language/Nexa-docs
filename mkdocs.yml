@@ -1,5 +1,5 @@
 site_name: Nexa Docs
-site_description: Agent 原生语言与运行时 · 2.4 开发文档
+site_description: Open Programs · 目标、证据与持续修订 · Nexa 3.0
 site_url: https://docs.nexa-lang.com/
 repo_url: https://github.com/Nexa-Language/Nexa-docs
 repo_name: Nexa-Language/Nexa-docs
@@ -92,6 +92,18 @@ plugins:
         贡献指南: Contributing
         项目与社区: Projects and community
         历史笔记: Historical notes
+        目标与合同: Goals and contracts
+        Environment 与 OCI: Environments and OCI
+        Author 协议: Author protocol
+        证据与验收: Evidence and acceptance
+        求解预算: Resolution budgets
+        修订与恢复: Revisions and recovery
+        准确补丁授权: Exact patch authorization
+        Capsule 复用: Capsule reuse
+        2.4 兼容语言: 2.4 language compatibility
+        2.4 兼容运行时: 2.4 runtime compatibility
+        兼容快速入门: Compatibility quickstart
+        迁移到 3.0: Migrate to 3.0
 - search
 markdown_extensions:
 - admonition
@@ -128,7 +140,17 @@ nav:
   - 为什么使用 Nexa: preface.md
   - 设计背景: preface_background.md
   - 典型场景: preface_scenarios.md
-- 语言:
+- Open Programs 3.0:
+  - 目标与合同: open_programs.md
+  - Environment 与 OCI: open_environments.md
+  - Author 协议: open_author_protocol.md
+  - 证据与验收: open_evidence.md
+  - 求解预算: open_budgets.md
+  - 修订与恢复: open_revisions.md
+  - 准确补丁授权: open_grants.md
+  - Capsule 复用: open_capsules.md
+- 2.4 兼容语言:
+  - 兼容快速入门: quickstart_24.md
   - 基础语法: part1_basic.md
   - 语言与 API 参考: reference.md
   - 工具与 Protocol: part3_extensions.md
@@ -138,7 +160,7 @@ nav:
   - 模式匹配: part2_pattern_matching.md
   - ADT: part2_adt.md
   - 错误处理: part2_error_handling.md
-- 运行时:
+- 2.4 兼容运行时:
   - 模型协议: runtime_providers.md
   - 执行与预算: runtime_execution.md
   - 审批与恢复: runtime_approval.md
@@ -158,6 +180,7 @@ nav:
   - 统一编译入口: part5_compiler.md
   - 服务与任务: part5_enterprise.md
 - 迁移与验证:
+  - 迁移到 3.0: migration_30.md
   - 迁移到 2.4: migration_24.md
   - 可验证示例: examples.md
   - 实践指南: part6_best_practices.md

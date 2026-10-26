@@ -1,11 +1,15 @@
 ---
 title: "Migrate to 2.4"
 capabilities: [compilation, execution, conversations, harness, verification, rust]
+language_versions: ["2.4"]
 ---
+
+!!! note "2.4 compatibility in Nexa 3.0"
+    This page describes the retained 2.4 language/runtime path. Sources without a version declaration use this path. Start new Open Programs with [Nexa 3.0](quickstart.md); compare contracts in the [migration guide](migration_30.md).
 
 # Migrate to 2.4
 
-The migration baseline is the current local 2.4 development source. Preserve previous runtime data and source, then perform these checks in an isolated workspace.
+The migration baseline is the 2.4 compatibility source retained in Nexa 3.0. Preserve previous runtime data and source, then perform these checks in an isolated workspace.
 
 ## Compiler and interfaces
 

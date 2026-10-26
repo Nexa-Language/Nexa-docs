@@ -1,90 +1,89 @@
 # Nexa documentation
 
-Nexa 2.4 的中英文文档。站点保留 MkDocs Material 与 suffix i18n，覆盖语言、Python 参考运行时、Rust 子集、CLI 和开发工具链。当前内容基于已发布的 [Nexa v2.4.0](https://github.com/Nexa-Language/Nexa/releases/tag/v2.4.0)，验证与 CI 固定到下文的完整源码 commit。
+Nexa 3.0 Open Programs 的中英文文档，保留完整 2.4 兼容入口与全部旧路由。主入口为[快速入门](docs/quickstart.md) / [English](docs/quickstart.en.md)；[Open Programs](docs/open_programs.md)覆盖目标合同、环境/OCI、Author、证据、预算、修订恢复、准确授权、capsule 与迁移。
 
-- 中文入口：`/quickstart/`；English: `/en/quickstart/`。
-- 首次调用模型前，按配置页创建只含 endpoint/模型信息的 `secrets.nxs`，通过环境或隐藏输入提供密钥：[中文配置](docs/part2_config_stdlib.md) / [English setup](docs/part2_config_stdlib.en.md)。
-- `docs/inventory.json` 登记页面、能力来源和每个 Nexa 示例。
-- `docs/stdlib-api.json` 保存运行时标准库参数 schema；中英文 API 表从该快照对应的 registry 生成。
-- `docs/stylesheets/extra.css` 管理 graphite/paper 色彩、排版、间距、边框与响应式 token。字体使用系统字体；站点没有模型后端、远程字体或自动加载的评论脚本。
+文档包版本为 `3.0.0.dev0`，运行时固定到已发布的 [Nexa v3.0.0](https://github.com/Nexa-Language/Nexa/releases/tag/v3.0.0)，准确 commit 为 `274379606e53c90d2d25774f6bb8984c777d0759`，tree 为 `b090cc6503ea70318667031925480e36c352a913`。文档环境与 runtime 环境分别管理。
+
+- `docs/inventory.json`：104 页、52 双语对、68 个完整示例；含语言版本、检查/执行声明、场景与 source/test fingerprints。
+- `docs/stdlib-api.json`：实际 2.4 兼容标准库 registry；API 页面由 `scripts.export_stdlib` 生成。
+- `docs/stylesheets/extra.css`：graphite/paper 视觉 token、排版和响应式布局；系统字体与 Material 搜索/语言/主题/移动导航沿用。
+- 84 条旧页面路径保留；旧快速入门的全部例子在 `quickstart_24`，既有 62 个例子继续通过 3.0 兼容路径验证。
 
 ## 本地预览
 
-文档环境需要 Python 3.11+ 和 uv；本次验证使用 Python 3.12、uv 0.11.30。文档依赖与 Nexa 运行时环境分别管理。
+文档需要 Python 3.11+ 和 uv，本轮使用 Python 3.12、uv 0.11.30。日常使用锁定依赖，不升级无关包。
 
 ```sh
 uv sync --locked
 uv run --no-sync mkdocs serve
-```
-
-访问 `http://127.0.0.1:8000`。严格生成静态站点：
-
-```sh
 uv run --no-sync mkdocs build --strict
 ```
 
-## 完整验证
+## 验证
 
-先在已经取得的 Nexa 2.4 源码目录运行 `uv sync --locked`，再回到本仓库。运行时须为干净 Git checkout，HEAD 匹配 inventory 中的正式 commit 或明确记录的验证 commit，且完整 Git tree 与基线相同；暂存、未暂存及未忽略的新文件都会使检查失败。
-
-```sh
-uv run --no-sync python -m scripts.verify --runtime /path/to/Nexa
-```
-
-可用 `--runtime-python /path/to/venv/bin/python` 指定装有 Nexa 依赖的解释器。默认使用 `Nexa/.venv/bin/python`。验证依次执行：
-
-1. 页面登记、Nexa 代码块 hash、可见豁免理由、中英文能力配对、导航及 CSS 资源检查。
-2. 校验器回归测试、ruff、isort、ty。
-3. MkDocs 严格构建及生成 HTML 的内部链接、锚点、图像、脚本与样式检查。
-4. 运行时 commit、完整源码树、工作树状态与源码/test fingerprint 核对；全部完整 Nexa 示例编译、登记为 offline 的代表性程序执行、标准库参考与真实 registry 比对。
-
-示例子进程使用临时工作目录、临时 HOME/TMPDIR 和最小环境；不继承 provider 凭据或 Python 用户配置。在任何 Nexa import 前，audit hook 禁止网络访问和 `.nxs` 读取。固定回复只替换模型客户端边界，编译器、SDK、flow、工具和输出校验仍执行实际实现。该工具用于审核过的仓库示例，不是运行任意不可信程序的沙箱。
-
-报告写入 `.reports/docs-check.json`，包含实际编译/执行数量、逐例状态与错误。失败返回非零。单独运行结构与站点检查可省略 `--runtime`；报告会明确记录 `runtime_validation: not_requested`。
+准备干净的固定 Nexa checkout，在该目录执行 `uv sync --locked`。检查要求准确 HEAD、完整 Git tree 和 clean worktree；暂存、未暂存和未忽略的新文件都会导致失败。`--runtime-python` 可指定装有 runtime 依赖的解释器，默认 `RUNTIME/.venv/bin/python`。
 
 ```sh
-uv run --no-sync python -m scripts.verify
-uv run --no-sync python -m scripts.check_docs --runtime /path/to/Nexa --site site
+uv run --no-sync python -m scripts.verify --runtime /absolute/path/to/Nexa
 ```
 
-外部 URL、真实模型质量、服务连通性、发布和视觉效果分别验收。网页使用 Material 的搜索、语言切换、主题切换、移动导航与复制代码功能。
+此命令执行 inventory/语言配对/旧路由/导航检查、pytest、ruff、isort、ty、严格 MkDocs 构建、生成 HTML 链接与资源检查、源码 provenance、全部示例的版本匹配检查、40 个旧运行时离线场景和标准库 registry 比对。3.0 原生 check 断言零模型、零子进程；报告中的 `oci_deferred` 明确列出尚未执行的 OCI 场景。
 
-## 更新页面与证据
+真实 OCI 验收需要 Linux/macOS 的本地 Docker daemon 与固定镜像。准备镜像后显式运行：
 
-页面成对保存为 `topic.md` / `topic.en.md`，front matter 的 `capabilities` 对应 inventory 中的能力 ID。将中文路径加入 `mkdocs.yml` 的导航，并为导航标签提供英文翻译。原有页面路径保留，历史或规划内容必须在正文标明状态。
+```sh
+docker pull python@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+uv run --no-sync python -m scripts.verify --runtime /absolute/path/to/Nexa --oci
+```
 
-每个 `nexa` / `nx` fence 单独登记：页面、块序号、稳定 ID、源码 SHA-256、状态和验证模式。完整示例必须 `compile`；需要检查输出、调用次数、错误或 Actor 消息顺序的例子配置 `offline` scenario。`partial` / `historical` 必须有逐例原因，并在页面显示同一句原因。校验器拒绝未登记代码，不能用整页豁免绕过。
+该门禁额外执行 4 个登记的 3.0 场景（中英文 Answer、Sum），核对实际输出、accepted 状态、通过的 evidence、fixture 调用数、artifact digest，以及 locked replay 的零请求与相同产物。Sum 的冻结用例覆盖空列表、负数与正数；固定 provider 回复仅替代模型边界。候选、policy、数据库、Docker 隔离和证据判断使用真实 runtime。
 
-新增记录先人工登记声明、来源符号与场景；修改既有记录时，先审阅代码和对应说明，再显式刷新选中的证据：
+子进程使用临时 HOME/TMPDIR 和最小环境，不继承个人 provider 凭据。在任何 runtime import 前阻断 Python 网络访问和 `.nxs` 读取。OCI 通过当前 context 的本地 Unix Docker endpoint 连接；候选 network=none、无宿主目录挂载。远程 Docker endpoint 不在本站验证支持范围。此工具运行经过审阅的仓库示例。
+
+报告位于 `.reports/docs-check.json`，包含实际编译、原生检查、离线/OCI 执行数量、deferred 场景、逐例输出/evidence 与错误。失败退出非零。结构检查可省略 runtime，结果明确标为 `runtime_validation: not_requested`。单独执行：
+
+```sh
+uv run --no-sync python -m scripts.check_docs --site site
+uv run --no-sync python -m scripts.check_docs --runtime /absolute/path/to/Nexa --oci --report .reports/oci.json
+```
+
+## 内容与证据更新
+
+页面按 `topic.md` / `topic.en.md` 成对保存。Front matter 的 `capabilities` 和 `language_versions` 与 inventory 对齐；导航登记中文路径并提供英文标签。旧路由在 `preserved_pages` 中受到检查。
+
+每个 `nexa` / `nx` fence 单独登记稳定 ID、页面/块索引、源码 SHA-256、status、language_version、claim 和 validation：
+
+| 语言 | 模式 | 声明与要求 |
+| --- | --- | --- |
+| 2.4 | `compile` | `claim: check`，真实兼容编译 |
+| 2.4 | `offline` | `claim: execute`，明确输出/错误/模型调用/工具结果等预期 |
+| 3.0 | `nativecheck` | `claim: check`，真实原生合同检查 |
+| 3.0 | `oci` | `claim: execute`，`build-replay` scenario、非空 expected_outputs、model_calls 与按需 replies/checks |
+
+翻译必须共享语言版本、验证模式及 scenario。完整 3.0 示例使用旧 compiler 标记、只检查却声明已执行、遗漏真实预期或移除旧路由都会失败。`partial` / `historical` 必须填写具体原因并在正文显示。
+
+改变 provenance 后先复核声明、实际实现、回归测试与预期结果，再显式刷新已审阅的选择：
 
 ```sh
 uv run --no-sync python -m scripts.refresh_inventory \
-  --runtime /path/to/Nexa --capability conversations \
-  --page runtime_conversations.md --page runtime_conversations.en.md \
-  --note "Reviewed the public conversation contract and updated both examples"
-uv run --no-sync python -m scripts.verify --runtime /path/to/Nexa
+  --runtime /absolute/path/to/Nexa --capability open_execution \
+  --page open_programs.md --page open_programs.en.md \
+  --note "Reviewed OCI execution, native checks, fixtures and locked replay"
+uv run --no-sync python -m scripts.verify --runtime /absolute/path/to/Nexa --oci
 ```
 
-刷新操作保留状态和预期输出，不替代编译或执行验收；review note 与时间保存在 inventory。来源记录采用完整文件 SHA-256，源文件的其他变化也会要求复核。
-
-标准库参考从选定的运行时更新（从本仓库根目录执行）：
+刷新保留场景与预期，不替代执行。源码升级需同时审核所有改变的指纹及对应声明，再更新 CI 完整 SHA。标准库更新与比对：
 
 ```sh
-/path/to/Nexa/.venv/bin/python -m scripts.export_stdlib --runtime /path/to/Nexa
+/absolute/path/to/Nexa/.venv/bin/python -m scripts.export_stdlib --runtime /absolute/path/to/Nexa
 ```
 
-此命令在 import 前禁止网络和 `.nxs` 读取；常规完整验证会在隔离子进程内自动执行 `--check` 比对。`fallback_to_default: true` 用于复制共享 JSON/图片资源到英文构建；页面配对门禁先运行，缺失翻译会失败。
+`fallback_to_default: true` 仅供共享 JSON/图片资源复制；双语页面门禁先执行。产品集成页按实际 Nexa Code flags、extension commands/settings 编写，并说明澄清回写源码、CAS、活动身份及准确授权。
 
 ## CI 与发布
 
-`check-docs.yml` 在 PR 运行两个独立门禁：结构/静态站点，以及真实运行时示例。运行时任务固定到 v2.4.0 的源码 commit [`c2162637236e4a73feea410c4183672411666521`](https://github.com/Nexa-Language/Nexa/commit/c2162637236e4a73feea410c4183672411666521)。校验器核对该 checkout 的来源 hash；ref 格式错误或源码漂移时任务明确失败。
+`check-docs.yml` 保留 Ubuntu 上的结构/静态站点与 runtime 两个 job。Runtime 固定正式 3.0 SHA，先执行离线验证，再明确拉取固定 digest 镜像并运行 OCI/locked replay step。PR 只需 contents:read。
 
-已核对正式 tag `v2.4.0` 指向此 commit。升级基线时，先审阅并验证新源码，再同时更新 inventory 与 workflow 中的完整 SHA。PR 门禁只有 contents:read 权限，不部署。
+`deploy-docs.yml` 保留 main 的 Pages 入口，并等待全部检查成功后构建和发布；部署步骤单独授予 Pages 权限。日常文档任务只生成本地 site，发布按仓库授权流程执行。外部 URL 可达性、真实 provider 质量/费用与部署结果分别验收。
 
-`deploy-docs.yml` 保留 main 的 GitHub Pages 发布入口，并依赖上述两个门禁全部成功；部署步骤单独授予 Pages 权限。日常内容修改使用锁定依赖，依赖升级必须重新执行完整验证及视觉检查。
-
-## 参考与反馈
-
-依赖配置核对来源：[Material palettes](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/)、[static-i18n suffix layout](https://ultrabug.github.io/mkdocs-static-i18n/getting-started/quick-start/)、[uv locked sync](https://docs.astral.sh/uv/concepts/projects/sync/)、[uv GitHub Actions](https://docs.astral.sh/uv/guides/integration/github/)。
-
-反馈请提交到 [Nexa-docs issues](https://github.com/Nexa-Language/Nexa-docs/issues)，附页面 URL、语言、最小示例及诊断；凭据与任务数据留在本地。
+反馈请提交 [Nexa-docs issues](https://github.com/Nexa-Language/Nexa-docs/issues)，附页面 URL、语言、版本、最小示例与脱敏诊断。

@@ -1,11 +1,15 @@
 ---
 title: "迁移到 2.4"
 capabilities: [compilation, execution, conversations, harness, verification, rust]
+language_versions: ["2.4"]
 ---
+
+!!! note "Nexa 3.0 中的 2.4 兼容路径"
+    本页说明保留的 2.4 语言与运行时路径，无版本声明的源码继续使用此入口。新 Open Programs 从 [Nexa 3.0](quickstart.md) 开始，合同差异见[迁移指南](migration_30.md)。
 
 # 迁移到 2.4
 
-迁移基线是当前本地 2.4 开发源码。先保留原运行数据和旧源码，再在隔离工作区执行以下检查。
+迁移基线是Nexa 3.0 内保留的 2.4 兼容源码。先保留原运行数据和旧源码，再在隔离工作区执行以下检查。
 
 ## 编译与接口
 

@@ -35,12 +35,12 @@ def reference(data: dict[str, list[dict[str, Any]]], language: str) -> str:
     english = language == "en"
     title = "Standard library API" if english else "标准库 API"
     introduction = (
-        "This reference is generated from the selected 2.4 runtime's registered tool schemas. Names below are exact registry identifiers. "
+        "This reference is generated from Nexa 3.0's retained 2.4 tool registry. Names below are exact registry identifiers. "
         "Expose a namespace with `uses std.fs`, or call supported DSL wrappers such as `std.fs.read(path)`. "
         "Required and optional parameters describe the JSON tool interface. Return types are the registered handler's annotations; `unspecified` means no annotation is declared. "
         "See the full [schema snapshot](stdlib-api.json) for property descriptions."
         if english else
-        "本页从指定 2.4 运行时的实际工具 schema 生成。下列名称为准确的注册表标识符。用 `uses std.fs` 暴露 namespace，"
+        "本页从 Nexa 3.0 保留的 2.4 工具注册表生成。下列名称为准确的注册表标识符。用 `uses std.fs` 暴露 namespace，"
         "或调用受支持的 DSL 包装器，例如 `std.fs.read(path)`。必填与可选参数描述工具 JSON 接口；返回类型采用注册 handler 的注解，"
         "`unspecified` 表示该 handler 未声明返回注解。字段说明见完整的 [schema 快照](stdlib-api.json)。"
     )
@@ -57,7 +57,14 @@ def reference(data: dict[str, list[dict[str, Any]]], language: str) -> str:
         "结果不确定的传输错误向上传播，保留未知结果恢复语义。数据库句柄与部分集合结果采用 JSON 字符串，需要本地结构化值时应显式解码。"
         "PostgreSQL 与外部服务需要应用依赖，`std.ui` 需要 `terminal` extra。\n"
     )
-    lines = [f'---\ntitle: "{title}"\ncapabilities: [stdlib, tools]\n---\n\n# {title}\n\n{introduction}\n\n{policy}']
+    compatibility = (
+        '!!! note "2.4 compatibility in Nexa 3.0"\n    This API serves the 2.4 compatibility path. Open Programs use explicit capabilities and '
+        '[controller-owned adapters](migration_30.md).\n'
+        if english else
+        '!!! note "Nexa 3.0 中的 2.4 兼容路径"\n    这些 API 服务于 2.4 兼容入口。Open Programs 使用显式 capabilities 与'
+        '[控制器适配器](migration_30.md)。\n'
+    )
+    lines = [f'---\ntitle: "{title}"\ncapabilities: [stdlib, tools]\nlanguage_versions: ["2.4"]\n---\n\n{compatibility}\n# {title}\n\n{introduction}\n\n{policy}']
     for namespace, tools in data.items():
         lines += [f"\n## `{namespace}`\n", "| Registry name | Required parameters | Optional parameters | Return annotation |" if english else "| 注册表名称 | 必填参数 | 可选参数 | 返回注解 |", "| --- | --- | --- | --- |"]
         for tool in tools:

@@ -1,6 +1,7 @@
 ---
 title: "后续方向"
 capabilities: [rust, verification]
+language_versions: ["3.0", "2.4"]
 ---
 
 # 后续方向
@@ -14,7 +15,7 @@ capabilities: [rust, verification]
 | 增强语义评测 | 明确 evaluator、数据集、成本和失败状态 |
 | 完善工具链 | 同步 source span、运行状态、审批与恢复契约 |
 
-公开版本发布需要可访问的 tag/commit 或包版本。当前文档的 2.4 开发基线来自本地工作区，发布流程另行完成。
+公开版本发布需要可访问的 tag/commit 或包版本。本站固定到已发布的 Nexa 3.0.0；Rust 继续保留 2.4 子集。
 
 ---
 

@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -50,6 +51,7 @@ def check_pages(root: Path, inventory: dict[str, Any]) -> list[str]:
     capabilities = {entry["id"] for entry in inventory["capabilities"]}
     for path in sorted(actual - pages.keys()):
         errors.append(f"unregistered page: {path}")
+    errors.extend(f"preserved route missing: {path}" for path in inventory.get("preserved_pages", []) if path not in actual)
     for path, page in pages.items():
         if path not in actual:
             errors.append(f"missing page: {path}")
@@ -58,16 +60,56 @@ def check_pages(root: Path, inventory: dict[str, Any]) -> list[str]:
             metadata = yaml.safe_load(markdown.split("---", 2)[1]) if markdown.startswith("---\n") else {}
             if not isinstance(metadata, dict) or metadata.get("capabilities") != page["capabilities"]:
                 errors.append(f"page capability metadata differs from inventory: {path}")
+            if not isinstance(metadata, dict) or metadata.get("language_versions") != page.get("language_versions"):
+                errors.append(f"page version metadata differs from inventory: {path}")
         translated = path.removesuffix(".en.md") + ".md" if path.endswith(".en.md") else path.removesuffix(".md") + ".en.md"
         if translated not in actual:
             errors.append(f"missing translation: {translated}")
         elif translated in pages and page["capabilities"] != pages[translated]["capabilities"]:
             errors.append(f"translation capability mismatch: {path}")
+        if translated in pages and page.get("language_versions") != pages[translated].get("language_versions"):
+            errors.append(f"translation version mismatch: {path}")
         expected_language = "en" if path.endswith(".en.md") else "zh"
         if page["language"] != expected_language:
             errors.append(f"incorrect language: {path}")
         if not page["capabilities"] or not set(page["capabilities"]).issubset(capabilities):
             errors.append(f"missing/unknown capability provenance: {path}")
+    return errors
+
+
+def check_example_contract(item: dict[str, Any], source: str, label: str) -> list[str]:
+    errors: list[str] = []
+    declaration = re.match(r'\s*(?://[^\n]*\n\s*)*language\s+"([^"]+)"', source)
+    version = declaration[1] if declaration else "2.4"
+    if item.get("language_version") != version:
+        errors.append(f"language version differs from source: {label}")
+    validation = item.get("validation")
+    allowed = {"2.4": {"compile", "offline"}, "3.0": {"nativecheck", "oci"}}
+    if validation not in allowed.get(version, set()):
+        errors.append(f"{version} example requires {'nativecheck or oci' if version == '3.0' else 'compile or offline'}: {label}")
+    claim = item.get("claim")
+    if claim not in {"check", "execute"}:
+        errors.append(f"example needs an explicit check/execute claim: {label}")
+    if claim == "execute" and validation not in {"offline", "oci"}:
+        errors.append(f"execution claim requires an actual scenario: {label}")
+    if validation in {"offline", "oci"} and (claim != "execute" or not isinstance(item.get("scenario"), dict)):
+        errors.append(f"{validation} scenario required with execute claim: {label}")
+    if validation == "oci":
+        scenario = item.get("scenario", {})
+        if (scenario.get("kind") != "build-replay" or not isinstance(scenario.get("expected_outputs"), dict)
+                or not scenario.get("expected_outputs") or type(scenario.get("model_calls")) is not int or scenario["model_calls"] < 0):
+            errors.append(f"OCI scenario requires build-replay, nonempty expected_outputs and model_calls: {label}")
+    return errors
+
+
+def check_example_translations(registered: dict[tuple[str, int], dict[str, Any]]) -> list[str]:
+    errors: list[str] = []
+    for (page, block), item in registered.items():
+        translated = page.removesuffix(".en.md") + ".md" if page.endswith(".en.md") else page.removesuffix(".md") + ".en.md"
+        other = registered.get((translated, block))
+        fields = ("language_version", "validation", "claim", "status", "scenario")
+        if other is None or any(item.get(field) != other.get(field) for field in fields):
+            errors.append(f"translation example contract mismatch: {page}#{block}")
     return errors
 
 
@@ -85,10 +127,7 @@ def check_inventory(root: Path, inventory: dict[str, Any]) -> list[str]:
         if digest(actual[key].source) != item["sha256"]:
             errors.append(f"example changed: {label}; review and update its evidence")
         if item["status"] == "complete":
-            if item.get("validation") not in {"compile", "offline"}:
-                errors.append(f"complete example needs compilation: {label}")
-            if item.get("validation") == "offline" and not item.get("scenario"):
-                errors.append(f"offline scenario required: {label}")
+            errors.extend(check_example_contract(item, actual[key].source, label))
         elif item["status"] in {"partial", "historical"}:
             if not item.get("reason") or len(item["reason"].strip()) < 20:
                 errors.append(f"specific reason required: {label}")
@@ -96,6 +135,7 @@ def check_inventory(root: Path, inventory: dict[str, Any]) -> list[str]:
                 errors.append(f"example reason must also be visible on page: {label}")
         else:
             errors.append(f"invalid example status: {label}")
+    errors.extend(check_example_translations(registered))
     for field, entries in (("example id", [item["id"] for item in inventory["examples"]]),
                            ("example location", [f'{item["page"]}#{item["block"]}' for item in inventory["examples"]]),
                            ("page", [item["path"] for item in inventory["pages"]])):
@@ -222,15 +262,25 @@ def probe_environment(directory: Path) -> dict[str, str]:
             "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1", "NEXA_QUIET": "1"}
 
 
-def run_examples(root: Path, runtime: Path, python: Path, inventory: dict[str, Any]) -> dict[str, object]:
+def run_examples(root: Path, runtime: Path, python: Path, inventory: dict[str, Any], *, oci: bool = False) -> dict[str, object]:
     actual = read_examples(root)
     examples = [{**item, "source": actual[(item["page"], item["block"])].source}
                 for item in inventory["examples"] if item["status"] == "complete"]
     with tempfile.TemporaryDirectory(prefix="nexa-docs-check-") as temporary:
         manifest = Path(temporary) / "examples.json"
         manifest.write_text(json.dumps(examples))
-        result = subprocess.run([str(python), str(root / "scripts/runtime_probe.py"), str(runtime), str(manifest)],
-                                cwd=temporary, env=probe_environment(Path(temporary)), capture_output=True, text=True, timeout=180, check=False)
+        environment = probe_environment(Path(temporary))
+        command = [str(python), str(root / "scripts/runtime_probe.py"), str(runtime), str(manifest)]
+        if oci:
+            docker = shutil.which("docker")
+            if not docker:
+                raise RuntimeError("OCI validation requires Docker")
+            endpoint = subprocess.check_output([docker, "context", "inspect", "--format", "{{.Endpoints.docker.Host}}"], text=True).strip()
+            if not endpoint.startswith("unix://"):
+                raise RuntimeError("Documentation OCI validation requires a local Unix Docker endpoint")
+            environment["DOCKER_HOST"] = endpoint
+            command.extend(["--oci", docker])
+        result = subprocess.run(command, cwd=temporary, env=environment, capture_output=True, text=True, timeout=600 if oci else 180, check=False)
     if result.returncode:
         raise RuntimeError(result.stderr or result.stdout)
     return json.loads(result.stdout)
@@ -246,11 +296,14 @@ def check_stdlib(root: Path, runtime: Path, python: Path) -> list[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--runtime", type=Path, help="Explicit Nexa 2.4 development checkout")
+    parser.add_argument("--runtime", type=Path, help="Explicit clean pinned Nexa 3.0 checkout")
     parser.add_argument("--runtime-python", type=Path, help="Interpreter with Nexa dependencies; defaults to runtime/.venv/bin/python")
     parser.add_argument("--site", type=Path, help="Check built HTML links and fragments")
+    parser.add_argument("--oci", action="store_true", help="Execute registered 3.0 scenarios and locked replay in real OCI")
     parser.add_argument("--report", type=Path, default=Path(".reports/docs-check.json"))
     args = parser.parse_args()
+    if args.oci and not args.runtime:
+        parser.error("--oci requires --runtime")
     root = Path(__file__).resolve().parents[1]
     inventory = json.loads((root / "docs/inventory.json").read_text())
     errors = check_inventory(root, inventory) + check_navigation(root, inventory)
@@ -264,7 +317,7 @@ def main() -> int:
             # Resolving a venv's interpreter symlink would discard its installed packages.
             python = (args.runtime_python or runtime / ".venv/bin/python").absolute()
             try:
-                runtime_report = run_examples(root, runtime, python, inventory)
+                runtime_report = run_examples(root, runtime, python, inventory, oci=args.oci)
                 report["runtime_validation"] = runtime_report
                 runtime_errors = runtime_report.get("errors")
                 if not isinstance(runtime_errors, list):

@@ -1,16 +1,18 @@
 ---
-title: "Why Nexa"
-capabilities: [language, execution]
+title: Why Nexa
+capabilities:
+- open_language
+- open_evidence
+- open_revisions
+language_versions:
+- '3.0'
+- '2.4'
 ---
 
 # Why Nexa
 
-Nexa is an agent-native language and runtime. People define objectives, tools, context, and control flow in `.nx`; models can generate the same programs. The runtime executes these declarations and preserves inspectable outcomes.
+Nexa 3.0 lets a program own goals, implementations, evidence, and revisions. Humans and models write the same `.nx` contract. The native compiler checks it, resolves implementations within a budget, and runs acceptance in OCI. Accepted results retain evidence; repository writes additionally require exact authorization.
 
-Syntax makes task structure visible; run state makes execution observable. For tasks with side effects, approvals, budgets, and recovery determine what happens next.
+Goals say what to achieve, frozen checks say how to decide, and persistent state records the current step. Source drafts and active runtime revisions are separate. Relevant dependency changes trigger validation; unknown external effects require reconciliation before recovery.
 
-Run your first program with [Quickstart](quickstart.md). Existing Agent applications can review their execution contracts through the [migration guide](migration_24.md). Read [Background](preface_background.md) and [Scenarios](preface_scenarios.md) for design context.
-
----
-
-[Source and validation](capability_inventory.md) · `language` / `execution`
+Start with a literal implementation in [Quickstart](quickstart.md), then learn model-assisted resolution through [open goals](open_programs.md). Existing Agent, tool, flow, Actor, and MCP applications retain the [2.4 compatibility path](quickstart_24.md). Migrate against the [source and state checklist](migration_30.md).

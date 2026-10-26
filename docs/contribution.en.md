@@ -1,6 +1,7 @@
 ---
 title: "Contributing"
 capabilities: [compilation, verification]
+language_versions: ["3.0", "2.4"]
 ---
 
 # Contributing

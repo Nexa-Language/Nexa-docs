@@ -1,6 +1,7 @@
 ---
 title: "项目与社区"
 capabilities: [ecosystem]
+language_versions: ["3.0", "2.4"]
 ---
 
 # 项目与社区

@@ -12,13 +12,18 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runtime", type=Path)
     parser.add_argument("--runtime-python", type=Path)
+    parser.add_argument("--oci", action="store_true", help="Include actual OCI scenarios and zero-request locked replay")
     args = parser.parse_args()
+    if args.oci and not args.runtime:
+        parser.error("--oci requires --runtime")
     root = Path(__file__).resolve().parents[1]
     final = ["scripts.check_docs", "--site", "site"]
     if args.runtime:
         final.extend(["--runtime", str(args.runtime.absolute())])
     if args.runtime_python:
         final.extend(["--runtime-python", str(args.runtime_python.absolute())])
+    if args.oci:
+        final.append("--oci")
     checks = [
         ["scripts.check_docs", "--report", ".reports/structure.json"],
         ["pytest", "-q"], ["ruff", "check", "scripts", "tests"],

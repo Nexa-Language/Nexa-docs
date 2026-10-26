@@ -1,7 +1,11 @@
 ---
 title: "Configuration and standard library entry"
 capabilities: [configuration, stdlib]
+language_versions: ["2.4"]
 ---
+
+!!! note "2.4 compatibility in Nexa 3.0"
+    This page describes the retained 2.4 language/runtime path. Sources without a version declaration use this path. Start new Open Programs with [Nexa 3.0](quickstart.md); compare contracts in the [migration guide](migration_30.md).
 
 # Configuration and standard library entry
 
@@ -26,7 +30,7 @@ Replace `BASE_URL` with your provider's API root and all three `YOUR_MODEL_ID` p
 
 Prefer injecting `API_KEY` through your existing secret manager, or use `OPENAI_API_KEY` with the `openai/...` configuration above. The file deliberately omits an `API_KEY` field. Explicit credentials in existing `.nxs` files may take precedence over environment values, so also check parent-directory configuration. Keep keys in the execution environment, outside `.nx` files, logs, and Git.
 
-If environment injection is not available yet, run the following in a local interactive terminal. It hides the key input, passes it only to the child process, and runs `analyst.nx` from [Quickstart](quickstart.md). This step makes a real model request; replace the endpoint and model placeholders first.
+If environment injection is not available yet, run the following in a local interactive terminal. It hides the key input, passes it only to the child process, and runs `analyst.nx` from [Quickstart](quickstart_24.md). This step makes a real model request; replace the endpoint and model placeholders first.
 
 ```sh
 uv run python - <<'PY'

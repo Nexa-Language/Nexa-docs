@@ -1,13 +1,24 @@
 ---
-title: "Design background"
-capabilities: [compilation, execution, providers]
+title: Design background
+capabilities:
+- compilation
+- execution
+- providers
+- open_execution
+language_versions:
+- '3.0'
+- '2.4'
 ---
 
 # Design background
 
 Beyond model calls, Agent applications need tool permissions, context, recovery, budgets, and output validation. Nexa places these boundaries in language declarations and run state, giving generated and handwritten programs a shared execution entry.
 
-## Source to execution
+## Open Programs 3.0
+
+OpenCompiler binds contracts to an environment, resolves implementations in a budget, and executes candidates in OCI. ProgramSession separates source drafts, activated revisions, runtime activities, proposals, and grants. Evidence is checked against current dependencies before acceptance or reuse.
+
+## The retained 2.4 execution path
 
 The unified compiler handles includes, ASTs, diagnostics, and Python output. AgentRunner handles providers, tools, and state transitions. SQLite checkpoints preserve progress and tool journals; native provider items preserve protocol continuity.
 

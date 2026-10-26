@@ -1,6 +1,7 @@
 ---
 title: "参与贡献"
 capabilities: [compilation, verification]
+language_versions: ["3.0", "2.4"]
 ---
 
 # 参与贡献
