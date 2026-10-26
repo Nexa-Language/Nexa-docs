@@ -1,16 +1,16 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "runtime": {
-    "version": "2.4.0",
-    "git_head": "c2162637236e4a73feea410c4183672411666521",
+    "version": "3.0.0",
+    "git_head": "274379606e53c90d2d25774f6bb8984c777d0759",
     "dirty": false,
     "release_status": "released",
-    "release_tag": "v2.4.0",
-    "release_url": "https://github.com/Nexa-Language/Nexa/releases/tag/v2.4.0",
+    "release_tag": "v3.0.0",
+    "release_url": "https://github.com/Nexa-Language/Nexa/releases/tag/v3.0.0",
     "source_fingerprint_policy": "clean pinned or recorded verification commit, exact Git tree, whole-file SHA-256 and exact symbols; re-audit changes before refresh",
-    "source_url": "https://github.com/Nexa-Language/Nexa/commit/c2162637236e4a73feea410c4183672411666521",
-    "source_tree": "d70a0d37bcc39c657370da1af37dc693befa9c94",
-    "verification_checkout_head": "1e965aaa9455dad67ef6201c7a7de7aa29f3219e"
+    "source_url": "https://github.com/Nexa-Language/Nexa/commit/274379606e53c90d2d25774f6bb8984c777d0759",
+    "source_tree": "b090cc6503ea70318667031925480e36c352a913",
+    "verification_checkout_head": "274379606e53c90d2d25774f6bb8984c777d0759"
   },
   "pages": [
     {
@@ -18,7 +18,14 @@
       "language": "en",
       "capabilities": [
         "compilation",
-        "verification"
+        "verification",
+        "open_language",
+        "open_execution",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -26,7 +33,14 @@
       "language": "zh",
       "capabilities": [
         "compilation",
-        "verification"
+        "verification",
+        "open_language",
+        "open_execution",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -36,6 +50,10 @@
         "cli",
         "compilation",
         "checkpoint"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -45,6 +63,10 @@
         "cli",
         "compilation",
         "checkpoint"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -53,6 +75,10 @@
       "capabilities": [
         "compilation",
         "verification"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -61,6 +87,10 @@
       "capabilities": [
         "compilation",
         "verification"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -70,6 +100,9 @@
         "compilation",
         "execution",
         "verification"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -79,6 +112,9 @@
         "compilation",
         "execution",
         "verification"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -89,6 +125,10 @@
         "harness",
         "tools",
         "actors"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -99,24 +139,34 @@
         "harness",
         "tools",
         "actors"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
       "path": "index.en.md",
       "language": "en",
       "capabilities": [
-        "language",
-        "execution",
-        "compilation"
+        "open_language",
+        "open_execution",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
       ]
     },
     {
       "path": "index.md",
       "language": "zh",
       "capabilities": [
-        "language",
-        "execution",
-        "compilation"
+        "open_language",
+        "open_execution",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
       ]
     },
     {
@@ -129,6 +179,9 @@
         "harness",
         "verification",
         "rust"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -141,6 +194,209 @@
         "harness",
         "verification",
         "rust"
+      ],
+      "language_versions": [
+        "2.4"
+      ]
+    },
+    {
+      "path": "migration_30.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_migration",
+        "compilation",
+        "checkpoint"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
+      ]
+    },
+    {
+      "path": "migration_30.md",
+      "language": "zh",
+      "capabilities": [
+        "open_migration",
+        "compilation",
+        "checkpoint"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
+      ]
+    },
+    {
+      "path": "open_author_protocol.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_author",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_author_protocol.md",
+      "language": "zh",
+      "capabilities": [
+        "open_author",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_budgets.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_budgets.md",
+      "language": "zh",
+      "capabilities": [
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_capsules.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_capsules",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_capsules.md",
+      "language": "zh",
+      "capabilities": [
+        "open_capsules",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_environments.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_execution",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_environments.md",
+      "language": "zh",
+      "capabilities": [
+        "open_execution",
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_evidence.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_evidence.md",
+      "language": "zh",
+      "capabilities": [
+        "open_evidence"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_grants.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_grants",
+        "open_evidence",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_grants.md",
+      "language": "zh",
+      "capabilities": [
+        "open_grants",
+        "open_evidence",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_programs.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_language",
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_programs.md",
+      "language": "zh",
+      "capabilities": [
+        "open_language",
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_revisions.en.md",
+      "language": "en",
+      "capabilities": [
+        "open_revisions",
+        "open_author"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "open_revisions.md",
+      "language": "zh",
+      "capabilities": [
+        "open_revisions",
+        "open_author"
+      ],
+      "language_versions": [
+        "3.0"
       ]
     },
     {
@@ -149,6 +405,9 @@
       "capabilities": [
         "language",
         "compilation"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -157,6 +416,9 @@
       "capabilities": [
         "language",
         "compilation"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -164,6 +426,9 @@
       "language": "en",
       "capabilities": [
         "actors"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -171,6 +436,9 @@
       "language": "zh",
       "capabilities": [
         "actors"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -178,6 +446,9 @@
       "language": "en",
       "capabilities": [
         "types"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -185,6 +456,9 @@
       "language": "zh",
       "capabilities": [
         "types"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -194,6 +468,9 @@
         "language",
         "harness",
         "context"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -203,6 +480,9 @@
         "language",
         "harness",
         "context"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -211,6 +491,9 @@
       "capabilities": [
         "configuration",
         "stdlib"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -219,6 +502,9 @@
       "capabilities": [
         "configuration",
         "stdlib"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -227,6 +513,9 @@
       "capabilities": [
         "context",
         "providers"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -235,6 +524,9 @@
       "capabilities": [
         "context",
         "providers"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -244,6 +536,9 @@
         "language",
         "execution",
         "checkpoint"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -253,6 +548,9 @@
         "language",
         "execution",
         "checkpoint"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -262,6 +560,9 @@
         "harness",
         "verification",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -271,6 +572,9 @@
         "harness",
         "verification",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -279,6 +583,9 @@
       "capabilities": [
         "language",
         "patterns"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -287,6 +594,9 @@
       "capabilities": [
         "language",
         "patterns"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -295,6 +605,9 @@
       "capabilities": [
         "terminal",
         "stdlib"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -303,6 +616,9 @@
       "capabilities": [
         "terminal",
         "stdlib"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -311,6 +627,9 @@
       "capabilities": [
         "tools",
         "types"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -319,6 +638,9 @@
       "capabilities": [
         "tools",
         "types"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -328,6 +650,9 @@
         "stdlib",
         "mcp",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -337,6 +662,9 @@
         "stdlib",
         "mcp",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -345,6 +673,10 @@
       "capabilities": [
         "rust",
         "verification"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -353,6 +685,10 @@
       "capabilities": [
         "rust",
         "verification"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -361,7 +697,13 @@
       "capabilities": [
         "rust",
         "harness",
-        "cache"
+        "cache",
+        "open_language",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -370,7 +712,13 @@
       "capabilities": [
         "rust",
         "harness",
-        "cache"
+        "cache",
+        "open_language",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -378,6 +726,9 @@
       "language": "en",
       "capabilities": [
         "compilation"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -385,6 +736,9 @@
       "language": "zh",
       "capabilities": [
         "compilation"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -394,6 +748,9 @@
         "stdlib",
         "execution",
         "checkpoint"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -403,6 +760,9 @@
         "stdlib",
         "execution",
         "checkpoint"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -413,6 +773,9 @@
         "execution",
         "verification",
         "cache"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -423,6 +786,9 @@
         "execution",
         "verification",
         "cache"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -430,6 +796,10 @@
       "language": "en",
       "capabilities": [
         "ecosystem"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -437,22 +807,36 @@
       "language": "zh",
       "capabilities": [
         "ecosystem"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
       "path": "preface.en.md",
       "language": "en",
       "capabilities": [
-        "language",
-        "execution"
+        "open_language",
+        "open_evidence",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
       "path": "preface.md",
       "language": "zh",
       "capabilities": [
-        "language",
-        "execution"
+        "open_language",
+        "open_evidence",
+        "open_revisions"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -461,7 +845,12 @@
       "capabilities": [
         "compilation",
         "execution",
-        "providers"
+        "providers",
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -470,7 +859,12 @@
       "capabilities": [
         "compilation",
         "execution",
-        "providers"
+        "providers",
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -479,7 +873,13 @@
       "capabilities": [
         "tools",
         "actors",
-        "checkpoint"
+        "checkpoint",
+        "open_language",
+        "open_grants"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -488,23 +888,57 @@
       "capabilities": [
         "tools",
         "actors",
-        "checkpoint"
+        "checkpoint",
+        "open_language",
+        "open_grants"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
       "path": "quickstart.en.md",
       "language": "en",
       "capabilities": [
-        "compilation",
-        "execution"
+        "open_language",
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0"
       ]
     },
     {
       "path": "quickstart.md",
       "language": "zh",
       "capabilities": [
+        "open_language",
+        "open_execution"
+      ],
+      "language_versions": [
+        "3.0"
+      ]
+    },
+    {
+      "path": "quickstart_24.en.md",
+      "language": "en",
+      "capabilities": [
         "compilation",
         "execution"
+      ],
+      "language_versions": [
+        "2.4"
+      ]
+    },
+    {
+      "path": "quickstart_24.md",
+      "language": "zh",
+      "capabilities": [
+        "compilation",
+        "execution"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -514,6 +948,9 @@
         "language",
         "compilation",
         "execution"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -523,6 +960,9 @@
         "language",
         "compilation",
         "execution"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -531,6 +971,9 @@
       "capabilities": [
         "actors",
         "execution"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -539,6 +982,9 @@
       "capabilities": [
         "actors",
         "execution"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -547,6 +993,9 @@
       "capabilities": [
         "tools",
         "checkpoint"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -555,6 +1004,9 @@
       "capabilities": [
         "tools",
         "checkpoint"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -562,6 +1014,9 @@
       "language": "en",
       "capabilities": [
         "artifacts"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -569,6 +1024,9 @@
       "language": "zh",
       "capabilities": [
         "artifacts"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -577,6 +1035,9 @@
       "capabilities": [
         "checkpoint",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -585,6 +1046,9 @@
       "capabilities": [
         "checkpoint",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -594,6 +1058,9 @@
         "conversations",
         "checkpoint",
         "providers"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -603,6 +1070,9 @@
         "conversations",
         "checkpoint",
         "providers"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -610,6 +1080,9 @@
       "language": "en",
       "capabilities": [
         "execution"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -617,6 +1090,9 @@
       "language": "zh",
       "capabilities": [
         "execution"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -625,6 +1101,9 @@
       "capabilities": [
         "providers",
         "cache"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -633,6 +1112,9 @@
       "capabilities": [
         "providers",
         "cache"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -640,6 +1122,9 @@
       "language": "en",
       "capabilities": [
         "rust"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -647,6 +1132,9 @@
       "language": "zh",
       "capabilities": [
         "rust"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -655,6 +1143,9 @@
       "capabilities": [
         "stdlib",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -663,6 +1154,9 @@
       "capabilities": [
         "stdlib",
         "tools"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -671,6 +1165,9 @@
       "capabilities": [
         "compilation",
         "rust"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -679,6 +1176,9 @@
       "capabilities": [
         "compilation",
         "rust"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -687,7 +1187,13 @@
       "capabilities": [
         "ecosystem",
         "cli",
-        "conversations"
+        "open_author",
+        "open_revisions",
+        "open_grants"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -696,7 +1202,13 @@
       "capabilities": [
         "ecosystem",
         "cli",
-        "conversations"
+        "open_author",
+        "open_revisions",
+        "open_grants"
+      ],
+      "language_versions": [
+        "3.0",
+        "2.4"
       ]
     },
     {
@@ -707,6 +1219,9 @@
         "execution",
         "checkpoint",
         "providers"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     },
     {
@@ -717,6 +1232,9 @@
         "execution",
         "checkpoint",
         "providers"
+      ],
+      "language_versions": [
+        "2.4"
       ]
     }
   ],
@@ -729,7 +1247,7 @@
         {
           "path": "src/compiler.py",
           "symbol": "compile_source",
-          "sha256": "6e03925fe6d4ac47a144fece5127febbe32e33a212befcd0a3444de26200eb90"
+          "sha256": "de414f3bacdffc4440288d962ae864fc44cf3cdf89234e470fab4b979f1a41ac"
         },
         {
           "path": "src/runtime/inspector.py",
@@ -744,14 +1262,22 @@
         {
           "path": "tests/test_examples.py",
           "symbol": "test_supported_example_compiles",
-          "sha256": "2689822c422e7ab72dd8994554cf33c5efde80eae33191fead867037b3b105ea"
+          "sha256": "3740cde7c53561843267eda31bc38d4958e30a2130153a5c26296e36f0df545c"
         },
         {
           "path": "examples/manifest.json",
           "symbol": "compiled",
-          "sha256": "55483cd8030fcf516a7637cabc389dc0be20cfeaf88939a73056b46fe50a6de7"
+          "sha256": "c61dc7df745a07f95467d53b846f53b7dc2993e151536556e63c78f441a12d2c"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4",
+        "3.0"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "execution",
@@ -795,9 +1321,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "providers",
@@ -812,7 +1341,7 @@
         {
           "path": "src/runtime/providers.py",
           "symbol": "class ChatCompletionsProvider",
-          "sha256": "10137e63b361e4e47247bc4697f4312320e2e6dec81c6c8331212d075ca48f86"
+          "sha256": "4323e2a9e806c389244455af6bd58ce646bbf721407c00823702a9329ff74f4a"
         },
         {
           "path": "tests/test_native_providers.py",
@@ -826,9 +1355,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "cache",
@@ -847,9 +1379,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "tools",
@@ -878,9 +1413,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T08:46:33.453014+00:00",
-        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "checkpoint",
@@ -902,7 +1440,14 @@
           "symbol": "test_transport_failure_keeps_unknown_journal",
           "sha256": "9c22359e33934ba4001b9b3e20320a01a39a0fd653b858935218fa1d0e2545f3"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "artifacts",
@@ -919,7 +1464,14 @@
           "symbol": "test_large_tool_output_is_retrievable_without_filling_context",
           "sha256": "882df9fb858a9e2fd7e4981e4aee131df62dcbeb1773a64cc3664eb20c5bef90"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "actors",
@@ -943,9 +1495,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "rust",
@@ -989,9 +1544,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "language",
@@ -1030,9 +1588,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "types",
@@ -1061,9 +1622,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T08:46:33.453014+00:00",
-        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "harness",
@@ -1097,9 +1661,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "verification",
@@ -1121,7 +1688,14 @@
           "symbol": "",
           "sha256": "e7943738ed5e79c3b517f152a74582556bf0b4142db20d752f31775214793e25"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "context",
@@ -1155,9 +1729,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "patterns",
@@ -1176,9 +1753,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T08:46:33.453014+00:00",
-        "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "configuration",
@@ -1202,9 +1782,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "cli",
@@ -1214,7 +1797,7 @@
         {
           "path": "src/cli.py",
           "symbol": "def main",
-          "sha256": "ffdc994a9a68d8dd4751baf5074655adfe064c1ed71c44c0ca894315105f9411"
+          "sha256": "1406f5bc316ca569229f14293fa5c20ad765a5f7ef86a7fbfb58a572196f6394"
         },
         {
           "path": "src/agent_cli.py",
@@ -1226,7 +1809,15 @@
           "symbol": "",
           "sha256": "1cb4177cf436b68807ba37aa746b6e1cd61943c83fb6758fda6de27ee34794fd"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4",
+        "3.0"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "conversations",
@@ -1255,9 +1846,12 @@
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
-      }
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4"
+      ]
     },
     {
       "id": "stdlib",
@@ -1304,7 +1898,14 @@
           "symbol": "",
           "sha256": "f6744592e2641739b814ee47170e42bf5d9913ccc79a76b40d4fdbd1101c048d"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "mcp",
@@ -1324,9 +1925,16 @@
         {
           "path": "pyproject.toml",
           "symbol": "mcp>=2.3",
-          "sha256": "e12e7ba3c9777cbebc2b034f7b8fcf57b8640da1bab656f2718c90ee587b6488"
+          "sha256": "4f7fdb2d12f7b71eb3de7824e62bbb30f346e379265b5e19ddd381effce784fd"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "terminal",
@@ -1346,9 +1954,16 @@
         {
           "path": "pyproject.toml",
           "symbol": "terminal =",
-          "sha256": "e12e7ba3c9777cbebc2b034f7b8fcf57b8640da1bab656f2718c90ee587b6488"
+          "sha256": "4f7fdb2d12f7b71eb3de7824e62bbb30f346e379265b5e19ddd381effce784fd"
         }
-      ]
+      ],
+      "language_versions": [
+        "2.4"
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      }
     },
     {
       "id": "ecosystem",
@@ -1363,17 +1978,308 @@
         {
           "path": "src/cli.py",
           "symbol": "def main",
-          "sha256": "ffdc994a9a68d8dd4751baf5074655adfe064c1ed71c44c0ca894315105f9411"
+          "sha256": "1406f5bc316ca569229f14293fa5c20ad765a5f7ef86a7fbfb58a572196f6394"
         },
         {
           "path": "README.md",
           "symbol": "",
-          "sha256": "003c2e4fbd69092ea11b9289fa846d6b8d83266c7836dfbd0bfc948b2b13e752"
+          "sha256": "67d848978290a177acfc1a8780e32ad56c07be46460ae4a45904cc55bf3ec914"
         }
       ],
       "review": {
-        "at": "2026-10-23T09:30:26.213113+00:00",
-        "note": "Reviewed release fixes: structured-output corrections preserve tool results and contract input; tool-budget final answer, named lifecycle hooks, and explicit Rust tool rejection. Public c216 source tree matches local 1e; provider setup tested with synthetic credentials only."
+        "at": "2026-10-26",
+        "note": "Re-audited v2.4.0 → v3.0.0: compiler/CLI add explicit 3.0 dispatch while legacy APIs remain; Chat provider adds optional request options; example manifest/test add native Open Program checks; README and dependency metadata add 3.0. Remaining registered source files are byte-identical. Legacy examples run against v3.0.0 compatibility runtime."
+      },
+      "language_versions": [
+        "2.4",
+        "3.0"
+      ]
+    },
+    {
+      "id": "open_language",
+      "status": "implemented",
+      "claim": "Explicit 3.0 source contracts, typed boundaries, obligations and version-aware offline checking",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "docs/spec/3.0/core.md",
+          "symbol": "Language and compilation",
+          "sha256": "543d1ee49b20b7534c0c20a7c00bdd43d0f734940113656d038e5b8b19f06eb1"
+        },
+        {
+          "path": "src/open_programs/frontend.py",
+          "symbol": "def check",
+          "sha256": "b5b5651397d45e1a13950e4a3a4d81708d4ab837470876721e1f6b50df4c328b"
+        },
+        {
+          "path": "src/compiler.py",
+          "symbol": "def compile_program",
+          "sha256": "de414f3bacdffc4440288d962ae864fc44cf3cdf89234e470fab4b979f1a41ac"
+        },
+        {
+          "path": "tests/open_programs/test_frontend.py",
+          "symbol": "",
+          "sha256": "f99d820099eefb178094168544af2dbcfd055eeaf73abfc5005fb977e84ff006"
+        },
+        {
+          "path": "docs/spec/3.0/evolution.md",
+          "symbol": "",
+          "sha256": "85b624ae2883ba50ffa7ed89012c0ef0997f818cb9774a62e6e85c0e69867d5b"
+        },
+        {
+          "path": "docs/release_notes/v3.0.0.md",
+          "symbol": "",
+          "sha256": "84df9569721bed3463422265cc4b0ea47f4a03d9818f61dc251fdf8d355fb13a"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
+      }
+    },
+    {
+      "id": "open_execution",
+      "status": "implemented",
+      "claim": "Pinned OCI execution, bounded model proposals, actual outputs and locked replay",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "docs/spec/3.0/usage.md",
+          "symbol": "",
+          "sha256": "74322a227436044c047401ec60b0cabdc60c83e8b28a0a92c0be560dba3ae654"
+        },
+        {
+          "path": "src/open_programs/compiler.py",
+          "symbol": "class OpenCompiler",
+          "sha256": "77cf075d4a7551ec24dbd93bf94a5242936a0475a2e8ab1f4e8652fca6bbde14"
+        },
+        {
+          "path": "src/open_programs/executor.py",
+          "symbol": "class OCIExecutor",
+          "sha256": "d76b28c2f9e7d52fd1a3a0ca92dd7f70f31754be72793aca1f5bdf12a442517f"
+        },
+        {
+          "path": "src/open_programs/environment.py",
+          "symbol": "def load_environment",
+          "sha256": "ae00920e2261c2f8a3940cfbdc17f412ab080fc45454c1d5eba2c472ebffe4bd"
+        },
+        {
+          "path": "examples/open_programs/offline.json",
+          "symbol": "image",
+          "sha256": "feeb64e25470fbe28429afb6251288ec9022efa5c7045b35af126c1be6cacd9e"
+        },
+        {
+          "path": "examples/open_programs/aliyun.json",
+          "symbol": "checks.sum",
+          "sha256": "1a466fa528b88a72f5bf14c49b028929c9f92700fb3f9cc90ca6d9a41f946076"
+        },
+        {
+          "path": "tests/open_programs/test_compilation.py",
+          "symbol": "test_build_solves_checks_and_replays_without_model",
+          "sha256": "12dc4a24fc4ac19c08b267c3573194acc7f1cbcc69174e8ff9c7d41e251223bf"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
+      }
+    },
+    {
+      "id": "open_author",
+      "status": "implemented",
+      "claim": "Author JSON-RPC 3.0, CAS clarification, separate author activities and source synchronization contract",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "docs/spec/3.0/author-protocol.md",
+          "symbol": "author/answer",
+          "sha256": "2ae41729c85a4502fb90e22272e9c5a9c434f0d78b1cdfc3a421940ba4aa80d9"
+        },
+        {
+          "path": "src/open_programs/protocol.py",
+          "symbol": "",
+          "sha256": "d6b1f9e5379e2b8f5aac10f69c3715fad373570db7f02155594ee3852cea2cfd"
+        },
+        {
+          "path": "tests/open_programs/test_author_protocol.py",
+          "symbol": "",
+          "sha256": "9527adbd1035f65154d807bf3af6bf8f991e743daaf989d0321c2c9fe9b9bba5"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
+      }
+    },
+    {
+      "id": "open_evidence",
+      "status": "implemented",
+      "claim": "Evidence binds candidate/policy/checker/dependencies/task; newer failure blocks older success",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "docs/spec/3.0/core.md",
+          "symbol": "Evidence",
+          "sha256": "543d1ee49b20b7534c0c20a7c00bdd43d0f734940113656d038e5b8b19f06eb1"
+        },
+        {
+          "path": "src/open_programs/evidence.py",
+          "symbol": "def evaluate_policy",
+          "sha256": "3ba5de40a2172fd719ceef93e448ceb1dc32df0094899e9d53d0827c389f1eb6"
+        },
+        {
+          "path": "tests/open_programs/test_evidence.py",
+          "symbol": "",
+          "sha256": "7ff5a78ff43e92247a3ae30de319dfda4e2b25a7d00c5c400a179e47683a98c0"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
+      }
+    },
+    {
+      "id": "open_revisions",
+      "status": "implemented",
+      "claim": "Draft/active revisions, durable activity IDs, cancellation and unknown-effect recovery",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "src/open_programs/operations.py",
+          "symbol": "class ProgramSession",
+          "sha256": "3391729e7b53acc4180c4b083318b30352461cf0dec9b81f6776d6dd20493696"
+        },
+        {
+          "path": "src/open_programs/controller.py",
+          "symbol": "class RuntimeController",
+          "sha256": "214e528e5b6b38fedb8a03823bb5ec8f4024fbe65f7dbb3a83a565c052f41319"
+        },
+        {
+          "path": "src/open_programs/controller.py",
+          "symbol": "class EffectJournal",
+          "sha256": "214e528e5b6b38fedb8a03823bb5ec8f4024fbe65f7dbb3a83a565c052f41319"
+        },
+        {
+          "path": "tests/open_programs/test_revision_runtime.py",
+          "symbol": "",
+          "sha256": "7b8e9b6fcae42b7941113675ebd390ce02a4c76d8a07d89e153a83a6c1922829"
+        },
+        {
+          "path": "tests/open_programs/test_recovery.py",
+          "symbol": "",
+          "sha256": "d8e7cd0999b8b3be48cc5c1c2f2531af1d7aad8e6ed69ec71c9876832d0916c8"
+        },
+        {
+          "path": "tests/open_programs/test_cancellation.py",
+          "symbol": "",
+          "sha256": "41961f473494368915406ad6779da507553be203713068401bcdd9637eae9e14"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
+      }
+    },
+    {
+      "id": "open_grants",
+      "status": "implemented",
+      "claim": "Exact proposal grants, baseline and evidence revalidation, preserved originals and recovery journal",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "src/open_programs/workspace.py",
+          "symbol": "",
+          "sha256": "c3869d1ca46d5abbefe0419a1c5f0ef99b84196cdad721850f40ec39437c59e7"
+        },
+        {
+          "path": "src/open_programs/commands.py",
+          "symbol": "",
+          "sha256": "0f3ccce6c4822864010640ee3477fdeb56a38839127eea78adbd6cfd909f2d0e"
+        },
+        {
+          "path": "tests/open_programs/test_workspace_apply.py",
+          "symbol": "",
+          "sha256": "ab396b0d6641808162370d73228cae00606f15040248f35a0c5b7f3c648ee3d7"
+        },
+        {
+          "path": "docs/spec/3.0/usage.md",
+          "symbol": "preserved",
+          "sha256": "74322a227436044c047401ec60b0cabdc60c83e8b28a0a92c0be560dba3ae654"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
+      }
+    },
+    {
+      "id": "open_capsules",
+      "status": "implemented",
+      "claim": "Explicit capsule selection, provenance and implementation conditions, evidence revalidation",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "src/open_programs/reuse.py",
+          "symbol": "def export_capsule",
+          "sha256": "eee85769afae9df47ee59559ab4ef875fce80916d02089dbb35046f68b53182d"
+        },
+        {
+          "path": "tests/open_programs/test_reuse.py",
+          "symbol": "",
+          "sha256": "ec8f73afcc5b88f3b5754d8840577b7dc959aa247ceda9e991ebb41d621a4639"
+        },
+        {
+          "path": "docs/spec/3.0/usage.md",
+          "symbol": "capsule",
+          "sha256": "74322a227436044c047401ec60b0cabdc60c83e8b28a0a92c0be560dba3ae654"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
+      }
+    },
+    {
+      "id": "open_migration",
+      "status": "implemented",
+      "claim": "Read-only 2.4 state archival, no transfer of approvals, explicit unknown effects and source migration limits",
+      "language_versions": [
+        "3.0"
+      ],
+      "provenance": [
+        {
+          "path": "docs/migration/2.4-to-3.0.md",
+          "symbol": "",
+          "sha256": "6748a31123eb8282dd477eefee34a14d02d9638152030252ab5ad65f115a8029"
+        },
+        {
+          "path": "src/open_programs/migration.py",
+          "symbol": "",
+          "sha256": "2801c644d895fbb94c6f409d742e91cb8ef779a238a814f421dd45d5b66f66f8"
+        },
+        {
+          "path": "tests/open_programs/test_migration.py",
+          "symbol": "",
+          "sha256": "5beedcb093be639040cfb5f4ad06823ce0b65d2927b1ac7b510592ebce578acb"
+        }
+      ],
+      "review": {
+        "at": "2026-10-26",
+        "note": "Reviewed released spec, implementation and named regressions; new docs bind checks to native 3.0 scenarios."
       }
     }
   ],
@@ -1383,16 +2289,116 @@
       "page": "index.en.md",
       "block": 1,
       "status": "complete",
-      "sha256": "733a6aad2ec34c3c607f38179285831689fe995cb5fb93324ad97ef5972278bc",
-      "validation": "compile"
+      "language_version": "3.0",
+      "validation": "nativecheck",
+      "claim": "check",
+      "sha256": "53d1344bbc1745c2f1dd9298cc6bdd7f13ea34dc035882066b7bde183e0c6a3e"
     },
     {
       "id": "index-zh-1",
       "page": "index.md",
       "block": 1,
       "status": "complete",
-      "sha256": "733a6aad2ec34c3c607f38179285831689fe995cb5fb93324ad97ef5972278bc",
-      "validation": "compile"
+      "language_version": "3.0",
+      "validation": "nativecheck",
+      "claim": "check",
+      "sha256": "53d1344bbc1745c2f1dd9298cc6bdd7f13ea34dc035882066b7bde183e0c6a3e"
+    },
+    {
+      "id": "open_programs-en-1",
+      "page": "open_programs.en.md",
+      "block": 1,
+      "status": "complete",
+      "language_version": "3.0",
+      "validation": "oci",
+      "claim": "execute",
+      "sha256": "991709e9618c3704cfa58bdfb470c867afd10b3964b75156fda78f17157929d6",
+      "scenario": {
+        "kind": "build-replay",
+        "expected_outputs": {
+          "total": 0
+        },
+        "model_calls": 2,
+        "checks": [
+          {
+            "name": "checks.sum",
+            "cases": [
+              {
+                "input_json": "{\"values\":[]}",
+                "expected_json": "0"
+              },
+              {
+                "input_json": "{\"values\":[-8,3,7]}",
+                "expected_json": "2"
+              },
+              {
+                "input_json": "{\"values\":[10,20,30,40]}",
+                "expected_json": "100"
+              }
+            ]
+          }
+        ],
+        "replies": [
+          {
+            "implementation": {
+              "kind": "python",
+              "body": "def solve(inputs):\n    return sum(inputs.get('values', []))"
+            }
+          },
+          {
+            "passed": true,
+            "detail": "Sums all integers from the current input."
+          }
+        ]
+      }
+    },
+    {
+      "id": "open_programs-zh-1",
+      "page": "open_programs.md",
+      "block": 1,
+      "status": "complete",
+      "language_version": "3.0",
+      "validation": "oci",
+      "claim": "execute",
+      "sha256": "991709e9618c3704cfa58bdfb470c867afd10b3964b75156fda78f17157929d6",
+      "scenario": {
+        "kind": "build-replay",
+        "expected_outputs": {
+          "total": 0
+        },
+        "model_calls": 2,
+        "checks": [
+          {
+            "name": "checks.sum",
+            "cases": [
+              {
+                "input_json": "{\"values\":[]}",
+                "expected_json": "0"
+              },
+              {
+                "input_json": "{\"values\":[-8,3,7]}",
+                "expected_json": "2"
+              },
+              {
+                "input_json": "{\"values\":[10,20,30,40]}",
+                "expected_json": "100"
+              }
+            ]
+          }
+        ],
+        "replies": [
+          {
+            "implementation": {
+              "kind": "python",
+              "body": "def solve(inputs):\n    return sum(inputs.get('values', []))"
+            }
+          },
+          {
+            "passed": true,
+            "detail": "Sums all integers from the current input."
+          }
+        ]
+      }
     },
     {
       "id": "part1_basic-en-1",
@@ -1403,7 +2409,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 12
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-en-2",
@@ -1418,7 +2426,9 @@
         ],
         "expected": "hello",
         "model_calls": 1
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-en-3",
@@ -1429,7 +2439,9 @@
       "validation": "offline",
       "scenario": {
         "expected": "large"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-en-4",
@@ -1440,7 +2452,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 6
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-en-5",
@@ -1451,7 +2465,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 3
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-en-6",
@@ -1462,7 +2478,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 12
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-zh-1",
@@ -1473,7 +2491,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 12
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-zh-2",
@@ -1488,7 +2508,9 @@
         ],
         "expected": "hello",
         "model_calls": 1
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-zh-3",
@@ -1499,7 +2521,9 @@
       "validation": "offline",
       "scenario": {
         "expected": "large"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-zh-4",
@@ -1510,7 +2534,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 6
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-zh-5",
@@ -1521,7 +2547,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 3
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part1_basic-zh-6",
@@ -1532,7 +2560,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 12
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_adt-en-1",
@@ -1540,7 +2570,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "243fe0ae723fe9c686811d2c46d49c81a5e9331544e57041a7813bd3b867136c",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_adt-zh-1",
@@ -1548,7 +2580,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "243fe0ae723fe9c686811d2c46d49c81a5e9331544e57041a7813bd3b867136c",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_advanced-en-1",
@@ -1568,7 +2602,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_advanced-en-2",
@@ -1580,7 +2616,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_advanced-zh-1",
@@ -1600,7 +2638,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_advanced-zh-2",
@@ -1612,7 +2652,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_config_stdlib-en-1",
@@ -1620,7 +2662,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "6ab3aaba38344d268db76a18fde3d8e35d9b9bbdc41b7f0a1d79717d44dea24f",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_config_stdlib-zh-1",
@@ -1628,7 +2672,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "6ab3aaba38344d268db76a18fde3d8e35d9b9bbdc41b7f0a1d79717d44dea24f",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_context_structure-en-1",
@@ -1636,7 +2682,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "71c117ddd4eeb0f52a56dc5df43d404dbf5dae751931fef4d51963a5880676e8",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_context_structure-zh-1",
@@ -1644,7 +2692,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "71c117ddd4eeb0f52a56dc5df43d404dbf5dae751931fef4d51963a5880676e8",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_error_handling-en-1",
@@ -1655,7 +2705,9 @@
       "validation": "offline",
       "scenario": {
         "expected": "corrected"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_error_handling-zh-1",
@@ -1666,7 +2718,9 @@
       "validation": "offline",
       "scenario": {
         "expected": "corrected"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_harness-en-1",
@@ -1677,7 +2731,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 3
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_harness-en-2",
@@ -1688,7 +2744,9 @@
       "validation": "offline",
       "scenario": {
         "error_contains": "string"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_harness-zh-1",
@@ -1699,7 +2757,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 3
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_harness-zh-2",
@@ -1710,7 +2770,9 @@
       "validation": "offline",
       "scenario": {
         "error_contains": "string"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_pattern_matching-en-1",
@@ -1721,7 +2783,9 @@
       "validation": "offline",
       "scenario": {
         "expected": "one"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_pattern_matching-en-2",
@@ -1732,7 +2796,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 5
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_pattern_matching-zh-1",
@@ -1743,7 +2809,9 @@
       "validation": "offline",
       "scenario": {
         "expected": "one"
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_pattern_matching-zh-2",
@@ -1754,7 +2822,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 5
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part2_terminal_ui-en-1",
@@ -1762,7 +2832,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "c7af77135048e585f795607d660ddb3beb437c6dcf1c3190c99bce52075ed9e8",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part2_terminal_ui-zh-1",
@@ -1770,7 +2842,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "c7af77135048e585f795607d660ddb3beb437c6dcf1c3190c99bce52075ed9e8",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "part3_extensions-en-1",
@@ -1800,7 +2874,9 @@
         "tool_results": {
           "docs-add": "5"
         }
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part3_extensions-en-2",
@@ -1817,7 +2893,9 @@
           "value": 42
         },
         "model_calls": 1
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part3_extensions-zh-1",
@@ -1847,7 +2925,9 @@
         "tool_results": {
           "docs-add": "5"
         }
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "part3_extensions-zh-2",
@@ -1864,45 +2944,109 @@
           "value": 42
         },
         "model_calls": 1
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "quickstart-en-1",
       "page": "quickstart.en.md",
       "block": 1,
       "status": "complete",
-      "sha256": "49a9cb7c9929354ebb2d298c5e5766f645b394f4684bdee4f6e65e894da3994e",
-      "validation": "offline",
+      "language_version": "3.0",
+      "validation": "oci",
+      "claim": "execute",
+      "sha256": "53d1344bbc1745c2f1dd9298cc6bdd7f13ea34dc035882066b7bde183e0c6a3e",
       "scenario": {
-        "expected": 12
+        "kind": "build-replay",
+        "expected_outputs": {
+          "answer": 42
+        },
+        "model_calls": 0
       }
-    },
-    {
-      "id": "quickstart-en-2",
-      "page": "quickstart.en.md",
-      "block": 2,
-      "status": "complete",
-      "sha256": "73fdf064df911f032254f13f302441bdf80737512637ad843c4ec6678902784c",
-      "validation": "compile"
     },
     {
       "id": "quickstart-zh-1",
       "page": "quickstart.md",
       "block": 1,
       "status": "complete",
+      "language_version": "3.0",
+      "validation": "oci",
+      "claim": "execute",
+      "sha256": "53d1344bbc1745c2f1dd9298cc6bdd7f13ea34dc035882066b7bde183e0c6a3e",
+      "scenario": {
+        "kind": "build-replay",
+        "expected_outputs": {
+          "answer": 42
+        },
+        "model_calls": 0
+      }
+    },
+    {
+      "id": "quickstart_24-en-1",
+      "page": "quickstart_24.en.md",
+      "block": 1,
+      "status": "complete",
       "sha256": "49a9cb7c9929354ebb2d298c5e5766f645b394f4684bdee4f6e65e894da3994e",
       "validation": "offline",
       "scenario": {
         "expected": 12
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
-      "id": "quickstart-zh-2",
-      "page": "quickstart.md",
+      "id": "quickstart_24-en-2",
+      "page": "quickstart_24.en.md",
       "block": 2,
       "status": "complete",
       "sha256": "73fdf064df911f032254f13f302441bdf80737512637ad843c4ec6678902784c",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
+    },
+    {
+      "id": "quickstart_24-flow-en-1",
+      "page": "quickstart_24.en.md",
+      "block": 3,
+      "status": "complete",
+      "sha256": "733a6aad2ec34c3c607f38179285831689fe995cb5fb93324ad97ef5972278bc",
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
+    },
+    {
+      "id": "quickstart_24-zh-1",
+      "page": "quickstart_24.md",
+      "block": 1,
+      "status": "complete",
+      "sha256": "49a9cb7c9929354ebb2d298c5e5766f645b394f4684bdee4f6e65e894da3994e",
+      "validation": "offline",
+      "scenario": {
+        "expected": 12
+      },
+      "language_version": "2.4",
+      "claim": "execute"
+    },
+    {
+      "id": "quickstart_24-zh-2",
+      "page": "quickstart_24.md",
+      "block": 2,
+      "status": "complete",
+      "sha256": "73fdf064df911f032254f13f302441bdf80737512637ad843c4ec6678902784c",
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
+    },
+    {
+      "id": "quickstart_24-flow-zh-1",
+      "page": "quickstart_24.md",
+      "block": 3,
+      "status": "complete",
+      "sha256": "733a6aad2ec34c3c607f38179285831689fe995cb5fb93324ad97ef5972278bc",
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "reference-en-1",
@@ -1917,7 +3061,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "reference-en-2",
@@ -1932,7 +3078,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "reference-en-3",
@@ -1947,7 +3095,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "reference-en-4",
@@ -1959,7 +3109,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "reference-en-5",
@@ -1971,7 +3123,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "reference-zh-1",
@@ -1986,7 +3140,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "reference-zh-2",
@@ -2001,7 +3157,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "reference-zh-3",
@@ -2016,7 +3174,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "reference-zh-4",
@@ -2028,7 +3188,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "reference-zh-5",
@@ -2040,7 +3202,9 @@
       "review": {
         "at": "2026-10-23T08:46:33.453014+00:00",
         "note": "Reviewed flattened pipeline stages, explicit invalid-stage failure, numeric Agent properties, decorator names/precedence and new generated-runtime regressions. Restored canonical pipeline and integer configuration examples."
-      }
+      },
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "runtime_actors-en-1",
@@ -2060,7 +3224,9 @@
           "Inspect the evidence",
           "Summarize the evidence"
         ]
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "runtime_actors-zh-1",
@@ -2080,7 +3246,9 @@
           "Inspect the evidence",
           "Summarize the evidence"
         ]
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "runtime_approval-en-1",
@@ -2088,7 +3256,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "001568330928391e68fd5d16f101f4a44a71bf7295ab3218f91b936054eaef5a",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "runtime_approval-zh-1",
@@ -2096,7 +3266,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "001568330928391e68fd5d16f101f4a44a71bf7295ab3218f91b936054eaef5a",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "runtime_providers-en-1",
@@ -2104,7 +3276,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "126dadff336c9b3eac75d08734987c1e874aec0017dba47a40818b8676e9921a",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "runtime_providers-zh-1",
@@ -2112,7 +3286,9 @@
       "block": 1,
       "status": "complete",
       "sha256": "126dadff336c9b3eac75d08734987c1e874aec0017dba47a40818b8676e9921a",
-      "validation": "compile"
+      "validation": "compile",
+      "language_version": "2.4",
+      "claim": "check"
     },
     {
       "id": "runtime_rust-en-1",
@@ -2123,7 +3299,9 @@
       "validation": "offline",
       "scenario": {
         "expected": 2.5
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     },
     {
       "id": "runtime_rust-zh-1",
@@ -2134,7 +3312,95 @@
       "validation": "offline",
       "scenario": {
         "expected": 2.5
-      }
+      },
+      "language_version": "2.4",
+      "claim": "execute"
     }
+  ],
+  "preserved_pages": [
+    "capability_inventory.en.md",
+    "capability_inventory.md",
+    "cli_reference.en.md",
+    "cli_reference.md",
+    "contribution.en.md",
+    "contribution.md",
+    "error_index.en.md",
+    "error_index.md",
+    "examples.en.md",
+    "examples.md",
+    "index.en.md",
+    "index.md",
+    "migration_24.en.md",
+    "migration_24.md",
+    "part1_basic.en.md",
+    "part1_basic.md",
+    "part2_actor.en.md",
+    "part2_actor.md",
+    "part2_adt.en.md",
+    "part2_adt.md",
+    "part2_advanced.en.md",
+    "part2_advanced.md",
+    "part2_config_stdlib.en.md",
+    "part2_config_stdlib.md",
+    "part2_context_structure.en.md",
+    "part2_context_structure.md",
+    "part2_error_handling.en.md",
+    "part2_error_handling.md",
+    "part2_harness.en.md",
+    "part2_harness.md",
+    "part2_pattern_matching.en.md",
+    "part2_pattern_matching.md",
+    "part2_terminal_ui.en.md",
+    "part2_terminal_ui.md",
+    "part3_extensions.en.md",
+    "part3_extensions.md",
+    "part4_ecosystem_and_stdlib.en.md",
+    "part4_ecosystem_and_stdlib.md",
+    "part4_future.en.md",
+    "part4_future.md",
+    "part5_architecture_evolution.en.md",
+    "part5_architecture_evolution.md",
+    "part5_compiler.en.md",
+    "part5_compiler.md",
+    "part5_enterprise.en.md",
+    "part5_enterprise.md",
+    "part6_best_practices.en.md",
+    "part6_best_practices.md",
+    "part7_community.en.md",
+    "part7_community.md",
+    "preface.en.md",
+    "preface.md",
+    "preface_background.en.md",
+    "preface_background.md",
+    "preface_scenarios.en.md",
+    "preface_scenarios.md",
+    "quickstart.en.md",
+    "quickstart.md",
+    "reference.en.md",
+    "reference.md",
+    "runtime_actors.en.md",
+    "runtime_actors.md",
+    "runtime_approval.en.md",
+    "runtime_approval.md",
+    "runtime_artifacts.en.md",
+    "runtime_artifacts.md",
+    "runtime_checkpoints.en.md",
+    "runtime_checkpoints.md",
+    "runtime_conversations.en.md",
+    "runtime_conversations.md",
+    "runtime_execution.en.md",
+    "runtime_execution.md",
+    "runtime_providers.en.md",
+    "runtime_providers.md",
+    "runtime_rust.en.md",
+    "runtime_rust.md",
+    "stdlib_reference.en.md",
+    "stdlib_reference.md",
+    "tmp.en.md",
+    "tmp.md",
+    "toolchain.en.md",
+    "toolchain.md",
+    "troubleshooting.en.md",
+    "troubleshooting.md"
   ]
 }

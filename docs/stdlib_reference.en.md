@@ -1,11 +1,15 @@
 ---
 title: "Standard library API"
 capabilities: [stdlib, tools]
+language_versions: ["2.4"]
 ---
+
+!!! note "2.4 compatibility in Nexa 3.0"
+    This API serves the 2.4 compatibility path. Open Programs use explicit capabilities and [controller-owned adapters](migration_30.md).
 
 # Standard library API
 
-This reference is generated from the selected 2.4 runtime's registered tool schemas. Names below are exact registry identifiers. Expose a namespace with `uses std.fs`, or call supported DSL wrappers such as `std.fs.read(path)`. Required and optional parameters describe the JSON tool interface. Return types are the registered handler's annotations; `unspecified` means no annotation is declared. See the full [schema snapshot](stdlib-api.json) for property descriptions.
+This reference is generated from Nexa 3.0's retained 2.4 tool registry. Names below are exact registry identifiers. Expose a namespace with `uses std.fs`, or call supported DSL wrappers such as `std.fs.read(path)`. Required and optional parameters describe the JSON tool interface. Return types are the registered handler's annotations; `unspecified` means no annotation is declared. See the full [schema snapshot](stdlib-api.json) for property descriptions.
 
 ## Execution and errors
 

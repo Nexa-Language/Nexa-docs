@@ -206,3 +206,67 @@ def test_probe_isolates_credentials_and_blocks_io_before_runtime_import(tmp_path
     report = run_examples(root, fake_runtime, Path(sys.executable), {"examples": []})
     assert report["network"] == "disabled"
     assert report["compiled"] == 0
+
+
+def open_inventory(tmp_path: Path, *, validation: str = "nativecheck", claim: str = "check") -> dict[str, Any]:
+    source = 'language "3.0"\nprogram Answer { goal answer() -> Int { intent "Return 42" implementation value 42 } }\n'
+    (tmp_path / "docs").mkdir(exist_ok=True)
+    pages = []
+    examples = []
+    for language, page in (("zh", "guide.md"), ("en", "guide.en.md")):
+        (tmp_path / "docs" / page).write_text(f'---\ncapabilities: [open]\nlanguage_versions: ["3.0"]\n---\n```nexa\n{source}```\n')
+        pages.append({"path": page, "language": language, "capabilities": ["open"], "language_versions": ["3.0"]})
+        examples.append({"id": language, "page": page, "block": 1, "status": "complete", "validation": validation,
+                         "language_version": "3.0", "claim": claim, "sha256": digest(source)})
+    return {"pages": pages, "examples": examples, "capabilities": [{"id": "open"}]}
+
+
+def test_nativecheck_accepts_only_contract_claims(tmp_path: Path) -> None:
+    assert check_inventory(tmp_path, open_inventory(tmp_path)) == []
+
+
+def test_nativecheck_cannot_claim_executed_output(tmp_path: Path) -> None:
+    errors = check_inventory(tmp_path, open_inventory(tmp_path, claim="execute"))
+    assert any("execution claim requires an actual scenario" in error for error in errors)
+
+
+def test_open_program_cannot_use_legacy_compilation_evidence(tmp_path: Path) -> None:
+    errors = check_inventory(tmp_path, open_inventory(tmp_path, validation="compile"))
+    assert any("3.0 example requires nativecheck or oci" in error for error in errors)
+
+
+def test_declared_version_must_match_registered_version(tmp_path: Path) -> None:
+    inventory = open_inventory(tmp_path)
+    inventory["examples"][0]["language_version"] = "2.4"
+    assert any("language version differs" in error for error in check_inventory(tmp_path, inventory))
+
+
+def test_oci_claim_requires_outputs_calls_and_locked_replay(tmp_path: Path) -> None:
+    inventory = open_inventory(tmp_path, validation="oci", claim="execute")
+    for item in inventory["examples"]:
+        item["scenario"] = {"kind": "build-replay"}
+    assert any("OCI scenario requires" in error for error in check_inventory(tmp_path, inventory))
+
+
+def test_translations_have_matching_validation_and_scenarios(tmp_path: Path) -> None:
+    inventory = open_inventory(tmp_path)
+    inventory["examples"][0].update(validation="oci", claim="execute", scenario={"kind": "build-replay", "expected_outputs": {"answer": 42}, "model_calls": 0})
+    assert any("translation example contract mismatch" in error for error in check_inventory(tmp_path, inventory))
+
+
+def test_preserved_route_removal_is_rejected(tmp_path: Path) -> None:
+    inventory = open_inventory(tmp_path)
+    inventory["preserved_pages"] = ["old.md", "old.en.md"]
+    assert any("preserved route missing: old.md" in error for error in check_inventory(tmp_path, inventory))
+
+
+def test_page_versions_must_match_translation(tmp_path: Path) -> None:
+    inventory = open_inventory(tmp_path)
+    inventory["pages"][0]["language_versions"] = ["2.4"]
+    assert any("translation version mismatch" in error for error in check_inventory(tmp_path, inventory))
+
+
+def test_source_fingerprint_change_requires_review(runtime_checkout: tuple[Path, dict[str, Any]]) -> None:
+    runtime, inventory = runtime_checkout
+    (runtime / "compiler.py").write_text("def compile_source(): return 'changed'\n")
+    assert any("provenance changed" in error for error in check_provenance(runtime, inventory))

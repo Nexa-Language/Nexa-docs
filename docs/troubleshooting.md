@@ -1,7 +1,11 @@
 ---
 title: "故障排查"
 capabilities: [compilation, execution, checkpoint, providers]
+language_versions: ["2.4"]
 ---
+
+!!! note "Nexa 3.0 中的 2.4 兼容路径"
+    本页说明保留的 2.4 语言与运行时路径，无版本声明的源码继续使用此入口。新 Open Programs 从 [Nexa 3.0](quickstart.md) 开始，合同差异见[迁移指南](migration_30.md)。
 
 # 故障排查
 

@@ -1,13 +1,24 @@
 ---
-title: "设计背景"
-capabilities: [compilation, execution, providers]
+title: 设计背景
+capabilities:
+- compilation
+- execution
+- providers
+- open_execution
+language_versions:
+- '3.0'
+- '2.4'
 ---
 
 # 设计背景
 
 模型调用之外，Agent 应用还需要组织工具权限、上下文、失败恢复、预算和结果验证。Nexa 将这些边界放到语言声明和运行状态中，使代码生成与人工编程共享同一执行入口。
 
-## 从源码到执行
+## Open Programs 3.0
+
+OpenCompiler 将合同绑定 environment，在预算内求解实现，并在 OCI 中执行候选。ProgramSession 分别记录源码草稿、活动版本、runtime 活动、提案和授权。接纳与复用前按当前依赖核验 evidence。
+
+## 保留的 2.4 执行路径
 
 统一编译器处理 include、AST、诊断和 Python 生成物。AgentRunner 处理 provider、工具和状态转换。SQLite checkpoint 保留运行进度和工具 journal，原生 provider items 保留协议连续性。
 

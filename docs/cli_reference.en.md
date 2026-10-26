@@ -1,11 +1,34 @@
 ---
 title: "CLI reference"
 capabilities: [cli, compilation, checkpoint]
+language_versions: ["3.0", "2.4"]
 ---
 
 # CLI reference
 
-Use `uv run nexa` inside the local 2.4 checkout. `src/cli.py` defines the CLI; `src/agent_cli.py` implements durable Agent execution.
+The installed Nexa 3.0 CLI dispatches `build` and `run` using the source language declaration. The tables below separate Open Programs and the 2.4 compatibility path.
+
+## Open Programs 3.0
+
+| Command | Behavior |
+| --- | --- |
+| `nexa check FILE --json` | Offline native contract diagnostics and obligations |
+| `nexa build FILE --environment ENV --state DB --json` | Build and accept an artifact using real OCI |
+| `nexa build FILE --environment ENV --state DB --locked --json` | Revalidate the locked artifact, zero model generation requests |
+| `nexa run FILE --environment ENV --state DB --program-id ID --goal GOAL --input INPUT.json --json` | Explicitly select a runtime goal and JSON inputs |
+| `nexa run FILE --environment ENV --state DB --program-id ID --repository PATH --include FILE --request TEXT --json` | Repository maintenance proposal with evidence |
+| `nexa author --environment ENV --state DB` | Author JSON-RPC 3.0 on stdio |
+| `nexa open revise FILE --environment ENV --state DB --program-id ID --expected-revision REV` | Source CAS, build, and activation |
+| `nexa open status ID --state DB` | Active RuntimeHead |
+| `nexa open cancel ACTIVITY_ID --environment ENV --state DB` | Durable cancellation of the selected runtime activity |
+| `nexa open resume ID --environment ENV --state DB` | Controller recovery with unknown-effect checks |
+| `nexa open schema NAME` | Packaged 3.0 schema |
+
+Build/run accept `--max-model-calls` (4), `--max-tokens` (20000), `--timeout` (120 seconds), `--docker-context`, and `--lock`. Run also accepts `--capsule`, `--event`, `--expected-revision`, and `--locked`. `--include` is repeatable. Default state is `.nexa/open-programs.sqlite3`; a build lock defaults to `FILE.nx.lock`. Environments are required for execution.
+
+Use [patch authorization](open_grants.md) for evidence/approve/apply/recover, [capsules](open_capsules.md) for export/import, and [migration](migration_30.md) for inert 2.4 archives. Draft and active identities are separate; `open status` returns the active head, while full activities are read through the SDK. Source diagnostics and domain error codes should be retained in automation.
+
+## 2.4 compatibility commands
 
 ## Compile and inspect
 
@@ -34,7 +57,7 @@ uv run nexa agent analyst.nx Analyst --resume RUN_ID --approve CALL_ID
 uv run nexa agent analyst.nx Analyst --resume RUN_ID --deny CALL_ID
 ```
 
-Use the complete `analyst.nx` declaration from [Quickstart](quickstart.md). The first model call needs provider configuration. `RUN_ID` and `CALL_ID` come from that run's JSON output.
+Use the complete `analyst.nx` declaration from [Quickstart](quickstart_24.md). The first model call needs provider configuration. `RUN_ID` and `CALL_ID` come from that run's JSON output.
 
 | Argument | Default and rules |
 | --- | --- |
@@ -47,7 +70,7 @@ Use the complete `analyst.nx` declaration from [Quickstart](quickstart.md). The 
 
 JSON includes `run_id`, `status`, `output`, `error`, model/tool counts, input/output tokens, and `pending_calls`. Exit codes: completed `0`, waiting for approval `2`, other stops `1`. Use Python [continue_run](runtime_conversations.md) for a new conversation turn.
 
-## Services and background jobs
+### Services and background jobs
 
 | Command | Arguments, output, and effect |
 | --- | --- |

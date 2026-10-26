@@ -1,15 +1,26 @@
 ---
 title: "Verified examples"
 capabilities: [compilation, harness, tools, actors]
+language_versions: ["3.0", "2.4"]
 ---
 
 # Verified examples
 
-Use these complete programs to enter each topic. Every block compiles independently. Programs marked for offline execution also check results against fixed fixtures. Model quality is evaluated separately.
+The inventory distinguishes native 3.0 checks, actual OCI scenarios, and the retained 2.4 compatibility examples. Full counts and verification rules are in [capability evidence](capability_inventory.md).
+
+## Open Programs 3.0
+
+| Program | Actual verification |
+| --- | --- |
+| [Answer](quickstart.md) | Native check, OCI output `42`, passing evidence, zero-request locked replay |
+| [Sum](open_programs.md) | Native check, fixture proposal and review, OCI output `0`, frozen sum cases, zero-request locked replay |
+| [Homepage](index.md) | Native contract check only; no model or OCI execution during check |
+
+## 2.4 compatibility examples
 
 | Topic | Example | Documentation check |
 | --- | --- | --- |
-| Arithmetic and variables | [First program](quickstart.md) | Compile + offline result `12` |
+| Arithmetic and variables | [First program](quickstart_24.md) | Compile + offline result `12` |
 | Model call | [Echo](part1_basic.md) | Compile + fixed reply `hello` |
 | Sequential pipeline | [Researcher → Summarizer](part2_advanced.md) | Compile + two fixed replies |
 | Real local tool | [add](part3_extensions.md) | Compile + tool execution + result `5` |
@@ -22,7 +33,7 @@ Use these complete programs to enter each topic. Every block compiles independen
 
 ## Main repository example status
 
-`examples/manifest.json` classifies every main-repository `.nx` file as `compiled` or records a specific `historical_drafts` reason. A compiled example may still need a model, files, an MCP service, or other execution prerequisites. Check those requirements when selecting a program.
+`examples/manifest.json` classifies every main-repository `.nx` file as `compiled`, `open_programs`, or a specific `historical_drafts` reason. A compiled example may still need a model, files, an MCP service, or other execution prerequisites. Check those requirements when selecting a program.
 
 This site's [inventory.json](inventory.json) records a SHA-256, page, block index, validation mode, and fixture for every documentation block. `partial`/`historical` entries require individual reasons visible on the page. Unregistered or changed blocks fail validation.
 

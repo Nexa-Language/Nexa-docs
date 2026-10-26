@@ -1,7 +1,11 @@
 ---
 title: "配置管理与标准库入口"
 capabilities: [configuration, stdlib]
+language_versions: ["2.4"]
 ---
+
+!!! note "Nexa 3.0 中的 2.4 兼容路径"
+    本页说明保留的 2.4 语言与运行时路径，无版本声明的源码继续使用此入口。新 Open Programs 从 [Nexa 3.0](quickstart.md) 开始，合同差异见[迁移指南](migration_30.md)。
 
 # 配置管理与标准库入口
 
@@ -26,7 +30,7 @@ config default {
 
 优先通过既有 secret manager 注入 `API_KEY`，或在上述 `openai/...` 配置下使用 `OPENAI_API_KEY`。示例文件故意省略 `API_KEY` 字段；已有 `.nxs` 中的显式凭据可能优先于环境值，应同时检查父目录配置。密钥留在运行环境，不写入 `.nx`、日志或 Git。
 
-如果还没有环境注入，在本地交互终端中运行下面的命令。它隐藏密钥输入，仅把密钥传给子进程，然后执行[快速入门](quickstart.md)中的 `analyst.nx`。此步骤会发起真实模型请求；先完成 endpoint 和模型占位符替换。
+如果还没有环境注入，在本地交互终端中运行下面的命令。它隐藏密钥输入，仅把密钥传给子进程，然后执行[快速入门](quickstart_24.md)中的 `analyst.nx`。此步骤会发起真实模型请求；先完成 endpoint 和模型占位符替换。
 
 ```sh
 uv run python - <<'PY'

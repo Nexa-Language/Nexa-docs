@@ -1,30 +1,37 @@
 ---
-title: "能力与示例证据"
-capabilities: [compilation, verification]
+title: 能力与示例证据
+capabilities:
+- compilation
+- verification
+- open_language
+- open_execution
+- open_evidence
+language_versions:
+- '3.0'
+- '2.4'
 ---
 
 # 能力与示例证据
 
-本站以 [Nexa v2.4.0 源码](https://github.com/Nexa-Language/Nexa/commit/c2162637236e4a73feea410c4183672411666521) 为验证基线。机器可读 [inventory.json](inventory.json) 记录运行时版本、Git 基线、工作区状态，以及每个能力的准确源码与测试符号、SHA-256。已核对正式 tag `v2.4.0` 指向此 commit；安装步骤使用该发行源码。
+本站固定到已发布的 [Nexa v3.0.0 源码](https://github.com/Nexa-Language/Nexa/commit/274379606e53c90d2d25774f6bb8984c777d0759)：commit `274379606e53c90d2d25774f6bb8984c777d0759`，Git tree `b090cc6503ea70318667031925480e36c352a913`。机器可读 [inventory.json](inventory.json) 保存源码/test 符号、完整文件 SHA-256、运行时版本和审阅记录。
 
-## 三类记录
+## 按语言与声明核验
 
-| 记录 | 字段与用途 |
+当前登记 **104 页、52 组中英配对、68 个完整 Nexa 示例**。旧 84 条页面路径全部保留。62 个 2.4 示例经 3.0 兼容编译，其中 40 个检查实际离线输出；6 个 3.0 示例通过原生合同检查，其中 4 个登记 OCI 构建与锁定重放（中英文各两个）。
+
+| 模式 | 语言与实际检查 |
 | --- | --- |
-| 页面 | 路径、语言、能力 ID；中英文必须成对且能力一致 |
-| 能力 | 当前/规划状态、具体声明、源码或测试文件与符号、内容 hash |
-| 示例 | 页面、块序号、代码 hash、complete/partial/historical、编译或离线执行方式 |
+| `compile` | 2.4：真实 `compile_source`，生成 Python 并验证语法 |
+| `offline` | 2.4：编译后执行 SDK/工具/flow，核对输出、错误、请求数或邮箱顺序 |
+| `nativecheck` | 3.0：原生 `compile_program`，验证 CheckReport，无模型请求、无子进程 |
+| `oci` | 3.0：先 nativecheck，再用真实固定镜像执行，核对实际输出与证据，锁定重放必须零请求 |
 
-完整 Nexa 块通过本地 `src.compiler.compile_source` 编译。代表性示例在网络禁用的临时工作目录运行，模型边界使用固定 fixture。SDK、工具、flow 与输出验证仍走真实实现。
+每个 complete 示例有显式 `language_version`、`claim`（check/execute）及验证模式。执行声明必须有实际 scenario；3.0 执行场景指定 expected_outputs、model_calls 与 build-replay。中英文版本、验证模式和场景保持一致。只运行离线检查时报告准确列出 `oci_deferred`；显式 OCI 门禁才计入真实执行。
 
-## 更新规则
+## 来源与隔离
 
-新增代码块必须登记；修改代码必须重新编译并更新 hash。片段和历史草案需要逐例、可见的缺失依赖或失败原因。源码 provenance 改变时先复核相关声明，再显式刷新证据。
+验证要求干净 checkout、准确 commit、完整 Git tree、文件 hash 与源码符号；暂存/未暂存/未忽略的新文件均使门禁失败。此次升级重新审阅发生变化的 compiler、CLI、provider、manifest、示例测试、README 和依赖配置；保留的 2.4 语义使用 3.0 包实测。
 
-严格构建检查 Markdown 与导航；HTML 检查覆盖内部目标、fragment、图像、样式与脚本；语言检查要求每个页面都有中英版本。生成的标准库 schema 保存为 [stdlib-api.json](stdlib-api.json)，与实际注册表比对。
+子进程使用临时 HOME/TMPDIR 和最小环境，不继承 provider 凭据；在 runtime import 前阻断 Python 网络和 `.nxs` 读取。fixture 仅提供固定模型回复，执行器与验收使用实际 runtime。OCI 通过本地 Docker Unix socket 运行固定 digest，候选 network=none。完整报告记录产物 digest、输出与每项 evidence digest。
 
-本地与 CI 命令见 [Nexa-docs README](https://github.com/Nexa-Language/Nexa-docs)。外部 URL 的可达性、真实模型质量和发布结果需要单独验证。
-
----
-
-[来源与验证](capability_inventory.md) · `compilation` / `verification`
+新增或变化的源码必须复核说明和预期后刷新。partial/historical 块的具体原因需在页面可见。严格 MkDocs 构建与 HTML 链接/锚点/资源检查覆盖双语页面；[stdlib-api.json](stdlib-api.json) 与真实兼容 registry 比对。命令与 CI 门禁见 [README](https://github.com/Nexa-Language/Nexa-docs)。

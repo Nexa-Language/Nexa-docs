@@ -1,6 +1,7 @@
 ---
 title: "Future directions"
 capabilities: [rust, verification]
+language_versions: ["3.0", "2.4"]
 ---
 
 # Future directions
@@ -14,7 +15,7 @@ This page records future directions. [Runtime guides](runtime_execution.md) and 
 | Improve semantic evaluation | Defined evaluators, datasets, costs, and failure states |
 | Complete toolchain integration | Synchronized source spans, run states, approvals, and recovery |
 
-Public installation requires an accessible tag/commit or package version. The 2.4 baseline documented here is a local development workspace; release work is separate.
+Public installation requires an accessible tag/commit or package version. This site pins the released Nexa 3.0.0; Rust retains its 2.4 subset.
 
 ---
 

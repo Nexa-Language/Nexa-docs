@@ -1,7 +1,11 @@
 ---
 title: "Actor syntax and usage"
 capabilities: [actors]
+language_versions: ["2.4"]
 ---
+
+!!! note "2.4 compatibility in Nexa 3.0"
+    This page describes the retained 2.4 language/runtime path. Sources without a version declaration use this path. Start new Open Programs with [Nexa 3.0](quickstart.md); compare contracts in the [migration guide](migration_30.md).
 
 # Actor syntax and usage
 

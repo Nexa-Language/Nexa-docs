@@ -1,11 +1,23 @@
 ---
-title: "典型使用场景"
-capabilities: [tools, actors, checkpoint]
+title: 典型使用场景
+capabilities:
+- tools
+- actors
+- checkpoint
+- open_language
+- open_grants
+language_versions:
+- '3.0'
+- '2.4'
 ---
 
 # 典型使用场景
 
 按任务的数据流、副作用与恢复要求选择运行方式。
+
+## Open Programs 3.0
+
+有明确输出的计算使用带类型 goal 与冻结检查；仓库持续维护使用 runtime Patch goal、控制器持有的回归检查、准确 grant 与恢复 journal。见[目标合同](open_programs.md)及[补丁授权](open_grants.md)。下表是继续保留的 2.4 集成方式。
 
 | 场景 | 建议结构 | 重点验收 |
 | --- | --- | --- |
